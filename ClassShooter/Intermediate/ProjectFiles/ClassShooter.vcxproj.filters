@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\ClassShooter.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ClassShooter.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\ClassShooterEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\ClassShooter">
+      <UniqueIdentifier>{11937526-F18D-3C55-B892-DE6952F82F1E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ClassShooter\ClassShooter.Build.cs">
+      <Filter>Source\ClassShooter</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\ClassShooter\ClassShooter.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\ClassShooter.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\ClassShooterCharacter.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\ClassShooterCharacter.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\ClassShooterGameMode.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\ClassShooterGameMode.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\ClassShooterPlayerController.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\ClassShooterPlayerController.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\ClassShooterProjectile.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\ClassShooterProjectile.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\TP_PickUpComponent.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\TP_WeaponComponent.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\TP_WeaponComponent.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
