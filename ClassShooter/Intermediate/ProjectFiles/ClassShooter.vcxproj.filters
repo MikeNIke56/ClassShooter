@@ -11,6 +11,7 @@
     <None Include="..\..\Source\ClassShooterEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -65,6 +66,12 @@
     <ClInclude Include="..\..\Source\ClassShooter\ClassShooterProjectile.h">
       <Filter>Source\ClassShooter</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\test.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\test.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
       <Filter>Source\ClassShooter</Filter>
     </ClCompile>
@@ -76,6 +83,18 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\ClassShooter\TP_WeaponComponent.h">
       <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <Filter Include="Source\ClassShooter\Private">
+      <UniqueIdentifier>{AAA684C8-4D16-333E-B12B-C8BBF4F590D3}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\WeaponBase.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\ClassShooter\Public">
+      <UniqueIdentifier>{20167264-6E86-30BC-BB83-AF582AA9FB1B}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\WeaponBase.h">
+      <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
