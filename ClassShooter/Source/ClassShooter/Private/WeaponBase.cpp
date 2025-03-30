@@ -13,10 +13,13 @@ AWeaponBase::AWeaponBase()
 	weaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon Mesh"); // Initialize the pointer
 	fireOffset = CreateDefaultSubobject<UArrowComponent>("Fire Offset");
 	fireOffset->SetupAttachment(weaponMesh); // Attach to the mesh
+	interactBox = CreateDefaultSubobject<UCapsuleComponent>("Interaction Hitbox");
+	interactBox->SetupAttachment(weaponMesh);
 	canFire = true;
 
 	//sets the animation mode to only play a single animation at a time
 	weaponMesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+	state = WeaponState::OutOfInventory;
 }
 
 // Called when the game starts or when spawned

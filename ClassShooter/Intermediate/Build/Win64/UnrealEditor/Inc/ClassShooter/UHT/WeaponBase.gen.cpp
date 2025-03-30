@@ -13,15 +13,71 @@ void EmptyLinkFunctionForGeneratedCodeWeaponBase() {}
 // Begin Cross Module References
 CLASSSHOOTER_API UClass* Z_Construct_UClass_AWeaponBase();
 CLASSSHOOTER_API UClass* Z_Construct_UClass_AWeaponBase_NoRegister();
+CLASSSHOOTER_API UEnum* Z_Construct_UEnum_ClassShooter_WeaponState();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UArrowComponent_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UCapsuleComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
+
+// Begin Enum WeaponState
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_WeaponState;
+static UEnum* WeaponState_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_WeaponState.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_WeaponState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_ClassShooter_WeaponState, (UObject*)Z_Construct_UPackage__Script_ClassShooter(), TEXT("WeaponState"));
+	}
+	return Z_Registration_Info_UEnum_WeaponState.OuterSingleton;
+}
+template<> CLASSSHOOTER_API UEnum* StaticEnum<WeaponState>()
+{
+	return WeaponState_StaticEnum();
+}
+struct Z_Construct_UEnum_ClassShooter_WeaponState_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "Equipped.Name", "WeaponState::Equipped" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+		{ "OutOfInventory.Name", "WeaponState::OutOfInventory" },
+		{ "Stowed.Name", "WeaponState::Stowed" },
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "WeaponState::Equipped", (int64)WeaponState::Equipped },
+		{ "WeaponState::Stowed", (int64)WeaponState::Stowed },
+		{ "WeaponState::OutOfInventory", (int64)WeaponState::OutOfInventory },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_ClassShooter_WeaponState_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_ClassShooter,
+	nullptr,
+	"WeaponState",
+	"WeaponState",
+	Z_Construct_UEnum_ClassShooter_WeaponState_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_ClassShooter_WeaponState_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_ClassShooter_WeaponState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_ClassShooter_WeaponState_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_ClassShooter_WeaponState()
+{
+	if (!Z_Registration_Info_UEnum_WeaponState.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_WeaponState.InnerSingleton, Z_Construct_UEnum_ClassShooter_WeaponState_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_WeaponState.InnerSingleton;
+}
+// End Enum WeaponState
 
 // Begin Class AWeaponBase Function BulletSpread
 struct Z_Construct_UFunction_AWeaponBase_BulletSpread_Statics
@@ -190,6 +246,10 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_name_MetaData[] = {
+		{ "Category", "Weapon Variables" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_fireRate_MetaData[] = {
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
@@ -242,11 +302,27 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_interactBox_MetaData[] = {
+		{ "Category", "Components" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Capsule Component\n" },
+#endif
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Capsule Component" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_state_MetaData[] = {
+		{ "Category", "Weapon" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weaponMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_fireAnim;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_reloadAnim;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_fireOffset;
+	static const UECodeGen_Private::FNamePropertyParams NewProp_name;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_fireRate;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_shotTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_reloadTime;
@@ -262,6 +338,9 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_bulletCone;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_fireTimer;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_reloadTimer;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_interactBox;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_state_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_state;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -279,6 +358,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_St
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireAnim = { "fireAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, fireAnim), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_fireAnim_MetaData), NewProp_fireAnim_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadAnim = { "reloadAnim", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, reloadAnim), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_reloadAnim_MetaData), NewProp_reloadAnim_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireOffset = { "fireOffset", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, fireOffset), Z_Construct_UClass_UArrowComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_fireOffset_MetaData), NewProp_fireOffset_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_name = { "name", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_name_MetaData), NewProp_name_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireRate = { "fireRate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, fireRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_fireRate_MetaData), NewProp_fireRate_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_shotTimer = { "shotTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, shotTimer), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shotTimer_MetaData), NewProp_shotTimer_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTime = { "reloadTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, reloadTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_reloadTime_MetaData), NewProp_reloadTime_MetaData) };
@@ -300,11 +380,15 @@ const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeaponBase_Stat
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_bulletCone = { "bulletCone", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, bulletCone), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bulletCone_MetaData), NewProp_bulletCone_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireTimer = { "fireTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, fireTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_fireTimer_MetaData), NewProp_fireTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTimer = { "reloadTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, reloadTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_reloadTimer_MetaData), NewProp_reloadTimer_MetaData) }; // 756291145
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_interactBox = { "interactBox", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, interactBox), Z_Construct_UClass_UCapsuleComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_interactBox_MetaData), NewProp_interactBox_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_state_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_state = { "state", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, state), Z_Construct_UEnum_ClassShooter_WeaponState, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_state_MetaData), NewProp_state_MetaData) }; // 3274410147
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBase_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireAnim,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadAnim,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireOffset,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_shotTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTime,
@@ -318,6 +402,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_bulletCone,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTimer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_interactBox,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_state_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_state,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AWeaponBase_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AWeaponBase_Statics::DependentSingletons[])() = {
@@ -359,13 +446,16 @@ AWeaponBase::~AWeaponBase() {}
 // Begin Registration
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics
 {
+	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
+		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
+	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 1465186998U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 3755442334U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_730110696(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_704355472(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
-	nullptr, 0);
+	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

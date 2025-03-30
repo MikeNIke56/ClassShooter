@@ -10,6 +10,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "Components/StaticMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -36,6 +37,12 @@ AClassShooterCharacter::AClassShooterCharacter()
 	Mesh1P->CastShadow = false;
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+
+	bodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body Mesh"));
+	bodyMesh->SetupAttachment(RootComponent);
+
+	weaponPos = CreateDefaultSubobject<UArrowComponent>("Weapon Position");
+	weaponPos->SetupAttachment(FirstPersonCameraComponent); // Attach to the mesh
 }
 
 void AClassShooterCharacter::BeginPlay()
@@ -90,6 +97,9 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 
 		// Melee
 		EnhancedInputComponent->BindAction(MeleeAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Melee);
+
+		// Switch Weapons
+		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::SwitchWeapon);
 	}
 	else
 	{
@@ -187,7 +197,8 @@ void AClassShooterCharacter::StopADS()
 
 void AClassShooterCharacter::Shoot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("shooting"));
+	if (weaponArray[0] != nullptr && weaponArray[0]->state == WeaponState::Equipped)
+		weaponArray[0]->Fire();
 }
 
 void AClassShooterCharacter::ReadyGrenade()
@@ -204,9 +215,104 @@ void AClassShooterCharacter::Melee()
 	UE_LOG(LogTemp, Warning, TEXT("melee"));
 }
 
-void AClassShooterCharacter::EquipWeapon()
+bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 {
-	UE_LOG(LogTemp, Warning, TEXT("equip"));
+	if (weapon)
+	{
+		bool isInInventory = false;
+
+		for (int i = 0; i < weaponArray.Num(); i++)
+		{
+			if (weaponArray[i] && weaponArray[i]->name == weapon->name)
+			{
+				isInInventory = true;
+				UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
+				i = 3;
+			}
+
+		}
+
+		if (weapon->state == WeaponState::OutOfInventory && isInInventory == false)
+		{
+			for (int i = 0; i < weaponArray.Num(); i++)
+			{
+				if (weaponArray[i] == nullptr)
+				{
+					weaponArray[i] = weapon;
+
+					UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+
+					if (i == 0)
+					{
+						weapon->state = WeaponState::Equipped;
+						curWeapon = weapon;
+					}
+					else
+						weapon->state = WeaponState::Stowed;
+
+					return true;
+				}
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
+			return false;
+		}
+		return false;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
+		return false;
+	}
+}
+
+void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
+{
+	int numWeapons = 0;
+	int pos = 0;
+	for (int i = 0; i < weaponArray.Num(); i++)
+	{
+		if (weaponArray[i])
+		{
+			numWeapons++;
+
+			if (weaponArray[i]->state == WeaponState::Equipped)
+				pos = i;
+		}
+	}
+
+	if (numWeapons > 1)
+	{
+		weaponArray[pos]->state = WeaponState::Stowed;
+
+		if (Value.GetMagnitude() > 0.0)
+		{
+			if(pos == 2)
+				curWeapon = weaponArray[0];
+			else
+				curWeapon = weaponArray[pos+=1];
+
+			curWeapon->state = WeaponState::Equipped;
+			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
+		}
+		else if (Value.GetMagnitude() < 0.0)
+		{
+			if (pos == 0)
+				curWeapon = weaponArray[2];
+			else
+				curWeapon = weaponArray[pos-=1];
+
+			curWeapon->state = WeaponState::Equipped;
+			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
+		}
+	}
+
+}
+void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon)
+{
+
 }
 
 void AClassShooterCharacter::Reload()

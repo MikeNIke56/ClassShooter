@@ -6,8 +6,14 @@
 #include "GameFramework/Actor.h"
 #include "Animation/AnimationAsset.h"
 #include "Components/ArrowComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "WeaponBase.generated.h"
 
+UENUM(BlueprintType)
+enum class WeaponState : uint8
+{
+	Equipped, Stowed, OutOfInventory
+};
 
 UCLASS(Blueprintable)
 class CLASSSHOOTER_API AWeaponBase : public AActor
@@ -26,6 +32,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UArrowComponent* fireOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	FName name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float fireRate;
@@ -66,6 +75,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FTimerHandle reloadTimer;
 
+	// Capsule Component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UCapsuleComponent* interactBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	WeaponState state;
+
 	
 public:	
 	// Sets default values for this actor's properties
@@ -80,8 +96,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Reload();
 
-	void CanFireAgain();
-	void FinishReloading();
 
 	UFUNCTION(BlueprintPure, Category = "Weapon Functions")
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);
@@ -90,4 +104,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void CanFireAgain();
+	void FinishReloading();
 };

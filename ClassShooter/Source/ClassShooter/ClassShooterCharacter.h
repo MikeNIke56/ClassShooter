@@ -6,7 +6,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-//#include "WeaponBase.h"
+#include "WeaponBase.h"
+#include "Components/ArrowComponent.h"
 #include "ClassShooterCharacter.generated.h"
 
 class UInputComponent;
@@ -30,6 +31,9 @@ class AClassShooterCharacter : public ACharacter
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* bodyMesh;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
@@ -59,6 +63,10 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* MeleeAction;
 
+	/** Switch weapon input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SwitchWeaponAction;
+
 public:
 	// Speed variable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -82,8 +90,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool jumpAllowed;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Values")
-	//WeaponBase* jumpAllowed;
+	//our array of weapons
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	TArray<AWeaponBase*> weaponArray;
+
+	//currently equipped weapon
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	AWeaponBase* curWeapon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UArrowComponent* weaponPos;
 
 
 protected:
@@ -123,7 +139,15 @@ protected:
 	void Melee();
 	void Die();
 
-	void EquipWeapon();
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	bool PickupWeapon(AWeaponBase* weapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void SwitchWeapon(const FInputActionValue& Value);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void StowWeapon(AWeaponBase* weapon);
+
 	void Reload();
 
 public:
