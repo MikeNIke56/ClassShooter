@@ -67,6 +67,10 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SwitchWeaponAction;
 
+	/** Reload weapon input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ReloadWeaponAction;
+
 public:
 	// Speed variable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -131,6 +135,8 @@ protected:
 	void ADS();
 	void StopADS();
 
+	void StartShooting();
+	void StopShooting();
 	void Shoot();
 
 	void ReadyGrenade();
@@ -140,13 +146,16 @@ protected:
 	void Die();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void EquipWeapon(AWeaponBase* weapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	bool PickupWeapon(AWeaponBase* weapon);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void SwitchWeapon(const FInputActionValue& Value);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
-	void StowWeapon(AWeaponBase* weapon);
+	void StowWeapon(AWeaponBase* weapon, const FName& socketName);
 
 	void Reload();
 

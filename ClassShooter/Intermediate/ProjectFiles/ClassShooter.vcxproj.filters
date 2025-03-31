@@ -87,12 +87,48 @@
     <Filter Include="Source\ClassShooter\Private">
       <UniqueIdentifier>{AAA684C8-4D16-333E-B12B-C8BBF4F590D3}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\AssaultRifle.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\GrenadeLauncher.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Pistol.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\RocketLauncher.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Shotgun.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\SniperRifle.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\WeaponBase.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
     <Filter Include="Source\ClassShooter\Public">
       <UniqueIdentifier>{20167264-6E86-30BC-BB83-AF582AA9FB1B}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\AssaultRifle.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\GrenadeLauncher.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Pistol.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\RocketLauncher.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Shotgun.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\SniperRifle.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\WeaponBase.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>

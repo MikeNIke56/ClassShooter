@@ -89,7 +89,9 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopADS);
 
 		// Shooting
-		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Shoot);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Started, this, &AClassShooterCharacter::StartShooting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopShooting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Canceled, this, &AClassShooterCharacter::StopShooting);
 
 		// Throw Grenade
 		EnhancedInputComponent->BindAction(GrenadeAction, ETriggerEvent::Started, this, &AClassShooterCharacter::ReadyGrenade);
@@ -100,6 +102,9 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 
 		// Switch Weapons
 		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::SwitchWeapon);
+		
+		// Reload
+		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Reload);
 	}
 	else
 	{
@@ -195,10 +200,24 @@ void AClassShooterCharacter::StopADS()
 	UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
 }
 
+void AClassShooterCharacter::StartShooting()
+{
+	if (curWeapon != nullptr && curWeapon->state == WeaponState::Equipped)
+			Shoot();
+}
+
 void AClassShooterCharacter::Shoot()
 {
-	if (weaponArray[0] != nullptr && weaponArray[0]->state == WeaponState::Equipped)
-		weaponArray[0]->Fire();
+	if (curWeapon->isAutomatic == true)
+		curWeapon->AutoFire();
+	else
+		curWeapon->Fire();
+}
+
+void AClassShooterCharacter::StopShooting()
+{
+	if (curWeapon && curWeapon->isAutomatic)
+		GetWorldTimerManager().ClearTimer(curWeapon->fireTimer);
 }
 
 void AClassShooterCharacter::ReadyGrenade()
@@ -213,6 +232,13 @@ void AClassShooterCharacter::ThrowGrenade()
 void AClassShooterCharacter::Melee()
 {
 	UE_LOG(LogTemp, Warning, TEXT("melee"));
+}
+
+void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
+{
+	weapon->state = WeaponState::Equipped;
+	curWeapon = weapon;
+	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
 }
 
 bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
@@ -240,15 +266,10 @@ bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 				{
 					weaponArray[i] = weapon;
 
-					UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
-
 					if (i == 0)
-					{
-						weapon->state = WeaponState::Equipped;
-						curWeapon = weapon;
-					}
+						EquipWeapon(weapon);
 					else
-						weapon->state = WeaponState::Stowed;
+						StowWeapon(weapon, weapon->name);
 
 					return true;
 				}
@@ -285,7 +306,7 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 	if (numWeapons > 1)
 	{
-		weaponArray[pos]->state = WeaponState::Stowed;
+		StowWeapon(weaponArray[pos], weaponArray[pos]->name);
 
 		if (Value.GetMagnitude() > 0.0)
 		{
@@ -310,14 +331,24 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 	}
 
 }
-void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon)
-{
+void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socketName)
+{	
+	if (bodyMesh->DoesSocketExist(socketName))
+	{
+		weapon->state = WeaponState::Stowed;
 
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+		weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
+		UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weapon->name.ToString());
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("fail"));
 }
 
 void AClassShooterCharacter::Reload()
 {
 	UE_LOG(LogTemp, Warning, TEXT("reload"));
+	curWeapon->Reload();
 }
 
 void AClassShooterCharacter::Die()

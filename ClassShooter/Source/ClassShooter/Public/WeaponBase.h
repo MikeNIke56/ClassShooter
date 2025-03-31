@@ -37,6 +37,9 @@ public:
 	FName name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	bool isAutomatic;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float fireRate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
@@ -92,6 +95,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Fire();
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	virtual void AutoFire();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Reload();

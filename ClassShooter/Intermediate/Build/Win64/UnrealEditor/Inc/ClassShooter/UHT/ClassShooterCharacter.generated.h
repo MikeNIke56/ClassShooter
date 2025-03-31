@@ -19,7 +19,8 @@ struct FInputActionValue;
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execStowWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \
-	DECLARE_FUNCTION(execPickupWeapon);
+	DECLARE_FUNCTION(execPickupWeapon); \
+	DECLARE_FUNCTION(execEquipWeapon);
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_INCLASS_NO_PURE_DECLS \

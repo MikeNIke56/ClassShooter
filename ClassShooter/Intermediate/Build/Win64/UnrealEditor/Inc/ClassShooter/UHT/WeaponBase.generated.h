@@ -17,6 +17,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execBulletSpread); \
 	DECLARE_FUNCTION(execReload); \
+	DECLARE_FUNCTION(execAutoFire); \
 	DECLARE_FUNCTION(execFire);
 
 

@@ -41,10 +41,15 @@ void AWeaponBase::Fire()
 {
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
-		canFire = false;
+		if (isAutomatic == false)
+		{
+			canFire = false;
 
-		// starts fireTimer
-		GetWorldTimerManager().SetTimer(fireTimer, this, &AWeaponBase::CanFireAgain, fireRate, false);
+			// starts fireTimer
+			GetWorldTimerManager().SetTimer(fireTimer, this, 
+				&AWeaponBase::CanFireAgain, fireRate, false);
+		}
+
 
 		weaponMesh->PlayAnimation(fireAnim, false);
 
@@ -92,6 +97,13 @@ void AWeaponBase::Fire()
 		ammoToRefill++;
 	}
 
+}
+
+void AWeaponBase::AutoFire()
+{
+	Fire();
+	GetWorldTimerManager().SetTimer(fireTimer, this,
+		&AWeaponBase::Fire, fireRate, true);
 }
 
 void AWeaponBase::Reload()
