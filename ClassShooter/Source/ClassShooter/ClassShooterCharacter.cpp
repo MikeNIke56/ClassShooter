@@ -35,7 +35,6 @@ AClassShooterCharacter::AClassShooterCharacter()
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
-	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
 	bodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body Mesh"));
@@ -43,6 +42,7 @@ AClassShooterCharacter::AClassShooterCharacter()
 
 	weaponPos = CreateDefaultSubobject<UArrowComponent>("Weapon Position");
 	weaponPos->SetupAttachment(FirstPersonCameraComponent); // Attach to the mesh
+
 }
 
 void AClassShooterCharacter::BeginPlay()
@@ -193,11 +193,19 @@ void AClassShooterCharacter::StopSprinting()
 
 void AClassShooterCharacter::ADS()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ADSing"));
+	if (curWeapon)
+	{
+		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
+		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
+	}
 }
 void AClassShooterCharacter::StopADS()
 {
-	UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
+	if (curWeapon)
+	{
+		curWeapon->curBulletCone = curWeapon->baseBulletCone;
+		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
+	}
 }
 
 void AClassShooterCharacter::StartShooting()
@@ -208,6 +216,7 @@ void AClassShooterCharacter::StartShooting()
 
 void AClassShooterCharacter::Shoot()
 {
+	curWeapon->shotLocation = shotLocation;
 	if (curWeapon->isAutomatic == true)
 		curWeapon->AutoFire();
 	else
@@ -238,7 +247,49 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
 {
 	weapon->state = WeaponState::Equipped;
 	curWeapon = weapon;
+	ShowCurWeapon(weapon);
 	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+	StopADS();
+
+	BindDelegate();
+}
+void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
+{
+	if (weapon)
+	{
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+		weapon->AttachToComponent(weaponPos, AttachRules);
+		weapon->SetActorRotation(weaponPos->GetComponentRotation());
+
+		if (weapon->name == "Pistol")
+		{
+			weaponPos->SetRelativeLocation(FVector(52.0, -14.0, -30.0));
+		}
+		else if (weapon->name == "Shotgun")
+		{
+			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+		}
+		else if (weapon->name == "AR")
+		{
+			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+		}
+		else if (weapon->name == "Sniper")
+		{
+			weaponPos->SetRelativeLocation(FVector(30.0, -14.0, -30.0));
+		}
+		else if (weapon->name == "GL")
+		{
+			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+		}
+		else if (weapon->name == "RPG")
+		{
+			weaponPos->SetRelativeLocation(FVector(30.0, -14.0, -30.0));
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }
 
 bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
@@ -310,22 +361,20 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 		if (Value.GetMagnitude() > 0.0)
 		{
-			if(pos == 2)
-				curWeapon = weaponArray[0];
+			if(pos == numWeapons-1)
+				EquipWeapon(weaponArray[0]);
 			else
-				curWeapon = weaponArray[pos+=1];
+				EquipWeapon(weaponArray[pos+=1]);
 
-			curWeapon->state = WeaponState::Equipped;
 			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
 		}
 		else if (Value.GetMagnitude() < 0.0)
 		{
 			if (pos == 0)
-				curWeapon = weaponArray[2];
+				EquipWeapon(weaponArray[numWeapons-=1]);
 			else
-				curWeapon = weaponArray[pos-=1];
+				EquipWeapon(weaponArray[pos-=1]);
 
-			curWeapon->state = WeaponState::Equipped;
 			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
 		}
 	}
@@ -351,7 +400,25 @@ void AClassShooterCharacter::Reload()
 	curWeapon->Reload();
 }
 
+void AClassShooterCharacter::Recoil()
+{
+	FRotator CurrentRotation = GetControlRotation();
+
+	CurrentRotation.Yaw += FMath::FRandRange(curWeapon->minHorRecoilAmnt, curWeapon->maxHorRecoilAmnt);
+	CurrentRotation.Pitch += FMath::FRandRange(curWeapon->minVertRecoilAmnt, curWeapon->maxVertRecoilAmnt);
+
+	GetController()->SetControlRotation(CurrentRotation);
+}
+
+void AClassShooterCharacter::BindDelegate()
+{
+	//bind delegate event 
+	if (curWeapon)
+		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
+}
+
 void AClassShooterCharacter::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("die"));
 }
+

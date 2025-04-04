@@ -17,7 +17,9 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
+
 
 UCLASS(config=Game, Blueprintable)
 class AClassShooterCharacter : public ACharacter
@@ -94,6 +96,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool jumpAllowed;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FVector shotLocation;
+
 	//our array of weapons
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<AWeaponBase*> weaponArray;
@@ -104,7 +109,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UArrowComponent* weaponPos;
-
 
 protected:
 	UCharacterMovementComponent* movementComponent;
@@ -123,8 +127,8 @@ protected:
 	void Look(const FInputActionValue& Value);
 
 	//void Jump(const FInputActionValue& Value);
-	virtual void Jump() override;         // Correctly override Jump
-	virtual void StopJumping() override;  // Correctly override StopJumping
+	virtual void Jump() override;         //override Jump
+	virtual void StopJumping() override;  //override StopJumping
 
 
 	bool CheckCanJump();
@@ -142,11 +146,19 @@ protected:
 	void ReadyGrenade();
 	void ThrowGrenade();
 
+	UFUNCTION()
+	void Recoil();
+
+	void BindDelegate();
+
 	void Melee();
 	void Die();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void EquipWeapon(AWeaponBase* weapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void ShowCurWeapon(AWeaponBase* weapon);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	bool PickupWeapon(AWeaponBase* weapon);

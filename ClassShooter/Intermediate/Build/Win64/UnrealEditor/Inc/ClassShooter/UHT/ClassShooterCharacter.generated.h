@@ -16,14 +16,16 @@ struct FInputActionValue;
 #endif
 #define CLASSSHOOTER_ClassShooterCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execStowWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \
 	DECLARE_FUNCTION(execPickupWeapon); \
-	DECLARE_FUNCTION(execEquipWeapon);
+	DECLARE_FUNCTION(execShowCurWeapon); \
+	DECLARE_FUNCTION(execEquipWeapon); \
+	DECLARE_FUNCTION(execRecoil);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_INCLASS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAClassShooterCharacter(); \
 	friend struct Z_Construct_UClass_AClassShooterCharacter_Statics; \
@@ -32,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(AClassShooterCharacter)
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_ENHANCED_CONSTRUCTORS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AClassShooterCharacter(AClassShooterCharacter&&); \
@@ -44,13 +46,13 @@ public: \
 	NO_API virtual ~AClassShooterCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_22_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_GENERATED_BODY \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_24_PROLOG
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_25_ENHANCED_CONSTRUCTORS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_INCLASS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

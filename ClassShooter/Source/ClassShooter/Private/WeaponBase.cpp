@@ -26,14 +26,14 @@ AWeaponBase::AWeaponBase()
 void AWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	curBulletCone = baseBulletCone;
 }
 
 // Called every frame
 void AWeaponBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	isReloading = GetWorld()->GetTimerManager().IsTimerActive(reloadTimer);
 }
 
 // Fires the weapon
@@ -57,9 +57,12 @@ void AWeaponBase::Fire()
 		FVector fireOffsetForwardVector = fireOffset->GetForwardVector();
 		FVector fireOffsetLocation = fireOffset->GetComponentLocation();
 
-		FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, bulletCone);
 
-		FVector fireEndLocation = fireOffsetLocation + (bulletSpread.Vector() * range);
+		FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
+		bulletSpread.Pitch += 4;
+		bulletSpread.Yaw += 3;
+
+		FVector fireEndLocation = shotLocation + (bulletSpread.Vector() * range);
 
 		// Line trace settings
 		FHitResult hitResult;
@@ -95,6 +98,7 @@ void AWeaponBase::Fire()
 		curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 		shotTimer = 0.0;
 		ammoToRefill++;
+		recoilDel.Broadcast();
 	}
 
 }
@@ -108,7 +112,7 @@ void AWeaponBase::AutoFire()
 
 void AWeaponBase::Reload()
 {
-	if (isReloading == false)
+	if (isReloading == false && curAmmo < maxAmmo)
 	{
 		if (ammoReserves > 0)
 		{
@@ -120,7 +124,6 @@ void AWeaponBase::Reload()
 			GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);
 		}
 	}
-
 }
 
 void AWeaponBase::CanFireAgain()
@@ -143,6 +146,7 @@ void AWeaponBase::FinishReloading()
 	FTimerHandle DelayTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
 	{
+			GetWorld()->GetTimerManager().ClearTimer(reloadTimer);
 			canFire = true;
 			isReloading = false;
 			UE_LOG(LogTemp, Warning, TEXT("reloaded"));
