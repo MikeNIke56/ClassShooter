@@ -59,8 +59,7 @@ void AWeaponBase::Fire()
 
 
 		FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
-		bulletSpread.Pitch += 4;
-		bulletSpread.Yaw += 3;
+		bulletSpread.Pitch += 1.5;
 
 		FVector fireEndLocation = shotLocation + (bulletSpread.Vector() * range);
 
@@ -72,6 +71,7 @@ void AWeaponBase::Fire()
 		// Define Object Types to Trace (e.g., Physics Bodies)
 		FCollisionObjectQueryParams ObjectQueryParams;
 		ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
 		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 		ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
 
@@ -86,6 +86,13 @@ void AWeaponBase::Fire()
 		// Check if we hit something
 		if (bHit)
 		{
+			UGameplayStatics::SpawnEmitterAtLocation(
+				GetWorld(),
+				bulletImpactVFX,
+				hitResult.Location,
+				GetActorRotation()
+			);
+	
 			UE_LOG(LogTemp, Warning, TEXT("Hit!"));
 			/*if (hitActor->IsA(ClassShooterCharacter::StaticClass()))
 			{

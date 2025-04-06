@@ -13,5 +13,12 @@ UCLASS()
 class CLASSSHOOTER_API ARocketLauncher : public AWeaponBase
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	TSubclassOf<AActor> projectile;
+
+public:
+	virtual void Fire() override;
 	
 };

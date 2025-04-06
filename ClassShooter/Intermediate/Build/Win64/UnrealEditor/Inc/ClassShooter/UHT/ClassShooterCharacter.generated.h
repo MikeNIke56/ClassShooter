@@ -20,6 +20,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execStowWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \
 	DECLARE_FUNCTION(execPickupWeapon); \
+	DECLARE_FUNCTION(execADSCurWeapon); \
 	DECLARE_FUNCTION(execShowCurWeapon); \
 	DECLARE_FUNCTION(execEquipWeapon); \
 	DECLARE_FUNCTION(execRecoil);

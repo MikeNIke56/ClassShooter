@@ -108,7 +108,18 @@ public:
 	AWeaponBase* curWeapon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	UArrowComponent* weaponPos;
+	UArrowComponent* weaponLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FVector targetLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FRotator targetRotation;
+
+	bool ADSLerp;
+	bool recoilLerp;
+
+
 
 protected:
 	UCharacterMovementComponent* movementComponent;
@@ -159,6 +170,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ShowCurWeapon(AWeaponBase* weapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void ADSCurWeapon(AWeaponBase* weapon);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	bool PickupWeapon(AWeaponBase* weapon);

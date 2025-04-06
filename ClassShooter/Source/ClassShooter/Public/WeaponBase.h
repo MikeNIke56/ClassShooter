@@ -7,6 +7,8 @@
 #include "Animation/AnimationAsset.h"
 #include "Components/ArrowComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GameplayStatics.h"
 #include "WeaponBase.generated.h"
 
 
@@ -109,6 +111,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FVector shotLocation;
 
+	UPROPERTY(EditAnywhere, Category = "Weapon Variables")
+	UParticleSystem* bulletImpactVFX;
 	
 public:	
 	// Sets default values for this actor's properties

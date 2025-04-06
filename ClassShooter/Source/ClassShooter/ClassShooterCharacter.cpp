@@ -40,9 +40,8 @@ AClassShooterCharacter::AClassShooterCharacter()
 	bodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body Mesh"));
 	bodyMesh->SetupAttachment(RootComponent);
 
-	weaponPos = CreateDefaultSubobject<UArrowComponent>("Weapon Position");
-	weaponPos->SetupAttachment(FirstPersonCameraComponent); // Attach to the mesh
-
+	weaponLocation = CreateDefaultSubobject<UArrowComponent>("Weapon Position");
+	weaponLocation->SetupAttachment(FirstPersonCameraComponent);
 }
 
 void AClassShooterCharacter::BeginPlay()
@@ -56,12 +55,37 @@ void AClassShooterCharacter::BeginPlay()
 	movementComponent = GetCharacterMovement();
 	baseSpeed = movementComponent->MaxWalkSpeed;
 	curSpeed = baseSpeed;
+
+	ADSLerp = false;
+	recoilLerp = false;
 }
 
 void AClassShooterCharacter::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 	jumpAllowed = CheckCanJump();
+
+	if (ADSLerp == true)
+	{
+		FVector curLocation = weaponLocation->GetRelativeLocation();
+		FVector newLocation = FMath::VInterpTo(curLocation, targetLocation, 
+			deltaTime, 10);
+		weaponLocation->SetRelativeLocation(newLocation);
+
+		if (FVector::Dist(targetLocation, newLocation) <= .05)
+			ADSLerp = false;
+	}
+
+	if (recoilLerp == true)
+	{
+		FRotator curRotation = GetController()->GetControlRotation();
+		FRotator newRotation = FMath::RInterpTo(curRotation, targetRotation,
+			deltaTime, 20);
+		GetController()->SetControlRotation((newRotation));
+
+		if (newRotation.Equals(targetRotation, .05))
+			recoilLerp = false;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -196,6 +220,8 @@ void AClassShooterCharacter::ADS()
 	if (curWeapon)
 	{
 		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
+		ADSCurWeapon(curWeapon);
+		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
 	}
 }
@@ -204,6 +230,8 @@ void AClassShooterCharacter::StopADS()
 	if (curWeapon)
 	{
 		curWeapon->curBulletCone = curWeapon->baseBulletCone;
+		ShowCurWeapon(curWeapon);
+		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
 	}
 }
@@ -258,32 +286,68 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 	if (weapon)
 	{
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-		weapon->AttachToComponent(weaponPos, AttachRules);
-		weapon->SetActorRotation(weaponPos->GetComponentRotation());
+		weapon->AttachToComponent(weaponLocation, AttachRules);
+		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
 
 		if (weapon->name == "Pistol")
 		{
-			weaponPos->SetRelativeLocation(FVector(52.0, -14.0, -30.0));
+			targetLocation = FVector(52.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "Shotgun")
 		{
-			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+			targetLocation = FVector(35.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "AR")
 		{
-			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+			targetLocation = FVector(35.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "Sniper")
 		{
-			weaponPos->SetRelativeLocation(FVector(30.0, -14.0, -30.0));
+			targetLocation = FVector(30.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "GL")
 		{
-			weaponPos->SetRelativeLocation(FVector(35.0, -14.0, -30.0));
+			targetLocation = FVector(35.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "RPG")
 		{
-			weaponPos->SetRelativeLocation(FVector(30.0, -14.0, -30.0));
+			targetLocation = FVector(30.0, -14.0, -30.0);
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
+}
+void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
+{
+	if (weapon)
+	{
+		FVector newWeaponPos;
+
+		if (weapon->name == "Pistol")
+		{
+			targetLocation = FVector(25.0, 0.0, -19.5);
+		}
+		else if (weapon->name == "Shotgun")
+		{
+			targetLocation = FVector(0.0, 0.0, -19.5);
+		}
+		else if (weapon->name == "AR")
+		{
+			targetLocation = FVector(20.0, 0.0, -19.5);
+		}
+		else if (weapon->name == "Sniper")
+		{
+			targetLocation = FVector(12.7, 0.0, -21.5);
+		}
+		else if (weapon->name == "GL")
+		{
+			targetLocation = FVector(12.7, 0.0, -23.5);
+		}
+		else if (weapon->name == "RPG")
+		{
+			targetLocation = FVector(33.2, 0.0, -25.5);
 		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
@@ -402,12 +466,12 @@ void AClassShooterCharacter::Reload()
 
 void AClassShooterCharacter::Recoil()
 {
-	FRotator CurrentRotation = GetControlRotation();
+	FRotator targetRotationCopy = GetControlRotation();
 
-	CurrentRotation.Yaw += FMath::FRandRange(curWeapon->minHorRecoilAmnt, curWeapon->maxHorRecoilAmnt);
-	CurrentRotation.Pitch += FMath::FRandRange(curWeapon->minVertRecoilAmnt, curWeapon->maxVertRecoilAmnt);
-
-	GetController()->SetControlRotation(CurrentRotation);
+	targetRotationCopy.Yaw += FMath::FRandRange(curWeapon->minHorRecoilAmnt, curWeapon->maxHorRecoilAmnt);
+	targetRotationCopy.Pitch += FMath::FRandRange(curWeapon->minVertRecoilAmnt, curWeapon->maxVertRecoilAmnt);
+	targetRotation = targetRotationCopy;
+	recoilLerp = true;
 }
 
 void AClassShooterCharacter::BindDelegate()
