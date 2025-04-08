@@ -8,6 +8,7 @@
 #include "Logging/LogMacros.h"
 #include "WeaponBase.h"
 #include "Components/ArrowComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "ClassShooterCharacter.generated.h"
 
 class UInputComponent;
@@ -73,6 +74,10 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ReloadWeaponAction;
 
+	/** Drop weapon input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* DropWeaponAction;
+
 public:
 	// Speed variable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -116,10 +121,33 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FRotator targetRotation;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FVector curCamLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FRotator curCamRotation;
+
 	bool ADSLerp;
 	bool recoilLerp;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> unADSWidgetClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	UUserWidget* unADSWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> sniperWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	UUserWidget* sniperWidget;
+
+	float baseFov;
+	float targetFov;
+	bool startFovChange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AWeaponBase> weaponWorldObj;
 
 protected:
 	UCharacterMovementComponent* movementComponent;
@@ -183,6 +211,7 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void StowWeapon(AWeaponBase* weapon, const FName& socketName);
 
+	void DropWeapon();
 	void Reload();
 
 public:

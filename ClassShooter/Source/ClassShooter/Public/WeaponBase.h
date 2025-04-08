@@ -113,6 +113,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Variables")
 	UParticleSystem* bulletImpactVFX;
+
+	FVector curCamLoc;
+	FRotator curCamRot;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -132,6 +135,8 @@ public:
 
 	void CanFireAgain();
 	void FinishReloading();
+
+	void SetUpWeapon(const AWeaponBase& weapon);
 
 	UFUNCTION(BlueprintPure, Category = "Weapon Functions")
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);

@@ -54,19 +54,19 @@ void AWeaponBase::Fire()
 		weaponMesh->PlayAnimation(fireAnim, false);
 
 		// fire offset values
-		FVector fireOffsetForwardVector = fireOffset->GetForwardVector();
-		FVector fireOffsetLocation = fireOffset->GetComponentLocation();
+		FVector fireOffsetForwardVector = curCamRot.Vector();
+		FVector fireStartLocation = curCamLoc;
 
 
 		FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
-		bulletSpread.Pitch += 1.5;
 
-		FVector fireEndLocation = shotLocation + (bulletSpread.Vector() * range);
+		FVector fireEndLocation = fireStartLocation + (bulletSpread.Vector() * range);
 
 		// Line trace settings
 		FHitResult hitResult;
 		FCollisionQueryParams collisionParams;
 		collisionParams.AddIgnoredActor(this); // Ignore self
+		collisionParams.AddIgnoredActor(GetAttachParentActor());
 
 		// Define Object Types to Trace (e.g., Physics Bodies)
 		FCollisionObjectQueryParams ObjectQueryParams;
@@ -77,10 +77,10 @@ void AWeaponBase::Fire()
 
 		// Perform the trace
 		bool bHit = GetWorld()->LineTraceSingleByObjectType(
-			hitResult, fireOffsetLocation, fireEndLocation, ECC_Visibility, collisionParams);
+			hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 		// Draw debug line (visible for 1 second)
-		DrawDebugLine(GetWorld(), fireOffsetLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
+		//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
 
 		AActor* hitActor = hitResult.GetActor();
 		// Check if we hit something
@@ -93,13 +93,11 @@ void AWeaponBase::Fire()
 				GetActorRotation()
 			);
 	
-			UE_LOG(LogTemp, Warning, TEXT("Hit!"));
-			/*if (hitActor->IsA(ClassShooterCharacter::StaticClass()))
+			if (hitActor && hitActor->GetName().Contains("ClassShooterCharacter"))
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Hit an AMyTargetClass!"));
-			}*/
+				UE_LOG(LogTemp, Warning, TEXT("Hit a MyTargetActor!"));
+			}
 		}
-		//UE_LOG(LogTemp, Warning, TEXT("fire"));
 
 		curAmmo -= 1;
 		curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
@@ -158,6 +156,13 @@ void AWeaponBase::FinishReloading()
 			isReloading = false;
 			UE_LOG(LogTemp, Warning, TEXT("reloaded"));
 	}), .75f, false);
+}
+
+void AWeaponBase::SetUpWeapon(const AWeaponBase& weapon)
+{
+	curAmmo = weapon.curAmmo;
+	ammoToRefill = weapon.ammoToRefill;
+	ammoReserves = weapon.ammoReserves;
 }
 
 // The bullet cone of the weapon

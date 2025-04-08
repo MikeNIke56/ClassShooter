@@ -42,6 +42,20 @@ AClassShooterCharacter::AClassShooterCharacter()
 
 	weaponLocation = CreateDefaultSubobject<UArrowComponent>("Weapon Position");
 	weaponLocation->SetupAttachment(FirstPersonCameraComponent);
+
+	baseFov = FirstPersonCameraComponent->FieldOfView;
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> SniperFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/SniperADSUI.SniperADSUI'"));
+	if (SniperFinder.Succeeded())
+	{
+		sniperWidgetClass = SniperFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> unADSFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/UnADSCrosshairUI.UnADSCrosshairUI'"));
+	if (unADSFinder.Succeeded())
+	{
+		unADSWidgetClass = unADSFinder.Class;
+	}
 }
 
 void AClassShooterCharacter::BeginPlay()
@@ -58,6 +72,29 @@ void AClassShooterCharacter::BeginPlay()
 
 	ADSLerp = false;
 	recoilLerp = false;
+	startFovChange = false;
+
+
+	if (sniperWidgetClass)
+	{
+		sniperWidget = CreateWidget<UUserWidget>(GetWorld(), sniperWidgetClass);
+		if (sniperWidget)
+		{
+			sniperWidget->AddToViewport();
+			sniperWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
+
+	if (unADSWidgetClass)
+	{
+		unADSWidget = CreateWidget<UUserWidget>(GetWorld(), unADSWidgetClass);
+		if (unADSWidget)
+		{
+			unADSWidget->AddToViewport();
+			unADSWidget->SetVisibility(ESlateVisibility::Visible);
+		}
+	}
+
 }
 
 void AClassShooterCharacter::Tick(float deltaTime)
@@ -86,6 +123,19 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		if (newRotation.Equals(targetRotation, .05))
 			recoilLerp = false;
 	}
+
+	if (startFovChange == true)
+	{
+		float curFov = FirstPersonCameraComponent->FieldOfView;
+		float newFov = FMath::FInterpTo(curFov, targetFov, deltaTime, 10);
+		FirstPersonCameraComponent->SetFieldOfView(newFov);
+
+		if (FMath::Abs(targetFov - newFov) <= .001)
+			startFovChange = false;
+	}
+
+	curCamLocation = FirstPersonCameraComponent->GetComponentLocation();
+	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -129,6 +179,9 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		
 		// Reload
 		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Reload);
+
+		// Drop weapon
+		EnhancedInputComponent->BindAction(DropWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::DropWeapon);
 	}
 	else
 	{
@@ -223,6 +276,53 @@ void AClassShooterCharacter::ADS()
 		ADSCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
+
+		if (curWeapon->name == "Sniper")
+		{
+			if (sniperWidget->IsVisible() == false)
+			{
+				FTimerHandle DelayTimerHandle;
+				GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+					{
+						unADSWidget->SetVisibility(ESlateVisibility::Hidden);
+						sniperWidget->SetVisibility(ESlateVisibility::Visible);
+						curWeapon->weaponMesh->SetVisibility(false, true);
+					}), .25f, false);
+			}
+		}
+
+		if (curWeapon->name == "Pistol")
+		{
+			targetFov = 75;
+			startFovChange = true;
+		}
+		else if (curWeapon->name == "Shotgun")
+		{
+			targetFov = 80;
+			startFovChange = true;
+		}
+		else if (curWeapon->name == "AR")
+		{
+			targetFov = 50;
+			startFovChange = true;
+		}
+		else if (curWeapon->name == "Sniper")
+		{
+			targetFov = 30;
+			startFovChange = true;
+		}
+		else if (curWeapon->name == "GL")
+		{
+			targetFov = baseFov;
+			startFovChange = true;
+		}
+		else if (curWeapon->name == "RPG")
+		{
+			targetFov = baseFov;
+			startFovChange = true;
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
 	}
 }
 void AClassShooterCharacter::StopADS()
@@ -233,18 +333,34 @@ void AClassShooterCharacter::StopADS()
 		ShowCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
+
+		if (curWeapon->name == "Sniper")
+		{
+			if (sniperWidget->IsVisible() == true)
+			{
+				unADSWidget->SetVisibility(ESlateVisibility::Visible);
+				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
+				curWeapon->weaponMesh->SetVisibility(true, true);
+			}
+		}
+
+		targetFov = baseFov;
+		startFovChange = true;
 	}
 }
 
 void AClassShooterCharacter::StartShooting()
 {
 	if (curWeapon != nullptr && curWeapon->state == WeaponState::Equipped)
-			Shoot();
+	{
+		curWeapon->curCamLoc = curCamLocation;
+		curWeapon->curCamRot = curCamRotation;
+		Shoot();
+	}			
 }
 
 void AClassShooterCharacter::Shoot()
 {
-	curWeapon->shotLocation = shotLocation;
 	if (curWeapon->isAutomatic == true)
 		curWeapon->AutoFire();
 	else
@@ -421,6 +537,11 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 	if (numWeapons > 1)
 	{
+		if (curWeapon->name == "Sniper")
+		{
+			sniperWidget->SetVisibility(ESlateVisibility::Hidden);
+			curWeapon->weaponMesh->SetVisibility(true, true);
+		}
 		StowWeapon(weaponArray[pos], weaponArray[pos]->name);
 
 		if (Value.GetMagnitude() > 0.0)
@@ -471,6 +592,8 @@ void AClassShooterCharacter::Recoil()
 	targetRotationCopy.Yaw += FMath::FRandRange(curWeapon->minHorRecoilAmnt, curWeapon->maxHorRecoilAmnt);
 	targetRotationCopy.Pitch += FMath::FRandRange(curWeapon->minVertRecoilAmnt, curWeapon->maxVertRecoilAmnt);
 	targetRotation = targetRotationCopy;
+	curWeapon->curCamLoc = curCamLocation;
+	curWeapon->curCamRot = targetRotation;
 	recoilLerp = true;
 }
 
@@ -479,6 +602,55 @@ void AClassShooterCharacter::BindDelegate()
 	//bind delegate event 
 	if (curWeapon)
 		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
+}
+
+void AClassShooterCharacter::DropWeapon()
+{
+	if (curWeapon)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+
+		weaponWorldObj = curWeapon->GetClass();
+
+		FVector spawnLoc = GetActorLocation();
+		spawnLoc += (GetActorForwardVector() * 100);
+		//spawnLoc.Z -= 30;
+
+		FRotator spawnRot = GetActorRotation();
+		spawnRot.Yaw -= 90;
+
+		AWeaponBase* weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+			spawnRot, SpawnParams);
+
+		weaponCopy->SetUpWeapon(*curWeapon);
+
+		StopADS();
+
+		int pos;
+		for (int i = 0; i < weaponArray.Num(); i++)
+		{
+			if (weaponArray[i] == curWeapon)
+			{
+				pos = i;
+				weaponArray[i] = NULL;
+			}
+		}
+
+		curWeapon->Destroy();
+		curWeapon = nullptr;
+
+		for (pos; pos < weaponArray.Num(); pos++)
+		{
+			weaponArray[pos] = NULL;
+			if(pos + 1 < weaponArray.Num())
+				weaponArray[pos] = weaponArray[pos + 1];
+		}
+
+		if(weaponArray[0])
+			EquipWeapon(weaponArray[0]);
+	}
 }
 
 void AClassShooterCharacter::Die()
