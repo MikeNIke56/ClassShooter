@@ -11,6 +11,7 @@
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
 #include "Components/StaticMeshComponent.h"
+#include "Knife.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -74,6 +75,9 @@ void AClassShooterCharacter::BeginPlay()
 	recoilLerp = false;
 	startFovChange = false;
 
+	isLeftSwing = true;
+	meleeLerp = false;
+
 
 	if (sniperWidgetClass)
 	{
@@ -134,6 +138,63 @@ void AClassShooterCharacter::Tick(float deltaTime)
 			startFovChange = false;
 	}
 
+	if (meleeLerp == true)
+	{
+		FVector newLocation = weaponLocation->GetRelativeLocation();
+		FRotator newRotation = weaponLocation->GetRelativeRotation();
+
+		if (isLeftSwing == true)
+		{
+			newLocation = FMath::VInterpTo(newLocation,
+				knifeSwingLocations[1]->GetRelativeLocation(),
+				deltaTime, slashSpeed);
+
+			newRotation = FMath::RInterpTo(newRotation,
+				knifeSwingLocations[1]->GetRelativeRotation(),
+				deltaTime, slashSpeed);
+		}
+		else
+		{
+			newLocation = FMath::VInterpTo(newLocation,
+				knifeSwingLocations[3]->GetRelativeLocation(),
+				deltaTime, slashSpeed);
+
+			newRotation = FMath::RInterpTo(newRotation,
+				knifeSwingLocations[3]->GetRelativeRotation(),
+				deltaTime, slashSpeed);
+		}
+
+		weaponLocation->SetRelativeLocation(newLocation);
+		weaponLocation->SetRelativeRotation(newRotation);
+
+		if (isLeftSwing == true)
+		{
+			if (FVector::Dist(knifeSwingLocations[1]->
+				GetRelativeLocation(), newLocation) <= 2)
+			{
+				meleeLerp = false;
+				isLeftSwing = false;
+				targetLocation = FVector(70.0, -14.0, -30.0);
+				FRotator resetRot(0, -90, 0);
+				weaponLocation->SetRelativeLocation(targetLocation);
+				weaponLocation->SetRelativeRotation(resetRot);
+			}
+		}
+		else
+		{
+			if (FVector::Dist(knifeSwingLocations[3]->
+				GetRelativeLocation(), newLocation) <= 2)
+			{
+				meleeLerp = false;
+				isLeftSwing = true;
+				targetLocation = FVector(70.0, -14.0, -30.0);
+				FRotator resetRot(0, -90, 0);
+				weaponLocation->SetRelativeLocation(targetLocation);
+				weaponLocation->SetRelativeRotation(resetRot);
+			}
+		}
+	}
+
 	curCamLocation = FirstPersonCameraComponent->GetComponentLocation();
 	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
 }
@@ -170,9 +231,6 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		// Throw Grenade
 		EnhancedInputComponent->BindAction(GrenadeAction, ETriggerEvent::Started, this, &AClassShooterCharacter::ReadyGrenade);
 		EnhancedInputComponent->BindAction(GrenadeAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::ThrowGrenade);
-
-		// Melee
-		EnhancedInputComponent->BindAction(MeleeAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Melee);
 
 		// Switch Weapons
 		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::SwitchWeapon);
@@ -351,11 +409,15 @@ void AClassShooterCharacter::StopADS()
 
 void AClassShooterCharacter::StartShooting()
 {
-	if (curWeapon != nullptr && curWeapon->state == WeaponState::Equipped)
+	if (curWeapon && curWeapon->state == WeaponState::Equipped)
 	{
 		curWeapon->curCamLoc = curCamLocation;
 		curWeapon->curCamRot = curCamRotation;
-		Shoot();
+
+		if (curWeapon->name == "Knife")
+			Melee();
+		else
+			Shoot();
 	}			
 }
 
@@ -384,7 +446,31 @@ void AClassShooterCharacter::ThrowGrenade()
 
 void AClassShooterCharacter::Melee()
 {
-	UE_LOG(LogTemp, Warning, TEXT("melee"));
+	if (isLeftSwing == true)
+	{
+		FVector location(knifeSwingLocations[0]->GetRelativeLocation());
+		FRotator rotation(knifeSwingLocations[0]->GetRelativeRotation());
+		FVector scale(1.f, 1.f, 1.f);
+		FTransform transform(rotation, location, scale);
+
+		weaponLocation->SetRelativeTransform(transform);
+
+
+		meleeLerp = true;
+	}
+	else
+	{
+		FVector location(knifeSwingLocations[2]->GetRelativeLocation());
+		FRotator rotation(knifeSwingLocations[2]->GetRelativeRotation());
+		FVector scale(1.f, 1.f, 1.f);
+		FTransform transform(rotation, location, scale);
+
+		weaponLocation->SetRelativeTransform(transform);
+
+
+		meleeLerp = true;
+	}
+	curWeapon->Fire();
 }
 
 void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
@@ -401,9 +487,9 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
 	{
-		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-		weapon->AttachToComponent(weaponLocation, AttachRules);
-		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
+		meleeLerp = false;
+		//weaponLocation->SetRelativeLocation(FVector(52, -14, -30));
+		//weaponLocation->SetRelativeRotation(FRotator(0, 0, -90));
 
 		if (weapon->name == "Pistol")
 		{
@@ -429,8 +515,16 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 		{
 			targetLocation = FVector(30.0, -14.0, -30.0);
 		}
+		else if (weapon->name == "Knife")
+		{
+			targetLocation = FVector(70.0, -14.0, -30.0);
+		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
+
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+		weapon->AttachToComponent(weaponLocation, AttachRules);
+		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
@@ -464,6 +558,10 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 		else if (weapon->name == "RPG")
 		{
 			targetLocation = FVector(33.2, 0.0, -25.5);
+		}
+		else if (weapon->name == "Knife")
+		{
+			targetLocation = targetLocation;
 		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
@@ -616,7 +714,7 @@ void AClassShooterCharacter::DropWeapon()
 
 		FVector spawnLoc = GetActorLocation();
 		spawnLoc += (GetActorForwardVector() * 100);
-		//spawnLoc.Z -= 30;
+		spawnLoc.Z -= 30;
 
 		FRotator spawnRot = GetActorRotation();
 		spawnRot.Yaw -= 90;

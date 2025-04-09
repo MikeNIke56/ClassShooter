@@ -297,6 +297,9 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\GrenadeLauncher.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Knife.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Pistol.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -314,6 +317,7 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\ClassShooter\Public\AssaultRifle.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\GrenadeLauncher.h"/>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Knife.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Pistol.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\RocketLauncher.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Shotgun.h"/>

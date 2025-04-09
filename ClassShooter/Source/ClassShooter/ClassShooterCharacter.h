@@ -54,17 +54,13 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ADSAction;
 
-	/** Shooting input Action */
+	/** Shooting/Melee input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ShootingAction;
 
 	/** Throw Grenade input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* GrenadeAction;
-
-	/** Melee input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* MeleeAction;
 
 	/** Switch weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -148,6 +144,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AWeaponBase> weaponWorldObj;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	TArray<UArrowComponent*> knifeSwingLocations;
+
+	bool isLeftSwing;
+	bool meleeLerp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float slashSpeed;
 
 protected:
 	UCharacterMovementComponent* movementComponent;

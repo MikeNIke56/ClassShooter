@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\GrenadeLauncher.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Knife.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Pistol.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
@@ -115,6 +118,9 @@
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\GrenadeLauncher.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Knife.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Pistol.h">
