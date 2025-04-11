@@ -78,6 +78,15 @@ void AClassShooterCharacter::BeginPlay()
 	isLeftSwing = true;
 	meleeLerp = false;
 
+	isSliding = false;
+	isCrouching = false;
+	isSprinting = false;
+	baseGroundFriction = movementComponent->GroundFriction;
+	baseBrakingDeceleration = movementComponent->BrakingDecelerationWalking;
+	baseGravity = movementComponent->GravityScale;
+
+	originalBodyScale = GetCapsuleComponent()->GetComponentScale();
+
 
 	if (sniperWidgetClass)
 	{
@@ -104,7 +113,7 @@ void AClassShooterCharacter::BeginPlay()
 void AClassShooterCharacter::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
-	jumpAllowed = CheckCanJump();
+	jumpAllowed = IsGrounded();
 
 	if (ADSLerp == true)
 	{
@@ -197,6 +206,8 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 	curCamLocation = FirstPersonCameraComponent->GetComponentLocation();
 	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
+
+	isSprinting = IsStillSprinting();
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -240,6 +251,9 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 
 		// Drop weapon
 		EnhancedInputComponent->BindAction(DropWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::DropWeapon);
+
+		// Crouch
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartCrouch);
 	}
 	else
 	{
@@ -251,14 +265,14 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 void AClassShooterCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	movementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
 		// add movement 
 		//MovementVector.Normalize();
-		AddMovementInput(GetActorForwardVector() * curSpeed, MovementVector.Y);
-		AddMovementInput(GetActorRightVector() * curSpeed, MovementVector.X);
+		AddMovementInput(GetActorForwardVector() * curSpeed, movementVector.Y);
+		AddMovementInput(GetActorRightVector() * curSpeed, movementVector.X);
 	}
 }
 
@@ -266,7 +280,11 @@ void AClassShooterCharacter::Jump()
 {
 	if (jumpAllowed == true)
 	{
-		LaunchCharacter(GetActorUpVector() * jumpPow, false, false);
+		float newJumpPow = jumpPow;
+
+		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
+			newJumpPow /= 2;
+		LaunchCharacter(GetActorUpVector() * newJumpPow, false, false);
 	}
 }
 void AClassShooterCharacter::StopJumping()
@@ -274,7 +292,7 @@ void AClassShooterCharacter::StopJumping()
 	Super::StopJumping(); // Call parent function
 }
 
-bool AClassShooterCharacter::CheckCanJump()
+bool AClassShooterCharacter::IsGrounded()
 {
 	// Get the start location (from the pawn's camera or actor position)
 	FVector startLocation = GetActorLocation();
@@ -319,11 +337,119 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 
 void AClassShooterCharacter::Sprint()
 {
+	isSliding = false;
+	isCrouching = false;
+
 	movementComponent->MaxWalkSpeed *= speedMulti;
 }
 void AClassShooterCharacter::StopSprinting()
 {
 	movementComponent->MaxWalkSpeed = baseSpeed;
+	isSprinting = false;
+}
+bool AClassShooterCharacter::IsStillSprinting()
+{
+	if (movementVector.Y > 0.0 && movementComponent->MaxWalkSpeed > baseSpeed
+		&& IsGrounded() == true)
+		return true;
+	return false;
+}
+void AClassShooterCharacter::StartCrouch()
+{
+	if (isSprinting == true)
+		Slide();
+	else
+	{
+		if (isCrouching == false)
+			Crouch();
+		else
+			StopCrouching();
+	}
+}
+void AClassShooterCharacter::Crouch()
+{
+	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
+	movementComponent->MaxWalkSpeed = baseSpeed / 3;
+	isCrouching = true;
+}
+void AClassShooterCharacter::StopCrouching()
+{
+	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
+
+	if(isSprinting == false)
+		movementComponent->MaxWalkSpeed = baseSpeed;
+
+	isCrouching = false;
+	ResetMovement();
+}
+void AClassShooterCharacter::Slide()
+{
+	if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == false)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(slideTimer);
+		GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
+
+		isSliding = true;
+
+		movementComponent->GroundFriction = 0.0;
+		movementComponent->BrakingDecelerationWalking = 1400;
+		FVector velocity = GetCharacterMovement()->Velocity;
+		velocity.Normalize();
+		movementComponent->SetPlaneConstraintFromVectors(velocity, GetActorUpVector());
+		movementComponent->SetPlaneConstraintEnabled(true);
+
+		FVector slideVec = FindSlideVector();
+		if (slideVec.Z <= .02 || IsGrounded() == true)
+		{
+			movementComponent->AddImpulse(GetActorForwardVector() * slidePow, true);
+			GetWorld()->GetTimerManager().SetTimer(slideTimer, this, 
+				&AClassShooterCharacter::StopSliding, 1.0f, false);
+		}
+	}
+}
+void AClassShooterCharacter::StopSliding()
+{
+	ResetMovement();
+}
+FVector AClassShooterCharacter::FindSlideVector()
+{
+	// Get the start location (from the pawn's camera or actor position)
+	FVector startLocation = GetActorLocation();
+
+	// Get the end location (down direction, 75 units away)
+	FVector downVector = GetActorUpVector();
+	FVector endLocation = (downVector * -200) + startLocation;
+
+	// Line trace settings
+	FHitResult hitResult;
+	FCollisionQueryParams collisionParams;
+	collisionParams.AddIgnoredActor(this); // Ignore self
+
+	// Perform the trace
+	bool bHit = GetWorld()->LineTraceSingleByChannel(
+		hitResult, startLocation, endLocation, ECC_Visibility, collisionParams);
+
+	FVector crossProdVec = FVector::CrossProduct(hitResult.ImpactPoint, GetActorRightVector());
+
+	// Draw debug line (visible for 1 second)
+	DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Red, false, 1.0f, 0, 2.0f);
+
+	crossProdVec *= -1;
+	return crossProdVec;
+
+}
+void AClassShooterCharacter::ResetMovement()
+{
+	isSliding = false;
+	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
+	movementComponent->GravityScale = baseGravity;
+
+	if (isSprinting == false)
+		movementComponent->MaxWalkSpeed = baseSpeed;
+
+	movementComponent->GroundFriction = baseGroundFriction;
+	movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+	movementComponent->SetPlaneConstraintEnabled(false);
 }
 
 void AClassShooterCharacter::ADS()
@@ -406,7 +532,6 @@ void AClassShooterCharacter::StopADS()
 		startFovChange = true;
 	}
 }
-
 void AClassShooterCharacter::StartShooting()
 {
 	if (curWeapon && curWeapon->state == WeaponState::Equipped)
@@ -420,7 +545,6 @@ void AClassShooterCharacter::StartShooting()
 			Shoot();
 	}			
 }
-
 void AClassShooterCharacter::Shoot()
 {
 	if (curWeapon->isAutomatic == true)
@@ -428,13 +552,11 @@ void AClassShooterCharacter::Shoot()
 	else
 		curWeapon->Fire();
 }
-
 void AClassShooterCharacter::StopShooting()
 {
 	if (curWeapon && curWeapon->isAutomatic)
 		GetWorldTimerManager().ClearTimer(curWeapon->fireTimer);
 }
-
 void AClassShooterCharacter::ReadyGrenade()
 {
 	UE_LOG(LogTemp, Warning, TEXT("readying grenade"));
@@ -443,36 +565,6 @@ void AClassShooterCharacter::ThrowGrenade()
 {
 	UE_LOG(LogTemp, Warning, TEXT("throwing grenade"));
 }
-
-void AClassShooterCharacter::Melee()
-{
-	if (isLeftSwing == true)
-	{
-		FVector location(knifeSwingLocations[0]->GetRelativeLocation());
-		FRotator rotation(knifeSwingLocations[0]->GetRelativeRotation());
-		FVector scale(1.f, 1.f, 1.f);
-		FTransform transform(rotation, location, scale);
-
-		weaponLocation->SetRelativeTransform(transform);
-
-
-		meleeLerp = true;
-	}
-	else
-	{
-		FVector location(knifeSwingLocations[2]->GetRelativeLocation());
-		FRotator rotation(knifeSwingLocations[2]->GetRelativeRotation());
-		FVector scale(1.f, 1.f, 1.f);
-		FTransform transform(rotation, location, scale);
-
-		weaponLocation->SetRelativeTransform(transform);
-
-
-		meleeLerp = true;
-	}
-	curWeapon->Fire();
-}
-
 void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
 {
 	weapon->state = WeaponState::Equipped;
@@ -487,10 +579,6 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
 	{
-		meleeLerp = false;
-		//weaponLocation->SetRelativeLocation(FVector(52, -14, -30));
-		//weaponLocation->SetRelativeRotation(FRotator(0, 0, -90));
-
 		if (weapon->name == "Pistol")
 		{
 			targetLocation = FVector(52.0, -14.0, -30.0);
@@ -569,7 +657,6 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }
-
 bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
@@ -617,48 +704,46 @@ bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 		return false;
 	}
 }
-
 void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 {
-	int numWeapons = 0;
-	int pos = 0;
-	for (int i = 0; i < weaponArray.Num(); i++)
+	if (meleeLerp == false)
 	{
-		if (weaponArray[i])
+		int numWeapons = 0;
+		int pos = 0;
+		for (int i = 0; i < weaponArray.Num(); i++)
 		{
-			numWeapons++;
+			if (weaponArray[i])
+			{
+				numWeapons++;
 
-			if (weaponArray[i]->state == WeaponState::Equipped)
-				pos = i;
+				if (weaponArray[i]->state == WeaponState::Equipped)
+					pos = i;
+			}
 		}
-	}
 
-	if (numWeapons > 1)
-	{
-		if (curWeapon->name == "Sniper")
+		if (numWeapons > 1)
 		{
-			sniperWidget->SetVisibility(ESlateVisibility::Hidden);
-			curWeapon->weaponMesh->SetVisibility(true, true);
-		}
-		StowWeapon(weaponArray[pos], weaponArray[pos]->name);
+			if (curWeapon->name == "Sniper")
+			{
+				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
+				curWeapon->weaponMesh->SetVisibility(true, true);
+			}
+			StowWeapon(weaponArray[pos], weaponArray[pos]->name);
 
-		if (Value.GetMagnitude() > 0.0)
-		{
-			if(pos == numWeapons-1)
-				EquipWeapon(weaponArray[0]);
-			else
-				EquipWeapon(weaponArray[pos+=1]);
-
-			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
-		}
-		else if (Value.GetMagnitude() < 0.0)
-		{
-			if (pos == 0)
-				EquipWeapon(weaponArray[numWeapons-=1]);
-			else
-				EquipWeapon(weaponArray[pos-=1]);
-
-			//UE_LOG(LogTemp, Warning, TEXT("%d"), pos);
+			if (Value.GetMagnitude() > 0.0)
+			{
+				if (pos == numWeapons - 1)
+					EquipWeapon(weaponArray[0]);
+				else
+					EquipWeapon(weaponArray[pos += 1]);
+			}
+			else if (Value.GetMagnitude() < 0.0)
+			{
+				if (pos == 0)
+					EquipWeapon(weaponArray[numWeapons -= 1]);
+				else
+					EquipWeapon(weaponArray[pos -= 1]);
+			}
 		}
 	}
 
@@ -676,13 +761,11 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 	else
 		UE_LOG(LogTemp, Warning, TEXT("fail"));
 }
-
 void AClassShooterCharacter::Reload()
 {
 	UE_LOG(LogTemp, Warning, TEXT("reload"));
 	curWeapon->Reload();
 }
-
 void AClassShooterCharacter::Recoil()
 {
 	FRotator targetRotationCopy = GetControlRotation();
@@ -694,14 +777,6 @@ void AClassShooterCharacter::Recoil()
 	curWeapon->curCamRot = targetRotation;
 	recoilLerp = true;
 }
-
-void AClassShooterCharacter::BindDelegate()
-{
-	//bind delegate event 
-	if (curWeapon)
-		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
-}
-
 void AClassShooterCharacter::DropWeapon()
 {
 	if (curWeapon)
@@ -742,15 +817,51 @@ void AClassShooterCharacter::DropWeapon()
 		for (pos; pos < weaponArray.Num(); pos++)
 		{
 			weaponArray[pos] = NULL;
-			if(pos + 1 < weaponArray.Num())
+			if (pos + 1 < weaponArray.Num())
 				weaponArray[pos] = weaponArray[pos + 1];
 		}
 
-		if(weaponArray[0])
+		if (weaponArray[0])
 			EquipWeapon(weaponArray[0]);
 	}
 }
 
+
+
+void AClassShooterCharacter::Melee()
+{
+	if (isLeftSwing == true)
+	{
+		FVector location(knifeSwingLocations[0]->GetRelativeLocation());
+		FRotator rotation(knifeSwingLocations[0]->GetRelativeRotation());
+		FVector scale(1.f, 1.f, 1.f);
+		FTransform transform(rotation, location, scale);
+
+		weaponLocation->SetRelativeTransform(transform);
+
+
+		meleeLerp = true;
+	}
+	else
+	{
+		FVector location(knifeSwingLocations[2]->GetRelativeLocation());
+		FRotator rotation(knifeSwingLocations[2]->GetRelativeRotation());
+		FVector scale(1.f, 1.f, 1.f);
+		FTransform transform(rotation, location, scale);
+
+		weaponLocation->SetRelativeTransform(transform);
+
+
+		meleeLerp = true;
+	}
+	curWeapon->Fire();
+}
+void AClassShooterCharacter::BindDelegate()
+{
+	//bind delegate event 
+	if (curWeapon)
+		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
+}
 void AClassShooterCharacter::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("die"));

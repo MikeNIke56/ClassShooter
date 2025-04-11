@@ -21,7 +21,6 @@ struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
-
 UCLASS(config=Game, Blueprintable)
 class AClassShooterCharacter : public ACharacter
 {
@@ -74,28 +73,16 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* DropWeaponAction;
 
+	/** Crouch input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* CrouchAction;
+
 public:
-	// Speed variable
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float curSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float speedMulti;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float baseSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float jumpPow;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float curHealth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float maxHealth;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	bool jumpAllowed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FVector shotLocation;
@@ -154,6 +141,37 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float slashSpeed;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Class Base Values")
+	FVector originalBodyScale;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float curSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float speedMulti;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float baseSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float jumpPow;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float slidePow;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool jumpAllowed;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
+	bool isSprinting;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
+	bool isCrouching;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
+	bool isSliding;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
+	FVector2D movementVector;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float baseGroundFriction;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float baseBrakingDeceleration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float baseGravity;
+	FTimerHandle slideTimer;
+
 protected:
 	UCharacterMovementComponent* movementComponent;
 	
@@ -164,60 +182,55 @@ protected:
 	virtual void BeginPlay();
 	virtual void Tick(float deltaTime);
 
-	/** Called for movement input */
+
+	//movement fucntions;
 	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
-
-	//void Jump(const FInputActionValue& Value);
 	virtual void Jump() override;         //override Jump
 	virtual void StopJumping() override;  //override StopJumping
-
-
-	bool CheckCanJump();
-
+	bool IsGrounded();
 	void Sprint();
 	void StopSprinting();
+	bool IsStillSprinting();
+	void StartCrouch();
+	void Crouch();
+	void StopCrouching();
+	void Slide();
+	void StopSliding();
+	FVector FindSlideVector();
+	void ResetMovement();
 
+
+	//gun related functions
 	void ADS();
 	void StopADS();
-
 	void StartShooting();
 	void StopShooting();
 	void Shoot();
-
 	void ReadyGrenade();
 	void ThrowGrenade();
-
 	UFUNCTION()
 	void Recoil();
-
-	void BindDelegate();
-
-	void Melee();
 	void Die();
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void EquipWeapon(AWeaponBase* weapon);
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ShowCurWeapon(AWeaponBase* weapon);
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ADSCurWeapon(AWeaponBase* weapon);
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	bool PickupWeapon(AWeaponBase* weapon);
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void SwitchWeapon(const FInputActionValue& Value);
-
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void StowWeapon(AWeaponBase* weapon, const FName& socketName);
-
 	void DropWeapon();
 	void Reload();
+
+
+	//misc.
+	void BindDelegate();
+	void Melee();
+	void Look(const FInputActionValue& Value);
 
 public:
 		

@@ -3,7 +3,6 @@
 	{
 		"Module.ClassShooter.cpp.obj": [
 			"AssaultRifle.gen.cpp.obj",
-			"ClassShooterCharacter.gen.cpp.obj",
 			"ClassShooterGameMode.gen.cpp.obj",
 			"ClassShooterPlayerController.gen.cpp.obj",
 			"ClassShooterProjectile.gen.cpp.obj",
@@ -31,6 +30,7 @@
 			"TP_PickUpComponent.cpp.obj",
 			"TP_WeaponComponent.cpp.obj",
 			"ClassShooter.init.gen.cpp.obj",
+			"ClassShooterCharacter.gen.cpp.obj",
 			"Knife.gen.cpp.obj",
 			"ClassShooterCharacter.cpp.obj",
 			"Knife.cpp.obj"
