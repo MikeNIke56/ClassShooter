@@ -254,6 +254,14 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 
 		// Crouch
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartCrouch);
+
+		// Ability1
+		EnhancedInputComponent->BindAction(Ability1Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartAbility1);
+		// Ability2
+		EnhancedInputComponent->BindAction(Ability2Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartAbility2);
+		
+		// Ultimate
+		EnhancedInputComponent->BindAction(UltimateAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartUltimate);
 	}
 	else
 	{
@@ -763,8 +771,11 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 }
 void AClassShooterCharacter::Reload()
 {
-	UE_LOG(LogTemp, Warning, TEXT("reload"));
-	curWeapon->Reload();
+	if (curWeapon)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("reload"));
+		curWeapon->Reload();
+	}
 }
 void AClassShooterCharacter::Recoil()
 {
@@ -797,7 +808,10 @@ void AClassShooterCharacter::DropWeapon()
 		AWeaponBase* weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
 			spawnRot, SpawnParams);
 
-		weaponCopy->SetUpWeapon(*curWeapon);
+		if(shouldDestroyWeapon == true)
+			weaponCopy->Destroy();
+		else
+			weaponCopy->SetUpWeapon(*curWeapon);
 
 		StopADS();
 
@@ -823,6 +837,8 @@ void AClassShooterCharacter::DropWeapon()
 
 		if (weaponArray[0])
 			EquipWeapon(weaponArray[0]);
+
+		shouldDestroyWeapon = false;
 	}
 }
 
@@ -838,8 +854,6 @@ void AClassShooterCharacter::Melee()
 		FTransform transform(rotation, location, scale);
 
 		weaponLocation->SetRelativeTransform(transform);
-
-
 		meleeLerp = true;
 	}
 	else
@@ -850,8 +864,6 @@ void AClassShooterCharacter::Melee()
 		FTransform transform(rotation, location, scale);
 
 		weaponLocation->SetRelativeTransform(transform);
-
-
 		meleeLerp = true;
 	}
 	curWeapon->Fire();
@@ -861,6 +873,82 @@ void AClassShooterCharacter::BindDelegate()
 	//bind delegate event 
 	if (curWeapon)
 		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
+}
+void AClassShooterCharacter::StartAbility1()
+{
+
+}
+void AClassShooterCharacter::StopAbility1()
+{
+
+}
+void AClassShooterCharacter::StartAbility2()
+{
+
+}
+void AClassShooterCharacter::StopAbility2()
+{
+
+}
+void AClassShooterCharacter::StartUltimate()
+{
+
+}
+void AClassShooterCharacter::StopUltimate()
+{
+
+}
+void AClassShooterCharacter::SaveCurWeapons()
+{
+	for (int i = 0; i < weaponArray.Num(); i++)
+	{
+		backupWeaponArray[i] = nullptr;
+		if (weaponArray[i])
+			backupWeaponArray[i] = weaponArray[i];
+	}
+	for (int i = 0; i < weaponArray.Num(); i++)
+	{
+		shouldDestroyWeapon = true;
+		DropWeapon();
+	}
+}
+void AClassShooterCharacter::RestoreCurWeapons()
+{
+	for (int i = 0; i < weaponArray.Num(); i++)
+	{
+		shouldDestroyWeapon = true;
+		DropWeapon();
+	}
+	for (int i = 0; i < backupWeaponArray.Num(); i++)
+	{
+		if (backupWeaponArray[i])
+		{
+			FActorSpawnParameters SpawnParams;
+			SpawnParams.Owner = this;
+			SpawnParams.Instigator = GetInstigator();
+
+			weaponWorldObj = backupWeaponArray[i]->GetClass();
+
+			FVector spawnLoc = GetActorLocation();
+			FRotator spawnRot = GetActorRotation();
+
+			AWeaponBase* weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+				spawnRot, SpawnParams);
+
+			weaponCopy->state = WeaponState::OutOfInventory;
+			PickupWeapon(weaponCopy);
+		}
+	}
+	for (int i = 0; i < weaponArray.Num(); i++)
+	{
+		if (weaponArray[i])
+		{
+			if (i == 0)
+				weaponArray[i]->state = WeaponState::Equipped;
+			else
+				weaponArray[i]->state = WeaponState::Stowed;
+		}
+	}
 }
 void AClassShooterCharacter::Die()
 {

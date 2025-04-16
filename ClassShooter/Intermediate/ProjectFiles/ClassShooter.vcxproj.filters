@@ -66,12 +66,6 @@
     <ClInclude Include="..\..\Source\ClassShooter\ClassShooterProjectile.h">
       <Filter>Source\ClassShooter</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\ClassShooter\test.cpp">
-      <Filter>Source\ClassShooter</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ClassShooter\test.h">
-      <Filter>Source\ClassShooter</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
       <Filter>Source\ClassShooter</Filter>
     </ClCompile>
@@ -96,16 +90,25 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\Knife.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\MovementCharacter.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Pistol.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\RocketLauncher.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\ShieldCharacter.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Shotgun.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\SniperRifle.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\StealthCharacter.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\WeaponBase.cpp">
@@ -123,16 +126,25 @@
     <ClInclude Include="..\..\Source\ClassShooter\Public\Knife.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\MovementCharacter.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Pistol.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\RocketLauncher.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\ShieldCharacter.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Shotgun.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\SniperRifle.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\StealthCharacter.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\WeaponBase.h">

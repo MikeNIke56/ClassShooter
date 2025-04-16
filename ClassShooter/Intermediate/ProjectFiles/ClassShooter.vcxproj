@@ -279,10 +279,6 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\ClassShooter\ClassShooterProjectile.h"/>
-    <ClCompile Include="..\..\Source\ClassShooter\test.cpp">
-      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ClassShooter\test.h"/>
     <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -300,10 +296,16 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\Knife.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\MovementCharacter.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Pistol.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\RocketLauncher.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\ShieldCharacter.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\Shotgun.cpp">
@@ -312,16 +314,22 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\SniperRifle.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\StealthCharacter.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\WeaponBase.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\ClassShooter\Public\AssaultRifle.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\GrenadeLauncher.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Knife.h"/>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\MovementCharacter.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Pistol.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\RocketLauncher.h"/>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\ShieldCharacter.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\Shotgun.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\SniperRifle.h"/>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\StealthCharacter.h"/>
     <ClInclude Include="..\..\Source\ClassShooter\Public\WeaponBase.h"/>
   </ItemGroup>
   <PropertyGroup>

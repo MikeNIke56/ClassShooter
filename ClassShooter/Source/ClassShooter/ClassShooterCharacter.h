@@ -9,6 +9,8 @@
 #include "WeaponBase.h"
 #include "Components/ArrowComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 #include "ClassShooterCharacter.generated.h"
 
 class UInputComponent;
@@ -34,50 +36,52 @@ class AClassShooterCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* bodyMesh;
+	
+
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* JumpAction;
-
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
-
 	/** Sprint Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
-
 	/** ADS input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ADSAction;
-
 	/** Shooting/Melee input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ShootingAction;
-
 	/** Throw Grenade input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* GrenadeAction;
-
 	/** Switch weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SwitchWeaponAction;
-
 	/** Reload weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ReloadWeaponAction;
-
 	/** Drop weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* DropWeaponAction;
-
 	/** Crouch input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
+	/** Drop weapon input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* Ability1Action;
+	/** Crouch input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* Ability2Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* UltimateAction;
 
 public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* bodyMesh;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float curHealth;
 
@@ -90,6 +94,10 @@ public:
 	//our array of weapons
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<AWeaponBase*> weaponArray;
+
+	//backup array of weapons when in super
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	TArray<AWeaponBase*> backupWeaponArray;
 
 	//currently equipped weapon
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -171,9 +179,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseGravity;
 	FTimerHandle slideTimer;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool isClone;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	bool shouldDestroyWeapon;
 
 protected:
-	UCharacterMovementComponent* movementComponent;
+	UCharacterMovementComponent* movementComponent = GetCharacterMovement();;
 	
 public:
 	AClassShooterCharacter();
@@ -203,14 +215,13 @@ protected:
 	//gun related functions
 	void ADS();
 	void StopADS();
-	void StartShooting();
+	virtual void StartShooting();
 	void StopShooting();
 	void Shoot();
 	void ReadyGrenade();
 	void ThrowGrenade();
 	UFUNCTION()
 	void Recoil();
-	void Die();
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void EquipWeapon(AWeaponBase* weapon);
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
@@ -230,7 +241,16 @@ protected:
 	//misc.
 	void BindDelegate();
 	void Melee();
+	void Die();
 	void Look(const FInputActionValue& Value);
+	virtual void StartAbility1();
+	virtual void StopAbility1();
+	virtual void StartAbility2();
+	virtual void StopAbility2();
+	virtual void StartUltimate();
+	virtual void StopUltimate();
+	void SaveCurWeapons();
+	void RestoreCurWeapons();
 
 public:
 		
