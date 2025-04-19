@@ -14,7 +14,12 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define CLASSSHOOTER_MovementCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execStartUltimate); \
+	DECLARE_FUNCTION(execStartAbility1);
+
+
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMovementCharacter(); \
 	friend struct Z_Construct_UClass_AMovementCharacter_Statics; \
@@ -23,9 +28,7 @@ public: \
 	DECLARE_SERIALIZER(AMovementCharacter)
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AMovementCharacter(); \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMovementCharacter(AMovementCharacter&&); \
@@ -37,12 +40,13 @@ public: \
 	NO_API virtual ~AMovementCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_12_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_GENERATED_BODY \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_PROLOG
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_15_ENHANCED_CONSTRUCTORS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_INCLASS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

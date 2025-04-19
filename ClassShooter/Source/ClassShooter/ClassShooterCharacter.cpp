@@ -84,8 +84,11 @@ void AClassShooterCharacter::BeginPlay()
 	baseGroundFriction = movementComponent->GroundFriction;
 	baseBrakingDeceleration = movementComponent->BrakingDecelerationWalking;
 	baseGravity = movementComponent->GravityScale;
-
+	originalCamPos = GetFirstPersonCameraComponent()->GetRelativeLocation();
 	originalBodyScale = GetCapsuleComponent()->GetComponentScale();
+
+	isInUltimate = false;
+	ultimateTriggered = false;
 
 
 	if (sniperWidgetClass)
@@ -292,7 +295,8 @@ void AClassShooterCharacter::Jump()
 
 		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
 			newJumpPow /= 2;
-		LaunchCharacter(GetActorUpVector() * newJumpPow, false, false);
+		movementComponent->AddImpulse(GetActorUpVector() * newJumpPow, true);
+		//LaunchCharacter(GetActorUpVector() * newJumpPow, false, true);
 	}
 }
 void AClassShooterCharacter::StopJumping()
@@ -537,7 +541,7 @@ void AClassShooterCharacter::StopADS()
 		}
 
 		targetFov = baseFov;
-		startFovChange = true;
+		//startFovChange = true;
 	}
 }
 void AClassShooterCharacter::StartShooting()

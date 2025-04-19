@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
-#include "../ClassShooterCharacter.h"
+#include "ClassShooter/ClassShooterCharacter.h"
 #include <Knife.h>
 #include "StealthCharacter.generated.h"
 
@@ -65,19 +65,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	UMaterialInterface* ultimateMat;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
-	bool isInUltimate;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
-	bool ultimateTriggered;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AWeaponBase> ultWeaponWorldObj;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AKnife> knifeObj;
 
+	bool cameraUltLerp;
+	bool cameraUltLerpBack;
+	FVector targetUltPos;
+	bool swingUltLaunch;
+
 protected:
 	virtual void Tick(float deltaTime) override;
+	virtual void BeginPlay() override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
@@ -92,4 +93,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
 	virtual void StartUltimate() override;
 	virtual void StopUltimate() override;
+	void SpawnUltWeapon();
+	virtual void StartShooting() override;
 };

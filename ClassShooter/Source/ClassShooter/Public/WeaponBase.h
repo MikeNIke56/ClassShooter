@@ -45,6 +45,9 @@ public:
 	bool isAutomatic;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	bool isShield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float fireRate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")

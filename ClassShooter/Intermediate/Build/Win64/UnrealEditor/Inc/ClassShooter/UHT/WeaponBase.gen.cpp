@@ -313,6 +313,10 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isShield_MetaData[] = {
+		{ "Category", "Weapon Variables" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_fireRate_MetaData[] = {
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
@@ -419,6 +423,8 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 	static const UECodeGen_Private::FNamePropertyParams NewProp_name;
 	static void NewProp_isAutomatic_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isAutomatic;
+	static void NewProp_isShield_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isShield;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_fireRate;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_shotTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_reloadTime;
@@ -469,6 +475,11 @@ void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic_SetBit(void* Ob
 	((AWeaponBase*)Obj)->isAutomatic = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic = { "isAutomatic", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AWeaponBase), &Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isAutomatic_MetaData), NewProp_isAutomatic_MetaData) };
+void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield_SetBit(void* Obj)
+{
+	((AWeaponBase*)Obj)->isShield = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield = { "isShield", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AWeaponBase), &Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isShield_MetaData), NewProp_isShield_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireRate = { "fireRate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, fireRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_fireRate_MetaData), NewProp_fireRate_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_shotTimer = { "shotTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, shotTimer), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shotTimer_MetaData), NewProp_shotTimer_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTime = { "reloadTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, reloadTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_reloadTime_MetaData), NewProp_reloadTime_MetaData) };
@@ -508,6 +519,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireOffset,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_shotTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_reloadTime,
@@ -577,10 +589,10 @@ struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_C
 		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 2569360804U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 692250935U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_3961040760(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_2487896050(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));

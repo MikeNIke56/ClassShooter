@@ -136,6 +136,7 @@ public:
 	float baseFov;
 	float targetFov;
 	bool startFovChange;
+	FVector originalCamPos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AWeaponBase> weaponWorldObj;
@@ -184,6 +185,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	bool shouldDestroyWeapon;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	bool isInUltimate;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	bool ultimateTriggered;
+
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();;
 	
@@ -209,14 +215,14 @@ protected:
 	void Slide();
 	void StopSliding();
 	FVector FindSlideVector();
-	void ResetMovement();
+	virtual void ResetMovement();
 
 
 	//gun related functions
-	void ADS();
-	void StopADS();
+	virtual void ADS();
+	virtual void StopADS();
 	virtual void StartShooting();
-	void StopShooting();
+	virtual void StopShooting();
 	void Shoot();
 	void ReadyGrenade();
 	void ThrowGrenade();

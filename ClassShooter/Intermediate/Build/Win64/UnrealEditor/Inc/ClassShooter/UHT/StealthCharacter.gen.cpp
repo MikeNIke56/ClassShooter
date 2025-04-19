@@ -194,14 +194,6 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isInUltimate_MetaData[] = {
-		{ "Category", "Stealth Class Base Values" },
-		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultimateTriggered_MetaData[] = {
-		{ "Category", "Stealth Class Base Values" },
-		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultWeaponWorldObj_MetaData[] = {
 		{ "Category", "StealthCharacter" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
@@ -225,10 +217,6 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_baseBodyMat;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_invisMat;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ultimateMat;
-	static void NewProp_isInUltimate_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isInUltimate;
-	static void NewProp_ultimateTriggered_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_ultimateTriggered;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_ultWeaponWorldObj;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_knifeObj;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -258,16 +246,6 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharac
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_baseBodyMat = { "baseBodyMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, baseBodyMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseBodyMat_MetaData), NewProp_baseBodyMat_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisMat = { "invisMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisMat_MetaData), NewProp_invisMat_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateMat = { "ultimateMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultimateMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultimateMat_MetaData), NewProp_ultimateMat_MetaData) };
-void Z_Construct_UClass_AStealthCharacter_Statics::NewProp_isInUltimate_SetBit(void* Obj)
-{
-	((AStealthCharacter*)Obj)->isInUltimate = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_isInUltimate = { "isInUltimate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AStealthCharacter), &Z_Construct_UClass_AStealthCharacter_Statics::NewProp_isInUltimate_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isInUltimate_MetaData), NewProp_isInUltimate_MetaData) };
-void Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateTriggered_SetBit(void* Obj)
-{
-	((AStealthCharacter*)Obj)->ultimateTriggered = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateTriggered = { "ultimateTriggered", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AStealthCharacter), &Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateTriggered_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultimateTriggered_MetaData), NewProp_ultimateTriggered_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultWeaponWorldObj = { "ultWeaponWorldObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultWeaponWorldObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultWeaponWorldObj_MetaData), NewProp_ultWeaponWorldObj_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_knifeObj = { "knifeObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, knifeObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AKnife_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_knifeObj_MetaData), NewProp_knifeObj_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AStealthCharacter_Statics::PropPointers[] = {
@@ -285,8 +263,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AStealthC
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_baseBodyMat,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisMat,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateMat,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_isInUltimate,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultimateTriggered,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultWeaponWorldObj,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_knifeObj,
 };
@@ -332,10 +308,10 @@ AStealthCharacter::~AStealthCharacter() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 767721135U) },
+		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 1293286385U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_4238845109(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_1602827906(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

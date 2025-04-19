@@ -15,10 +15,10 @@ void AKnife::Fire()
 
 void AKnife::Swing()
 {
-	UE_LOG(LogTemp, Warning, TEXT("meleeing"));
+	//UE_LOG(LogTemp, Warning, TEXT("meleeing"));
 }
 
 void AKnife::StopSwing()
 {
-	UE_LOG(LogTemp, Warning, TEXT("stop meleeing"));
+	//UE_LOG(LogTemp, Warning, TEXT("stop meleeing"));
 }

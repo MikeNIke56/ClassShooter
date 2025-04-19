@@ -2,8 +2,19 @@
 
 
 #include "StealthCharacter.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+
+void AStealthCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	cameraUltLerp = false;
+	cameraUltLerpBack = false;
+	targetUltPos = originalCamPos;
+	targetUltPos.X -= 250;
+	targetUltPos.Z += 50;
+}
 
 void AStealthCharacter::Tick(float deltaTime)
 {
@@ -14,6 +25,55 @@ void AStealthCharacter::Tick(float deltaTime)
 	else if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		isInUltimate = false;
+
+	if (cameraUltLerp == true)
+	{
+		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
+		FVector newLocation = FMath::VInterpTo(curLocation, targetUltPos,
+			deltaTime, 5);
+		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
+
+		if (FVector::Dist(targetUltPos, newLocation) <= .05)
+		{
+			cameraUltLerp = false;
+			cameraUltLerpBack = true;
+			movementComponent->GravityScale = baseGravity;
+		}
+	}
+	if (cameraUltLerpBack == true)
+	{
+		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
+		FVector newLocation = FMath::VInterpTo(curLocation, originalCamPos,
+			deltaTime, 12);
+		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
+
+		if (FVector::Dist(originalCamPos, newLocation) <= .05)
+		{
+			cameraUltLerpBack = false;
+			SpawnUltWeapon();
+		}
+	}
+}
+
+void AStealthCharacter::StartShooting()
+{
+	Super::StartShooting();
+	
+	if (swingUltLaunch == false && isInUltimate == true)
+	{
+		swingUltLaunch = true;
+		movementComponent->GroundFriction = 0.0;
+		movementComponent->BrakingDecelerationWalking = 700;
+		movementComponent->AddImpulse(GetActorForwardVector() * 1200, true);
+
+		FTimerHandle DelayTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				movementComponent->GroundFriction = baseGroundFriction;
+				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+				swingUltLaunch = false;
+			}), .75f, false);
+	}
 }
 
 void AStealthCharacter::StartAbility1()
@@ -163,36 +223,28 @@ void AStealthCharacter::StartUltimate()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
+		isInUltimate = true;
 		ultimateTriggered = true;
 		SaveCurWeapons();
 
+		FTimerHandle DelayTimerHandle1;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+			{
+				movementComponent->GravityScale = .5f;
+				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
+				cameraUltLerp = true;
+			}), .15f, false);
 
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.Owner = this;
-		SpawnParams.Instigator = GetInstigator();
+		
 
-		weaponWorldObj = knifeObj;
-
-		FVector spawnLoc = GetActorLocation();
-		FRotator spawnRot = GetActorRotation();
-
-		AWeaponBase* ultDaggerCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
-			spawnRot, SpawnParams);
-
-		if (ultDaggerCopy)
-			PickupWeapon(ultDaggerCopy);
-		else
-			UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
-			
-
-		GetWorldTimerManager().SetTimer(ultTimer, this,
-			&AStealthCharacter::StopUltimate, ultLength, false);
-
-		FTimerHandle DelayTimerHandle;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+		FTimerHandle DelayTimerHandle2;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
 				bodyMesh->SetMaterial(0, ultimateMat);
-			}), .15f, false);
+
+				GetWorldTimerManager().SetTimer(ultTimer, this,
+					&AStealthCharacter::StopUltimate, ultLength, false);
+			}), .5f, false);
 	}
 }
 void AStealthCharacter::StopUltimate()
@@ -204,6 +256,25 @@ void AStealthCharacter::StopUltimate()
 		{
 			ultimateTriggered = false;
 		}), .05f, false);
+}
+void AStealthCharacter::SpawnUltWeapon()
+{
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = this;
+	SpawnParams.Instigator = GetInstigator();
+
+	weaponWorldObj = knifeObj;
+
+	FVector spawnLoc = GetActorLocation();
+	FRotator spawnRot = GetActorRotation();
+
+	AWeaponBase* ultDaggerCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+		spawnRot, SpawnParams);
+
+	if (ultDaggerCopy)
+		PickupWeapon(ultDaggerCopy);
+	else
+		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }
 
 

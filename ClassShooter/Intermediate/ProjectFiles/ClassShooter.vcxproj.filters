@@ -99,6 +99,9 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\RocketLauncher.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Shield.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\ShieldCharacter.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
@@ -133,6 +136,9 @@
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\RocketLauncher.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Shield.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\ShieldCharacter.h">

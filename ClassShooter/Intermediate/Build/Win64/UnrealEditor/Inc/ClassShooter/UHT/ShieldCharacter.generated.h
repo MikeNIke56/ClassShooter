@@ -14,7 +14,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define CLASSSHOOTER_ShieldCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execStartUltimate); \
+	DECLARE_FUNCTION(execShieldThrow); \
+	DECLARE_FUNCTION(execShieldBash); \
+	DECLARE_FUNCTION(execBlock);
+
+
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAShieldCharacter(); \
 	friend struct Z_Construct_UClass_AShieldCharacter_Statics; \
@@ -23,9 +30,7 @@ public: \
 	DECLARE_SERIALIZER(AShieldCharacter)
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AShieldCharacter(); \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AShieldCharacter(AShieldCharacter&&); \
@@ -37,12 +42,13 @@ public: \
 	NO_API virtual ~AShieldCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_12_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_GENERATED_BODY \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_PROLOG
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_15_ENHANCED_CONSTRUCTORS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_INCLASS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
