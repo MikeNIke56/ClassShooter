@@ -216,6 +216,14 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isGrappleAtkHBOn_MetaData[] = {
+		{ "Category", "Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleAtkHitDetected_MetaData[] = {
+		{ "Category", "Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_cableComponent;
 	static void NewProp_bAttachEnd_SetBit(void* Obj);
@@ -252,6 +260,10 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_wallRunDelay;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_wallRunJumpDist;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_wallRunJumpHeight;
+	static void NewProp_isGrappleAtkHBOn_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isGrappleAtkHBOn;
+	static void NewProp_grappleAtkHitDetected_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_grappleAtkHitDetected;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -323,6 +335,16 @@ const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharact
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunDelay = { "wallRunDelay", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, wallRunDelay), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_wallRunDelay_MetaData), NewProp_wallRunDelay_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunJumpDist = { "wallRunJumpDist", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, wallRunJumpDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_wallRunJumpDist_MetaData), NewProp_wallRunJumpDist_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunJumpHeight = { "wallRunJumpHeight", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, wallRunJumpHeight), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_wallRunJumpHeight_MetaData), NewProp_wallRunJumpHeight_MetaData) };
+void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_isGrappleAtkHBOn_SetBit(void* Obj)
+{
+	((AMovementCharacter*)Obj)->isGrappleAtkHBOn = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_isGrappleAtkHBOn = { "isGrappleAtkHBOn", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_isGrappleAtkHBOn_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isGrappleAtkHBOn_MetaData), NewProp_isGrappleAtkHBOn_MetaData) };
+void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkHitDetected_SetBit(void* Obj)
+{
+	((AMovementCharacter*)Obj)->grappleAtkHitDetected = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkHitDetected = { "grappleAtkHitDetected", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkHitDetected_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleAtkHitDetected_MetaData), NewProp_grappleAtkHitDetected_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMovementCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_cableComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_bAttachEnd,
@@ -351,6 +373,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMovement
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunDelay,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunJumpDist,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_wallRunJumpHeight,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_isGrappleAtkHBOn,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkHitDetected,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMovementCharacter_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMovementCharacter_Statics::DependentSingletons[])() = {
@@ -393,10 +417,10 @@ AMovementCharacter::~AMovementCharacter() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 432599289U) },
+		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 92006601U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_2958942946(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_468093099(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

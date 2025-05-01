@@ -9,6 +9,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
+#include <Damageable.h>
 #include "WeaponBase.generated.h"
 
 
@@ -119,6 +120,12 @@ public:
 
 	FVector curCamLoc;
 	FRotator curCamRot;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon Variables")
+	AWeaponBase* shield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	float damage;
 	
 public:	
 	// Sets default values for this actor's properties

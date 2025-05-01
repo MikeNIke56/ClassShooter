@@ -14,6 +14,8 @@
 #include "Knife.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+
+
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
@@ -45,6 +47,8 @@ AClassShooterCharacter::AClassShooterCharacter()
 	weaponLocation->SetupAttachment(FirstPersonCameraComponent);
 
 	baseFov = FirstPersonCameraComponent->FieldOfView;
+	isMeleeHBOn = false;
+	knifeHitDetected = false;
 
 	static ConstructorHelpers::FClassFinder<UUserWidget> SniperFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/SniperADSUI.SniperADSUI'"));
 	if (SniperFinder.Succeeded())
@@ -64,12 +68,13 @@ void AClassShooterCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-
+	slashSpeed = 10;
 	curHealth = maxHealth;
 
 	movementComponent = GetCharacterMovement();
 	baseSpeed = movementComponent->MaxWalkSpeed;
 	curSpeed = baseSpeed;
+	sprintSpeed = baseSpeed * speedMulti;
 
 	ADSLerp = false;
 	recoilLerp = false;
@@ -111,12 +116,14 @@ void AClassShooterCharacter::BeginPlay()
 		}
 	}
 
+	defaultCameraLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
 }
 
 void AClassShooterCharacter::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 	jumpAllowed = IsGrounded();
+	curSpeed = movementComponent->MaxWalkSpeed;
 
 	if (ADSLerp == true)
 	{
@@ -190,6 +197,8 @@ void AClassShooterCharacter::Tick(float deltaTime)
 				FRotator resetRot(0, -90, 0);
 				weaponLocation->SetRelativeLocation(targetLocation);
 				weaponLocation->SetRelativeRotation(resetRot);
+				isMeleeHBOn = false;
+				knifeHitDetected = false;
 			}
 		}
 		else
@@ -203,6 +212,8 @@ void AClassShooterCharacter::Tick(float deltaTime)
 				FRotator resetRot(0, -90, 0);
 				weaponLocation->SetRelativeLocation(targetLocation);
 				weaponLocation->SetRelativeRotation(resetRot);
+				isMeleeHBOn = false;
+				knifeHitDetected = false;
 			}
 		}
 	}
@@ -211,6 +222,42 @@ void AClassShooterCharacter::Tick(float deltaTime)
 	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
 
 	isSprinting = IsStillSprinting();
+
+	if (movementComponent->Velocity.Length() > 0.1f)
+	{
+		if (curSpeed == sprintSpeed && IsGrounded() == true)
+		{
+			float newBobAmount = bobAmount * 1.5;
+			float newBobSpd = bobSpeed * 1.5;
+			float newAmplitude = amplitude * 1.5;
+			bobTimer += deltaTime * newBobSpd;
+			float OffsetZ = FMath::Sin(bobTimer * amplitude) * newBobAmount;
+			float OffsetY = FMath::Sin(bobTimer * (newBobAmount / amplitude));
+
+			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
+			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+		}
+		else if (curSpeed == baseSpeed && IsGrounded() == true)
+		{
+			bobTimer += deltaTime * bobSpeed;
+			float OffsetZ = FMath::Sin(bobTimer * amplitude) * bobAmount;
+			float OffsetY = FMath::Sin(bobTimer * (bobAmount / amplitude));
+
+			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
+			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+		}
+	}
+	else
+	{
+		// Reset bob
+		bobTimer = 0.0f;
+		FirstPersonCameraComponent->SetRelativeLocation(FMath::VInterpTo(
+			FirstPersonCameraComponent->GetRelativeLocation(),
+			defaultCameraLocation,
+			deltaTime,
+			5.0f
+		));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -352,7 +399,7 @@ void AClassShooterCharacter::Sprint()
 	isSliding = false;
 	isCrouching = false;
 
-	movementComponent->MaxWalkSpeed *= speedMulti;
+	movementComponent->MaxWalkSpeed = sprintSpeed;
 }
 void AClassShooterCharacter::StopSprinting()
 {
@@ -541,7 +588,7 @@ void AClassShooterCharacter::StopADS()
 		}
 
 		targetFov = baseFov;
-		//startFovChange = true;
+		startFovChange = true;
 	}
 }
 void AClassShooterCharacter::StartShooting()
@@ -593,31 +640,31 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 	{
 		if (weapon->name == "Pistol")
 		{
-			targetLocation = FVector(52.0, -14.0, -30.0);
+			targetLocation = FVector(100.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "Shotgun")
 		{
-			targetLocation = FVector(35.0, -14.0, -30.0);
+			targetLocation = FVector(85.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "AR")
 		{
-			targetLocation = FVector(35.0, -14.0, -30.0);
+			targetLocation = FVector(65.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "Sniper")
 		{
-			targetLocation = FVector(30.0, -14.0, -30.0);
+			targetLocation = FVector(60.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "GL")
 		{
-			targetLocation = FVector(35.0, -14.0, -30.0);
+			targetLocation = FVector(70.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "RPG")
 		{
-			targetLocation = FVector(30.0, -14.0, -30.0);
+			targetLocation = FVector(50.0, -14.0, -30.0);
 		}
 		else if (weapon->name == "Knife")
 		{
-			targetLocation = FVector(70.0, -14.0, -30.0);
+			targetLocation = FVector(80.0, -14.0, -30.0);
 		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
@@ -858,6 +905,7 @@ void AClassShooterCharacter::Melee()
 		FTransform transform(rotation, location, scale);
 
 		weaponLocation->SetRelativeTransform(transform);
+		isMeleeHBOn = true;
 		meleeLerp = true;
 	}
 	else
@@ -868,10 +916,12 @@ void AClassShooterCharacter::Melee()
 		FTransform transform(rotation, location, scale);
 
 		weaponLocation->SetRelativeTransform(transform);
+		isMeleeHBOn = true;
 		meleeLerp = true;
 	}
 	curWeapon->Fire();
 }
+
 void AClassShooterCharacter::BindDelegate()
 {
 	//bind delegate event 
@@ -952,6 +1002,16 @@ void AClassShooterCharacter::RestoreCurWeapons()
 			else
 				weaponArray[i]->state = WeaponState::Stowed;
 		}
+	}
+}
+
+void AClassShooterCharacter::TakeCustomDamage_Implementation(float amount)
+{
+	curHealth -= amount;
+	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
+	if (curHealth <= 0.0)
+	{
+		Die();
 	}
 }
 void AClassShooterCharacter::Die()

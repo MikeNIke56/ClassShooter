@@ -100,6 +100,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float wallRunJumpHeight;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool isGrappleAtkHBOn;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool grappleAtkHitDetected;
+
 public:
 	AMovementCharacter();
 

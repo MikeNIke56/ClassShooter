@@ -3,3 +3,7 @@
 
 #include "Shield.h"
 
+AShield::AShield()
+{
+	wasThrown = false;
+}

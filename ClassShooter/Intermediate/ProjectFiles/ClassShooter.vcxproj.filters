@@ -84,6 +84,9 @@
     <ClCompile Include="..\..\Source\ClassShooter\Private\AssaultRifle.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ClassShooter\Private\Damageable.cpp">
+      <Filter>Source\ClassShooter\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ClassShooter\Private\GrenadeLauncher.cpp">
       <Filter>Source\ClassShooter\Private</Filter>
     </ClCompile>
@@ -121,6 +124,9 @@
       <UniqueIdentifier>{20167264-6E86-30BC-BB83-AF582AA9FB1B}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\ClassShooter\Public\AssaultRifle.h">
+      <Filter>Source\ClassShooter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ClassShooter\Public\Damageable.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ClassShooter\Public\GrenadeLauncher.h">

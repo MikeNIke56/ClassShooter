@@ -32,6 +32,9 @@ void AShotgun::Fire()
 			collisionParams.AddIgnoredActor(this); // Ignore self
 			collisionParams.AddIgnoredActor(GetAttachParentActor());
 
+			if (shield != nullptr)
+				collisionParams.AddIgnoredActor(shield);
+
 			// Define Object Types to Trace (e.g., Physics Bodies)
 			FCollisionObjectQueryParams ObjectQueryParams;
 			ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
@@ -57,10 +60,15 @@ void AShotgun::Fire()
 					GetActorRotation()
 				);
 
-				/*if (hitActor->IsA(ClassShooterCharacter::StaticClass()))
+				if (hitActor && hitActor->GetName().Contains("Character"))
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Hit an AMyTargetClass!"));
-				}*/
+					if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
+					{
+						IDamageable* Damageable = Cast<IDamageable>(hitActor);
+						if (Damageable)
+							Damageable->TakeCustomDamage_Implementation(damage);
+					}
+				}
 			}
 		}
 

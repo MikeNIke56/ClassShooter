@@ -37,6 +37,9 @@ void AMovementCharacter::BeginPlay()
 	canWallRun = true;
 	cameraRotateLerp = false;
 
+	isGrappleAtkHBOn = false;
+	grappleAtkHitDetected = false;
+
 	baseGrappleCooldown = grappleCooldown;
 
 	FTimerHandle DelayTimerHandle;
@@ -69,7 +72,7 @@ void AMovementCharacter::Tick(float deltaTime)
 			deltaTime, 5);
 		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
 
-		if (FVector::Dist(targetUltPos, newLocation) <= .05)
+		if (FVector::Dist(targetUltPos, newLocation) <= .05f)
 		{
 			cameraUltLerp = false;
 			cameraUltLerpBack = true;
@@ -175,6 +178,7 @@ void AMovementCharacter::StopAbility1()
 }
 void AMovementCharacter::GrappleAttack(FVector2D dir)
 {
+	isGrappleAtkHBOn = true;
 	movementVector = FVector2D::ZeroVector;
 	didGrappleAtk = true;
 	movementComponent->StopMovementImmediately();
@@ -207,6 +211,12 @@ void AMovementCharacter::GrappleAttack(FVector2D dir)
 		{
 			didGrappleAtk = false;
 		}), .75f, false);
+	FTimerHandle DelayTimerHandle3;
+	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle3, FTimerDelegate::CreateLambda([this]()
+		{
+			isGrappleAtkHBOn = false;
+			grappleAtkHitDetected = false;
+		}), 1.25f, false);
 }
 void AMovementCharacter::Grapple()
 {
@@ -249,7 +259,7 @@ void AMovementCharacter::Grapple()
 		{
 			cableComponent->bAttachEnd = false;
 			grapplePointCopy->Destroy();
-		}), 1.0f, false);
+		}), 1.25f, false);
 }
 
 void AMovementCharacter::StartUltimate()
@@ -269,8 +279,6 @@ void AMovementCharacter::StartUltimate()
 				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
 				cameraUltLerp = true;
 			}), .15f, false);
-
-
 
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()

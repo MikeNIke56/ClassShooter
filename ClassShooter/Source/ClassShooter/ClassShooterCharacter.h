@@ -11,7 +11,9 @@
 #include "Blueprint/UserWidget.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "Damageable.h"
 #include "ClassShooterCharacter.generated.h"
+
 
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -24,7 +26,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game, Blueprintable)
-class AClassShooterCharacter : public ACharacter
+class AClassShooterCharacter : public ACharacter, public IDamageable
 {
 	GENERATED_BODY()
 
@@ -160,6 +162,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float sprintSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float jumpPow;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float slidePow;
@@ -185,10 +189,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	bool shouldDestroyWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isInUltimate;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool ultimateTriggered;
+
+	// Headbob parameters
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float bobTimer = 0.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float bobSpeed = 10.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float bobAmount = 2.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	int amplitude = 2.0f;
+	FVector defaultCameraLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool isMeleeHBOn;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool knifeHitDetected;
 
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();;
@@ -235,18 +255,19 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ADSCurWeapon(AWeaponBase* weapon);
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
-	bool PickupWeapon(AWeaponBase* weapon);
+	virtual bool PickupWeapon(AWeaponBase* weapon);
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void SwitchWeapon(const FInputActionValue& Value);
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void StowWeapon(AWeaponBase* weapon, const FName& socketName);
-	void DropWeapon();
+	virtual void DropWeapon();
 	void Reload();
 
 
 	//misc.
 	void BindDelegate();
 	void Melee();
+	void TakeCustomDamage_Implementation(float DamageAmount) override;
 	void Die();
 	void Look(const FInputActionValue& Value);
 	virtual void StartAbility1();

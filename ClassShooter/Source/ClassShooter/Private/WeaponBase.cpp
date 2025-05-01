@@ -4,6 +4,7 @@
 #include "WeaponBase.h"
 #include "Math/UnrealMathUtility.h"
 
+
 // Sets default values
 AWeaponBase::AWeaponBase()
 {
@@ -71,6 +72,9 @@ void AWeaponBase::Fire()
 			collisionParams.AddIgnoredActor(this); // Ignore self
 			collisionParams.AddIgnoredActor(GetAttachParentActor());
 
+			if(shield != nullptr)
+				collisionParams.AddIgnoredActor(shield);
+
 			// Define Object Types to Trace (e.g., Physics Bodies)
 			FCollisionObjectQueryParams ObjectQueryParams;
 			ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
@@ -83,7 +87,7 @@ void AWeaponBase::Fire()
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 			// Draw debug line (visible for 1 second)
-			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
+			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
 
 			AActor* hitActor = hitResult.GetActor();
 			// Check if we hit something
@@ -96,9 +100,14 @@ void AWeaponBase::Fire()
 					GetActorRotation()
 				);
 
-				if (hitActor && hitActor->GetName().Contains("ClassShooterCharacter"))
+				if (hitActor && hitActor->GetName().Contains("Character"))
 				{
-					UE_LOG(LogTemp, Warning, TEXT("Hit a MyTargetActor!"));
+					if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
+					{
+						IDamageable* Damageable = Cast<IDamageable>(hitActor);
+						if (Damageable)
+							Damageable->TakeCustomDamage_Implementation(damage);
+					}
 				}
 			}
 

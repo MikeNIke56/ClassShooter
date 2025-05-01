@@ -16,8 +16,11 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execStartUltimate); \
+	DECLARE_FUNCTION(execStartAbility2); \
+	DECLARE_FUNCTION(execStartAbility1); \
 	DECLARE_FUNCTION(execShieldThrow); \
 	DECLARE_FUNCTION(execShieldBash); \
+	DECLARE_FUNCTION(execStopBlocking); \
 	DECLARE_FUNCTION(execBlock);
 
 

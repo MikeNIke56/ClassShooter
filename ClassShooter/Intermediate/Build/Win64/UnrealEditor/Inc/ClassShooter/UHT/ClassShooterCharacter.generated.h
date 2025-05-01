@@ -16,7 +16,7 @@ struct FInputActionValue;
 #endif
 #define CLASSSHOOTER_ClassShooterCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execStowWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \
 	DECLARE_FUNCTION(execPickupWeapon); \
@@ -26,16 +26,17 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execRecoil);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_INCLASS_NO_PURE_DECLS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAClassShooterCharacter(); \
 	friend struct Z_Construct_UClass_AClassShooterCharacter_Statics; \
 public: \
 	DECLARE_CLASS(AClassShooterCharacter, ACharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/ClassShooter"), NO_API) \
-	DECLARE_SERIALIZER(AClassShooterCharacter)
+	DECLARE_SERIALIZER(AClassShooterCharacter) \
+	virtual UObject* _getUObject() const override { return const_cast<AClassShooterCharacter*>(this); }
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_ENHANCED_CONSTRUCTORS \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AClassShooterCharacter(AClassShooterCharacter&&); \
@@ -47,13 +48,13 @@ public: \
 	NO_API virtual ~AClassShooterCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_26_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_GENERATED_BODY \
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_28_PROLOG
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_ENHANCED_CONSTRUCTORS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_INCLASS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

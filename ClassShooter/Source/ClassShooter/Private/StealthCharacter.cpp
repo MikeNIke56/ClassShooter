@@ -33,7 +33,7 @@ void AStealthCharacter::Tick(float deltaTime)
 			deltaTime, 5);
 		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
 
-		if (FVector::Dist(targetUltPos, newLocation) <= .05)
+		if (FVector::Dist(targetUltPos, newLocation) <= .05f)
 		{
 			cameraUltLerp = false;
 			cameraUltLerpBack = true;
@@ -225,7 +225,7 @@ void AStealthCharacter::StartUltimate()
 	{
 		isInUltimate = true;
 		ultimateTriggered = true;
-		SaveCurWeapons();
+		SaveCurWeapons();		
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -234,8 +234,6 @@ void AStealthCharacter::StartUltimate()
 				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
 				cameraUltLerp = true;
 			}), .15f, false);
-
-		
 
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
