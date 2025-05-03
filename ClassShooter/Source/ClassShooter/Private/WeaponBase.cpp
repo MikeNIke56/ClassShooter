@@ -8,6 +8,10 @@
 // Sets default values
 AWeaponBase::AWeaponBase()
 {
+	bReplicates = true;
+	SetReplicates(true);
+	SetReplicateMovement(true);
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -39,6 +43,21 @@ void AWeaponBase::Tick(float DeltaTime)
 }
 
 // Fires the weapon
+void AWeaponBase::HandleFire()
+{
+	if (HasAuthority())
+	{
+		Fire(); // We're already on the server
+	}
+	else
+	{
+		ServerFire(); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerFire_Implementation()
+{
+	Fire();
+}
 void AWeaponBase::Fire()
 {
 	if (isShield == false)
@@ -51,7 +70,7 @@ void AWeaponBase::Fire()
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(fireTimer, this,
-					&AWeaponBase::CanFireAgain, fireRate, false);
+					&AWeaponBase::HandleCanFireAgain, fireRate, false);
 			}
 
 
@@ -106,7 +125,7 @@ void AWeaponBase::Fire()
 					{
 						IDamageable* Damageable = Cast<IDamageable>(hitActor);
 						if (Damageable)
-							Damageable->TakeCustomDamage_Implementation(damage);
+							Damageable->HandleTakeCustomDamage_Implementation(damage);
 					}
 				}
 			}
@@ -120,13 +139,43 @@ void AWeaponBase::Fire()
 	}
 }
 
+void AWeaponBase::HandleAutoFire()
+{
+	if (HasAuthority())
+	{
+		AutoFire(); // We're already on the server
+	}
+	else
+	{
+		ServerAutoFire(); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerAutoFire_Implementation()
+{
+	AutoFire();
+}
 void AWeaponBase::AutoFire()
 {
-	Fire();
+	HandleFire();
 	GetWorldTimerManager().SetTimer(fireTimer, this,
-		&AWeaponBase::Fire, fireRate, true);
+		&AWeaponBase::HandleFire, fireRate, true);
 }
 
+void AWeaponBase::HandleReload()
+{
+	if (HasAuthority())
+	{
+		Reload(); // We're already on the server
+	}
+	else
+	{
+		ServerReload(); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerReload_Implementation()
+{
+	Reload();
+}
 void AWeaponBase::Reload()
 {
 	if (isShield == false)
@@ -140,12 +189,27 @@ void AWeaponBase::Reload()
 				weaponMesh->PlayAnimation(reloadAnim, false);
 
 				// starts fireTimer
-				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);
+				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::HandleFinishReloading, reloadTime, false);
 			}
 		}
 	}
 }
 
+void AWeaponBase::HandleCanFireAgain()
+{
+	if (HasAuthority())
+	{
+		CanFireAgain(); // We're already on the server
+	}
+	else
+	{
+		ServerCanFireAgain(); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerCanFireAgain_Implementation()
+{
+	CanFireAgain();
+}
 void AWeaponBase::CanFireAgain()
 {
 	canFire = true;
@@ -153,6 +217,21 @@ void AWeaponBase::CanFireAgain()
 	UE_LOG(LogTemp, Warning, TEXT("can fire again"));
 }
 
+void AWeaponBase::HandleFinishReloading()
+{
+	if (HasAuthority())
+	{
+		FinishReloading(); // We're already on the server
+	}
+	else
+	{
+		ServerFinishReloading(); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerFinishReloading_Implementation()
+{
+	FinishReloading();
+}
 void AWeaponBase::FinishReloading()
 {
 	curAmmo += ammoToRefill;
@@ -173,11 +252,26 @@ void AWeaponBase::FinishReloading()
 	}), .75f, false);
 }
 
-void AWeaponBase::SetUpWeapon(const AWeaponBase& weapon)
+void AWeaponBase::HandleSetUpWeapon(AWeaponBase* weapon)
 {
-	curAmmo = weapon.curAmmo;
-	ammoToRefill = weapon.ammoToRefill;
-	ammoReserves = weapon.ammoReserves;
+	if (HasAuthority())
+	{
+		SetUpWeapon(weapon); // We're already on the server
+	}
+	else
+	{
+		ServerSetUpWeapon(weapon); // Ask the server to run DropWeapon()
+	}
+}
+void AWeaponBase::ServerSetUpWeapon_Implementation(AWeaponBase* weapon)
+{
+	SetUpWeapon(weapon);
+}
+void AWeaponBase::SetUpWeapon(AWeaponBase* weapon)
+{
+	curAmmo = weapon->curAmmo;
+	ammoToRefill = weapon->ammoToRefill;
+	ammoReserves = weapon->ammoReserves;
 }
 
 // The bullet cone of the weapon

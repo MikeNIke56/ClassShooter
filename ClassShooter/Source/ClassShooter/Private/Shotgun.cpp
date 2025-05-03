@@ -3,7 +3,7 @@
 
 #include "Shotgun.h"
 
-void AShotgun::Fire()
+void AShotgun::HandleFire()
 {
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
@@ -11,7 +11,7 @@ void AShotgun::Fire()
 
 		// starts fireTimer
 		GetWorldTimerManager().SetTimer(fireTimer, this,
-			&AWeaponBase::CanFireAgain, fireRate, false);
+			&AWeaponBase::HandleCanFireAgain, fireRate, false);
 
 		weaponMesh->PlayAnimation(fireAnim, false);
 
@@ -66,7 +66,7 @@ void AShotgun::Fire()
 					{
 						IDamageable* Damageable = Cast<IDamageable>(hitActor);
 						if (Damageable)
-							Damageable->TakeCustomDamage_Implementation(damage);
+							Damageable->HandleTakeCustomDamage_Implementation(damage);
 					}
 				}
 			}

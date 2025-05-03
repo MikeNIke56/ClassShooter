@@ -8,7 +8,7 @@ void AKnife::Tick(float deltaTime)
 	
 }
 
-void AKnife::Fire()
+void AKnife::HandleFire()
 {
 	Swing();
 }

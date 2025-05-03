@@ -15,9 +15,9 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define CLASSSHOOTER_StealthCharacter_generated_h
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execStartUltimate); \
-	DECLARE_FUNCTION(execStartAbility2); \
-	DECLARE_FUNCTION(execStartAbility1);
+	DECLARE_FUNCTION(execHandleStartUltimate); \
+	DECLARE_FUNCTION(execHandleStartAbility2); \
+	DECLARE_FUNCTION(execHandleStartAbility1);
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_INCLASS_NO_PURE_DECLS \

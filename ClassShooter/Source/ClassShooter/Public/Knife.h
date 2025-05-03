@@ -15,7 +15,7 @@ class CLASSSHOOTER_API AKnife : public AWeaponBase
 	GENERATED_BODY()
 
 public:
-	virtual void Fire() override;
+	virtual void HandleFire() override;
 	void Swing();
 	void StopSwing();
 	

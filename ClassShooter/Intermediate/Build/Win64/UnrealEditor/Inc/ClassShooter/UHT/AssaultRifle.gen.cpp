@@ -83,10 +83,10 @@ AAssaultRifle::~AAssaultRifle() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_AssaultRifle_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAssaultRifle, AAssaultRifle::StaticClass, TEXT("AAssaultRifle"), &Z_Registration_Info_UClass_AAssaultRifle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAssaultRifle), 4121388801U) },
+		{ Z_Construct_UClass_AAssaultRifle, AAssaultRifle::StaticClass, TEXT("AAssaultRifle"), &Z_Registration_Info_UClass_AAssaultRifle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAssaultRifle), 653770759U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_AssaultRifle_h_3851765758(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_AssaultRifle_h_1616635623(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_AssaultRifle_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_AssaultRifle_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

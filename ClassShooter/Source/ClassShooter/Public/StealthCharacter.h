@@ -82,17 +82,17 @@ protected:
 
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void StartAbility1() override;
-	virtual void StopAbility1() override;
+	virtual void HandleStartAbility1() override;
+	virtual void HandleStopAbility1() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void StartAbility2() override;
-	virtual void StopAbility2() override;
+	virtual void HandleStartAbility2() override;
+	virtual void HandleStopAbility2() override;
 	void DirectionalDodge(FVector2D dir);
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void StartUltimate() override;
-	virtual void StopUltimate() override;
+	virtual void HandleStartUltimate() override;
+	virtual void HandleStopUltimate() override;
 	void SpawnUltWeapon();
-	virtual void StartShooting() override;
+	virtual void HandleStartShooting() override;
 };

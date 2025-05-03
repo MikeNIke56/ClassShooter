@@ -53,7 +53,7 @@ void AShieldCharacter::BeginPlay()
 
 	unADSshieldLocation = shieldLocation->GetRelativeLocation();
 	ADSshieldLocation = unADSshieldLocation;
-	ADSshieldLocation.Y -= 50;
+	ADSshieldLocation.Y -= 40;
 	ADSshieldLocation.Z -= 20;
 }
 
@@ -90,7 +90,7 @@ void AShieldCharacter::Tick(float deltaTime)
 
 		if (FVector::Dist(originalCamPos, newLocation) <= .05)
 		{
-			StopAbility2();
+			HandleStopAbility2();
 			cameraUltLerpBack = false;
 		}
 	}
@@ -116,12 +116,12 @@ void AShieldCharacter::Tick(float deltaTime)
 	}
 }
 
-void AShieldCharacter::StartShooting()
+void AShieldCharacter::HandleStartShooting()
 {
 	if (isInUltimate == true)
 		ShieldThrow();
 	else
-		Super::StartShooting();
+		Super::HandleStartShooting();
 }
 
 bool AShieldCharacter::PickupWeapon(AWeaponBase* weapon)
@@ -137,15 +137,15 @@ void AShieldCharacter::DropWeapon()
 }
 
 
-void AShieldCharacter::ADS()
+void AShieldCharacter::HandleADS()
 {
 	StopBlocking();
-	Super::ADS();
+	Super::HandleADS();
 }
-void AShieldCharacter::StopADS()
+void AShieldCharacter::HandleStopADS()
 {
 	Block();
-	Super::StopADS();
+	Super::HandleStopADS();
 }
 void AShieldCharacter::Block()
 {
@@ -159,24 +159,24 @@ void AShieldCharacter::StopBlocking()
 }
 
 
-void AShieldCharacter::StartAbility1()
+void AShieldCharacter::HandleStartAbility1()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldBashTimer) == false
 		&& hasShield == true)
 	{
 		GetWorldTimerManager().SetTimer(shieldBashTimer, this,
-			&AShieldCharacter::StopAbility1, shieldBashCooldown, false);
+			&AShieldCharacter::HandleStopAbility1, shieldBashCooldown, false);
 		ShieldBash();
 	}
 }
-void AShieldCharacter::StopAbility1()
+void AShieldCharacter::HandleStopAbility1()
 {
 	
 }
 void AShieldCharacter::ShieldBash()
 {
 	isShieldBashHBOn = true;
-	ADS();
+	HandleADS();
 	UGameplayStatics::SpawnEmitterAtLocation(
 		GetWorld(),
 		shieldBashVFX,
@@ -193,7 +193,7 @@ void AShieldCharacter::ShieldBash()
 	FTimerHandle DelayTimerHandle1;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 		{
-			StopADS();
+			HandleStopADS();
 			movementComponent->GroundFriction = baseGroundFriction;
 			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		}), .75f, false);
@@ -205,17 +205,17 @@ void AShieldCharacter::ShieldBash()
 		}), 1.0f, false);
 }
 
-void AShieldCharacter::StartAbility2()
+void AShieldCharacter::HandleStartAbility2()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldThrowTimer) == false 
 		&& hasShield == true)
 	{
 		GetWorldTimerManager().SetTimer(shieldThrowTimer, this,
-			&AShieldCharacter::StopAbility2, shieldThrowCooldown, false);
+			&AShieldCharacter::HandleStopAbility2, shieldThrowCooldown, false);
 		ShieldThrow();
 	}
 }
-void AShieldCharacter::StopAbility2()
+void AShieldCharacter::HandleStopAbility2()
 {
 	shieldCopy->SetActorEnableCollision(true);
 	shieldCopy->SetActorHiddenInGame(false);
@@ -255,7 +255,7 @@ void AShieldCharacter::ShieldThrow()
 			* shieldThrowPow, NAME_None, true);
 }
 
-void AShieldCharacter::StartUltimate()
+void AShieldCharacter::HandleStartUltimate()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
@@ -265,7 +265,7 @@ void AShieldCharacter::StartUltimate()
 
 		isInUltimate = true;
 		ultimateTriggered = true;
-		SaveCurWeapons();
+		HandleSaveCurWeapons();
 
 		shieldCopy->SetActorEnableCollision(false);
 		shieldCopy->SetActorHiddenInGame(true);
@@ -286,14 +286,14 @@ void AShieldCharacter::StartUltimate()
 				bodyMesh->SetMaterial(0, ultimateMat);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AShieldCharacter::StopUltimate, ultLength, false);
+					&AShieldCharacter::HandleStopUltimate, ultLength, false);
 			}), .5f, false);
 	}
 }
-void AShieldCharacter::StopUltimate()
+void AShieldCharacter::HandleStopUltimate()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
-	RestoreCurWeapons();
+	HandleRestoreCurWeapons();
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
 

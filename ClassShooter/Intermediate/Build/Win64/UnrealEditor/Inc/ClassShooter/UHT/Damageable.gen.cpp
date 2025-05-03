@@ -16,22 +16,22 @@ COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
-// Begin Interface UDamageable Function TakeCustomDamage
-struct Damageable_eventTakeCustomDamage_Parms
+// Begin Interface UDamageable Function HandleTakeCustomDamage
+struct Damageable_eventHandleTakeCustomDamage_Parms
 {
 	float Amount;
 };
-void IDamageable::TakeCustomDamage(float Amount)
+void IDamageable::HandleTakeCustomDamage(float Amount)
 {
-	check(0 && "Do not directly call Event functions in Interfaces. Call Execute_TakeCustomDamage instead.");
+	check(0 && "Do not directly call Event functions in Interfaces. Call Execute_HandleTakeCustomDamage instead.");
 }
-static FName NAME_UDamageable_TakeCustomDamage = FName(TEXT("TakeCustomDamage"));
-void IDamageable::Execute_TakeCustomDamage(UObject* O, float Amount)
+static FName NAME_UDamageable_HandleTakeCustomDamage = FName(TEXT("HandleTakeCustomDamage"));
+void IDamageable::Execute_HandleTakeCustomDamage(UObject* O, float Amount)
 {
 	check(O != NULL);
 	check(O->GetClass()->ImplementsInterface(UDamageable::StaticClass()));
-	Damageable_eventTakeCustomDamage_Parms Parms;
-	UFunction* const Func = O->FindFunction(NAME_UDamageable_TakeCustomDamage);
+	Damageable_eventHandleTakeCustomDamage_Parms Parms;
+	UFunction* const Func = O->FindFunction(NAME_UDamageable_HandleTakeCustomDamage);
 	if (Func)
 	{
 		Parms.Amount=Amount;
@@ -39,10 +39,10 @@ void IDamageable::Execute_TakeCustomDamage(UObject* O, float Amount)
 	}
 	else if (auto I = (IDamageable*)(O->GetNativeInterfaceAddress(UDamageable::StaticClass())))
 	{
-		I->TakeCustomDamage_Implementation(Amount);
+		I->HandleTakeCustomDamage_Implementation(Amount);
 	}
 }
-struct Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics
+struct Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -54,38 +54,38 @@ struct Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::NewProp_Amount = { "Amount", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Damageable_eventTakeCustomDamage_Parms, Amount), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::NewProp_Amount,
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::NewProp_Amount = { "Amount", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Damageable_eventHandleTakeCustomDamage_Parms, Amount), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::NewProp_Amount,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDamageable, nullptr, "TakeCustomDamage", nullptr, nullptr, Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::PropPointers), sizeof(Damageable_eventTakeCustomDamage_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::Function_MetaDataParams) };
-static_assert(sizeof(Damageable_eventTakeCustomDamage_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_UDamageable_TakeCustomDamage()
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UDamageable, nullptr, "HandleTakeCustomDamage", nullptr, nullptr, Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::PropPointers), sizeof(Damageable_eventHandleTakeCustomDamage_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::Function_MetaDataParams), Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Damageable_eventHandleTakeCustomDamage_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDamageable_TakeCustomDamage_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(IDamageable::execTakeCustomDamage)
+DEFINE_FUNCTION(IDamageable::execHandleTakeCustomDamage)
 {
 	P_GET_PROPERTY(FFloatProperty,Z_Param_Amount);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->TakeCustomDamage_Implementation(Z_Param_Amount);
+	P_THIS->HandleTakeCustomDamage_Implementation(Z_Param_Amount);
 	P_NATIVE_END;
 }
-// End Interface UDamageable Function TakeCustomDamage
+// End Interface UDamageable Function HandleTakeCustomDamage
 
 // Begin Interface UDamageable
 void UDamageable::StaticRegisterNativesUDamageable()
 {
 	UClass* Class = UDamageable::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "TakeCustomDamage", &IDamageable::execTakeCustomDamage },
+		{ "HandleTakeCustomDamage", &IDamageable::execHandleTakeCustomDamage },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -105,7 +105,7 @@ struct Z_Construct_UClass_UDamageable_Statics
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UDamageable_TakeCustomDamage, "TakeCustomDamage" }, // 3314959516
+		{ &Z_Construct_UFunction_UDamageable_HandleTakeCustomDamage, "HandleTakeCustomDamage" }, // 2938949341
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -154,10 +154,10 @@ UDamageable::~UDamageable() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UDamageable, UDamageable::StaticClass, TEXT("UDamageable"), &Z_Registration_Info_UClass_UDamageable, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDamageable), 1187914633U) },
+		{ Z_Construct_UClass_UDamageable, UDamageable::StaticClass, TEXT("UDamageable"), &Z_Registration_Info_UClass_UDamageable, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDamageable), 1094516381U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_1473777918(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_3274179948(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

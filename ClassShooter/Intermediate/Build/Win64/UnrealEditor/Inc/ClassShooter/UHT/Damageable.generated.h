@@ -15,8 +15,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define CLASSSHOOTER_Damageable_generated_h
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	virtual void TakeCustomDamage_Implementation(float Amount) {}; \
-	DECLARE_FUNCTION(execTakeCustomDamage);
+	virtual void HandleTakeCustomDamage_Implementation(float Amount) {}; \
+	DECLARE_FUNCTION(execHandleTakeCustomDamage);
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_CALLBACK_WRAPPERS
@@ -57,7 +57,7 @@ protected: \
 public: \
 	typedef UDamageable UClassType; \
 	typedef IDamageable ThisClass; \
-	static void Execute_TakeCustomDamage(UObject* O, float Amount); \
+	static void Execute_HandleTakeCustomDamage(UObject* O, float Amount); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 

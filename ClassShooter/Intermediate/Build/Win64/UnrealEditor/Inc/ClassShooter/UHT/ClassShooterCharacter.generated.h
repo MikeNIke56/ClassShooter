@@ -17,15 +17,47 @@ struct FInputActionValue;
 #define CLASSSHOOTER_ClassShooterCharacter_generated_h
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execStowWeapon); \
-	DECLARE_FUNCTION(execSwitchWeapon); \
+	DECLARE_FUNCTION(execServerDie); \
+	DECLARE_FUNCTION(execServerTakeCustomDamage); \
+	DECLARE_FUNCTION(execServerMelee); \
+	DECLARE_FUNCTION(execServerRestoreCurWeapons); \
+	DECLARE_FUNCTION(execServerSaveCurWeapons); \
+	DECLARE_FUNCTION(execServerStopUltimate); \
+	DECLARE_FUNCTION(execServerStartUltimate); \
+	DECLARE_FUNCTION(execServerStopAbility2); \
+	DECLARE_FUNCTION(execServerStartAbility2); \
+	DECLARE_FUNCTION(execServerStopAbility1); \
+	DECLARE_FUNCTION(execServerStartAbility1); \
+	DECLARE_FUNCTION(execServerDropWeapon); \
+	DECLARE_FUNCTION(execServerStowWeapon); \
+	DECLARE_FUNCTION(execHandleStowWeapon); \
+	DECLARE_FUNCTION(execServerSwitchWeapon); \
+	DECLARE_FUNCTION(execHandleSwitchWeapon); \
 	DECLARE_FUNCTION(execPickupWeapon); \
-	DECLARE_FUNCTION(execADSCurWeapon); \
-	DECLARE_FUNCTION(execShowCurWeapon); \
-	DECLARE_FUNCTION(execEquipWeapon); \
-	DECLARE_FUNCTION(execRecoil);
+	DECLARE_FUNCTION(execServerADSCurWeapon); \
+	DECLARE_FUNCTION(execHandleADSCurWeapon); \
+	DECLARE_FUNCTION(execServerShowCurWeapon); \
+	DECLARE_FUNCTION(execHandleShowCurWeapon); \
+	DECLARE_FUNCTION(execServerEquipWeapon); \
+	DECLARE_FUNCTION(execHandleEquipWeapon); \
+	DECLARE_FUNCTION(execServerReload); \
+	DECLARE_FUNCTION(execServerRecoil); \
+	DECLARE_FUNCTION(execHandleRecoil); \
+	DECLARE_FUNCTION(execServerShoot); \
+	DECLARE_FUNCTION(execServerStopShooting); \
+	DECLARE_FUNCTION(execServerStartShooting); \
+	DECLARE_FUNCTION(execServerStopADS); \
+	DECLARE_FUNCTION(execServerADS); \
+	DECLARE_FUNCTION(execServerResetMovement); \
+	DECLARE_FUNCTION(execServerStopSliding); \
+	DECLARE_FUNCTION(execServerSlide); \
+	DECLARE_FUNCTION(execServerStopCrouching); \
+	DECLARE_FUNCTION(execServerCrouch); \
+	DECLARE_FUNCTION(execServerStartCrouch); \
+	DECLARE_FUNCTION(execServerLook);
 
 
+#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_CALLBACK_WRAPPERS
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAClassShooterCharacter(); \
@@ -53,6 +85,7 @@ public: \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_CALLBACK_WRAPPERS \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_INCLASS_NO_PURE_DECLS \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_ENHANCED_CONSTRUCTORS \
 private: \

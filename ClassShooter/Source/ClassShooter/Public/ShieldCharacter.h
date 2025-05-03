@@ -82,11 +82,11 @@ protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
 
-	virtual void StartShooting() override;
-	virtual void ADS() override;
+	virtual void HandleStartShooting() override;
+	virtual void HandleADS() override;
 	virtual bool PickupWeapon(AWeaponBase* weapon) override;
 	virtual void DropWeapon() override;
-	virtual void StopADS() override;
+	virtual void HandleStopADS() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
 	void Block(); 
@@ -98,14 +98,14 @@ protected:
 	void ShieldThrow();
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
-	virtual void StartAbility1() override;
-	virtual void StopAbility1() override;
+	virtual void HandleStartAbility1() override;
+	virtual void HandleStopAbility1() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
-	virtual void StartAbility2() override;
-	virtual void StopAbility2() override;
+	virtual void HandleStartAbility2() override;
+	virtual void HandleStopAbility2() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
-	virtual void StartUltimate() override;
-	virtual void StopUltimate() override;
+	virtual void HandleStartUltimate() override;
+	virtual void HandleStopUltimate() override;
 };

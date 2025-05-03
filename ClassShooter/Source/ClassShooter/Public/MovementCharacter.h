@@ -120,19 +120,19 @@ protected:
 	bool WallRunMovement(FVector start, FVector end, float wallRunDir);
 	void LandEvent();
 	void BlockWallRun();
-	virtual void ResetMovement() override;
+	virtual void HandleResetMovement() override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
-	virtual void StartAbility1() override;
-	virtual void StopAbility1() override;
+	virtual void HandleStartAbility1() override;
+	virtual void HandleStopAbility1() override;
 	void Grapple();
 	void GrappleAttack(FVector2D dir);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
-	virtual void StartUltimate() override;
-	virtual void StopUltimate() override;
-	virtual void StartShooting() override;
+	virtual void HandleStartUltimate() override;
+	virtual void HandleStopUltimate() override;
+	virtual void HandleStartShooting() override;
 	
 };

@@ -55,9 +55,9 @@ void AStealthCharacter::Tick(float deltaTime)
 	}
 }
 
-void AStealthCharacter::StartShooting()
+void AStealthCharacter::HandleStartShooting()
 {
-	Super::StartShooting();
+	Super::HandleStartShooting();
 	
 	if (swingUltLaunch == false && isInUltimate == true)
 	{
@@ -76,13 +76,13 @@ void AStealthCharacter::StartShooting()
 	}
 }
 
-void AStealthCharacter::StartAbility1()
+void AStealthCharacter::HandleStartAbility1()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(invisTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(invisCooldownTimer) == false)
 	{
 		GetWorldTimerManager().SetTimer(invisTimer, this,
-			&AStealthCharacter::StopAbility1, invisLength, false);
+			&AStealthCharacter::HandleStopAbility1, invisLength, false);
 
 		UGameplayStatics::SpawnEmitterAtLocation(
 			GetWorld(),
@@ -101,7 +101,7 @@ void AStealthCharacter::StartAbility1()
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
     
 }
-void AStealthCharacter::StopAbility1()
+void AStealthCharacter::HandleStopAbility1()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
 
@@ -113,13 +113,13 @@ void AStealthCharacter::StopAbility1()
 }
 
 
-void AStealthCharacter::StartAbility2()
+void AStealthCharacter::HandleStartAbility2()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(decoyTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(decoyCooldownTimer) == false)
 	{
 		GetWorldTimerManager().SetTimer(decoyTimer, this,
-			&AStealthCharacter::StopAbility2, decoyLength, false);
+			&AStealthCharacter::HandleStopAbility2, decoyLength, false);
 
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
@@ -157,7 +157,7 @@ void AStealthCharacter::StartAbility2()
 	else
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
-void AStealthCharacter::StopAbility2()
+void AStealthCharacter::HandleStopAbility2()
 {
 	GetWorld()->GetTimerManager().ClearTimer(decoyCooldownTimer);
 	GetWorld()->GetTimerManager().SetTimer(decoyCooldownTimer, FTimerDelegate::CreateLambda([this]()
@@ -218,14 +218,14 @@ void AStealthCharacter::DirectionalDodge(FVector2D dir)
 }
 
 
-void AStealthCharacter::StartUltimate()
+void AStealthCharacter::HandleStartUltimate()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
 		isInUltimate = true;
 		ultimateTriggered = true;
-		SaveCurWeapons();		
+		HandleSaveCurWeapons();
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -241,14 +241,14 @@ void AStealthCharacter::StartUltimate()
 				bodyMesh->SetMaterial(0, ultimateMat);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AStealthCharacter::StopUltimate, ultLength, false);
+					&AStealthCharacter::HandleStopUltimate, ultLength, false);
 			}), .5f, false);
 	}
 }
-void AStealthCharacter::StopUltimate()
+void AStealthCharacter::HandleStopUltimate()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
-	RestoreCurWeapons();
+	HandleRestoreCurWeapons();
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{
