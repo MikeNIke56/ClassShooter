@@ -3,6 +3,7 @@
 
 #include "ShieldCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Net/UnrealNetwork.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -11,6 +12,27 @@ AShieldCharacter::AShieldCharacter()
 {
 	shieldLocation = CreateDefaultSubobject<UArrowComponent>("Shield Position");
 	shieldLocation->SetupAttachment(GetFirstPersonCameraComponent());
+}
+
+void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	/*DOREPLIFETIME(AShieldCharacter, shieldWorldObj);
+	DOREPLIFETIME(AShieldCharacter, shieldCopy);
+	DOREPLIFETIME(AShieldCharacter, shieldThrowCopy);
+	DOREPLIFETIME(AShieldCharacter, shieldBashCooldown);
+	DOREPLIFETIME(AShieldCharacter, shieldThrowPow);
+	DOREPLIFETIME(AShieldCharacter, shieldThrowCooldown);
+	DOREPLIFETIME(AShieldCharacter, ultLength);
+	DOREPLIFETIME(AShieldCharacter, ultCooldown);
+	DOREPLIFETIME(AShieldCharacter, shieldBashVFX);
+	DOREPLIFETIME(AShieldCharacter, baseBodyMat);
+	DOREPLIFETIME(AShieldCharacter, ultimateMat);
+	DOREPLIFETIME(AShieldCharacter, shieldLocation);
+	DOREPLIFETIME(AShieldCharacter, hasShield);
+	DOREPLIFETIME(AShieldCharacter, isShieldBashHBOn);
+	DOREPLIFETIME(AShieldCharacter, shieldBashHitDetected);*/
 }
 
 void AShieldCharacter::BeginPlay()
@@ -31,30 +53,34 @@ void AShieldCharacter::BeginPlay()
 	shieldBashHitDetected = false;
 	isShieldBashHBOn = false;
 
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.Owner = this;
-	SpawnParams.Instigator = GetInstigator();
+	if (HasAuthority() && !shieldCopy)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
 
 
-	FVector spawnLoc = GetActorLocation();
-	FRotator spawnRot = GetActorRotation();
+		FVector spawnLoc = GetActorLocation();
+		FRotator spawnRot = GetActorRotation();
 
-	shieldCopy = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
-		spawnRot, SpawnParams);
+		shieldCopy = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
+			spawnRot, SpawnParams);
 
-	FAttachmentTransformRules AttachRules(
-		EAttachmentRule::SnapToTarget,   // Location
-		EAttachmentRule::KeepWorld,      // Rotation
-		EAttachmentRule::KeepWorld,      // Scale
-		true                             // Weld Simulated Bodies
-	);
-	shieldCopy->AttachToComponent(shieldLocation, AttachRules);
-	shieldCopy->SetActorRotation(shieldLocation->GetComponentRotation());
+		FAttachmentTransformRules AttachRules(
+			EAttachmentRule::SnapToTarget,   // Location
+			EAttachmentRule::KeepWorld,      // Rotation
+			EAttachmentRule::KeepWorld,      // Scale
+			true                             // Weld Simulated Bodies
+		);
+		shieldCopy->AttachToComponent(shieldLocation, AttachRules);
+		shieldCopy->SetActorRotation(shieldLocation->GetComponentRotation());
+	}
 
 	unADSshieldLocation = shieldLocation->GetRelativeLocation();
 	ADSshieldLocation = unADSshieldLocation;
 	ADSshieldLocation.Y -= 40;
 	ADSshieldLocation.Z -= 20;
+
 }
 
 void AShieldCharacter::Tick(float deltaTime)
@@ -114,6 +140,13 @@ void AShieldCharacter::Tick(float deltaTime)
 		if (FVector::Dist(unADSshieldLocation, newLocation) <= .05)
 			shieldUnADSLerp = false;
 	}
+
+	baseShieldBashRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(shieldBashTimer);
+	baseShieldThrowRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(shieldThrowTimer);
+	ultRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
 }
 
 void AShieldCharacter::HandleStartShooting()

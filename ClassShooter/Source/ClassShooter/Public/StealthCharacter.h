@@ -18,21 +18,29 @@ class CLASSSHOOTER_API AStealthCharacter : public AClassShooterCharacter
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle invisTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float invisLength;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle invisCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float invisCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	float invisRemainingTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle decoyTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float decoyLength;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle decoyCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float decoyCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	float decoyRemainingTime;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float decoyDodge;
@@ -40,13 +48,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AStealthCharacter> decoyObj;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float ultLength;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	FTimerHandle ultCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float ultCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	float ultRemainingTime;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
@@ -79,6 +91,7 @@ public:
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")

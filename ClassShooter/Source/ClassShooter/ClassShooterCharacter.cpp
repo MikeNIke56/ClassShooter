@@ -12,6 +12,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Components/StaticMeshComponent.h"
 #include "Knife.h"
+#include "Net/UnrealNetwork.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -25,9 +26,6 @@ AClassShooterCharacter::AClassShooterCharacter()
 {
 	bReplicates = true;
 	SetReplicatingMovement(true);
-
-	//Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	//DOREPLIFETIME(AClassShooterCharacter, isSliding);
 
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -56,23 +54,42 @@ AClassShooterCharacter::AClassShooterCharacter()
 	isMeleeHBOn = false;
 	knifeHitDetected = false;
 
-	static ConstructorHelpers::FClassFinder<UUserWidget> SniperFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/SniperADSUI.SniperADSUI'"));
+	static ConstructorHelpers::FClassFinder<UUserWidget> SniperFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/SniperADSUI.SniperADSUI_C'"));
 	if (SniperFinder.Succeeded())
 	{
 		sniperWidgetClass = SniperFinder.Class;
 	}
 
-	static ConstructorHelpers::FClassFinder<UUserWidget> unADSFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/UnADSCrosshairUI.UnADSCrosshairUI'"));
+	static ConstructorHelpers::FClassFinder<UUserWidget> unADSFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/UnADSCrosshairUI.UnADSCrosshairUI_C'"));
 	if (unADSFinder.Succeeded())
 	{
 		unADSWidgetClass = unADSFinder.Class;
 	}
 }
 
+void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//DOREPLIFETIME(AClassShooterCharacter, curHealth);
+	//DOREPLIFETIME(AClassShooterCharacter, maxHealth);
+	DOREPLIFETIME(AClassShooterCharacter, curWeapon);
+	DOREPLIFETIME(AClassShooterCharacter, weaponArray);
+	DOREPLIFETIME(AClassShooterCharacter, backupWeaponArray);
+	DOREPLIFETIME(AClassShooterCharacter, weaponWorldObj);
+}
+
 void AClassShooterCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC)
+	{
+		PC->bShowMouseCursor = false;
+		PC->SetInputMode(FInputModeGameOnly());
+	}
 
 	slashSpeed = 10;
 	curHealth = maxHealth;
@@ -294,10 +311,6 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Started, this, &AClassShooterCharacter::HandleStartShooting);
 		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::HandleStopShooting);
 		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Canceled, this, &AClassShooterCharacter::HandleStopShooting);
-
-		// Throw Grenade
-		EnhancedInputComponent->BindAction(GrenadeAction, ETriggerEvent::Started, this, &AClassShooterCharacter::ReadyGrenade);
-		EnhancedInputComponent->BindAction(GrenadeAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::ThrowGrenade);
 
 		// Switch Weapons
 		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleSwitchWeapon);
@@ -800,14 +813,7 @@ void AClassShooterCharacter::Shoot()
 	else
 		curWeapon->HandleFire();
 }
-void AClassShooterCharacter::ReadyGrenade()
-{
-	UE_LOG(LogTemp, Warning, TEXT("readying grenade"));
-}
-void AClassShooterCharacter::ThrowGrenade()
-{
-	UE_LOG(LogTemp, Warning, TEXT("throwing grenade"));
-}
+
 
 
 //Picking up and equipping weapons
@@ -833,8 +839,13 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
 	HandleShowCurWeapon(weapon);
 	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
 	HandleStopADS();
+	weapon->SetOwner(this);
 
 	BindDelegate();
+}
+void AClassShooterCharacter::OnRep_EquippedWeapon()
+{
+	EquipWeapon(curWeapon);
 }
 void AClassShooterCharacter::HandleShowCurWeapon(AWeaponBase* weapon)
 {

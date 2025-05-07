@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "ClassShooter/Public/StealthCharacter.h"
+#include "Runtime/Engine/Classes/Engine/TimerHandle.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeStealthCharacter() {}
 
@@ -18,6 +19,7 @@ CLASSSHOOTER_API UClass* Z_Construct_UClass_AWeaponBase_NoRegister();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
+ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
@@ -138,7 +140,15 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 		{ "IncludePath", "StealthCharacter.h" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_invisTimer_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_invisLength_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_invisCooldownTimer_MetaData[] = {
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
@@ -146,11 +156,27 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_invisRemainingTime_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_decoyTimer_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_decoyLength_MetaData[] = {
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_decoyCooldownTimer_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_decoyCooldown_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_decoyRemainingTime_MetaData[] = {
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
@@ -162,11 +188,23 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 		{ "Category", "StealthCharacter" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultTimer_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultLength_MetaData[] = {
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultCooldownTimer_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultCooldown_MetaData[] = {
+		{ "Category", "Stealth Class Base Values" },
+		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultRemainingTime_MetaData[] = {
 		{ "Category", "Stealth Class Base Values" },
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
@@ -203,14 +241,23 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 		{ "ModuleRelativePath", "Public/StealthCharacter.h" },
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_invisTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_invisLength;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_invisCooldownTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_invisCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_invisRemainingTime;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_decoyTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_decoyLength;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_decoyCooldownTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_decoyCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_decoyRemainingTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_decoyDodge;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_decoyObj;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ultTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultLength;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ultCooldownTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultRemainingTime;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_invisVFX;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_decoyVFX;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_decoyFloatiesVFX;
@@ -232,14 +279,23 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisTimer = { "invisTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisTimer_MetaData), NewProp_invisTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisLength = { "invisLength", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisLength), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisLength_MetaData), NewProp_invisLength_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisCooldownTimer = { "invisCooldownTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisCooldownTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisCooldownTimer_MetaData), NewProp_invisCooldownTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisCooldown = { "invisCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisCooldown_MetaData), NewProp_invisCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisRemainingTime = { "invisRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisRemainingTime_MetaData), NewProp_invisRemainingTime_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyTimer = { "decoyTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyTimer_MetaData), NewProp_decoyTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyLength = { "decoyLength", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyLength), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyLength_MetaData), NewProp_decoyLength_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyCooldownTimer = { "decoyCooldownTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyCooldownTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyCooldownTimer_MetaData), NewProp_decoyCooldownTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyCooldown = { "decoyCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyCooldown_MetaData), NewProp_decoyCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyRemainingTime = { "decoyRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyRemainingTime_MetaData), NewProp_decoyRemainingTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyDodge = { "decoyDodge", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyDodge), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyDodge_MetaData), NewProp_decoyDodge_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyObj = { "decoyObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AStealthCharacter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyObj_MetaData), NewProp_decoyObj_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultTimer = { "ultTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultTimer_MetaData), NewProp_ultTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultLength = { "ultLength", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultLength), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultLength_MetaData), NewProp_ultLength_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultCooldownTimer = { "ultCooldownTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultCooldownTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultCooldownTimer_MetaData), NewProp_ultCooldownTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultCooldown = { "ultCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultCooldown_MetaData), NewProp_ultCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultRemainingTime = { "ultRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultRemainingTime_MetaData), NewProp_ultRemainingTime_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisVFX = { "invisVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, invisVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_invisVFX_MetaData), NewProp_invisVFX_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyVFX = { "decoyVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyVFX_MetaData), NewProp_decoyVFX_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyFloatiesVFX = { "decoyFloatiesVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, decoyFloatiesVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_decoyFloatiesVFX_MetaData), NewProp_decoyFloatiesVFX_MetaData) };
@@ -249,14 +305,23 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AStealthCharac
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultWeaponWorldObj = { "ultWeaponWorldObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, ultWeaponWorldObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultWeaponWorldObj_MetaData), NewProp_ultWeaponWorldObj_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AStealthCharacter_Statics::NewProp_knifeObj = { "knifeObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AStealthCharacter, knifeObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AKnife_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_knifeObj_MetaData), NewProp_knifeObj_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AStealthCharacter_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisLength,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisCooldownTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisRemainingTime,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyLength,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyCooldownTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyRemainingTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyDodge,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyObj,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultLength,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultCooldownTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_ultRemainingTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_invisVFX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyVFX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AStealthCharacter_Statics::NewProp_decoyFloatiesVFX,
@@ -308,10 +373,10 @@ AStealthCharacter::~AStealthCharacter() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 736301049U) },
+		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 993108149U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_2690080152(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_749315726(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

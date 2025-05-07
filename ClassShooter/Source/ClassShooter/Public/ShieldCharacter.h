@@ -18,41 +18,54 @@ class CLASSSHOOTER_API AShieldCharacter : public AClassShooterCharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
 	TSubclassOf<AShield> shieldWorldObj;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AShield> shieldThrowWorldObj;
 
+	
 	AShield* shieldCopy;
 	AShield* shieldThrowCopy;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle shieldBashTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	float shieldBashDist;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	float shieldBashCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	float baseShieldBashCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	float baseShieldBashRemainingTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle shieldThrowTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	float shieldThrowPow;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	float shieldThrowCooldown;
-	float baseShieldThrowCooldown;
-
-	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	float baseShieldThrowCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	float baseShieldThrowRemainingTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	FTimerHandle ultTimer;
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	float ultLength;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle ultCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	float ultCooldown;
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	float ultRemainingTime;
+
+
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	UParticleSystem* shieldBashVFX;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	UMaterialInterface* baseBodyMat;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	UMaterialInterface* ultimateMat;
 
 	bool cameraUltLerp;
@@ -62,17 +75,17 @@ public:
 	bool shieldADSLerp;
 	bool shieldUnADSLerp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	UArrowComponent* shieldLocation;
 	FVector unADSshieldLocation;
 	FVector ADSshieldLocation;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Shield Class Base Values")
 	bool hasShield;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
 	bool isShieldBashHBOn;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
 	bool shieldBashHitDetected;
 
 public:
@@ -81,6 +94,8 @@ public:
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 
 	virtual void HandleStartShooting() override;
 	virtual void HandleADS() override;

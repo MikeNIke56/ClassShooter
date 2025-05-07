@@ -2,7 +2,8 @@
 
 
 #include "WeaponBase.h"
-#include "Math/UnrealMathUtility.h"
+#include "Net/UnrealNetwork.h"
+//#include "../Math/UnrealMathUtility.h"
 
 
 // Sets default values
@@ -10,7 +11,6 @@ AWeaponBase::AWeaponBase()
 {
 	bReplicates = true;
 	SetReplicates(true);
-	SetReplicateMovement(true);
 
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -26,6 +26,19 @@ AWeaponBase::AWeaponBase()
 	//sets the animation mode to only play a single animation at a time
 	weaponMesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
 	state = WeaponState::OutOfInventory;
+}
+
+void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//DOREPLIFETIME(AClassShooterCharacter, curHealth);
+	//DOREPLIFETIME(AClassShooterCharacter, maxHealth);
+	//DOREPLIFETIME(AClassShooterCharacter, weaponMesh);
+	//DOREPLIFETIME(AClassShooterCharacter, fireAnim);
+	//DOREPLIFETIME(AClassShooterCharacter, reloadAnim);
+	//DOREPLIFETIME(AClassShooterCharacter, fireTimer);
+	//DOREPLIFETIME(AClassShooterCharacter, fireTimer);
 }
 
 // Called when the game starts or when spawned

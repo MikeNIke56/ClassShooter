@@ -659,7 +659,6 @@
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
-            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\classshooter\\singlefile\\weaponbase.h",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\public\\weaponbase.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\components\\arrowcomponent.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\components\\primitivecomponent.h",
@@ -1147,7 +1146,6 @@
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\source\\runtime\\launch\\resources\\version.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\particlesystemcomponent.generated.h",
             "c:\\users\\17038\\desktop\\ue_5.4\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagarafunctionlibrary.generated.h",
-            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\classshooter\\singlefile\\damageable.h",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\unrealeditor\\inc\\classshooter\\uht\\classshootercharacter.generated.h"
         ],
         "ImportedModules": [],

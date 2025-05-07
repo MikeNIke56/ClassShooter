@@ -1,0 +1,1299 @@
+﻿Log file open, 05/04/25 23:50:36
+LogWindows: Failed to load 'aqProf.dll' (GetLastError=126)
+LogWindows: File 'aqProf.dll' does not exist
+LogProfilingDebugging: Loading WinPixEventRuntime.dll for PIX profiling (from ../../../Engine/Binaries/ThirdParty/Windows/WinPixEventRuntime/x64).
+LogWindows: Failed to load 'VtuneApi.dll' (GetLastError=126)
+LogWindows: File 'VtuneApi.dll' does not exist
+LogWindows: Failed to load 'VtuneApi32e.dll' (GetLastError=126)
+LogWindows: File 'VtuneApi32e.dll' does not exist
+LogWindows: Started CrashReportClient (pid=45080)
+LogWindows: Custom abort handler registered for crash reporting.
+LogInit: Display: Running engine for game: ClassShooter
+LogCore: UTS: Unreal Trace Server launched successfully
+LogTrace: Initializing trace...
+LogCore: Display: Requested channels: 'cpu,gpu,frame,log,bookmark,screenshot,region'
+LogTrace: Finished trace initialization.
+LogCsvProfiler: Display: Metadata set : platform="Windows"
+LogCsvProfiler: Display: Metadata set : config="Development"
+LogCsvProfiler: Display: Metadata set : buildversion="++UE5+Release-5.4-CL-35576357"
+LogCsvProfiler: Display: Metadata set : engineversion="5.4.4-35576357+++UE5+Release-5.4"
+LogCsvProfiler: Display: Metadata set : os="Windows 11 (24H2) [10.0.26100.3775] "
+LogCsvProfiler: Display: Metadata set : cpu="AuthenticAMD|AMD Ryzen 9 6900HX with Radeon Graphics"
+LogCsvProfiler: Display: Metadata set : pgoenabled="0"
+LogCsvProfiler: Display: Metadata set : pgoprofilingenabled="0"
+LogCsvProfiler: Display: Metadata set : ltoenabled="0"
+LogCsvProfiler: Display: Metadata set : asan="0"
+LogCsvProfiler: Display: Metadata set : commandline="" ../../../../ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject /Game/ClassShooterAssets/Maps/CharacterSelectMap -game -PIEVIACONSOLE -Multiprocess -server -log GameUserSettingsINI=PIEGameUserSettings0 -MultiprocessSaveConfig -forcepassthrough -messaging -SessionName="Play in Standalone Game" -port=17777 -windowed""
+LogCsvProfiler: Display: Metadata set : loginid="c177843f4be0c53d20b0edb5577e995d"
+LogCsvProfiler: Display: Metadata set : llm="0"
+LogStats: Stats thread started at 2.254620
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: -5:00, Platform Override: ''
+LogInit: Session CrashGUID >====================================================
+         Session CrashGUID >   UECC-Windows-5C208AD34EDE96789105F89056E60B30
+         Session CrashGUID >====================================================
+LogConfig: No local boot hotfix file found at: [../../../../ClassShooter/ClassShooter/ClassShooter/Saved/PersistentDownloadDir/HotfixForNextBoot.txt]
+LogConfig: Display: Loading Android ini files took 0.11 seconds
+LogConfig: Display: Loading Linux ini files took 0.14 seconds
+LogConfig: Display: Loading LinuxArm64 ini files took 0.11 seconds
+LogPluginManager: Mounting Engine plugin Bridge
+LogPluginManager: Mounting Engine plugin ChaosCloth
+LogPluginManager: Mounting Engine plugin ChaosVD
+LogPluginManager: Found config from plugin[ChaosVD] Engine
+LogPluginManager: Mounting Engine plugin CmdLinkServer
+LogPluginManager: Mounting Engine plugin EnhancedInput
+LogPluginManager: Found config from plugin[EnhancedInput] Input
+LogPluginManager: Mounting Engine plugin FastBuildController
+LogPluginManager: Mounting Engine plugin MeshPainting
+LogPluginManager: Mounting Engine plugin RenderGraphInsights
+LogPluginManager: Mounting Engine plugin TraceUtilities
+LogPluginManager: Mounting Engine plugin WorldMetrics
+LogPluginManager: Mounting Engine plugin XGEController
+LogPluginManager: Mounting Engine plugin Paper2D
+LogPluginManager: Mounting Engine plugin AISupport
+LogPluginManager: Mounting Engine plugin EnvironmentQueryEditor
+LogPluginManager: Mounting Engine plugin ACLPlugin
+LogPluginManager: Mounting Engine plugin AnimationData
+LogPluginManager: Mounting Engine plugin AnimationModifierLibrary
+LogPluginManager: Mounting Engine plugin BlendSpaceMotionAnalysis
+LogPluginManager: Mounting Engine plugin ControlRig
+LogPluginManager: Mounting Engine plugin ControlRigModules
+LogPluginManager: Mounting Engine plugin ControlRigSpline
+LogPluginManager: Mounting Engine plugin IKRig
+LogPluginManager: Mounting Engine plugin CameraShakePreviewer
+LogPluginManager: Mounting Engine plugin GameplayCameras
+LogPluginManager: Mounting Engine plugin OodleNetwork
+LogPluginManager: Mounting Engine plugin AnimationSharing
+LogPluginManager: Mounting Engine plugin CLionSourceCodeAccess
+LogPluginManager: Mounting Engine plugin CodeLiteSourceCodeAccess
+LogPluginManager: Mounting Engine plugin DumpGPUServices
+LogPluginManager: Mounting Engine plugin GitSourceControl
+LogPluginManager: Mounting Engine plugin KDevelopSourceCodeAccess
+LogPluginManager: Mounting Engine plugin N10XSourceCodeAccess
+LogPluginManager: Mounting Engine plugin NullSourceCodeAccess
+LogPluginManager: Mounting Engine plugin PerforceSourceControl
+LogPluginManager: Mounting Engine plugin PixWinPlugin
+LogPluginManager: Mounting Engine plugin PlasticSourceControl
+LogConfig: Display: Loading Mac ini files took 0.08 seconds
+LogPluginManager: Mounting Engine plugin PluginUtils
+LogPluginManager: Mounting Engine plugin PropertyAccessNode
+LogPluginManager: Mounting Engine plugin RenderDocPlugin
+LogPluginManager: Mounting Engine plugin RiderSourceCodeAccess
+LogPluginManager: Mounting Engine plugin SubversionSourceControl
+LogPluginManager: Mounting Engine plugin TextureFormatOodle
+LogPluginManager: Mounting Engine plugin TraceDataFilters
+LogPluginManager: Mounting Engine plugin UObjectPlugin
+LogPluginManager: Mounting Engine plugin VisualStudioCodeSourceCodeAccess
+LogPluginManager: Mounting Engine plugin VisualStudioSourceCodeAccess
+LogPluginManager: Mounting Engine plugin XCodeSourceCodeAccess
+LogPluginManager: Mounting Engine plugin AssetManagerEditor
+LogPluginManager: Mounting Engine plugin BlueprintHeaderView
+LogPluginManager: Mounting Engine plugin ChangelistReview
+LogPluginManager: Mounting Engine plugin CryptoKeys
+LogPluginManager: Mounting Engine plugin CurveEditorTools
+LogPluginManager: Mounting Engine plugin DataValidation
+LogPluginManager: Mounting Engine plugin EditorDebugTools
+LogPluginManager: Mounting Engine plugin EditorScriptingUtilities
+LogPluginManager: Mounting Engine plugin EngineAssetDefinitions
+LogPluginManager: Mounting Engine plugin FacialAnimation
+LogPluginManager: Mounting Engine plugin GameplayTagsEditor
+LogPluginManager: Mounting Engine plugin GeometryMode
+LogPluginManager: Mounting Engine plugin MacGraphicsSwitching
+LogPluginManager: Mounting Engine plugin MaterialAnalyzer
+LogPluginManager: Mounting Engine plugin MeshLODToolset
+LogPluginManager: Mounting Engine plugin MobileLauncherProfileWizard
+LogPluginManager: Mounting Engine plugin ModelingToolsEditorMode
+LogPluginManager: Mounting Engine plugin PluginBrowser
+LogPluginManager: Mounting Engine plugin ProxyLODPlugin
+LogPluginManager: Mounting Engine plugin SequencerAnimTools
+LogConfig: Display: Loading IOS ini files took 0.49 seconds
+LogPluginManager: Mounting Engine plugin SpeedTreeImporter
+LogPluginManager: Mounting Engine plugin UVEditor
+LogPluginManager: Mounting Engine plugin WorldPartitionHLODUtilities
+LogPluginManager: Mounting Engine plugin DatasmithContent
+LogPluginManager: Mounting Engine plugin GLTFExporter
+LogPluginManager: Mounting Engine plugin VariantManager
+LogPluginManager: Mounting Engine plugin VariantManagerContent
+LogPluginManager: Mounting Engine plugin AutomationUtils
+LogPluginManager: Mounting Engine plugin BackChannel
+LogPluginManager: Mounting Engine plugin ChaosCaching
+LogPluginManager: Mounting Engine plugin ChaosEditor
+LogPluginManager: Mounting Engine plugin ChaosNiagara
+LogPluginManager: Mounting Engine plugin ChaosSolverPlugin
+LogPluginManager: Mounting Engine plugin ChaosUserDataPT
+LogPluginManager: Mounting Engine plugin CharacterAI
+LogPluginManager: Mounting Engine plugin Dataflow
+LogPluginManager: Mounting Engine plugin Fracture
+LogPluginManager: Mounting Engine plugin FullBodyIK
+LogConfig: Display: Loading TVOS ini files took 0.08 seconds
+LogPluginManager: Mounting Engine plugin GeometryCollectionPlugin
+LogPluginManager: Mounting Engine plugin GeometryFlow
+LogPluginManager: Mounting Engine plugin LocalizableMessage
+LogPluginManager: Mounting Engine plugin MeshModelingToolsetExp
+LogPluginManager: Mounting Engine plugin OpenImageDenoise
+LogPluginManager: Mounting Engine plugin PlanarCut
+LogPluginManager: Mounting Engine plugin PlatformCrypto
+LogPluginManager: Mounting Engine plugin PythonScriptPlugin
+LogPluginManager: Mounting Engine plugin SkeletalReduction
+LogPluginManager: Mounting Engine plugin StructUtils
+LogPluginManager: Mounting Engine plugin StudioTelemetry
+LogPluginManager: Mounting Engine plugin ToolPresets
+LogPluginManager: Mounting Engine plugin Niagara
+LogPluginManager: Mounting Engine plugin NiagaraSimCaching
+LogPluginManager: Mounting Engine plugin AlembicImporter
+LogPluginManager: Mounting Engine plugin InterchangeEditor
+LogPluginManager: Mounting Engine plugin Interchange
+LogPluginManager: Mounting Engine plugin AndroidMedia
+LogPluginManager: Mounting Engine plugin AvfMedia
+LogPluginManager: Mounting Engine plugin ImgMedia
+LogPluginManager: Mounting Engine plugin MediaCompositing
+LogPluginManager: Mounting Engine plugin MediaPlate
+LogPluginManager: Mounting Engine plugin MediaPlayerEditor
+LogPluginManager: Mounting Engine plugin WebMMedia
+LogPluginManager: Mounting Engine plugin WmfMedia
+LogPluginManager: Mounting Engine plugin TcpMessaging
+LogPluginManager: Mounting Engine plugin UdpMessaging
+LogPluginManager: Mounting Engine plugin ActorSequence
+LogPluginManager: Mounting Engine plugin LevelSequenceEditor
+LogPluginManager: Mounting Engine plugin SequencerScripting
+LogPluginManager: Mounting Engine plugin TemplateSequence
+LogPluginManager: Mounting Engine plugin OnlineBase
+LogPluginManager: Mounting Engine plugin OnlineServices
+LogPluginManager: Mounting Engine plugin OnlineSubsystem
+LogPluginManager: Mounting Engine plugin OnlineSubsystemNull
+LogPluginManager: Mounting Engine plugin OnlineSubsystemSteam
+LogPluginManager: Mounting Engine plugin OnlineSubsystemUtils
+LogPluginManager: Mounting Engine plugin LauncherChunkInstaller
+LogPluginManager: Mounting Engine plugin ActorLayerUtilities
+LogPluginManager: Mounting Engine plugin AndroidDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin AndroidFileServer
+LogPluginManager: Mounting Engine plugin AndroidMoviePlayer
+LogPluginManager: Mounting Engine plugin AndroidPermission
+LogPluginManager: Mounting Engine plugin AppleImageUtils
+LogPluginManager: Mounting Engine plugin AppleMoviePlayer
+LogPluginManager: Mounting Engine plugin ArchVisCharacter
+LogPluginManager: Mounting Engine plugin AssetTags
+LogPluginManager: Mounting Engine plugin AudioCapture
+LogPluginManager: Mounting Engine plugin AudioSynesthesia
+LogPluginManager: Mounting Engine plugin AudioWidgets
+LogPluginManager: Mounting Engine plugin CableComponent
+LogPluginManager: Mounting Engine plugin ChunkDownloader
+LogConfig: Display: Loading Unix ini files took 0.09 seconds
+LogPluginManager: Mounting Engine plugin CustomMeshComponent
+LogPluginManager: Mounting Engine plugin ExampleDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin GeometryCache
+LogPluginManager: Mounting Engine plugin GeometryProcessing
+LogPluginManager: Mounting Engine plugin GoogleCloudMessaging
+LogPluginManager: Mounting Engine plugin GooglePAD
+LogPluginManager: Mounting Engine plugin InputDebugging
+LogPluginManager: Found config from plugin[InputDebugging] Input
+LogPluginManager: Mounting Engine plugin IOSDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin LinuxDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin LocationServicesBPLibrary
+LogPluginManager: Mounting Engine plugin MeshModelingToolset
+LogPluginManager: Mounting Engine plugin Metasound
+LogPluginManager: Mounting Engine plugin MobilePatchingUtils
+LogPluginManager: Mounting Engine plugin MsQuic
+LogPluginManager: Mounting Engine plugin ProceduralMeshComponent
+LogPluginManager: Mounting Engine plugin PropertyAccessEditor
+LogPluginManager: Mounting Engine plugin ResonanceAudio
+LogPluginManager: Mounting Engine plugin RigVM
+LogConfig: Display: Loading VulkanPC ini files took 0.09 seconds
+LogPluginManager: Mounting Engine plugin SignificanceManager
+LogPluginManager: Mounting Engine plugin SoundFields
+LogPluginManager: Mounting Engine plugin Synthesis
+LogPluginManager: Mounting Engine plugin WaveTable
+LogPluginManager: Mounting Engine plugin WebMMoviePlayer
+LogPluginManager: Mounting Engine plugin WindowsDeviceProfileSelector
+LogPluginManager: Mounting Engine plugin WindowsMoviePlayer
+LogPluginManager: Mounting Engine plugin InterchangeTests
+LogPluginManager: Mounting Engine plugin Takes
+LogPluginManager: Mounting Engine plugin ContentBrowserAssetDataSource
+LogPluginManager: Mounting Engine plugin ContentBrowserClassDataSource
+LogPluginManager: Mounting Engine plugin ContentBrowserFileDataSource
+LogPluginManager: Mounting Engine plugin PortableObjectFileDataSource
+LogPluginManager: Mounting Engine plugin LightMixer
+LogPluginManager: Mounting Engine plugin ObjectMixer
+LogPluginManager: Mounting Engine plugin BaseCharacterFXEditor
+LogPluginManager: Mounting Engine plugin MetaHumanProjectUtilities
+LogPluginManager: Mounting Engine plugin OnlineSubsystemGooglePlay
+LogPluginManager: Mounting Engine plugin OnlineSubsystemIOS
+LogPluginManager: Mounting Engine plugin SteamShared
+LogPluginManager: Mounting Engine plugin XInputDevice
+LogPluginManager: Mounting Project plugin AdvancedSessions
+LogPluginManager: Mounting Project plugin AdvancedSteamSessions
+LogPluginManager: Mounting Project plugin MultiplayerSessions
+LogConfig: Display: Loading VisionOS ini files took 0.09 seconds
+SourceControl: Revision control is disabled
+SourceControl: Revision control is disabled
+SourceControl: Revision control is disabled
+LogConfig: Display: Loading Windows ini files took 0.17 seconds
+LogWindows: Failed to load 'WinPixGpuCapturer.dll' (GetLastError=126)
+LogWindows: File 'WinPixGpuCapturer.dll' does not exist
+PixWinPlugin: PIX capture plugin failed to initialize! Check that the process is launched from PIX.
+LogConfig: Applying CVar settings from Section [/Script/RenderDocPlugin.RenderDocPluginSettings] File [Engine]
+RenderDocPlugin: Display: RenderDoc plugin will not be loaded. Use '-AttachRenderDoc' on the cmd line or enable 'renderdoc.AutoAttach' in the plugin settings.
+LogInit: Using libcurl 8.4.0
+LogInit:  - built for Windows
+LogInit:  - supports SSL with OpenSSL/1.1.1t
+LogInit:  - supports HTTP deflate (compression) using libz 1.3
+LogInit:  - other features:
+LogInit:      CURL_VERSION_SSL
+LogInit:      CURL_VERSION_LIBZ
+LogInit:      CURL_VERSION_IPV6
+LogInit:      CURL_VERSION_ASYNCHDNS
+LogInit:      CURL_VERSION_LARGEFILE
+LogInit:  CurlRequestOptions (configurable via config and command line):
+LogInit:  - bVerifyPeer = true  - Libcurl will verify peer certificate
+LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+LogInit:  - bDontReuseConnections = false  - Libcurl will reuse connections
+LogInit:  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+LogInit:  - LocalHostAddr = Default
+LogInit:  - BufferSize = 65536
+LogInit: CreateHttpThread using FCurlHttpThread
+LogSteamShared: Display: Loading Steam SDK 1.57
+LogSteamShared: Steam SDK Loaded!
+LogOnline: STEAM: [AppId: 480] Game Server API initialized 1
+LogOnline: STEAM: Initializing SteamNetworking Layer
+LogOnline: STEAM: Missing P2PCleanupTimeout key in OnlineSubsystemSteam of DefaultEngine.ini, using default
+LogInit: WinSock: version 1.1 (2.2), MaxSocks=32767, MaxUdp=65467
+LogOnline: OSS: Created online subsystem instance for: Steam
+LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for type [Steam]
+LogInit: ExecutableName: UnrealEditor.exe
+LogInit: Build: ++UE5+Release-5.4-CL-35576357
+LogInit: Platform=WindowsEditor
+LogInit: MachineId=c177843f4be0c53d20b0edb5577e995d
+LogInit: DeviceId=
+LogInit: Engine Version: 5.4.4-35576357+++UE5+Release-5.4
+LogInit: Compatible Engine Version: 5.4.0-33043543+++UE5+Release-5.4
+LogInit: Net CL: 33043543
+LogInit: OS: Windows 11 (24H2) [10.0.26100.3775] (), CPU: AMD Ryzen 9 6900HX with Radeon Graphics        , GPU: AMD Radeon(TM) Graphics
+LogInit: Compiled (64-bit): Aug 16 2024 04:10:34
+LogInit: Architecture: x64
+LogInit: Compiled with Visual C++: 19.38.33130.00
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE5+Release-5.4
+LogInit: Command Line: /Game/ClassShooterAssets/Maps/CharacterSelectMap -game -PIEVIACONSOLE -Multiprocess -server -log GameUserSettingsINI=PIEGameUserSettings0 -MultiprocessSaveConfig -forcepassthrough -messaging -SessionName="Play in Standalone Game" -port=17777 -windowed
+LogInit: Base Directory: C:/Users/17038/Desktop/UE_5.4/Engine/Binaries/Win64/
+LogInit: Allocator: Mimalloc
+LogInit: Installed Engine Build: 1
+LogInit: This binary is optimized with LTO: no, PGO: no, instrumented for PGO data collection: no
+LogDevObjectVersion: Number of dev versions registered: 36
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 48
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 134
+LogDevObjectVersion:   FortniteValkyrie (8DBC2C5B-54A7-43E0-A768-FCBB7DA29060): 8
+LogDevObjectVersion:   FortniteSeason (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 12
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 13
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 10
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 119
+LogDevObjectVersion:   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 51
+LogDevObjectVersion:   UE5-PrivateFrosty (59DA5D52-1232-4948-B878-597870B8E98B): 8
+LogDevObjectVersion:   UE5-Dev-Cooker (26075A32-730F-4708-88E9-8C32F1599D05): 0
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogDevObjectVersion:   UE5-Dev-LWCRendering (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+LogInit: Presizing for max 25165824 objects, including 0 objects not considered by GC, pre-allocating 0 bytes for permanent pool.
+LogInit: Object subsystem initialized
+LogConfig: Set CVar [[con.DebugEarlyDefault:1]]
+LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+LogConfig: Set CVar [[r.setres:1280x720]]
+LogConfig: CVar [[framepro.ScopeMinTimeMicroseconds:10]] deferred - dummy variable created
+LogConfig: CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]] deferred - dummy variable created
+LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+LogConfig: CVar [[r.Occlusion.SingleRHIThreadStall:1]] deferred - dummy variable created
+LogConfig: Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
+LogConfig: CVar [[D3D12.Bindless.ResourceDescriptorHeapSize:100000]] deferred - dummy variable created
+LogConfig: CVar [[D3D12.Bindless.SamplerDescriptorHeapSize:2048]] deferred - dummy variable created
+[2025.05.05-03.50.39:223][  0]LogConfig: CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+[2025.05.05-03.50.39:227][  0]LogConfig: CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+[2025.05.05-03.50.39:231][  0]LogConfig: CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+[2025.05.05-03.50.39:234][  0]LogConfig: CVar [[framepro.ScopeMinTimeMicroseconds:10]] deferred - dummy variable created
+[2025.05.05-03.50.39:237][  0]LogConfig: CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]] deferred - dummy variable created
+[2025.05.05-03.50.39:240][  0]LogConfig: CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+[2025.05.05-03.50.39:250][  0]LogConfig: CVar [[r.Occlusion.SingleRHIThreadStall:1]] deferred - dummy variable created
+[2025.05.05-03.50.39:253][  0]LogConfig: CVar [[D3D12.Bindless.ResourceDescriptorHeapSize:100000]] deferred - dummy variable created
+[2025.05.05-03.50.39:259][  0]LogConfig: CVar [[D3D12.Bindless.SamplerDescriptorHeapSize:2048]] deferred - dummy variable created
+[2025.05.05-03.50.39:267][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererSettings] File [Engine]
+[2025.05.05-03.50.39:278][  0]LogConfig: CVar [[VisualizeCalibrationColorMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationColor.PPM_DefaultCalibrationColor]] deferred - dummy variable created
+[2025.05.05-03.50.39:288][  0]LogConfig: CVar [[VisualizeCalibrationGrayscaleMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationGrayscale.PPM_DefaultCalibrationGrayscale]] deferred - dummy variable created
+[2025.05.05-03.50.39:298][  0]LogConfig: Set CVar [[r.GPUCrashDebugging:0]]
+[2025.05.05-03.50.39:308][  0]LogConfig: CVar [[MaxSkinBones:(Default=65536,PerPlatform=(("Mobile", 256)))]] deferred - dummy variable created
+[2025.05.05-03.50.39:318][  0]LogConfig: Set CVar [[r.Mobile.ShadingPath:0]]
+[2025.05.05-03.50.39:323][  0]LogConfig: Set CVar [[r.Mobile.AllowDeferredShadingOpenGL:0]]
+[2025.05.05-03.50.39:334][  0]LogConfig: Set CVar [[r.Mobile.SupportGPUScene:0]]
+[2025.05.05-03.50.39:345][  0]LogConfig: Set CVar [[r.Mobile.AntiAliasing:1]]
+[2025.05.05-03.50.39:351][  0]LogConfig: Set CVar [[r.Mobile.FloatPrecisionMode:0]]
+[2025.05.05-03.50.39:355][  0]LogConfig: Set CVar [[r.Mobile.AllowDitheredLODTransition:0]]
+[2025.05.05-03.50.39:359][  0]LogConfig: Set CVar [[r.Mobile.VirtualTextures:0]]
+[2025.05.05-03.50.39:363][  0]LogConfig: Set CVar [[r.DiscardUnusedQuality:0]]
+[2025.05.05-03.50.39:368][  0]LogConfig: Set CVar [[r.AllowOcclusionQueries:1]]
+[2025.05.05-03.50.39:375][  0]LogConfig: Set CVar [[r.MinScreenRadiusForLights:0.030000]]
+[2025.05.05-03.50.39:379][  0]LogConfig: Set CVar [[r.MinScreenRadiusForDepthPrepass:0.030000]]
+[2025.05.05-03.50.39:384][  0]LogConfig: Set CVar [[r.MinScreenRadiusForCSMDepth:0.010000]]
+[2025.05.05-03.50.39:392][  0]LogConfig: Set CVar [[r.PrecomputedVisibilityWarning:0]]
+[2025.05.05-03.50.39:396][  0]LogConfig: Set CVar [[r.TextureStreaming:1]]
+[2025.05.05-03.50.39:411][  0]LogConfig: Set CVar [[Compat.UseDXT5NormalMaps:0]]
+[2025.05.05-03.50.39:422][  0]LogConfig: Set CVar [[r.VirtualTextures:0]]
+[2025.05.05-03.50.39:427][  0]LogConfig: Set CVar [[r.VT.EnableAutoImport:1]]
+[2025.05.05-03.50.39:436][  0]LogConfig: Set CVar [[r.VirtualTexturedLightmaps:0]]
+[2025.05.05-03.50.39:440][  0]LogConfig: Set CVar [[r.VT.AnisotropicFiltering:0]]
+[2025.05.05-03.50.39:445][  0]LogConfig: CVar [[bEnableVirtualTextureOpacityMask:0]] deferred - dummy variable created
+[2025.05.05-03.50.39:478][  0]LogConfig: Set CVar [[r.VT.TileSize:128]]
+[2025.05.05-03.50.39:494][  0]LogConfig: Set CVar [[r.VT.TileBorderSize:4]]
+[2025.05.05-03.50.39:499][  0]LogConfig: Set CVar [[r.vt.FeedbackFactor:16]]
+[2025.05.05-03.50.39:501][  0]LogConfig: CVar [[WorkingColorSpaceChoice:sRGB]] deferred - dummy variable created
+[2025.05.05-03.50.39:503][  0]LogConfig: CVar [[RedChromaticityCoordinate:(X=0.640000,Y=0.330000)]] deferred - dummy variable created
+[2025.05.05-03.50.39:513][  0]LogConfig: CVar [[GreenChromaticityCoordinate:(X=0.300000,Y=0.600000)]] deferred - dummy variable created
+[2025.05.05-03.50.39:517][  0]LogConfig: CVar [[BlueChromaticityCoordinate:(X=0.150000,Y=0.060000)]] deferred - dummy variable created
+[2025.05.05-03.50.39:521][  0]LogConfig: CVar [[WhiteChromaticityCoordinate:(X=0.312700,Y=0.329000)]] deferred - dummy variable created
+[2025.05.05-03.50.39:526][  0]LogConfig: Set CVar [[r.ClearCoatNormal:0]]
+[2025.05.05-03.50.39:530][  0]LogConfig: Set CVar [[r.DynamicGlobalIlluminationMethod:1]]
+[2025.05.05-03.50.39:535][  0]LogConfig: Set CVar [[r.ReflectionMethod:1]]
+[2025.05.05-03.50.39:556][  0]LogConfig: Set CVar [[r.ReflectionCaptureResolution:128]]
+[2025.05.05-03.50.39:559][  0]LogConfig: Set CVar [[r.ReflectionEnvironmentLightmapMixBasedOnRoughness:1]]
+[2025.05.05-03.50.39:565][  0]LogConfig: Set CVar [[r.Lumen.HardwareRayTracing:0]]
+[2025.05.05-03.50.39:583][  0]LogConfig: Set CVar [[r.Lumen.HardwareRayTracing.LightingMode:0]]
+[2025.05.05-03.50.39:591][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.EnableForProject:0]]
+[2025.05.05-03.50.39:598][  0]LogConfig: Set CVar [[r.Lumen.TraceMeshSDFs:1]]
+[2025.05.05-03.50.39:608][  0]LogConfig: Set CVar [[r.Lumen.Reflections.HardwareRayTracing.Translucent.Refraction.EnableForProject:1]]
+[2025.05.05-03.50.39:612][  0]LogConfig: Set CVar [[r.Shadow.Virtual.Enable:1]]
+[2025.05.05-03.50.39:617][  0]LogConfig: Set CVar [[r.RayTracing:0]]
+[2025.05.05-03.50.39:621][  0]LogConfig: Set CVar [[r.RayTracing.Shadows:0]]
+[2025.05.05-03.50.39:626][  0]LogConfig: Set CVar [[r.RayTracing.UseTextureLod:0]]
+[2025.05.05-03.50.39:642][  0]LogConfig: Set CVar [[r.PathTracing:1]]
+[2025.05.05-03.50.39:647][  0]LogConfig: Set CVar [[r.GenerateMeshDistanceFields:1]]
+[2025.05.05-03.50.39:651][  0]LogConfig: Set CVar [[r.DistanceFields.DefaultVoxelDensity:0.200000]]
+[2025.05.05-03.50.39:654][  0]LogConfig: Set CVar [[r.Nanite.ProjectEnabled:1]]
+[2025.05.05-03.50.39:657][  0]LogConfig: Set CVar [[r.AllowStaticLighting:1]]
+[2025.05.05-03.50.39:667][  0]LogConfig: Set CVar [[r.NormalMapsForStaticLighting:0]]
+[2025.05.05-03.50.39:671][  0]LogConfig: Set CVar [[r.ForwardShading:0]]
+[2025.05.05-03.50.39:675][  0]LogConfig: Set CVar [[r.VertexFoggingForOpaque:1]]
+[2025.05.05-03.50.39:683][  0]LogConfig: Set CVar [[r.SeparateTranslucency:1]]
+[2025.05.05-03.50.39:689][  0]LogConfig: Set CVar [[r.TranslucentSortPolicy:0]]
+[2025.05.05-03.50.39:697][  0]LogConfig: CVar [[TranslucentSortAxis:(X=0.000000,Y=-1.000000,Z=0.000000)]] deferred - dummy variable created
+[2025.05.05-03.50.39:702][  0]LogConfig: Set CVar [[r.LocalFogVolume.ApplyOnTranslucent:0]]
+[2025.05.05-03.50.39:706][  0]LogConfig: Set CVar [[xr.VRS.FoveationLevel:0]]
+[2025.05.05-03.50.39:715][  0]LogConfig: Set CVar [[xr.VRS.DynamicFoveation:0]]
+[2025.05.05-03.50.39:719][  0]LogConfig: Set CVar [[r.CustomDepth:1]]
+[2025.05.05-03.50.39:726][  0]LogConfig: Set CVar [[r.CustomDepthTemporalAAJitter:1]]
+[2025.05.05-03.50.39:733][  0]LogConfig: Set CVar [[r.PostProcessing.PropagateAlpha:0]]
+[2025.05.05-03.50.39:739][  0]LogConfig: Set CVar [[r.DefaultFeature.Bloom:1]]
+[2025.05.05-03.50.39:743][  0]LogConfig: Set CVar [[r.DefaultFeature.AmbientOcclusion:1]]
+[2025.05.05-03.50.39:746][  0]LogConfig: Set CVar [[r.DefaultFeature.AmbientOcclusionStaticFraction:1]]
+[2025.05.05-03.50.39:750][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure:0]]
+[2025.05.05-03.50.39:753][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.Method:0]]
+[2025.05.05-03.50.39:763][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.Bias:1.000000]]
+[2025.05.05-03.50.39:766][  0]LogConfig: Set CVar [[r.DefaultFeature.AutoExposure.ExtendDefaultLuminanceRange:1]]
+[2025.05.05-03.50.39:770][  0]LogConfig: Set CVar [[r.DefaultFeature.LocalExposure.HighlightContrastScale:0.800000]]
+[2025.05.05-03.50.39:774][  0]LogConfig: Set CVar [[r.DefaultFeature.LocalExposure.ShadowContrastScale:0.800000]]
+[2025.05.05-03.50.39:778][  0]LogConfig: Set CVar [[r.DefaultFeature.MotionBlur:0]]
+[2025.05.05-03.50.39:781][  0]LogConfig: Set CVar [[r.DefaultFeature.LensFlare:0]]
+[2025.05.05-03.50.39:784][  0]LogConfig: Set CVar [[r.TemporalAA.Upsampling:1]]
+[2025.05.05-03.50.39:794][  0]LogConfig: Set CVar [[r.AntiAliasingMethod:0]]
+[2025.05.05-03.50.39:797][  0]LogConfig: Set CVar [[r.MSAACount:4]]
+[2025.05.05-03.50.39:800][  0]LogConfig: Set CVar [[r.DefaultFeature.LightUnits:1]]
+[2025.05.05-03.50.39:804][  0]LogConfig: Set CVar [[r.DefaultBackBufferPixelFormat:4]]
+[2025.05.05-03.50.39:809][  0]LogConfig: Set CVar [[r.ScreenPercentage.Default:100.000000]]
+[2025.05.05-03.50.39:812][  0]LogConfig: Set CVar [[r.ScreenPercentage.Default.Desktop.Mode:1]]
+[2025.05.05-03.50.39:815][  0]LogConfig: Set CVar [[r.ScreenPercentage.Default.Mobile.Mode:0]]
+[2025.05.05-03.50.39:823][  0]LogConfig: Set CVar [[r.ScreenPercentage.Default.VR.Mode:0]]
+[2025.05.05-03.50.39:826][  0]LogConfig: Set CVar [[r.ScreenPercentage.Default.PathTracer.Mode:0]]
+[2025.05.05-03.50.39:831][  0]LogConfig: Set CVar [[r.Shadow.UnbuiltPreviewInGame:1]]
+[2025.05.05-03.50.39:839][  0]LogConfig: Set CVar [[r.StencilForLODDither:0]]
+[2025.05.05-03.50.39:843][  0]LogConfig: Set CVar [[r.EarlyZPass:3]]
+[2025.05.05-03.50.39:846][  0]LogConfig: Set CVar [[r.EarlyZPassOnlyMaterialMasking:0]]
+[2025.05.05-03.50.39:854][  0]LogConfig: Set CVar [[r.Shadow.CSMCaching:0]]
+[2025.05.05-03.50.39:857][  0]LogConfig: Set CVar [[r.DBuffer:1]]
+[2025.05.05-03.50.39:862][  0]LogConfig: Set CVar [[r.ClearSceneMethod:1]]
+[2025.05.05-03.50.39:872][  0]LogConfig: Set CVar [[r.VelocityOutputPass:0]]
+[2025.05.05-03.50.39:874][  0]LogConfig: Set CVar [[r.Velocity.EnableVertexDeformation:2]]
+[2025.05.05-03.50.39:878][  0]LogConfig: Set CVar [[r.SelectiveBasePassOutputs:0]]
+[2025.05.05-03.50.39:886][  0]LogConfig: CVar [[bDefaultParticleCutouts:0]] deferred - dummy variable created
+[2025.05.05-03.50.39:889][  0]LogConfig: Set CVar [[fx.GPUSimulationTextureSizeX:1024]]
+[2025.05.05-03.50.39:892][  0]LogConfig: Set CVar [[fx.GPUSimulationTextureSizeY:1024]]
+[2025.05.05-03.50.39:897][  0]LogConfig: Set CVar [[r.AllowGlobalClipPlane:0]]
+[2025.05.05-03.50.39:901][  0]LogConfig: Set CVar [[r.GBufferFormat:1]]
+[2025.05.05-03.50.39:903][  0]LogConfig: Set CVar [[r.MorphTarget.Mode:1]]
+[2025.05.05-03.50.39:908][  0]LogConfig: Set CVar [[r.MorphTarget.MaxBlendWeight:5.000000]]
+[2025.05.05-03.50.39:916][  0]LogConfig: Set CVar [[r.SupportSkyAtmosphere:1]]
+[2025.05.05-03.50.39:923][  0]LogConfig: Set CVar [[r.SupportSkyAtmosphereAffectsHeightFog:1]]
+[2025.05.05-03.50.39:933][  0]LogConfig: Set CVar [[r.SupportLocalFogVolumes:1]]
+[2025.05.05-03.50.39:937][  0]LogConfig: Set CVar [[r.SupportCloudShadowOnForwardLitTranslucent:0]]
+[2025.05.05-03.50.39:946][  0]LogConfig: Set CVar [[r.LightFunctionAtlas.Format:0]]
+[2025.05.05-03.50.39:948][  0]LogConfig: Set CVar [[r.VolumetricFog.LightFunction:1]]
+[2025.05.05-03.50.39:951][  0]LogConfig: Set CVar [[r.Deferred.UsesLightFunctionAtlas:0]]
+[2025.05.05-03.50.39:955][  0]LogConfig: Set CVar [[r.SingleLayerWater.UsesLightFunctionAtlas:0]]
+[2025.05.05-03.50.39:963][  0]LogConfig: Set CVar [[r.Translucent.UsesLightFunctionAtlas:0]]
+[2025.05.05-03.50.39:967][  0]LogConfig: Set CVar [[r.Translucent.UsesIESProfiles:0]]
+[2025.05.05-03.50.39:972][  0]LogConfig: Set CVar [[r.Translucent.UsesRectLights:0]]
+[2025.05.05-03.50.39:979][  0]LogConfig: Set CVar [[vr.InstancedStereo:0]]
+[2025.05.05-03.50.39:985][  0]LogConfig: Set CVar [[r.MobileHDR:1]]
+[2025.05.05-03.50.39:990][  0]LogConfig: Set CVar [[vr.MobileMultiView:0]]
+[2025.05.05-03.50.39:993][  0]LogConfig: Set CVar [[r.Mobile.UseHWsRGBEncoding:0]]
+[2025.05.05-03.50.39:998][  0]LogConfig: Set CVar [[vr.RoundRobinOcclusion:0]]
+[2025.05.05-03.50.40:002][  0]LogConfig: Set CVar [[r.MeshStreaming:0]]
+[2025.05.05-03.50.40:010][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes:1]]
+[2025.05.05-03.50.40:015][  0]LogConfig: Set CVar [[r.HeterogeneousVolumes.Shadows:0]]
+[2025.05.05-03.50.40:026][  0]LogConfig: Set CVar [[r.Translucency.HeterogeneousVolumes:0]]
+[2025.05.05-03.50.40:033][  0]LogConfig: Set CVar [[r.WireframeCullThreshold:5.000000]]
+[2025.05.05-03.50.40:038][  0]LogConfig: Set CVar [[r.SupportStationarySkylight:1]]
+[2025.05.05-03.50.40:042][  0]LogConfig: Set CVar [[r.SupportLowQualityLightmaps:1]]
+[2025.05.05-03.50.40:046][  0]LogConfig: Set CVar [[r.SupportPointLightWholeSceneShadows:1]]
+[2025.05.05-03.50.40:054][  0]LogConfig: Set CVar [[r.Shadow.TranslucentPerObject.ProjectEnabled:0]]
+[2025.05.05-03.50.40:057][  0]LogConfig: Set CVar [[r.Water.SingleLayerWater.SupportCloudShadow:0]]
+[2025.05.05-03.50.40:063][  0]LogConfig: Set CVar [[r.Substrate:0]]
+[2025.05.05-03.50.40:073][  0]LogConfig: Set CVar [[r.Substrate.OpaqueMaterialRoughRefraction:0]]
+[2025.05.05-03.50.40:076][  0]LogConfig: Set CVar [[r.Substrate.Debug.AdvancedVisualizationShaders:0]]
+[2025.05.05-03.50.40:080][  0]LogConfig: Set CVar [[r.Material.RoughDiffuse:0]]
+[2025.05.05-03.50.40:092][  0]LogConfig: Set CVar [[r.Material.EnergyConservation:0]]
+[2025.05.05-03.50.40:098][  0]LogConfig: Set CVar [[r.OIT.SortedPixels:0]]
+[2025.05.05-03.50.40:106][  0]LogConfig: Set CVar [[r.HairStrands.LODMode:1]]
+[2025.05.05-03.50.40:110][  0]LogConfig: Set CVar [[r.SkinCache.CompileShaders:0]]
+[2025.05.05-03.50.40:117][  0]LogConfig: Set CVar [[r.SkinCache.SkipCompilingGPUSkinVF:0]]
+[2025.05.05-03.50.40:121][  0]LogConfig: Set CVar [[r.SkinCache.DefaultBehavior:1]]
+[2025.05.05-03.50.40:124][  0]LogConfig: Set CVar [[r.SkinCache.SceneMemoryLimitInMB:128.000000]]
+[2025.05.05-03.50.40:128][  0]LogConfig: Set CVar [[r.Mobile.EnableStaticAndCSMShadowReceivers:1]]
+[2025.05.05-03.50.40:139][  0]LogConfig: Set CVar [[r.Mobile.EnableMovableLightCSMShaderCulling:1]]
+[2025.05.05-03.50.40:146][  0]LogConfig: Set CVar [[r.Mobile.Forward.EnableLocalLights:1]]
+[2025.05.05-03.50.40:149][  0]LogConfig: Set CVar [[r.Mobile.Forward.EnableClusteredReflections:0]]
+[2025.05.05-03.50.40:153][  0]LogConfig: Set CVar [[r.Mobile.EnableNoPrecomputedLightingCSMShader:1]]
+[2025.05.05-03.50.40:158][  0]LogConfig: Set CVar [[r.Mobile.AllowDistanceFieldShadows:1]]
+[2025.05.05-03.50.40:168][  0]LogConfig: Set CVar [[r.Mobile.AllowMovableDirectionalLights:1]]
+[2025.05.05-03.50.40:172][  0]LogConfig: Set CVar [[r.Mobile.EnableMovableSpotlightsShadow:0]]
+[2025.05.05-03.50.40:176][  0]LogConfig: Set CVar [[r.GPUSkin.Support16BitBoneIndex:0]]
+[2025.05.05-03.50.40:179][  0]LogConfig: Set CVar [[r.GPUSkin.Limit2BoneInfluences:0]]
+[2025.05.05-03.50.40:183][  0]LogConfig: Set CVar [[r.SupportDepthOnlyIndexBuffers:1]]
+[2025.05.05-03.50.40:185][  0]LogConfig: Set CVar [[r.SupportReversedIndexBuffers:1]]
+[2025.05.05-03.50.40:188][  0]LogConfig: Set CVar [[r.Mobile.AmbientOcclusion:0]]
+[2025.05.05-03.50.40:201][  0]LogConfig: Set CVar [[r.Mobile.DBuffer:0]]
+[2025.05.05-03.50.40:205][  0]LogConfig: Set CVar [[r.GPUSkin.UnlimitedBoneInfluences:0]]
+[2025.05.05-03.50.40:209][  0]LogConfig: Set CVar [[r.GPUSkin.AlwaysUseDeformerForUnlimitedBoneInfluences:0]]
+[2025.05.05-03.50.40:212][  0]LogConfig: Set CVar [[r.GPUSkin.UnlimitedBoneInfluencesThreshold:8]]
+[2025.05.05-03.50.40:214][  0]LogConfig: CVar [[DefaultBoneInfluenceLimit:(Default=0,PerPlatform=())]] deferred - dummy variable created
+[2025.05.05-03.50.40:221][  0]LogConfig: Set CVar [[r.Mobile.PlanarReflectionMode:0]]
+[2025.05.05-03.50.40:230][  0]LogConfig: Set CVar [[r.Mobile.SupportsGen4TAA:1]]
+[2025.05.05-03.50.40:235][  0]LogConfig: CVar [[bStreamSkeletalMeshLODs:(Default=False,PerPlatform=())]] deferred - dummy variable created
+[2025.05.05-03.50.40:238][  0]LogConfig: CVar [[bDiscardSkeletalMeshOptionalLODs:(Default=False,PerPlatform=())]] deferred - dummy variable created
+[2025.05.05-03.50.40:245][  0]LogConfig: CVar [[VisualizeCalibrationCustomMaterialPath:None]] deferred - dummy variable created
+[2025.05.05-03.50.40:249][  0]LogConfig: Set CVar [[r.Shaders.RemoveUnusedInterpolators:1]]
+[2025.05.05-03.50.40:259][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererOverrideSettings] File [Engine]
+[2025.05.05-03.50.40:265][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [Engine]
+[2025.05.05-03.50.40:274][  0]LogConfig: Set CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+[2025.05.05-03.50.40:279][  0]LogConfig: Set CVar [[s.AsyncLoadingThreadEnabled:1]]
+[2025.05.05-03.50.40:289][  0]LogConfig: Set CVar [[s.EventDrivenLoaderEnabled:1]]
+[2025.05.05-03.50.40:294][  0]LogConfig: Set CVar [[s.WarnIfTimeLimitExceeded:0]]
+[2025.05.05-03.50.40:303][  0]LogConfig: Set CVar [[s.TimeLimitExceededMultiplier:1.5]]
+[2025.05.05-03.50.40:307][  0]LogConfig: Set CVar [[s.TimeLimitExceededMinTime:0.005]]
+[2025.05.05-03.50.40:310][  0]LogConfig: Set CVar [[s.UseBackgroundLevelStreaming:1]]
+[2025.05.05-03.50.40:314][  0]LogConfig: Set CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+[2025.05.05-03.50.40:318][  0]LogConfig: Set CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+[2025.05.05-03.50.40:321][  0]LogConfig: Set CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+[2025.05.05-03.50.40:325][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+[2025.05.05-03.50.40:334][  0]LogConfig: Set CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+[2025.05.05-03.50.40:338][  0]LogConfig: Set CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+[2025.05.05-03.50.40:349][  0]LogConfig: CVar [[s.MaxPackageSummarySize:16384]] deferred - dummy variable created
+[2025.05.05-03.50.40:352][  0]LogConfig: Set CVar [[s.FlushStreamingOnExit:1]]
+[2025.05.05-03.50.40:356][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__SoundBase]] deferred - dummy variable created
+[2025.05.05-03.50.40:364][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__MaterialInterface]] deferred - dummy variable created
+[2025.05.05-03.50.40:368][  0]LogConfig: CVar [[FixedBootOrder:/Script/Engine/Default__DeviceProfileManager]] deferred - dummy variable created
+[2025.05.05-03.50.40:375][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.GarbageCollectionSettings] File [Engine]
+[2025.05.05-03.50.40:379][  0]LogConfig: Set CVar [[gc.MaxObjectsNotConsideredByGC:1]]
+[2025.05.05-03.50.40:383][  0]LogConfig: Set CVar [[gc.SizeOfPermanentObjectPool:0]]
+[2025.05.05-03.50.40:388][  0]LogConfig: Set CVar [[gc.FlushStreamingOnGC:0]]
+[2025.05.05-03.50.40:394][  0]LogConfig: Set CVar [[gc.NumRetriesBeforeForcingGC:10]]
+[2025.05.05-03.50.40:399][  0]LogConfig: Set CVar [[gc.AllowParallelGC:1]]
+[2025.05.05-03.50.40:402][  0]LogConfig: Set CVar [[gc.TimeBetweenPurgingPendingKillObjects:61.1]]
+[2025.05.05-03.50.40:411][  0]LogConfig: Set CVar [[gc.MaxObjectsInEditor:25165824]]
+[2025.05.05-03.50.40:414][  0]LogConfig: Set CVar [[gc.IncrementalBeginDestroyEnabled:1]]
+[2025.05.05-03.50.40:417][  0]LogConfig: Set CVar [[gc.CreateGCClusters:1]]
+[2025.05.05-03.50.40:420][  0]LogConfig: Set CVar [[gc.MinGCClusterSize:5]]
+[2025.05.05-03.50.40:425][  0]LogConfig: Set CVar [[gc.AssetClustreringEnabled:0]]
+[2025.05.05-03.50.40:429][  0]LogConfig: Set CVar [[gc.ActorClusteringEnabled:0]]
+[2025.05.05-03.50.40:432][  0]LogConfig: Set CVar [[gc.UseDisregardForGCOnDedicatedServers:1]]
+[2025.05.05-03.50.40:440][  0]LogConfig: Set CVar [[gc.MultithreadedDestructionEnabled:1]]
+[2025.05.05-03.50.40:443][  0]LogConfig: Set CVar [[gc.VerifyUObjectsAreNotFGCObjects:0]]
+[2025.05.05-03.50.40:447][  0]LogConfig: Set CVar [[gc.GarbageEliminationEnabled:1]]
+[2025.05.05-03.50.40:458][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.NetworkSettings] File [Engine]
+[2025.05.05-03.50.40:461][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Average",ToolTip="Simulates average internet conditions")]] deferred - dummy variable created
+[2025.05.05-03.50.40:466][  0]LogConfig: CVar [[NetworkEmulationProfiles:(ProfileName="Bad",ToolTip="Simulates laggy internet conditions")]] deferred - dummy variable created
+[2025.05.05-03.50.40:478][  0]LogConfig: Applying CVar settings from Section [/Script/UnrealEd.CookerSettings] File [Engine]
+[2025.05.05-03.50.40:481][  0]LogConfig: CVar [[DefaultASTCQualityBySpeed:2]] deferred - dummy variable created
+[2025.05.05-03.50.40:483][  0]LogConfig: CVar [[DefaultASTCQualityBySize:3]] deferred - dummy variable created
+[2025.05.05-03.50.40:487][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:WidgetBlueprint]] deferred - dummy variable created
+[2025.05.05-03.50.40:489][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:GroupActor]] deferred - dummy variable created
+[2025.05.05-03.50.40:494][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:MetaData]] deferred - dummy variable created
+[2025.05.05-03.50.40:502][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ObjectRedirector]] deferred - dummy variable created
+[2025.05.05-03.50.40:509][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NavMeshRenderingComponent]] deferred - dummy variable created
+[2025.05.05-03.50.40:518][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ReflectionCaptureComponent]] deferred - dummy variable created
+[2025.05.05-03.50.40:520][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:TextRenderComponent]] deferred - dummy variable created
+[2025.05.05-03.50.40:525][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:Font]] deferred - dummy variable created
+[2025.05.05-03.50.40:533][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:InterpCurveEdSetup]] deferred - dummy variable created
+[2025.05.05-03.50.40:542][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:MaterialExpression]] deferred - dummy variable created
+[2025.05.05-03.50.40:547][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NiagaraEmitter]] deferred - dummy variable created
+[2025.05.05-03.50.40:550][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:NiagaraScript]] deferred - dummy variable created
+[2025.05.05-03.50.40:553][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleEmitter]] deferred - dummy variable created
+[2025.05.05-03.50.40:556][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleLODLevel]] deferred - dummy variable created
+[2025.05.05-03.50.40:563][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:ParticleModule]] deferred - dummy variable created
+[2025.05.05-03.50.40:567][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:SubUVAnimation]] deferred - dummy variable created
+[2025.05.05-03.50.40:571][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:SoundNode]] deferred - dummy variable created
+[2025.05.05-03.50.40:580][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedServer:GameplayEffectUIData]] deferred - dummy variable created
+[2025.05.05-03.50.40:583][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:WidgetBlueprint]] deferred - dummy variable created
+[2025.05.05-03.50.40:586][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:GroupActor]] deferred - dummy variable created
+[2025.05.05-03.50.40:590][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:MetaData]] deferred - dummy variable created
+[2025.05.05-03.50.40:593][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:ObjectRedirector]] deferred - dummy variable created
+[2025.05.05-03.50.40:596][  0]LogConfig: CVar [[ClassesExcludedOnDedicatedClient:InterpCurveEdSetup]] deferred - dummy variable created
+[2025.05.05-03.50.40:599][  0]LogConfig: CVar [[VersionedIntRValues:r.AllowStaticLighting]] deferred - dummy variable created
+[2025.05.05-03.50.40:604][  0]LogConfig: CVar [[VersionedIntRValues:r.MaterialEditor.LWCTruncateMode]] deferred - dummy variable created
+[2025.05.05-03.50.40:620][  0]LogConfig: CVar [[VersionedIntRValues:r.GBuffer]] deferred - dummy variable created
+[2025.05.05-03.50.40:625][  0]LogConfig: CVar [[VersionedIntRValues:r.VelocityOutputPass]] deferred - dummy variable created
+[2025.05.05-03.50.40:630][  0]LogConfig: CVar [[VersionedIntRValues:r.SelectiveBasePassOutputs]] deferred - dummy variable created
+[2025.05.05-03.50.40:633][  0]LogConfig: CVar [[VersionedIntRValues:r.DBuffer]] deferred - dummy variable created
+[2025.05.05-03.50.40:639][  0]LogConfig: CVar [[VersionedIntRValues:r.Mobile.DBuffer]] deferred - dummy variable created
+[2025.05.05-03.50.40:643][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.Symbols]] deferred - dummy variable created
+[2025.05.05-03.50.40:647][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.GenerateSymbols]] deferred - dummy variable created
+[2025.05.05-03.50.40:652][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.WriteSymbols]] deferred - dummy variable created
+[2025.05.05-03.50.40:655][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.AllowUniqueSymbols]] deferred - dummy variable created
+[2025.05.05-03.50.40:657][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.ExtraData]] deferred - dummy variable created
+[2025.05.05-03.50.40:662][  0]LogConfig: CVar [[VersionedIntRValues:r.Shaders.Optimize]] deferred - dummy variable created
+[2025.05.05-03.50.40:669][  0]LogConfig: CVar [[VersionedIntRValues:r.CompileShadersForDevelopment]] deferred - dummy variable created
+[2025.05.05-03.50.40:674][  0]LogConfig: CVar [[VersionedIntRValues:r.MobileHDR]] deferred - dummy variable created
+[2025.05.05-03.50.40:678][  0]LogConfig: CVar [[VersionedIntRValues:r.UsePreExposure]] deferred - dummy variable created
+[2025.05.05-03.50.40:686][  0]LogConfig: Applying CVar settings from Section [ViewDistanceQuality@3] File [Scalability]
+[2025.05.05-03.50.40:691][  0]LogConfig: Set CVar [[r.SkeletalMeshLODBias:0]]
+[2025.05.05-03.50.40:695][  0]LogConfig: Set CVar [[r.ViewDistanceScale:1.0]]
+[2025.05.05-03.50.40:701][  0]LogConfig: Applying CVar settings from Section [AntiAliasingQuality@3] File [Scalability]
+[2025.05.05-03.50.40:704][  0]LogConfig: Set CVar [[r.FXAA.Quality:4]]
+[2025.05.05-03.50.40:708][  0]LogConfig: Set CVar [[r.TemporalAA.Quality:2]]
+[2025.05.05-03.50.40:715][  0]LogConfig: Set CVar [[r.TSR.History.R11G11B10:1]]
+[2025.05.05-03.50.40:718][  0]LogConfig: Set CVar [[r.TSR.History.ScreenPercentage:200]]
+[2025.05.05-03.50.40:721][  0]LogConfig: Set CVar [[r.TSR.History.UpdateQuality:3]]
+[2025.05.05-03.50.40:725][  0]LogConfig: Set CVar [[r.TSR.ShadingRejection.Flickering:1]]
+[2025.05.05-03.50.40:732][  0]LogConfig: Set CVar [[r.TSR.RejectionAntiAliasingQuality:2]]
+[2025.05.05-03.50.40:737][  0]LogConfig: Set CVar [[r.TSR.Resurrection:1]]
+[2025.05.05-03.50.40:742][  0]LogConfig: Applying CVar settings from Section [ShadowQuality@3] File [Scalability]
+[2025.05.05-03.50.40:750][  0]LogConfig: Set CVar [[r.LightFunctionQuality:1]]
+[2025.05.05-03.50.40:755][  0]LogConfig: Set CVar [[r.ShadowQuality:5]]
+[2025.05.05-03.50.40:759][  0]LogConfig: Set CVar [[r.Shadow.CSM.MaxCascades:10]]
+[2025.05.05-03.50.40:762][  0]LogConfig: Set CVar [[r.Shadow.MaxResolution:2048]]
+[2025.05.05-03.50.40:766][  0]LogConfig: Set CVar [[r.Shadow.MaxCSMResolution:2048]]
+[2025.05.05-03.50.40:771][  0]LogConfig: Set CVar [[r.Shadow.RadiusThreshold:0.01]]
+[2025.05.05-03.50.40:780][  0]LogConfig: Set CVar [[r.Shadow.DistanceScale:1.0]]
+[2025.05.05-03.50.40:783][  0]LogConfig: Set CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[2025.05.05-03.50.40:787][  0]LogConfig: Set CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[2025.05.05-03.50.40:795][  0]LogConfig: Set CVar [[r.DistanceFieldShadowing:1]]
+[2025.05.05-03.50.40:799][  0]LogConfig: Set CVar [[r.VolumetricFog:1]]
+[2025.05.05-03.50.40:803][  0]LogConfig: Set CVar [[r.VolumetricFog.GridPixelSize:8]]
+[2025.05.05-03.50.40:806][  0]LogConfig: Set CVar [[r.VolumetricFog.GridSizeZ:128]]
+[2025.05.05-03.50.40:810][  0]LogConfig: Set CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[2025.05.05-03.50.40:813][  0]LogConfig: Set CVar [[r.LightMaxDrawDistanceScale:1]]
+[2025.05.05-03.50.40:816][  0]LogConfig: Set CVar [[r.CapsuleShadows:1]]
+[2025.05.05-03.50.40:824][  0]LogConfig: Set CVar [[r.Shadow.Virtual.MaxPhysicalPages:4096]]
+[2025.05.05-03.50.40:828][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectional:-1.5]]
+[2025.05.05-03.50.40:830][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving:-1.5]]
+[2025.05.05-03.50.40:834][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocal:0.0]]
+[2025.05.05-03.50.40:842][  0]LogConfig: Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocalMoving:1.0]]
+[2025.05.05-03.50.40:845][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountDirectional:8]]
+[2025.05.05-03.50.40:849][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayDirectional:4]]
+[2025.05.05-03.50.40:852][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.RayCountLocal:8]]
+[2025.05.05-03.50.40:855][  0]LogConfig: Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayLocal:4]]
+[2025.05.05-03.50.40:859][  0]LogConfig: Applying CVar settings from Section [GlobalIlluminationQuality@3] File [Scalability]
+[2025.05.05-03.50.40:863][  0]LogConfig: Set CVar [[r.DistanceFieldAO:1]]
+[2025.05.05-03.50.40:873][  0]LogConfig: Set CVar [[r.AOQuality:2]]
+[2025.05.05-03.50.40:881][  0]LogConfig: Set CVar [[r.Lumen.DiffuseIndirect.Allow:1]]
+[2025.05.05-03.50.40:884][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.ProbeSpacing:4]]
+[2025.05.05-03.50.40:888][  0]LogConfig: Set CVar [[r.LumenScene.Radiosity.HemisphereProbeResolution:4]]
+[2025.05.05-03.50.40:891][  0]LogConfig: Set CVar [[r.Lumen.TraceMeshSDFs.Allow:1]]
+[2025.05.05-03.50.40:894][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.ProbeResolution:32]]
+[2025.05.05-03.50.40:902][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.NumProbesToTraceBudget:300]]
+[2025.05.05-03.50.40:908][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.DownsampleFactor:16]]
+[2025.05.05-03.50.40:911][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TracingOctahedronResolution:8]]
+[2025.05.05-03.50.40:916][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.IrradianceFormat:0]]
+[2025.05.05-03.50.40:919][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.StochasticInterpolation:0]]
+[2025.05.05-03.50.40:922][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.FullResolutionJitterWidth:1]]
+[2025.05.05-03.50.40:925][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.TwoSidedFoliageBackfaceDiffuse:1]]
+[2025.05.05-03.50.40:934][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ScreenTraces.HZBTraversal.FullResDepth:1]]
+[2025.05.05-03.50.40:938][  0]LogConfig: Set CVar [[r.Lumen.ScreenProbeGather.ShortRangeAO.HardwareRayTracing:0]]
+[2025.05.05-03.50.40:943][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.GridPixelSize:32]]
+[2025.05.05-03.50.40:947][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TraceFromVolume:1]]
+[2025.05.05-03.50.40:951][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.TracingOctahedronResolution:3]]
+[2025.05.05-03.50.40:957][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.ProbeResolution:8]]
+[2025.05.05-03.50.40:966][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.NumProbesToTraceBudget:200]]
+[2025.05.05-03.50.40:969][  0]LogConfig: Set CVar [[r.SkyLight.RealTimeReflectionCapture:1]]
+[2025.05.05-03.50.40:973][  0]LogConfig: Applying CVar settings from Section [ReflectionQuality@3] File [Scalability]
+[2025.05.05-03.50.40:976][  0]LogConfig: Set CVar [[r.SSR.Quality:3]]
+[2025.05.05-03.50.40:979][  0]LogConfig: Set CVar [[r.SSR.HalfResSceneColor:0]]
+[2025.05.05-03.50.40:982][  0]LogConfig: Set CVar [[r.Lumen.Reflections.Allow:1]]
+[2025.05.05-03.50.40:987][  0]LogConfig: Set CVar [[r.Lumen.Reflections.DownsampleFactor:1]]
+[2025.05.05-03.50.40:998][  0]LogConfig: Set CVar [[r.Lumen.Reflections.MaxRoughnessToTraceForFoliage:0.4]]
+[2025.05.05-03.50.41:002][  0]LogConfig: Set CVar [[r.Lumen.Reflections.ScreenSpaceReconstruction.TonemapStrength:0]]
+[2025.05.05-03.50.41:011][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Allow:1]]
+[2025.05.05-03.50.41:016][  0]LogConfig: Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Enable:0]]
+[2025.05.05-03.50.41:022][  0]LogConfig: Applying CVar settings from Section [PostProcessQuality@3] File [Scalability]
+[2025.05.05-03.50.41:024][  0]LogConfig: Set CVar [[r.MotionBlurQuality:4]]
+[2025.05.05-03.50.41:028][  0]LogConfig: Set CVar [[r.MotionBlur.HalfResGather:0]]
+[2025.05.05-03.50.41:031][  0]LogConfig: Set CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[2025.05.05-03.50.41:039][  0]LogConfig: Set CVar [[r.AmbientOcclusionMaxQuality:100]]
+[2025.05.05-03.50.41:042][  0]LogConfig: Set CVar [[r.AmbientOcclusionLevels:-1]]
+[2025.05.05-03.50.41:045][  0]LogConfig: Set CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[2025.05.05-03.50.41:049][  0]LogConfig: Set CVar [[r.DepthOfFieldQuality:2]]
+[2025.05.05-03.50.41:055][  0]LogConfig: Set CVar [[r.RenderTargetPoolMin:400]]
+[2025.05.05-03.50.41:059][  0]LogConfig: Set CVar [[r.LensFlareQuality:2]]
+[2025.05.05-03.50.41:063][  0]LogConfig: Set CVar [[r.SceneColorFringeQuality:1]]
+[2025.05.05-03.50.41:073][  0]LogConfig: Set CVar [[r.EyeAdaptationQuality:2]]
+[2025.05.05-03.50.41:076][  0]LogConfig: Set CVar [[r.BloomQuality:5]]
+[2025.05.05-03.50.41:079][  0]LogConfig: Set CVar [[r.Bloom.ScreenPercentage:50.000]]
+[2025.05.05-03.50.41:088][  0]LogConfig: Set CVar [[r.FastBlurThreshold:100]]
+[2025.05.05-03.50.41:094][  0]LogConfig: Set CVar [[r.Upscale.Quality:3]]
+[2025.05.05-03.50.41:097][  0]LogConfig: Set CVar [[r.LightShaftQuality:1]]
+[2025.05.05-03.50.41:101][  0]LogConfig: Set CVar [[r.Filter.SizeScale:1]]
+[2025.05.05-03.50.41:104][  0]LogConfig: Set CVar [[r.Tonemapper.Quality:5]]
+[2025.05.05-03.50.41:107][  0]LogConfig: Set CVar [[r.DOF.Gather.ResolutionDivisor:2         ; lower gathering resolution]]
+[2025.05.05-03.50.41:111][  0]LogConfig: Set CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[2025.05.05-03.50.41:118][  0]LogConfig: Set CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[2025.05.05-03.50.41:121][  0]LogConfig: Set CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[2025.05.05-03.50.41:124][  0]LogConfig: Set CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[2025.05.05-03.50.41:127][  0]LogConfig: Set CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[2025.05.05-03.50.41:135][  0]LogConfig: Set CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[2025.05.05-03.50.41:139][  0]LogConfig: Set CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[2025.05.05-03.50.41:143][  0]LogConfig: Set CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[2025.05.05-03.50.41:146][  0]LogConfig: Set CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[2025.05.05-03.50.41:149][  0]LogConfig: Set CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[2025.05.05-03.50.41:152][  0]LogConfig: Set CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[2025.05.05-03.50.41:156][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[2025.05.05-03.50.41:164][  0]LogConfig: Set CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[2025.05.05-03.50.41:168][  0]LogConfig: Applying CVar settings from Section [TextureQuality@3] File [Scalability]
+[2025.05.05-03.50.41:173][  0]LogConfig: Set CVar [[r.Streaming.MipBias:0]]
+[2025.05.05-03.50.41:176][  0]LogConfig: Set CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[2025.05.05-03.50.41:179][  0]LogConfig: Set CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[2025.05.05-03.50.41:182][  0]LogConfig: Set CVar [[r.Streaming.Boost:1]]
+[2025.05.05-03.50.41:186][  0]LogConfig: Set CVar [[r.MaxAnisotropy:8]]
+[2025.05.05-03.50.41:195][  0]LogConfig: Set CVar [[r.VT.MaxAnisotropy:8]]
+[2025.05.05-03.50.41:199][  0]LogConfig: Set CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[2025.05.05-03.50.41:202][  0]LogConfig: Set CVar [[r.Streaming.PoolSize:1000]]
+[2025.05.05-03.50.41:209][  0]LogConfig: Set CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[2025.05.05-03.50.41:213][  0]LogConfig: Applying CVar settings from Section [EffectsQuality@3] File [Scalability]
+[2025.05.05-03.50.41:216][  0]LogConfig: Set CVar [[r.TranslucencyLightingVolumeDim:64]]
+[2025.05.05-03.50.41:223][  0]LogConfig: Set CVar [[r.RefractionQuality:2]]
+[2025.05.05-03.50.41:227][  0]LogConfig: Set CVar [[r.SceneColorFormat:4]]
+[2025.05.05-03.50.41:230][  0]LogConfig: Set CVar [[r.DetailMode:3]]
+[2025.05.05-03.50.41:233][  0]LogConfig: Set CVar [[r.TranslucencyVolumeBlur:1]]
+[2025.05.05-03.50.41:243][  0]LogConfig: Set CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[2025.05.05-03.50.41:246][  0]LogConfig: Set CVar [[r.SSS.Scale:1]]
+[2025.05.05-03.50.41:250][  0]LogConfig: Set CVar [[r.SSS.SampleSet:2]]
+[2025.05.05-03.50.41:253][  0]LogConfig: Set CVar [[r.SSS.Quality:1]]
+[2025.05.05-03.50.41:258][  0]LogConfig: Set CVar [[r.SSS.HalfRes:0]]
+[2025.05.05-03.50.41:262][  0]LogConfig: Set CVar [[r.SSGI.Quality:3]]
+[2025.05.05-03.50.41:272][  0]LogConfig: Set CVar [[r.EmitterSpawnRateScale:1.0]]
+[2025.05.05-03.50.41:275][  0]LogConfig: Set CVar [[r.ParticleLightQuality:2]]
+[2025.05.05-03.50.41:278][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[2025.05.05-03.50.41:288][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[2025.05.05-03.50.41:291][  0]LogConfig: Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[2025.05.05-03.50.41:294][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[2025.05.05-03.50.41:304][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[2025.05.05-03.50.41:308][  0]LogConfig: Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[2025.05.05-03.50.41:311][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[2025.05.05-03.50.41:317][  0]LogConfig: Set CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[2025.05.05-03.50.41:321][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[2025.05.05-03.50.41:324][  0]LogConfig: Set CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[2025.05.05-03.50.41:331][  0]LogConfig: Set CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[2025.05.05-03.50.41:336][  0]LogConfig: CVar [[fx.Niagara.QualityLevel:3]] deferred - dummy variable created
+[2025.05.05-03.50.41:340][  0]LogConfig: Set CVar [[r.Refraction.OffsetQuality:1]]
+[2025.05.05-03.50.41:347][  0]LogConfig: Applying CVar settings from Section [FoliageQuality@3] File [Scalability]
+[2025.05.05-03.50.41:351][  0]LogConfig: Set CVar [[foliage.DensityScale:1.0]]
+[2025.05.05-03.50.41:353][  0]LogConfig: Set CVar [[grass.DensityScale:1.0]]
+[2025.05.05-03.50.41:357][  0]LogConfig: Applying CVar settings from Section [ShadingQuality@3] File [Scalability]
+[2025.05.05-03.50.41:365][  0]LogConfig: Set CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[2025.05.05-03.50.41:368][  0]LogConfig: Set CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[2025.05.05-03.50.41:371][  0]LogConfig: Set CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[2025.05.05-03.50.41:378][  0]LogConfig: Set CVar [[r.AnisotropicMaterials:1]]
+[2025.05.05-03.50.41:382][  0]LogConfig: Applying CVar settings from Section [LandscapeQuality@3] File [Scalability]
+[2025.05.05-03.50.41:386][  0]LogInit: Selected Device Profile: [WindowsEditor]
+[2025.05.05-03.50.41:393][  0]LogHAL: Display: Platform has ~ 16 GB [16361480192 / 17179869184 / 16], which maps to Larger [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2025.05.05-03.50.41:398][  0]LogDeviceProfileManager: Going up to parent DeviceProfile [Windows]
+[2025.05.05-03.50.41:402][  0]LogDeviceProfileManager: Going up to parent DeviceProfile []
+[2025.05.05-03.50.41:414][  0]LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+[2025.05.05-03.50.41:419][  0]LogConfig: Set CVar [[r.DumpShaderDebugInfo:2]]
+[2025.05.05-03.50.41:424][  0]LogConfig: Set CVar [[r.Shaders.WarningsAsErrors:0 ;; 0: off, 1: global shaders, 2: all]]
+[2025.05.05-03.50.41:429][  0]LogConfig: Set CVar [[p.chaos.AllowCreatePhysxBodies:1]]
+[2025.05.05-03.50.41:432][  0]LogConfig: Set CVar [[fx.SkipVectorVMBackendOptimizations:1]]
+[2025.05.05-03.50.41:439][  0]LogConfig: Applying CVar settings from Section [Startup_Windows] File [../../../Engine/Config/ConsoleVariables.ini]
+[2025.05.05-03.50.41:443][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [Engine]
+[2025.05.05-03.50.41:447][  0]LogConfig: Set CVar [[memory.MemoryPressureCriticalThresholdMB:512]]
+[2025.05.05-03.50.41:454][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Editor.ini]
+[2025.05.05-03.50.41:461][  0]LogInit: Computer: MICAHLAPTOP
+[2025.05.05-03.50.41:464][  0]LogInit: User: 17038
+[2025.05.05-03.50.41:472][  0]LogInit: CPU Page size=4096, Cores=8
+[2025.05.05-03.50.41:476][  0]LogInit: High frequency timer resolution =10.000000 MHz
+[2025.05.05-03.50.41:493][  0]LogWindows: Error initializing COM [error code 80010119]
+[2025.05.05-03.50.41:506][  0]LogMemory: Process is running as part of a Windows Job with separate resource limits
+[2025.05.05-03.50.41:510][  0]LogMemory: Memory total: Physical=15.2GB (16GB approx) Virtual=43.4GB
+[2025.05.05-03.50.41:516][  0]LogMemory: Platform Memory Stats for WindowsEditor
+[2025.05.05-03.50.41:519][  0]LogMemory: Process Physical Memory: 475.36 MB used, 475.36 MB peak
+[2025.05.05-03.50.41:522][  0]LogMemory: Process Virtual Memory: 438.65 MB used, 438.65 MB peak
+[2025.05.05-03.50.41:524][  0]LogMemory: Physical Memory: 13776.21 MB used,  1827.31 MB free, 15603.52 MB total
+[2025.05.05-03.50.41:528][  0]LogMemory: Virtual Memory: 41572.51 MB used,  2839.08 MB free, 44411.59 MB total
+[2025.05.05-03.50.41:535][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2025.05.05-03.50.41:569][  0]LogWindows: WindowsPlatformFeatures disabled or dedicated server build
+[2025.05.05-03.50.41:576][  0]LogInit: Physics initialised using underlying interface: Chaos
+[2025.05.05-03.50.41:583][  0]LogInit: Using OS detected language (en-US).
+[2025.05.05-03.50.41:587][  0]LogInit: Using OS detected locale (en-US).
+[2025.05.05-03.50.41:602][  0]LogTextLocalizationManager: No specific localization for 'en-US' exists, so 'en' will be used for the language.
+[2025.05.05-03.50.42:402][  0]LogVRS: Current RHI does not support Variable Rate Shading
+[2025.05.05-03.50.42:409][  0]LogInit: Initializing FReadOnlyCVARCache
+[2025.05.05-03.50.42:442][  0]LogTurnkeySupport: Running Turnkey SDK detection: ' -ScriptsForProject="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject" Turnkey -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyReport_0.log" -log="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyLog_0.log" -project="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject"  -platform=all'
+[2025.05.05-03.50.42:454][  0]LogMonitoredProcess: Running Serialized UAT: [ cmd.exe /c ""C:/Users/17038/Desktop/UE_5.4/Engine/Build/BatchFiles/RunUAT.bat"  -ScriptsForProject="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject" Turnkey -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyReport_0.log" -log="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyLog_0.log" -project="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject"  -platform=all" ]
+[2025.05.05-03.50.42:545][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatASTC
+[2025.05.05-03.50.42:557][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatDXT
+[2025.05.05-03.50.42:574][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatETC2
+[2025.05.05-03.50.42:578][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[2025.05.05-03.50.42:581][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatUncompressed
+[2025.05.05-03.50.42:584][  0]LogTextureFormatOodle: Display: Oodle Texture TFO init; latest sdk version = 2.9.12
+[2025.05.05-03.50.42:590][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.12.dll
+[2025.05.05-03.50.42:596][  0]LogTextureFormatOodle: Display: Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[2025.05.05-03.50.42:613][  0]LogTextureFormatManager: Display: Loaded Base TextureFormat: TextureFormatOodle
+[2025.05.05-03.50.42:667][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2025.05.05-03.50.42:671][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsEditor'
+[2025.05.05-03.50.42:682][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2025.05.05-03.50.42:687][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2025.05.05-03.50.42:692][  0]LogTargetPlatformManager: Display: Building Assets For WindowsEditor
+[2025.05.05-03.50.42:730][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2025.05.05-03.50.42:902][  0]LogRendererCore: Ray tracing is disabled. Reason: disabled through project setting (r.RayTracing=0).
+[2025.05.05-03.50.42:918][  0]LogDerivedDataCache: Display: Memory: Max Cache Size: -1 MB
+[2025.05.05-03.50.42:923][  0]LogDerivedDataCache: FDerivedDataBackendGraph: Pak pak cache file ../../../../ClassShooter/ClassShooter/ClassShooter/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[2025.05.05-03.50.42:934][  0]LogDerivedDataCache: Unable to find inner node Pak for hierarchy Hierarchy.
+[2025.05.05-03.50.42:944][  0]LogDerivedDataCache: FDerivedDataBackendGraph: CompressedPak pak cache file ../../../../ClassShooter/ClassShooter/ClassShooter/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2025.05.05-03.50.42:950][  0]LogDerivedDataCache: Unable to find inner node CompressedPak for hierarchy Hierarchy.
+[2025.05.05-03.50.43:016][  0]LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache/Compressed.ddp: Opened pak cache for reading. (2464 MiB)
+[2025.05.05-03.50.43:019][  0]LogDerivedDataCache: FDerivedDataBackendGraph: EnterprisePak pak cache file ../../../Enterprise/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2025.05.05-03.50.43:029][  0]LogDerivedDataCache: Unable to find inner node EnterprisePak for hierarchy Hierarchy.
+[2025.05.05-03.50.43:033][  0]LogZenServiceInstance: Found subprocess environment variable UE-ZenSubprocessDataPath=C:/Users/17038/AppData/Local/UnrealEngine/Common/Zen/Data
+[2025.05.05-03.50.43:041][  0]LogZenServiceInstance: InTree version at 'C:/Users/17038/Desktop/UE_5.4/Engine/Binaries/Win64/zenserver.exe' is '5.4.5-202405102234-windows-x64-release-373e58b'
+[2025.05.05-03.50.43:058][  0]LogZenServiceInstance: Installed version at 'C:/Users/17038/AppData/Local/UnrealEngine/Common/Zen/Install/zenserver.exe' is '5.4.5-202405102234-windows-x64-release-373e58b'
+[2025.05.05-03.50.43:066][  0]LogZenServiceInstance: Found existing instance running on port 8558 matching our settings, no actions needed
+[2025.05.05-03.50.43:076][  0]LogZenServiceInstance: Display: Unreal Zen Storage Server HTTP service at [::1]:8558 status: OK!.
+[2025.05.05-03.50.43:084][  0]LogDerivedDataCache: Display: ZenLocal: Using ZenServer HTTP service at http://[::1]:8558/ with namespace ue.ddc status: OK!.
+[2025.05.05-03.50.43:120][  0]LogDerivedDataCache: C:/Users/17038/AppData/Local/UnrealEngine/Common/DerivedDataCache: Speed tests took 0.03 seconds.
+[2025.05.05-03.50.43:128][  0]LogDerivedDataCache: Display: C:/Users/17038/AppData/Local/UnrealEngine/Common/DerivedDataCache: Performance: Latency=0.07ms. RandomReadSpeed=102.35MBs, RandomWriteSpeed=45.53MBs. Assigned SpeedClass 'Local'
+[2025.05.05-03.50.43:136][  0]LogDerivedDataCache: Local: Using data cache path C:/Users/17038/AppData/Local/UnrealEngine/Common/DerivedDataCache: DeleteOnly
+[2025.05.05-03.50.43:141][  0]LogDerivedDataCache: ZenShared: Disabled because Host is set to 'None'
+[2025.05.05-03.50.43:144][  0]LogDerivedDataCache: Unable to find inner node ZenShared for hierarchy Hierarchy.
+[2025.05.05-03.50.43:148][  0]LogDerivedDataCache: Shared: Disabled because no path is configured.
+[2025.05.05-03.50.43:155][  0]LogDerivedDataCache: Unable to find inner node Shared for hierarchy Hierarchy.
+[2025.05.05-03.50.43:158][  0]LogDerivedDataCache: Cloud: Disabled because Host is set to 'None'
+[2025.05.05-03.50.43:161][  0]LogDerivedDataCache: Unable to find inner node Cloud for hierarchy Hierarchy.
+[2025.05.05-03.50.43:172][  0]LogShaderCompilers: Guid format shader working directory is -5 characters bigger than the processId version (../../../../ClassShooter/ClassShooter/ClassShooter/Intermediate/Shaders/WorkingDirectory/29216/).
+[2025.05.05-03.50.43:179][  0]LogShaderCompilers: Cleaned the shader compiler working directory 'C:/Users/17038/AppData/Local/Temp/UnrealShaderWorkingDir/61AE21BC42A7AA3E20EFE8B52352070A/'.
+[2025.05.05-03.50.43:188][  0]LogXGEController: Cannot use XGE Controller as Incredibuild is not installed on this machine.
+[2025.05.05-03.50.43:192][  0]LogShaderCompilers: Display: Using Local Shader Compiler with 8 workers.
+[2025.05.05-03.50.43:213][  0]LogShaderCompilers: Display: Compiling shader autogen file: ../../../../ClassShooter/ClassShooter/ClassShooter/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[2025.05.05-03.50.43:221][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2025.05.05-03.50.48:514][  0]LogTurnkeySupport: Completed SDK detection: ExitCode = 0
+[2025.05.05-03.50.48:518][  0]LogInit: Using OS detected language (en-US).
+[2025.05.05-03.50.48:524][  0]LogInit: Using OS detected locale (en-US).
+[2025.05.05-03.50.48:530][  0]LogTextLocalizationManager: No localization for 'en-US' exists, so 'en' will be used for the language.
+[2025.05.05-03.50.48:533][  0]LogTextLocalizationManager: No localization for 'en-US' exists, so 'en' will be used for the locale.
+[2025.05.05-03.50.48:541][  0]LogAssetRegistry: FAssetRegistry took 0.0016 seconds to start up
+[2025.05.05-03.50.48:547][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Bridge.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:557][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosCloth.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:571][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosVD.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:578][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CmdLinkServer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:584][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/EnhancedInput.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:598][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/FastBuildController.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:606][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MeshPainting.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:621][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/RenderGraphInsights.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:629][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/TraceUtilities.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:635][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WorldMetrics.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:653][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/XGEController.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:661][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Paper2D.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:666][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AISupport.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:683][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/EnvironmentQueryEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:693][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ACLPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:699][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AnimationData.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:710][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AnimationModifierLibrary.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:721][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/BlendSpaceMotionAnalysis.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:729][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ControlRig.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:741][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ControlRigModules.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:752][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ControlRigSpline.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:760][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/IKRig.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:770][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CameraShakePreviewer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:782][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GameplayCameras.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:788][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OodleNetwork.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:800][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AnimationSharing.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:806][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CLionSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:822][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CodeLiteSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:831][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/DumpGPUServices.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:837][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GitSourceControl.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:851][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/KDevelopSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:863][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/N10XSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:869][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/NullSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:882][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PerforceSourceControl.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:890][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PixWinPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:896][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PlasticSourceControl.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:902][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PluginUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:922][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PropertyAccessNode.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:928][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/RenderDocPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:940][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/RiderSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:962][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SubversionSourceControl.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:974][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/TextureFormatOodle.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:988][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/TraceDataFilters.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.48:998][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/UObjectPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:004][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/VisualStudioCodeSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:023][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/VisualStudioSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:034][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/XCodeSourceCodeAccess.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:042][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AssetManagerEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:054][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/BlueprintHeaderView.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:064][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChangelistReview.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:071][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CryptoKeys.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:085][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CurveEditorTools.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:092][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/DataValidation.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:098][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/EditorDebugTools.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:105][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/EditorScriptingUtilities.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:120][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/EngineAssetDefinitions.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:132][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/FacialAnimation.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:143][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GameplayTagsEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:149][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GeometryMode.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:160][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MacGraphicsSwitching.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:169][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MaterialAnalyzer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:176][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MeshLODToolset.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:190][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MobileLauncherProfileWizard.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:201][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ModelingToolsEditorMode.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:212][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PluginBrowser.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:226][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ProxyLODPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:236][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SequencerAnimTools.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:242][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SpeedTreeImporter.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:249][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/UVEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:256][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WorldPartitionHLODUtilities.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:271][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/DatasmithContent.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:281][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GLTFExporter.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:286][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/VariantManager.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:299][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/VariantManagerContent.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:313][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AutomationUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:319][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/BackChannel.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:329][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosCaching.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:339][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:346][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosNiagara.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:358][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosSolverPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:363][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChaosUserDataPT.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:372][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CharacterAI.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:378][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Dataflow.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:388][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Fracture.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:395][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/FullBodyIK.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:408][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GeometryCollectionPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:416][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GeometryFlow.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:421][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LocalizableMessage.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:436][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MeshModelingToolsetExp.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:452][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OpenImageDenoise.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:457][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PlanarCut.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:465][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PlatformCrypto.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:472][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PythonScriptPlugin.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:487][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SkeletalReduction.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:494][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/StructUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:502][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/StudioTelemetry.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:516][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ToolPresets.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:523][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Niagara.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:530][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/NiagaraSimCaching.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:537][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AlembicImporter.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:549][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/InterchangeEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:560][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Interchange.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:568][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AndroidMedia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:576][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AvfMedia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:588][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ImgMedia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:595][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MediaCompositing.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:607][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MediaPlate.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:614][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MediaPlayerEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:621][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WebMMedia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:627][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WmfMedia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:639][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/TcpMessaging.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:644][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/UdpMessaging.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:652][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ActorSequence.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:660][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LevelSequenceEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:674][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SequencerScripting.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:684][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/TemplateSequence.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:690][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineBase.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:704][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineServices.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:710][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystem.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:717][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystemNull.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:727][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystemSteam.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:734][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystemUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:748][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LauncherChunkInstaller.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:763][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ActorLayerUtilities.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:777][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AndroidDeviceProfileSelector.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:792][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AndroidFileServer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:800][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AndroidMoviePlayer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:816][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AndroidPermission.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:822][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AppleImageUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:828][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AppleMoviePlayer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:843][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ArchVisCharacter.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:850][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AssetTags.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:858][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AudioCapture.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:864][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AudioSynesthesia.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:882][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AudioWidgets.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:890][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CableComponent.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:904][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ChunkDownloader.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:918][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/CustomMeshComponent.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:931][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ExampleDeviceProfileSelector.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:947][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GeometryCache.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:954][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GeometryProcessing.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:968][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GoogleCloudMessaging.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:979][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/GooglePAD.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.49:987][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/InputDebugging.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:012][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/IOSDeviceProfileSelector.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:026][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LinuxDeviceProfileSelector.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:040][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LocationServicesBPLibrary.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:057][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MeshModelingToolset.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:069][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Metasound.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:078][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MobilePatchingUtils.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:091][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MsQuic.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:102][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ProceduralMeshComponent.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:112][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PropertyAccessEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:118][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ResonanceAudio.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:130][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/RigVM.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:155][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SignificanceManager.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:161][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SoundFields.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:167][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Synthesis.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:191][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WaveTable.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:207][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WebMMoviePlayer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:219][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WindowsDeviceProfileSelector.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:230][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/WindowsMoviePlayer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:246][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/InterchangeTests.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:252][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/Takes.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:258][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ContentBrowserAssetDataSource.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:276][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ContentBrowserClassDataSource.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:286][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ContentBrowserFileDataSource.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:301][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/PortableObjectFileDataSource.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:321][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/LightMixer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:328][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/ObjectMixer.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:336][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/BaseCharacterFXEditor.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:348][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MetaHumanProjectUtilities.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:358][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystemGooglePlay.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:368][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/OnlineSubsystemIOS.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:378][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/SteamShared.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:386][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/XInputDevice.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:396][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AdvancedSessions.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:405][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/AdvancedSteamSessions.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.50:416][  0]LogConfig: Warning: GConfig::Find attempting to access config with non-normalized path ../../../../ClassShooter/ClassShooter/ClassShooter/Saved/Config/WindowsEditor/MultiplayerSessions.ini. Please use FConfigCacheIni::NormalizeConfigIniPath before accessing INI files through ConfigCache.
+[2025.05.05-03.50.51:022][  0]LogPackageLocalizationCache: Processed 52 localized package path(s) for 1 prioritized culture(s) in 0.019593 seconds
+[2025.05.05-03.50.51:048][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64Editor not found.
+[2025.05.05-03.50.51:051][  0]LogDeviceProfileManager: Display: Deviceprofile LinuxArm64 not found.
+[2025.05.05-03.50.51:185][  0]LogDeviceProfileManager: Active device profile: [00000930B4C1EC00][00000930B19D2800 66] WindowsEditor
+[2025.05.05-03.50.51:229][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2025.05.05-03.50.51:268][  0]LogShaderCompilers: Display: Compiling shader autogen file: ../../../../ClassShooter/ClassShooter/ClassShooter/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[2025.05.05-03.50.51:292][  0]LogShaderCompilers: Display: Autogen file is unchanged, skipping write.
+[2025.05.05-03.50.51:438][  0]LogMeshReduction: Display: Using QuadricMeshReduction for automatic static mesh reduction
+[2025.05.05-03.50.51:448][  0]LogMeshReduction: Display: Using SkeletalMeshReduction for automatic skeletal mesh reduction
+[2025.05.05-03.50.51:464][  0]LogMeshReduction: Display: Using ProxyLODMeshReduction for automatic mesh merging
+[2025.05.05-03.50.51:467][  0]LogMeshReduction: Display: No distributed automatic mesh merging module available
+[2025.05.05-03.50.51:471][  0]LogMeshMerging: No distributed automatic mesh merging module available
+[2025.05.05-03.50.51:679][  0]LogTextureEncodingSettings: Display: Texture Encode Speed: Final (cook).
+[2025.05.05-03.50.51:683][  0]LogTextureEncodingSettings: Display: Oodle Texture Encode Speed settings: Fast: RDO Off Lambda=0, Effort=Normal Final: RDO Off Lambda=0, Effort=Normal
+[2025.05.05-03.50.51:693][  0]LogTextureEncodingSettings: Display: Shared linear texture encoding: Disabled
+[2025.05.05-03.50.52:582][  0]LogVirtualization: Display: VirtualizationSystem name found in ini file: None
+[2025.05.05-03.50.52:607][  0]LogVirtualization: Display: FNullVirtualizationSystem mounted, virtualization will be disabled
+[2025.05.05-03.50.52:737][  0]LogLiveCoding: Display: Starting LiveCoding
+[2025.05.05-03.50.52:778][  0]LogLiveCoding: Display: LiveCodingConsole Arguments: UnrealEditor Win64 Development
+[2025.05.05-03.50.52:812][  0]LogLiveCoding: Display: Detected running instance in process group "UE_ClassShooter_0x17f59440", connecting to console process (PID: 44892)
+[2025.05.05-03.50.52:828][  0]LogLiveCoding: Display: Waiting for server
+[2025.05.05-03.50.52:835][  0]LogLiveCoding: Display: Successfully initialized, removing startup thread
+[2025.05.05-03.50.52:870][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize started...
+[2025.05.05-03.50.52:941][  0]LogWorldPartition: Display: FWorldPartitionClassDescRegistry::Initialize took 204.293 ms
+[2025.05.05-03.50.53:343][  0]LogPython: Using Python 3.11.8
+[2025.05.05-03.50.54:883][  0]LogPython: Display: No enabled plugins with python dependencies found, skipping
+[2025.05.05-03.50.54:984][  0]LogNiagaraDebuggerClient: Niagara Debugger Client Initialized | Session: 49972908B1374351800000000000D300 | Instance: E69FFF87498FACDF0AF4A6A767048255 (MICAHLAPTOP-29216).
+[2025.05.05-03.50.55:056][  0]LogCollectionManager: Loaded 0 collections in 0.004582 seconds
+[2025.05.05-03.50.55:071][  0]LogFileCache: Scanning file cache for directory 'C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Saved/Collections/' took 0.00s
+[2025.05.05-03.50.55:077][  0]LogCollectionManager: Fixed up redirectors for 0 collections in 0.000007 seconds (updated 0 objects)
+[2025.05.05-03.50.55:293][  0]LogFileCache: Scanning file cache for directory 'C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Content/Developers/17038/Collections/' took 0.00s
+[2025.05.05-03.50.55:318][  0]LogFileCache: Scanning file cache for directory 'C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Content/Collections/' took 0.00s
+[2025.05.05-03.50.55:330][  0]LogTcpMessaging: Initializing TcpMessaging bridge
+[2025.05.05-03.50.55:344][  0]LogUdpMessaging: Initializing bridge on interface 0.0.0.0:0 to multicast group 230.0.0.1:6666.
+[2025.05.05-03.50.55:349][  0]LogUdpMessaging: Display: Unicast socket bound to '0.0.0.0:56208'.
+[2025.05.05-03.50.55:371][  0]LogUdpMessaging: Display: Added local interface '192.168.5.170' to multicast group '230.0.0.1:6666'
+[2025.05.05-03.50.55:836][  0]LogAudio: Display: Registering Engine Module Parameter Interfaces...
+[2025.05.05-03.50.55:888][  0]LogMetasoundEngine: MetaSound Engine Initialized
+[2025.05.05-03.50.56:150][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__WeaponBase. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:164][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__AssaultRifle. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:687][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__GrenadeLauncher. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:703][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__Knife. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:714][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__Pistol. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:722][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__RocketLauncher. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:733][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__Shield. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:740][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__Shotgun. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:748][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__SniperRifle. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.56:819][  0]SourceControl: Revision control is disabled
+[2025.05.05-03.50.57:206][  0]LogOpenImageDenoise: OIDN starting up
+[2025.05.05-03.50.57:308][  0]LogAndroidPermission: UAndroidPermissionCallbackProxy::GetInstance
+[2025.05.05-03.50.57:358][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2025.05.05-03.50.57:363][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2025.05.05-03.50.57:706][  0]LogUObjectArray: 34839 objects as part of root set at end of initial load.
+[2025.05.05-03.50.57:710][  0]LogUObjectAllocator: 10749688 out of 0 bytes used by permanent object pool.
+[2025.05.05-03.50.57:717][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2025.05.05-03.50.58:038][  0]LogEngine: Initializing Engine...
+[2025.05.05-03.50.58:055][  0]LogStats: UGameplayTagsManager::InitializeManager -  0.002 s
+[2025.05.05-03.50.58:122][  0]LogNetVersion: Set ProjectVersion to 1.0.0.0. Version Checksum will be recalculated on next use.
+[2025.05.05-03.50.58:126][  0]LogInit: Texture streaming: Disabled
+[2025.05.05-03.50.58:238][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2025.05.05-03.50.58:286][  0]LogWorldMetrics: [UWorldMetricsSubsystem::Initialize]
+[2025.05.05-03.50.58:295][  0]LogNiagara: UAV Float16 is not supported, compressed GPU emitters will be disabled.
+[2025.05.05-03.50.58:329][  0]LogInit: Display: Game Engine Initialized.
+[2025.05.05-03.50.58:347][  0]LogNiagaraEditor: GEditor isn't valid! Particle reset commands will not work for Niagara components!
+[2025.05.05-03.50.58:409][  0]LogInit: Display: Starting Game.
+[2025.05.05-03.50.58:414][  0]LogGlobalStatus: UEngine::Browse Started Browse: "/Game/ClassShooterAssets/Maps/CharacterSelectMap?Name=Player"
+[2025.05.05-03.50.58:421][  0]LogNet: Browse: /Game/ClassShooterAssets/Maps/CharacterSelectMap?Name=Player
+[2025.05.05-03.50.58:427][  0]LogLoad: LoadMap: /Game/ClassShooterAssets/Maps/CharacterSelectMap?Name=Player
+[2025.05.05-03.50.58:431][  0]LogWorld: BeginTearingDown for /Temp/Untitled_0
+[2025.05.05-03.50.58:441][  0]LogWorld: UWorld::CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[2025.05.05-03.50.58:452][  0]LogWorldMetrics: [UWorldMetricsSubsystem::Deinitialize]
+[2025.05.05-03.50.58:457][  0]LogWorldMetrics: [UWorldMetricsSubsystem::Clear]
+[2025.05.05-03.50.58:529][  0]LogUObjectHash: Compacting FUObjectHashTables data took   1.87ms
+[2025.05.05-03.50.58:540][  0]LogTurnkeySupport: Running Turnkey device detection: ' -ScriptsForProject="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject" Turnkey -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyReport_1.log" -log="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyLog_1.log" -project="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject"  -Device=Win64@MICAHLAPTOP'
+[2025.05.05-03.50.58:553][  0]LogMonitoredProcess: Running Serialized UAT: [ cmd.exe /c ""C:/Users/17038/Desktop/UE_5.4/Engine/Build/BatchFiles/RunUAT.bat"  -ScriptsForProject="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject" Turnkey -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyReport_1.log" -log="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Intermediate/TurnkeyLog_1.log" -project="C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/ClassShooter.uproject"  -Device=Win64@MICAHLAPTOP" -nocompile -nocompileuat ]
+[2025.05.05-03.50.59:163][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__BPShield_C. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.59:181][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__SKEL_BPShield_C. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.59:202][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__BPShield_C. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.59:371][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__BPKnife_C. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.59:393][  0]LogActor: Warning: SetReplicates called on non-initialized actor Default__SKEL_BPKnife_C. Directly setting bReplicates is the correct procedure for pre-init actors.
+[2025.05.05-03.50.59:973][  0]LogWorldMetrics: [UWorldMetricsSubsystem::Initialize]
+[2025.05.05-03.50.59:996][  0]LogWorldPartition: ULevel::OnLevelLoaded(CharacterSelectMap)(bIsOwningWorldGameWorld=1, bIsOwningWorldPartitioned=1, InitializeForMainWorld=1, InitializeForEditor=0, InitializeForGame=1)
+[2025.05.05-03.51.00:003][  0]LogWorldPartition: Display: WorldPartition initialize started...
+[2025.05.05-03.51.00:010][  0]LogWorldPartition: UWorldPartition::Initialize : World = /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap, World Type = Game, IsMainWorldPartition = 1, Location = V(0), Rotation = R(0), IsEditor = 0, IsGame = 1, IsPIEWorldTravel = 0, IsCooking = 0
+[2025.05.05-03.51.00:017][  0]LogWorldPartition: UWorldPartition::Initialize Context : World NetMode = Dedicated Server, IsServer = 1, IsDedicatedServer = 1, IsServerStreamingEnabled = 0, IsServerStreamingOutEnabled = 0, IsUsingMakingVisibleTransaction = 0, IsUsingMakingInvisibleTransaction = 0
+[2025.05.05-03.51.00:410][  0]LogWorldPartition: Display: GenerateStreaming for 'CharacterSelectMap' started...
+[2025.05.05-03.51.00:444][  0]LogStreaming: Display: FlushAsyncLoading(1): 71 QueuedPackages, 0 AsyncPackages
+[2025.05.05-03.51.00:477][  0]LogWorldPartition: Warning: Can't find actor guid `F29CE7B74C9A24AF3EE320A20C43A803` ('CharacterSelectMap_HLOD0_Instancing_00000000ab9c02d4') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/1R/I4F1CSC1B05XZ3OPIZ0ZDZ'
+[2025.05.05-03.51.00:503][  0]LogWorldPartition: Warning: Can't find actor guid `ABEB24BC49123036BEBE4FB019129AA9` ('CharacterSelectMap_HLOD0_Instancing_00000000479299ab') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/5F/QHY2M1RXJ2GE43P63219KD'
+[2025.05.05-03.51.00:549][  0]LogWorldPartition: Warning: Can't find actor guid `5C36DB054E6D29D50966768B19126505` ('CharacterSelectMap_HLOD0_Instancing_0000000069539720') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/9B/RINBST8Z9MZ1MZ4XTIAOTM'
+[2025.05.05-03.51.00:683][  0]LogWorldPartition: Warning: Can't find actor guid `BF813B65462F2D11E3822EBCBE2C5A48` ('CharacterSelectMap_HLOD0_Instancing_00000000947c6d0e') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/EP/BMPQG8B0XBVTKF4YLS0QF0'
+[2025.05.05-03.51.00:903][  0]LogWorldPartition: Warning: Can't find actor guid `C1B41E3F4CF4602D9F0F208EEB46B8C8` ('CharacterSelectMap_HLOD0_Instancing_0000000014ad5a48') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/J4/HS9TYREX0DRSSZVOADNTNN'
+[2025.05.05-03.51.00:955][  0]LogWorldPartition: Warning: Can't find actor guid `0909A09C451FA01F428F8DB626683289` ('CharacterSelectMap_HLOD0_Instancing_00000000d02fc9cd') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/0/U4/7VM5YBRB0ABYXV2OEP349D'
+[2025.05.05-03.51.00:977][  0]LogWorldPartition: Warning: Can't find actor guid `D64461E646A33C6C960064B912E7BF00` ('CharacterSelectMap_HLOD0_Instancing_000000003a937683') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/1/BT/RR8YBP4Z3PIX207Y577WTW'
+[2025.05.05-03.51.00:997][  0]LogWorldPartition: Warning: Can't find actor guid `65E8350349443B8029AF0C99251F21D9` ('CharacterSelectMap_HLOD0_Instancing_00000000d96f534e') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/1/SK/TN56PXFGKR57E6CUH5ZN10'
+[2025.05.05-03.51.01:017][  0]LogWorldPartition: Warning: Can't find actor guid `879E764544518F650DEC0A89B84E1F4E` ('CharacterSelectMap_HLOD0_Instancing_000000009601d2e3') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/2/3V/98ULF5M3XEUY65CX7M0YK8'
+[2025.05.05-03.51.01:045][  0]LogWorldPartition: Warning: Can't find actor guid `B2E9B17944DECE590DEB9896C795FFD5` ('CharacterSelectMap_HLOD0_Instancing_00000000f6671d12') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/2/8O/095XE5N824K09LM64ESHUQ'
+[2025.05.05-03.51.01:065][  0]LogWorldPartition: Warning: Can't find actor guid `9F747FCD4FCEC46571F52B99558F3825` ('CharacterSelectMap_HLOD0_Instancing_000000002e1cbcb6') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/2/EL/KSNPOXENAVNCEG9RXHM9T4'
+[2025.05.05-03.51.01:098][  0]LogTurnkeySupport: Completed device detection: Code = 0
+[2025.05.05-03.51.01:102][  0]LogWorldPartition: Warning: Can't find actor guid `CA99FB654AA08BDDE20D628FD526DC16` ('CharacterSelectMap_HLOD0_Instancing_00000000fa8f2652') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/3/79/ORG8FNEZ8I1HMB2ZZP7FGA'
+[2025.05.05-03.51.01:124][  0]LogWorldPartition: Warning: Can't find actor guid `2D423DEB47DA4D68CB410AB9B9650787` ('CharacterSelectMap_HLOD0_Instancing_000000007d2ba83f') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/3/RJ/NQL4IDU8HZCIL3TOUD0P5L'
+[2025.05.05-03.51.01:143][  0]LogWorldPartition: Warning: Can't find actor guid `DEE6CD324E07B0085C20D5AC0A1A3F06` ('CharacterSelectMap_HLOD0_Instancing_00000000375cc9cc') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/3/RZ/ITG78RLI2QLZWC8GYBZ9J0'
+[2025.05.05-03.51.01:159][  0]LogWorldPartition: Warning: Can't find actor guid `3BD273AD460B01D73ABA46858784632E` ('CharacterSelectMap_HLOD0_Instancing_000000007659f985') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/3/VG/L51Z98SEBZD77HPD2CIKR3'
+[2025.05.05-03.51.01:174][  0]LogWorldPartition: Warning: Can't find actor guid `295BDCB747A6B6498F03EB995AA61314` ('CharacterSelectMap_HLOD0_Instancing_000000009238f4b2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/3/ZV/Y9CISU5HWHZPTJOWTMZJG3'
+[2025.05.05-03.51.01:190][  0]LogWorldPartition: Warning: Can't find actor guid `BF31E3474563CBEBF9C06CA21901E487` ('CharacterSelectMap_HLOD0_Instancing_00000000bf316344') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/4/5Y/MP6NFP1UJQKRD77E9WIW64'
+[2025.05.05-03.51.01:216][  0]LogWorldPartition: Warning: Can't find actor guid `54D7640041DD87B35D465DBFFFE491A1` ('CharacterSelectMap_HLOD0_Instancing_000000004ef30a89') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/5/58/URRB99DR4DIP6HY9W9MCVU'
+[2025.05.05-03.51.01:237][  0]LogWorldPartition: Warning: Can't find actor guid `6F1DC17A49C53F7E62B5F9A2885260FC` ('CharacterSelectMap_HLOD0_Instancing_00000000a8e55473') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/5/66/ZD1RFWZ8X037MBG1DDN8K5'
+[2025.05.05-03.51.01:247][  0]LogWorldPartition: Warning: Can't find actor guid `586979A943F06F1F4692DF9D31C564BC` ('CharacterSelectMap_HLOD0_Instancing_0000000034631dbe') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/5/VF/O2F08OTZMDS4A7BN3PXHML'
+[2025.05.05-03.51.01:266][  0]LogWorldPartition: Warning: Can't find actor guid `8BBA52D9435804540D19A3AF96D38D61` ('CharacterSelectMap_HLOD0_Instancing_000000002c26427f') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/6/8S/0S2Y8SP2KAMDDK0FEZ9CPV'
+[2025.05.05-03.51.01:283][  0]LogWorldPartition: Warning: Can't find actor guid `F884115647635DB4B0D85C925BB34E64` ('CharacterSelectMap_HLOD0_Instancing_00000000a9e4f13d') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/6/CY/9W4LSQOK6214OKSKPDB7UP'
+[2025.05.05-03.51.01:303][  0]LogWorldPartition: Warning: Can't find actor guid `981044994D120B3B7540A09667E5EC7C` ('CharacterSelectMap_HLOD0_Instancing_00000000f16bd4c2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/6/IR/G4V4P46BNBEAHD0K2DI8VZ'
+[2025.05.05-03.51.01:329][  0]LogWorldPartition: Warning: Can't find actor guid `204DBA34478BB133868A08917CC708AA` ('CharacterSelectMap_HLOD0_Instancing_0000000043ef40b7') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/6/N4/Q8BTEEB3HXJCW87G3BHPM4'
+[2025.05.05-03.51.01:354][  0]LogWorldPartition: Warning: Can't find actor guid `77ECB9ED43508C965BDC8692F919473E` ('CharacterSelectMap_HLOD0_Instancing_000000002f692d48') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/6/RD/TMPARYRXFUZM93FHO12CD9'
+[2025.05.05-03.51.01:376][  0]LogWorldPartition: Warning: Can't find actor guid `F7C97D7D4FC6580C7FDEF18872DA7D7F` ('CharacterSelectMap_HLOD0_Instancing_00000000c113deb2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/5F/TGMEZ7H920ZSLRFBP5H28O'
+[2025.05.05-03.51.01:402][  0]LogWorldPartition: Warning: Can't find actor guid `500160C64D51FE67CD28D987DAA8158E` ('CharacterSelectMap_HLOD0_Instancing_000000003efd3ef9') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/8F/L184VRCJLOH1J5RQY4NR3Y'
+[2025.05.05-03.51.01:423][  0]LogWorldPartition: Warning: Can't find actor guid `E75CB149443A55CCA29EF9B1073E8088` ('CharacterSelectMap_HLOD0_Instancing_00000000f6a5d7e2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/AD/5YL96VST1U3V1VJHNA9VE8'
+[2025.05.05-03.51.01:440][  0]LogWorldPartition: Warning: Can't find actor guid `25F473274F1AD9F882534DB8B56F1F44` ('CharacterSelectMap_HLOD0_Instancing_000000004352b9e5') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/DB/MGB4CTHS08MV8R91GK7YX1'
+[2025.05.05-03.51.01:459][  0]LogWorldPartition: Warning: Can't find actor guid `AA9C9AD04FA1FECE7BC7D189950898B8` ('CharacterSelectMap_HLOD0_Instancing_000000005f8c366a') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/EF/IU3GYHCSNU443OCSR44FMO'
+[2025.05.05-03.51.01:474][  0]LogWorldPartition: Warning: Can't find actor guid `A2CF5CC640D46181B5FB7CB932136D33` ('CharacterSelectMap_HLOD0_Instancing_00000000e9f37ce6') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/FJ/TJABTA5XJEXC57B3B6HLZZ'
+[2025.05.05-03.51.01:490][  0]LogWorldPartition: Warning: Can't find actor guid `91444BAD48056F4CBF8F189A50EE89F0` ('CharacterSelectMap_HLOD0_Instancing_000000000795b843') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/G5/S88ZOCFF08KBNYK979QJOQ'
+[2025.05.05-03.51.01:508][  0]LogWorldPartition: Warning: Can't find actor guid `6E09F2C34EF9392F83F00090C70B5F32` ('CharacterSelectMap_HLOD0_Instancing_000000001c069dba') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/GG/7V9SGB9FLK06XR88HAND4C'
+[2025.05.05-03.51.01:524][  0]LogWorldPartition: Warning: Can't find actor guid `7EB0D8BD4DDF6195D331DBA6E78084E6` ('CharacterSelectMap_HLOD0_Instancing_00000000643a062a') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/7/QV/RJGPP7O7Z2CFBIC9TWFCEV'
+[2025.05.05-03.51.01:539][  0]LogWorldPartition: Warning: Can't find actor guid `308AEFD44AE8E138FC952D876EE51B11` ('CharacterSelectMap_HLOD0_Instancing_0000000078d6add8') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/1M/GVYR2SNWIAMY5MYVRS5FW3'
+[2025.05.05-03.51.01:551][  0]LogWorldPartition: Warning: Can't find actor guid `AFB473C84997CB0C1CF5B0B03255B7D5` ('CharacterSelectMap_HLOD0_Instancing_00000000972c022f') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/3W/T7EOTIGZ3B80CXE7WDAV0R'
+[2025.05.05-03.51.01:568][  0]LogWorldPartition: Warning: Can't find actor guid `5CC8BBA44D96AE6A86BD02A2A5EEE7F4` ('CharacterSelectMap_HLOD0_Instancing_00000000e9cd3fee') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/4Q/MOP8CT1SLVXTU95RTB48D1'
+[2025.05.05-03.51.01:590][  0]LogWorldPartition: Warning: Can't find actor guid `06F63ECC407134CF76E4F6B92B169253` ('CharacterSelectMap_HLOD0_Instancing_00000000b6697d52') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/80/B3X69638IZ5B6GRB4R6QVI'
+[2025.05.05-03.51.01:604][  0]LogWorldPartition: Warning: Can't find actor guid `957C15FB401EC167F1D5759DFAD564A3` ('CharacterSelectMap_HLOD0_Instancing_00000000c2edde97') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/BW/WXQFROV2Z6A4QQB4FG5ZGP'
+[2025.05.05-03.51.01:618][  0]LogWorldPartition: Warning: Can't find actor guid `1111EB2E4A0F6A194FB4DFBA70D43D72` ('CharacterSelectMap_HLOD0_Instancing_000000006e6aa062') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/C7/JDJ5HWU9QA9L45HSLBZQG9'
+[2025.05.05-03.51.01:635][  0]LogWorldPartition: Warning: Can't find actor guid `BA3181F44A6DA07416A1A0836EDF7C53` ('CharacterSelectMap_HLOD0_Instancing_0000000028be8816') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/HP/REQ1U9R46JD5G2C55Y49AG'
+[2025.05.05-03.51.01:661][  0]LogWorldPartition: Warning: Can't find actor guid `B32060B74E54938234A328A9FBCB16E9` ('CharacterSelectMap_HLOD0_Instancing_000000007c934e0a') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/TX/7XZ9349XAMWZY1SQY1Y5LP'
+[2025.05.05-03.51.01:680][  0]LogWorldPartition: Warning: Can't find actor guid `383CB4EF49207AD4CE7631A655FF747D` ('CharacterSelectMap_HLOD0_Instancing_000000002ade3440') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/8/XQ/VPJLKYJ7LQPBDQ3OE5B427'
+[2025.05.05-03.51.01:699][  0]LogWorldPartition: Warning: Can't find actor guid `A8EE5A97436E07FA525156B16921322B` ('CharacterSelectMap_HLOD0_Instancing_00000000f7ed74c5') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/9/1N/SPIONFBHENC8WRICK4RZ5K'
+[2025.05.05-03.51.01:715][  0]LogWorldPartition: Warning: Can't find actor guid `AFC9DAFA4CB13DB8A789A48E956D65B2` ('CharacterSelectMap_HLOD0_Instancing_000000000be07930') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/9/FF/WXW00JPC2BRMNHAKSCT361'
+[2025.05.05-03.51.01:726][  0]LogWorldPartition: Warning: Can't find actor guid `8F3C27E443883B11E43EA7BCE4DC3EEF` ('CharacterSelectMap_HLOD0_Instancing_000000006a93ab32') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/9/VA/KAJVY55DIFK6U586PBGKIH'
+[2025.05.05-03.51.01:743][  0]LogWorldPartition: Warning: Can't find actor guid `B47CAE404C09480F61170D8F4910DD3B` ('CharacterSelectMap_HLOD0_Instancing_00000000997f1c0b') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/9/X4/D8RGFXY07RWNRP276K9A8X'
+[2025.05.05-03.51.01:759][  0]LogWorldPartition: Warning: Can't find actor guid `4A61D12049D5CB829B9F9887C8CDA0A6` ('CharacterSelectMap_HLOD0_Instancing_000000003070f21f') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/9/ZS/TVLU9BXU3VNO5Q9HOS4N4U'
+[2025.05.05-03.51.01:797][  0]LogWorldPartition: Warning: Can't find actor guid `8D8414994343479E07D3A1AA07DE4A6F` ('CharacterSelectMap_HLOD0_Instancing_0000000027ec5a04') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/A/KE/DNVLHU8ODRRY9P7PSV1I6A'
+[2025.05.05-03.51.01:813][  0]LogWorldPartition: Warning: Can't find actor guid `6C8EF17C47F642104B6A579D407B05C0` ('CharacterSelectMap_HLOD0_Instancing_00000000e365a031') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/B/55/U77B9RPFF25N27F5ZUQLNW'
+[2025.05.05-03.51.01:824][  0]LogWorldPartition: Warning: Can't find actor guid `10F6F177492658BED2B153AF4C9C841C` ('CharacterSelectMap_HLOD0_Instancing_000000001d5b1320') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/B/9H/S8ND9QUC41U083Z1WETJH9'
+[2025.05.05-03.51.01:839][  0]LogWorldPartition: Warning: Can't find actor guid `743E5FDD48A54113445FC695FE8AEB44` ('CharacterSelectMap_HLOD0_Instancing_00000000a98cf6e2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/B/VE/QUI5RIFPXTH3NPULETK7MQ'
+[2025.05.05-03.51.01:853][  0]LogWorldPartition: Warning: Can't find actor guid `073DB86C4A4BFFEABB48B097FB60C67B` ('CharacterSelectMap_HLOD0_Instancing_00000000575ffde3') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/B/Z3/U43EYQKSVK40BZVMXD78UM'
+[2025.05.05-03.51.01:874][  0]LogWorldPartition: Warning: Can't find actor guid `7C883776483325FAAACC5B81577642D1` ('CharacterSelectMap_HLOD0_Instancing_000000002d7e5075') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/C/AY/K73OPEQ2J59ZK6DP4HSJHF'
+[2025.05.05-03.51.01:893][  0]LogWorldPartition: Warning: Can't find actor guid `EBAF297F4BDCC5D67B52DFB348444E0E` ('CharacterSelectMap_HLOD0_Instancing_00000000f0f601cc') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/C/GE/ICT4F4HDSJGELTSZ4OHRGE'
+[2025.05.05-03.51.01:941][  0]LogWorldPartition: Warning: Can't find actor guid `3CE040284FCD6173EB0030AEA10B637E` ('CharacterSelectMap_HLOD0_Instancing_00000000768ffb30') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/C/N0/TX51XC2OIY9LW0HY37P27F'
+[2025.05.05-03.51.01:984][  0]LogWorldPartition: Warning: Can't find actor guid `58238CB04CBCEA210EED9EB4DD971775` ('CharacterSelectMap_HLOD0_Instancing_0000000003b992d2') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/C/SB/RAS4S8XB0XRR7NRRXWAVUN'
+[2025.05.05-03.51.02:009][  0]LogWorldPartition: Warning: Can't find actor guid `36D3EF4B4B018A63C1271991B67647D3` ('CharacterSelectMap_HLOD0_Instancing_0000000000f18fd6') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/D/3N/R6UEZET2O75KQ7NVXJJ62U'
+[2025.05.05-03.51.02:022][  0]LogWorldPartition: Warning: Can't find actor guid `69998C4D4158DE8C4FCA70B534A1ACAF` ('CharacterSelectMap_HLOD0_Instancing_00000000122e789e') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/D/3O/B2EXGWDX9CMFZ10Y804NXV'
+[2025.05.05-03.51.02:040][  0]LogWorldPartition: Warning: Can't find actor guid `F5C90F944730DE4D52B167B31CE66200` ('CharacterSelectMap_HLOD0_Instancing_0000000094205261') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/D/FR/J4CFLGCBEH227I98W7RMVD'
+[2025.05.05-03.51.02:058][  0]LogWorldPartition: Warning: Can't find actor guid `D62440FE4E1D11CC44D84181A2E69343` ('CharacterSelectMap_HLOD0_Instancing_0000000011350dbc') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/D/IG/900UZK8YG04W6XEE2F11KG'
+[2025.05.05-03.51.02:074][  0]LogWorldPartition: Warning: Can't find actor guid `513EFA6D47BCC65A5ED9D1BDF2A231D1` ('CharacterSelectMap_HLOD0_Instancing_0000000012b42a9c') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/E/DJ/OX409722HH78A5L1IPI2OA'
+[2025.05.05-03.51.02:089][  0]LogWorldPartition: Warning: Can't find actor guid `42EFA4F348D16A83DC9DD6BA93B72922` ('CharacterSelectMap_HLOD0_Instancing_0000000001dc2454') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/E/J5/8CEHIFNG58VDI96TK4KO5O'
+[2025.05.05-03.51.02:104][  0]LogWorldPartition: Warning: Can't find actor guid `F791E06B486B6EA118691CA9EF8D34FE` ('CharacterSelectMap_HLOD0_Instancing_00000000505f79f0') in package '/Game/__ExternalActors__/ClassShooterAssets/Maps/CharacterSelectMap/E/W2/WPNC30NU12NWD6X8ED5ZE6'
+[2025.05.05-03.51.02:129][  0]LogWorldPartition: Display: GenerateStreaming for 'CharacterSelectMap' took 1.71 sec
+[2025.05.05-03.51.02:139][  0]LogContentBundle: [CharacterSelectMap(Dedicated Server)] Creating new container.
+[2025.05.05-03.51.02:143][  0]LogWorldPartition: Display: WorldPartition initialize took 2.14 sec
+[2025.05.05-03.51.02:148][  0]LogLoad: Game class is 'GMCharSelect_C'
+[2025.05.05-03.51.02:156][  0]LogCsvProfiler: Display: Metadata set : iris="0"
+[2025.05.05-03.51.02:162][  0]LogNet: ReplicationDriverClass is null! Not using ReplicationDriver.
+[2025.05.05-03.51.02:166][  0]LogNetCore: DDoS detection status: detection enabled: 0 analytics enabled: 0
+[2025.05.05-03.51.02:175][  0]LogPushModel: PushModel HandleCreation is now enabled
+[2025.05.05-03.51.02:179][  0]LogNet: InitBase GameNetDriver (NetDriverDefinition GameNetDriver) using replication model Generic
+[2025.05.05-03.51.02:184][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumConnections
+[2025.05.05-03.51.02:188][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric Connections
+[2025.05.05-03.51.02:193][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric GatherPrioritizeTimeMS
+[2025.05.05-03.51.02:196][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric InPacketsClientAvg
+[2025.05.05-03.51.02:202][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric InPacketsClientMax
+[2025.05.05-03.51.02:208][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumberOfActiveActors
+[2025.05.05-03.51.02:213][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumberOfFullyDormantActors
+[2025.05.05-03.51.02:220][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumClientUpdateLevelVisibility
+[2025.05.05-03.51.02:227][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumOpenChannels
+[2025.05.05-03.51.02:231][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumReplicateActorCallsPerConAvg
+[2025.05.05-03.51.02:237][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumSkippedObjectEmptyUpdates
+[2025.05.05-03.51.02:241][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric NumTickingChannels
+[2025.05.05-03.51.02:249][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric OutKBytes
+[2025.05.05-03.51.02:253][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric OutNetGUIDKBytesSec
+[2025.05.05-03.51.02:257][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric OutPacketsClientAvg
+[2025.05.05-03.51.02:266][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric OutPacketsClientMax
+[2025.05.05-03.51.02:270][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric ReplicateActorTimeMS
+[2025.05.05-03.51.02:281][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric SatConnections
+[2025.05.05-03.51.02:284][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric ServerReplicateActorTimeMS
+[2025.05.05-03.51.02:288][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric SharedSerializationPropertyHit
+[2025.05.05-03.51.02:298][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric SharedSerializationPropertyMiss
+[2025.05.05-03.51.02:304][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric SharedSerializationRPCHit
+[2025.05.05-03.51.02:311][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric SharedSerializationRPCMiss
+[2025.05.05-03.51.02:314][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric OutgoingReliableMessageQueueMaxSize
+[2025.05.05-03.51.02:320][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsCSV_Replication for metric IncomingReliableMessageQueueMaxSize
+[2025.05.05-03.51.02:326][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric NumConnections
+[2025.05.05-03.51.02:329][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric AvgPing
+[2025.05.05-03.51.02:332][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InBunches
+[2025.05.05-03.51.02:341][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InPackets
+[2025.05.05-03.51.02:344][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InPacketsClientPerSecondAvg
+[2025.05.05-03.51.02:347][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InPacketsClientPerSecondMax
+[2025.05.05-03.51.02:357][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InPacketsClientPerSecondMin
+[2025.05.05-03.51.02:360][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InPacketsLost
+[2025.05.05-03.51.02:366][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InRate
+[2025.05.05-03.51.02:372][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InRateClientAvg
+[2025.05.05-03.51.02:375][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InRateClientMax
+[2025.05.05-03.51.02:379][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric InRateClientMin
+[2025.05.05-03.51.02:383][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric MaxPacketOverhead
+[2025.05.05-03.51.02:384][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric MaxPing
+[2025.05.05-03.51.02:390][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric MinPing
+[2025.05.05-03.51.02:393][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric NumClients
+[2025.05.05-03.51.02:402][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric Connections
+[2025.05.05-03.51.02:404][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutBunches
+[2025.05.05-03.51.02:409][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutPackets
+[2025.05.05-03.51.02:416][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutPacketsClientPerSecondAvg
+[2025.05.05-03.51.02:420][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutPacketsClientPerSecondMax
+[2025.05.05-03.51.02:423][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutPacketsClientPerSecondMin
+[2025.05.05-03.51.02:426][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutPacketsLost
+[2025.05.05-03.51.02:435][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutRate
+[2025.05.05-03.51.02:439][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutRateClientAvg
+[2025.05.05-03.51.02:442][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutRateClientMax
+[2025.05.05-03.51.02:449][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric OutRateClientMin
+[2025.05.05-03.51.02:454][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt0
+[2025.05.05-03.51.02:458][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt1
+[2025.05.05-03.51.02:465][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt2
+[2025.05.05-03.51.02:469][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt3
+[2025.05.05-03.51.02:472][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt4
+[2025.05.05-03.51.02:479][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt5
+[2025.05.05-03.51.02:482][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt6
+[2025.05.05-03.51.02:485][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric PingBucketInt7
+[2025.05.05-03.51.02:489][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric ClosedConnectionsDueToReliableBufferOverflow
+[2025.05.05-03.51.02:500][  0]LogNet: Registering network metrics listener /Script/Engine.NetworkMetricsPerfCounters for metric AddedConnections
+[2025.05.05-03.51.02:504][  0]LogInit: WinSock: Socket queue. Rx: 131072 (config 131072) Tx: 131072 (config 131072)
+[2025.05.05-03.51.02:511][  0]LogNet: Created socket for bind address: 0.0.0.0:17777
+[2025.05.05-03.51.02:515][  0]PacketHandlerLog: Loaded PacketHandler component: Engine.EngineHandlerComponentFactory (StatelessConnectHandlerComponent)
+[2025.05.05-03.51.02:519][  0]LogNet: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0 IpNetDriver listening on port 17777
+[2025.05.05-03.51.02:526][  0]LogStaticMesh: Display: Waiting on static mesh StaticMesh /Engine/EngineSky/SM_SkySphere.SM_SkySphere being ready before playing
+[2025.05.05-03.51.02:545][  0]LogWorld: Bringing World /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap up for play (max tick rate 30) at 2025.05.04-23.51.02
+[2025.05.05-03.51.02:556][  0]LogWorld: Bringing up level for play took: 0.018655
+[2025.05.05-03.51.02:574][  0]LogScript: Warning: Accessed None trying to read property charSelect
+	GMCharSelect_C /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap:PersistentLevel.GMCharSelect_C_0
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ExecuteUbergraph_GMCharSelect:00A3
+[2025.05.05-03.51.02:594][  0]LogScript: Warning: Script call stack:
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ReceiveBeginPlay
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ExecuteUbergraph_GMCharSelect
+
+[2025.05.05-03.51.02:611][  0]LogScript: Warning: Accessed None trying to read property CallFunc_GetPlayerController_ReturnValue
+	GMCharSelect_C /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap:PersistentLevel.GMCharSelect_C_0
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ExecuteUbergraph_GMCharSelect:002F
+[2025.05.05-03.51.02:635][  0]LogScript: Warning: Script call stack:
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ReceiveBeginPlay
+	Function /Game/ClassShooterAssets/Blueprints/CharacterSelect/GMCharSelect.GMCharSelect_C:ExecuteUbergraph_GMCharSelect
+
+[2025.05.05-03.51.03:918][  0]LogLoad: Took 5.491826 seconds to LoadMap(/Game/ClassShooterAssets/Maps/CharacterSelectMap)
+[2025.05.05-03.51.03:923][  0]LogGlobalStatus: UEngine::LoadMap Load map complete /Game/ClassShooterAssets/Maps/CharacterSelectMap
+[2025.05.05-03.51.03:959][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2025.05.05-03.51.03:963][  0]LogLoad: (Engine Initialization) Total time: 30.63 seconds
+[2025.05.05-03.51.04:015][  0]LogNet: NotifyAcceptingConnection accepted from: 127.0.0.1:56210
+[2025.05.05-03.51.04:024][  0]LogNetVersion: ClassShooter 1.0.0.0, NetCL: 33043543, EngineNetworkVersion: 34, GameNetworkVersion: 0 (Checksum: 1403835241)
+[2025.05.05-03.51.04:045][  0]LogHandshake: SendConnectChallenge. Timestamp: 0.033964, Cookie: 062115069106104034175104068218133013169164218205133024122249
+[2025.05.05-03.51.04:049][  0]LogNet: NotifyAcceptingConnection accepted from: 127.0.0.1:56211
+[2025.05.05-03.51.04:064][  0]LogHandshake: SendConnectChallenge. Timestamp: 0.033964, Cookie: 246155089039018205038009016005202169045216246125156231000255
+[2025.05.05-03.51.04:079][  0]LogTurnkeySupport: Turnkey Device: Win64@MicahLaptop: (Name=MicahLaptop, Type=Computer, Status=Valid, MinAllowed=10.0.18362.0, MaxAllowed=, Current=10.0.26100.0, Flags="Device_InstallSoftwareValid")
+[2025.05.05-03.51.04:182][  0]LogPython: registering <class 'ControlRigWorkflows.workflow_deformation_rig_preset.provider'>
+
+[2025.05.05-03.51.04:201][  0]Running Python start-up script 'C:/Users/17038/Desktop/UE_5.4/Engine/Plugins/Animation/ControlRig/Content/Python/init_unreal.py': 0.109029 secs
+[2025.05.05-03.51.04:208][  0]LogLiveCoding: Display: LiveCodingConsole Arguments: ClassShooterEditor Win64 Development
+[2025.05.05-03.51.04:221][  1]LogNet: NotifyAcceptingConnection accepted from: 127.0.0.1:56210
+[2025.05.05-03.51.04:229][  1]LogHandshake: SendChallengeAck. InCookie: 062115069106104034175104068218133013169164218205133024122249
+[2025.05.05-03.51.04:234][  1]LogNet: Server accepting post-challenge connection from: 127.0.0.1:56210
+[2025.05.05-03.51.04:242][  1]LogNet: SteamNetConnection_0 setting maximum channels to: 32767
+[2025.05.05-03.51.04:246][  1]PacketHandlerLog: Loaded PacketHandler component: Engine.EngineHandlerComponentFactory (StatelessConnectHandlerComponent)
+[2025.05.05-03.51.04:251][  1]LogNet: NotifyAcceptedConnection: Name: CharacterSelectMap, TimeStamp: 05/04/25 23:51:04, [UNetConnection] RemoteAddr: 127.0.0.1:56210, Name: SteamNetConnection_0, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID
+[2025.05.05-03.51.04:259][  1]LogNet: AddClientConnection: Added client connection: [UNetConnection] RemoteAddr: 127.0.0.1:56210, Name: SteamNetConnection_0, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID
+[2025.05.05-03.51.04:266][  1]LogNet: NotifyAcceptingConnection accepted from: 127.0.0.1:56211
+[2025.05.05-03.51.04:273][  1]LogHandshake: SendChallengeAck. InCookie: 246155089039018205038009016005202169045216246125156231000255
+[2025.05.05-03.51.04:277][  1]LogNet: Server accepting post-challenge connection from: 127.0.0.1:56211
+[2025.05.05-03.51.04:279][  1]LogNet: SteamNetConnection_1 setting maximum channels to: 32767
+[2025.05.05-03.51.04:283][  1]PacketHandlerLog: Loaded PacketHandler component: Engine.EngineHandlerComponentFactory (StatelessConnectHandlerComponent)
+[2025.05.05-03.51.04:289][  1]LogNet: NotifyAcceptedConnection: Name: CharacterSelectMap, TimeStamp: 05/04/25 23:51:04, [UNetConnection] RemoteAddr: 127.0.0.1:56211, Name: SteamNetConnection_1, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID
+[2025.05.05-03.51.04:297][  1]LogNet: AddClientConnection: Added client connection: [UNetConnection] RemoteAddr: 127.0.0.1:56211, Name: SteamNetConnection_1, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: NULL, Owner: NULL, UniqueId: INVALID
+[2025.05.05-03.51.04:313][  1]LogNet: NotifyAcceptingChannel Control 0 server World /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap: Accepted
+[2025.05.05-03.51.04:323][  1]LogNet: Remote platform little endian=1
+[2025.05.05-03.51.04:330][  1]LogNet: This platform little endian=1
+[2025.05.05-03.51.04:338][  1]LogNet: NotifyAcceptingChannel Control 0 server World /Game/ClassShooterAssets/Maps/CharacterSelectMap.CharacterSelectMap: Accepted
+[2025.05.05-03.51.04:346][  1]LogNet: Remote platform little endian=1
+[2025.05.05-03.51.04:350][  1]LogNet: This platform little endian=1
+[2025.05.05-03.51.04:354][  1]LogNet: Login request: ?Name=micah_2001 userId: STEAM:UNKNOWN [0x11000013335AAF2] platform: STEAM
+[2025.05.05-03.51.04:365][  1]LogNet: Login request: ?Name=micah_2001 userId: STEAM:UNKNOWN [0x11000013335AAF2] platform: STEAM
+[2025.05.05-03.51.04:393][  2]LogNet: Client netspeed is 100000
+[2025.05.05-03.51.04:398][  2]LogNet: Client netspeed is 100000
+[2025.05.05-03.51.06:638][ 68]LogNet: Join request: /Engine/Maps/Entry?Name=micah_2001?SplitscreenCount=1
+[2025.05.05-03.51.06:657][ 68]LogGameMode: FindPlayerStart: PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2025.05.05-03.51.06:683][ 68]LogNet: Join succeeded: micah_2001
+[2025.05.05-03.51.06:743][ 70]LogNet: Join request: /Engine/Maps/Entry?Name=micah_2001?SplitscreenCount=1
+[2025.05.05-03.51.06:748][ 70]LogGameMode: FindPlayerStart: PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2025.05.05-03.51.06:756][ 70]LogNet: Join succeeded: micah_2001
+[2025.05.05-03.51.27:487][535]LogNet: UChannel::ReceivedSequencedBunch: Bunch.bClose == true. ChIndex == 0. Calling ConditionalCleanUp.
+[2025.05.05-03.51.27:511][535]LogNet: UChannel::CleanUp: ChIndex == 0. Closing connection. [UChannel] ChIndex: 0, Closing: 0 [UNetConnection] RemoteAddr: 127.0.0.1:56211, Name: SteamNetConnection_1, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_1, Owner: PlayerController_1, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2]
+[2025.05.05-03.51.27:529][535]LogNet: UNetConnection::Close: [UNetConnection] RemoteAddr: 127.0.0.1:56211, Name: SteamNetConnection_1, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_1, Owner: PlayerController_1, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2], Channels: 9, Time: 2025.05.05-03.51.27
+[2025.05.05-03.51.27:541][535]LogNet: UNetConnection::SendCloseReason:
+[2025.05.05-03.51.27:545][535]LogNet:  - Result=ControlChannelClose, ErrorContext="ControlChannelClose"
+[2025.05.05-03.51.27:555][535]LogNet: UChannel::Close: Sending CloseBunch. ChIndex == 0. Name: [UChannel] ChIndex: 0, Closing: 0 [UNetConnection] RemoteAddr: 127.0.0.1:56211, Name: SteamNetConnection_1, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_1, Owner: PlayerController_1, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2]
+[2025.05.05-03.51.29:735][599]LogNet: UChannel::ReceivedSequencedBunch: Bunch.bClose == true. ChIndex == 0. Calling ConditionalCleanUp.
+[2025.05.05-03.51.29:739][599]LogNet: UChannel::CleanUp: ChIndex == 0. Closing connection. [UChannel] ChIndex: 0, Closing: 0 [UNetConnection] RemoteAddr: 127.0.0.1:56210, Name: SteamNetConnection_0, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_0, Owner: PlayerController_0, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2]
+[2025.05.05-03.51.29:753][599]LogNet: UNetConnection::Close: [UNetConnection] RemoteAddr: 127.0.0.1:56210, Name: SteamNetConnection_0, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_0, Owner: PlayerController_0, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2], Channels: 8, Time: 2025.05.05-03.51.29
+[2025.05.05-03.51.29:762][599]LogNet: UNetConnection::SendCloseReason:
+[2025.05.05-03.51.29:768][599]LogNet:  - Result=ControlChannelClose, ErrorContext="ControlChannelClose"
+[2025.05.05-03.51.29:778][599]LogNet: UChannel::Close: Sending CloseBunch. ChIndex == 0. Name: [UChannel] ChIndex: 0, Closing: 0 [UNetConnection] RemoteAddr: 127.0.0.1:56210, Name: SteamNetConnection_0, Driver: Name:GameNetDriver Def:GameNetDriver SteamNetDriver_0, IsServer: YES, PC: PlayerController_0, Owner: PlayerController_0, UniqueId: STEAM:UNKNOWN [0x11000013335AAF2]
+[2025.05.05-03.51.30:829][631]LogCore: Engine exit requested (reason: ConsoleCtrl RequestExit)

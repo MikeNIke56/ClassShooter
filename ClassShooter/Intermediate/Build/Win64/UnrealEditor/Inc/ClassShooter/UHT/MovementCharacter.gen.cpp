@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "ClassShooter/Public/MovementCharacter.h"
+#include "Runtime/Engine/Classes/Engine/TimerHandle.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeMovementCharacter() {}
 
@@ -18,6 +19,7 @@ COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
+ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
@@ -116,6 +118,10 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "Category", "Cable" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleCooldownTimer_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleCooldown_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
@@ -128,11 +134,19 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleTimer_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleSpd_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_didGrappleAtk_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleRemainingTime_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
@@ -145,6 +159,10 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultLength_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultRemainingTime_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
@@ -228,15 +246,19 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_cableComponent;
 	static void NewProp_bAttachEnd_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bAttachEnd;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_grappleCooldownTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleCooldown;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_baseGrappleCooldown;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleTime;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_grappleTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleSpd;
 	static void NewProp_didGrappleAtk_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_didGrappleAtk;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleRemainingTime;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_grappleObj;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleAtkDist;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultLength;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultRemainingTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultCooldown;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_movementVFX;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_baseBodyMat;
@@ -282,18 +304,22 @@ void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_bAttachEnd_SetBit(vo
 	((AMovementCharacter*)Obj)->bAttachEnd = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_bAttachEnd = { "bAttachEnd", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_bAttachEnd_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bAttachEnd_MetaData), NewProp_bAttachEnd_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleCooldownTimer = { "grappleCooldownTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleCooldownTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleCooldownTimer_MetaData), NewProp_grappleCooldownTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleCooldown = { "grappleCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleCooldown_MetaData), NewProp_grappleCooldown_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseGrappleCooldown = { "baseGrappleCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, baseGrappleCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseGrappleCooldown_MetaData), NewProp_baseGrappleCooldown_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleTime = { "grappleTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleTime_MetaData), NewProp_grappleTime_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleTimer = { "grappleTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleTimer_MetaData), NewProp_grappleTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleSpd = { "grappleSpd", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleSpd), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleSpd_MetaData), NewProp_grappleSpd_MetaData) };
 void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk_SetBit(void* Obj)
 {
 	((AMovementCharacter*)Obj)->didGrappleAtk = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk = { "didGrappleAtk", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_didGrappleAtk_MetaData), NewProp_didGrappleAtk_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleRemainingTime = { "grappleRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleRemainingTime_MetaData), NewProp_grappleRemainingTime_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj = { "grappleObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleObj_MetaData), NewProp_grappleObj_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkDist = { "grappleAtkDist", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleAtkDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleAtkDist_MetaData), NewProp_grappleAtkDist_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultLength = { "ultLength", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultLength), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultLength_MetaData), NewProp_ultLength_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultRemainingTime = { "ultRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultRemainingTime_MetaData), NewProp_ultRemainingTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultCooldown = { "ultCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultCooldown_MetaData), NewProp_ultCooldown_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_movementVFX = { "movementVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, movementVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementVFX_MetaData), NewProp_movementVFX_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseBodyMat = { "baseBodyMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, baseBodyMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseBodyMat_MetaData), NewProp_baseBodyMat_MetaData) };
@@ -348,14 +374,18 @@ const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharact
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMovementCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_cableComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_bAttachEnd,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleCooldownTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseGrappleCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleTime,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleSpd,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleRemainingTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkDist,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultLength,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultRemainingTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_movementVFX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseBodyMat,
@@ -417,10 +447,10 @@ AMovementCharacter::~AMovementCharacter() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 1143519436U) },
+		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 2784994457U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_1922709002(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_1370692395(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

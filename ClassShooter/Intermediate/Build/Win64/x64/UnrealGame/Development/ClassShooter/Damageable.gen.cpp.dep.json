@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\unrealgame\\inc\\classshooter\\uht\\damageable.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\x64\\classshooter\\development\\engine\\sharedpch.engine.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\x64\\unrealgame\\development\\classshooter\\definitions.classshooter.h",
+            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\public\\damageable.h",
+            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\intermediate\\build\\win64\\unrealgame\\inc\\classshooter\\uht\\damageable.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

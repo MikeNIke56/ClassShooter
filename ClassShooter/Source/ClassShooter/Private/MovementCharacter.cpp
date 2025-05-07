@@ -13,6 +13,15 @@ AMovementCharacter::AMovementCharacter()
 	cableComponent->SetVisibility(false);
 }
 
+void AMovementCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// Add replication lines for your shield-specific variables
+	// Example:
+	// DOREPLIFETIME(AShieldCharacter, bIsShieldActive);
+}
+
 void AMovementCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -121,6 +130,11 @@ void AMovementCharacter::Tick(float deltaTime)
 				cameraRotateLerp = false;
 		}
 	}
+
+	grappleRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(grappleCooldownTimer);
+	ultRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
 }
 
 void AMovementCharacter::HandleStartShooting()

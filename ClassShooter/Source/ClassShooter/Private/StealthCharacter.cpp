@@ -16,6 +16,15 @@ void AStealthCharacter::BeginPlay()
 	targetUltPos.Z += 50;
 }
 
+void AStealthCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// Add replication lines for your shield-specific variables
+	// Example:
+	// DOREPLIFETIME(AShieldCharacter, bIsShieldActive);
+}
+
 void AStealthCharacter::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
@@ -53,6 +62,13 @@ void AStealthCharacter::Tick(float deltaTime)
 			SpawnUltWeapon();
 		}
 	}
+
+	invisRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(invisTimer);
+	decoyRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(decoyTimer);
+	ultRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
 void AStealthCharacter::HandleStartShooting()

@@ -56,9 +56,6 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 	/** Shooting/Melee input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ShootingAction;
-	/** Throw Grenade input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* GrenadeAction;
 	/** Switch weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SwitchWeaponAction;
@@ -94,18 +91,18 @@ public:
 	FVector shotLocation;
 
 	//our array of weapons
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<AWeaponBase*> weaponArray;
 
 	//backup array of weapons when in super
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<AWeaponBase*> backupWeaponArray;
 
 	//currently equipped weapon
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, ReplicatedUsing = OnRep_EquippedWeapon, BlueprintReadWrite, Category = "Class Base Values")
 	AWeaponBase* curWeapon;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UArrowComponent* weaponLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -140,10 +137,10 @@ public:
 	bool startFovChange;
 	FVector originalCamPos;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
 	TSubclassOf<AWeaponBase> weaponWorldObj;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<UArrowComponent*> knifeSwingLocations;
 
 	bool isLeftSwing;
@@ -155,9 +152,9 @@ public:
 	UPROPERTY(VisibleAnywhere,  BlueprintReadOnly, Category = "Class Base Values")
 	FVector originalBodyScale;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
 	float curSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
 	float speedMulti;
 	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
 	float baseSpeed;
@@ -173,31 +170,31 @@ public:
 	bool isSprinting;
 	UPROPERTY(VisibleAnywhere,  BlueprintReadOnly, Category = "Movement Base Values")
 	bool isCrouching;
-	UPROPERTY(VisibleAnywhere,  BlueprintReadOnly, Category = "Movement Base Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
 	bool isSliding;
-	UPROPERTY(VisibleAnywhere,  BlueprintReadOnly, Category = "Movement Base Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
 	FVector2D movementVector;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseGroundFriction;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseBrakingDeceleration;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseGravity;
 	FTimerHandle slideTimer;
-	UPROPERTY(VisibleAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isClone;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Movement Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	bool shouldDestroyWeapon;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isInUltimate;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool ultimateTriggered;
 
 	// Headbob parameters
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float bobTimer = 0.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, Category = "Class Base Values")
 	float bobSpeed = 10.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float bobAmount = 2.0f;
@@ -205,10 +202,11 @@ public:
 	int amplitude = 2.0f;
 	FVector defaultCameraLocation;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isMeleeHBOn;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool knifeHitDetected;
+
 
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();
@@ -219,7 +217,7 @@ public:
 protected:
 	virtual void BeginPlay();
 	virtual void Tick(float deltaTime);
-	//virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
 
@@ -308,10 +306,6 @@ protected:
 	void Shoot();
 
 
-	void ReadyGrenade();
-	void ThrowGrenade();
-
-
 	//Reload and Recoil
 	UFUNCTION()
 	void HandleRecoil();
@@ -334,6 +328,9 @@ protected:
 	virtual void ServerEquipWeapon(AWeaponBase* weapon);
 	virtual void ServerEquipWeapon_Implementation(AWeaponBase* weapon);
 	void EquipWeapon(AWeaponBase* weapon);
+	UFUNCTION()
+	void OnRep_EquippedWeapon();
+
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void HandleShowCurWeapon(AWeaponBase* weapon);

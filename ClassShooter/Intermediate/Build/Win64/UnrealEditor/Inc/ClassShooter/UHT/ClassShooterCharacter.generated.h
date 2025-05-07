@@ -38,6 +38,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execHandleADSCurWeapon); \
 	DECLARE_FUNCTION(execServerShowCurWeapon); \
 	DECLARE_FUNCTION(execHandleShowCurWeapon); \
+	DECLARE_FUNCTION(execOnRep_EquippedWeapon); \
 	DECLARE_FUNCTION(execServerEquipWeapon); \
 	DECLARE_FUNCTION(execHandleEquipWeapon); \
 	DECLARE_FUNCTION(execServerReload); \
@@ -65,7 +66,16 @@ private: \
 public: \
 	DECLARE_CLASS(AClassShooterCharacter, ACharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/ClassShooter"), NO_API) \
 	DECLARE_SERIALIZER(AClassShooterCharacter) \
-	virtual UObject* _getUObject() const override { return const_cast<AClassShooterCharacter*>(this); }
+	virtual UObject* _getUObject() const override { return const_cast<AClassShooterCharacter*>(this); } \
+	enum class ENetFields_Private : uint16 \
+	{ \
+		NETFIELD_REP_START=(uint16)((int32)Super::ENetFields_Private::NETFIELD_REP_END + (int32)1), \
+		weaponArray=NETFIELD_REP_START, \
+		backupWeaponArray, \
+		curWeapon, \
+		weaponWorldObj, \
+		NETFIELD_REP_END=weaponWorldObj	}; \
+	NO_API virtual void ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const override;
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_31_ENHANCED_CONSTRUCTORS \

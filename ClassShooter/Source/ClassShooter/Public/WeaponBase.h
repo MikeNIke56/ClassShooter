@@ -28,12 +28,12 @@ class CLASSSHOOTER_API AWeaponBase : public AActor
 
 public:
 	// Skeletal Mesh Component
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Mesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 	USkeletalMeshComponent* weaponMesh;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	UAnimMontage* fireAnim;
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	UAnimMontage* reloadAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -133,6 +133,7 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void HandleFire();

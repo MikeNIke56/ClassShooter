@@ -22,7 +22,7 @@ public:
 	UCableComponent* cableComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cable")
 	bool bAttachEnd;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	FTimerHandle grappleCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleCooldown;
@@ -32,11 +32,14 @@ public:
 	float grappleTime;
 	bool canGrapple;
 	bool isGrappling;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	FTimerHandle grappleTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleSpd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	bool didGrappleAtk;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float grappleRemainingTime;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> grappleObj;
@@ -48,6 +51,8 @@ public:
 	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float ultLength;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float ultRemainingTime;
 
 	FTimerHandle ultCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
@@ -111,6 +116,7 @@ public:
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	virtual void Jump() override;
 
