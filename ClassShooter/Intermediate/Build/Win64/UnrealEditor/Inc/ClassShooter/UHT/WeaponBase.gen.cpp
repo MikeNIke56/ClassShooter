@@ -106,8 +106,8 @@ UEnum* Z_Construct_UEnum_ClassShooter_WeaponState()
 }
 // End Enum WeaponState
 
-// Begin Class AWeaponBase Function HandleAutoFire
-struct Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics
+// Begin Class AWeaponBase Function AutoFire
+struct Z_Construct_UFunction_AWeaponBase_AutoFire_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -117,27 +117,27 @@ struct Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "HandleAutoFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_HandleAutoFire()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_AutoFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "AutoFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_AutoFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_AutoFire_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_AutoFire()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_HandleAutoFire_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_AutoFire_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AWeaponBase::execHandleAutoFire)
+DEFINE_FUNCTION(AWeaponBase::execAutoFire)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleAutoFire();
+	P_THIS->AutoFire();
 	P_NATIVE_END;
 }
-// End Class AWeaponBase Function HandleAutoFire
+// End Class AWeaponBase Function AutoFire
 
-// Begin Class AWeaponBase Function HandleFire
-struct Z_Construct_UFunction_AWeaponBase_HandleFire_Statics
+// Begin Class AWeaponBase Function Fire
+struct Z_Construct_UFunction_AWeaponBase_Fire_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -147,27 +147,27 @@ struct Z_Construct_UFunction_AWeaponBase_HandleFire_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_HandleFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "HandleFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_HandleFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_HandleFire_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_HandleFire()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_Fire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "Fire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_Fire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_Fire_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_Fire()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_HandleFire_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_Fire_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AWeaponBase::execHandleFire)
+DEFINE_FUNCTION(AWeaponBase::execFire)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleFire();
+	P_THIS->Fire();
 	P_NATIVE_END;
 }
-// End Class AWeaponBase Function HandleFire
+// End Class AWeaponBase Function Fire
 
-// Begin Class AWeaponBase Function HandleReload
-struct Z_Construct_UFunction_AWeaponBase_HandleReload_Statics
+// Begin Class AWeaponBase Function Reload
+struct Z_Construct_UFunction_AWeaponBase_Reload_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -177,258 +177,33 @@ struct Z_Construct_UFunction_AWeaponBase_HandleReload_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_HandleReload_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "HandleReload", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_HandleReload_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_HandleReload_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_HandleReload()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_Reload_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "Reload", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_Reload_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_Reload_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_Reload()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_HandleReload_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_Reload_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AWeaponBase::execHandleReload)
+DEFINE_FUNCTION(AWeaponBase::execReload)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleReload();
+	P_THIS->Reload();
 	P_NATIVE_END;
 }
-// End Class AWeaponBase Function HandleReload
-
-// Begin Class AWeaponBase Function ServerAutoFire
-static FName NAME_AWeaponBase_ServerAutoFire = FName(TEXT("ServerAutoFire"));
-void AWeaponBase::ServerAutoFire()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerAutoFire),NULL);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerAutoFire_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerAutoFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerAutoFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerAutoFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerAutoFire_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerAutoFire()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerAutoFire_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerAutoFire)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerAutoFire_Implementation();
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerAutoFire
-
-// Begin Class AWeaponBase Function ServerCanFireAgain
-static FName NAME_AWeaponBase_ServerCanFireAgain = FName(TEXT("ServerCanFireAgain"));
-void AWeaponBase::ServerCanFireAgain()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerCanFireAgain),NULL);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerCanFireAgain", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerCanFireAgain)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerCanFireAgain_Implementation();
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerCanFireAgain
-
-// Begin Class AWeaponBase Function ServerFinishReloading
-static FName NAME_AWeaponBase_ServerFinishReloading = FName(TEXT("ServerFinishReloading"));
-void AWeaponBase::ServerFinishReloading()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerFinishReloading),NULL);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerFinishReloading_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerFinishReloading_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerFinishReloading", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerFinishReloading_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerFinishReloading_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerFinishReloading()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerFinishReloading_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerFinishReloading)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerFinishReloading_Implementation();
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerFinishReloading
-
-// Begin Class AWeaponBase Function ServerFire
-static FName NAME_AWeaponBase_ServerFire = FName(TEXT("ServerFire"));
-void AWeaponBase::ServerFire()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerFire),NULL);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerFire_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerFire_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerFire()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerFire_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerFire)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerFire_Implementation();
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerFire
-
-// Begin Class AWeaponBase Function ServerReload
-static FName NAME_AWeaponBase_ServerReload = FName(TEXT("ServerReload"));
-void AWeaponBase::ServerReload()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerReload),NULL);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerReload_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerReload_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerReload", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerReload_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerReload_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerReload()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerReload_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerReload)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerReload_Implementation();
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerReload
-
-// Begin Class AWeaponBase Function ServerSetUpWeapon
-struct WeaponBase_eventServerSetUpWeapon_Parms
-{
-	AWeaponBase* weapon;
-};
-static FName NAME_AWeaponBase_ServerSetUpWeapon = FName(TEXT("ServerSetUpWeapon"));
-void AWeaponBase::ServerSetUpWeapon(AWeaponBase* weapon)
-{
-	WeaponBase_eventServerSetUpWeapon_Parms Parms;
-	Parms.weapon=weapon;
-	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_ServerSetUpWeapon),&Parms);
-}
-struct Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/WeaponBase.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_weapon;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::NewProp_weapon = { "weapon", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WeaponBase_eventServerSetUpWeapon_Parms, weapon), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::NewProp_weapon,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "ServerSetUpWeapon", nullptr, nullptr, Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::PropPointers), sizeof(WeaponBase_eventServerSetUpWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::Function_MetaDataParams) };
-static_assert(sizeof(WeaponBase_eventServerSetUpWeapon_Parms) < MAX_uint16);
-UFunction* Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AWeaponBase::execServerSetUpWeapon)
-{
-	P_GET_OBJECT(AWeaponBase,Z_Param_weapon);
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->ServerSetUpWeapon_Implementation(Z_Param_weapon);
-	P_NATIVE_END;
-}
-// End Class AWeaponBase Function ServerSetUpWeapon
+// End Class AWeaponBase Function Reload
 
 // Begin Class AWeaponBase
 void AWeaponBase::StaticRegisterNativesAWeaponBase()
 {
 	UClass* Class = AWeaponBase::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "HandleAutoFire", &AWeaponBase::execHandleAutoFire },
-		{ "HandleFire", &AWeaponBase::execHandleFire },
-		{ "HandleReload", &AWeaponBase::execHandleReload },
-		{ "ServerAutoFire", &AWeaponBase::execServerAutoFire },
-		{ "ServerCanFireAgain", &AWeaponBase::execServerCanFireAgain },
-		{ "ServerFinishReloading", &AWeaponBase::execServerFinishReloading },
-		{ "ServerFire", &AWeaponBase::execServerFire },
-		{ "ServerReload", &AWeaponBase::execServerReload },
-		{ "ServerSetUpWeapon", &AWeaponBase::execServerSetUpWeapon },
+		{ "AutoFire", &AWeaponBase::execAutoFire },
+		{ "Fire", &AWeaponBase::execFire },
+		{ "Reload", &AWeaponBase::execReload },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -629,15 +404,9 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AWeaponBase_HandleAutoFire, "HandleAutoFire" }, // 2772425705
-		{ &Z_Construct_UFunction_AWeaponBase_HandleFire, "HandleFire" }, // 2376757784
-		{ &Z_Construct_UFunction_AWeaponBase_HandleReload, "HandleReload" }, // 2964189693
-		{ &Z_Construct_UFunction_AWeaponBase_ServerAutoFire, "ServerAutoFire" }, // 517650090
-		{ &Z_Construct_UFunction_AWeaponBase_ServerCanFireAgain, "ServerCanFireAgain" }, // 2204993516
-		{ &Z_Construct_UFunction_AWeaponBase_ServerFinishReloading, "ServerFinishReloading" }, // 1687155394
-		{ &Z_Construct_UFunction_AWeaponBase_ServerFire, "ServerFire" }, // 3658942569
-		{ &Z_Construct_UFunction_AWeaponBase_ServerReload, "ServerReload" }, // 1279903603
-		{ &Z_Construct_UFunction_AWeaponBase_ServerSetUpWeapon, "ServerSetUpWeapon" }, // 659319298
+		{ &Z_Construct_UFunction_AWeaponBase_AutoFire, "AutoFire" }, // 2004454903
+		{ &Z_Construct_UFunction_AWeaponBase_Fire, "Fire" }, // 581559785
+		{ &Z_Construct_UFunction_AWeaponBase_Reload, "Reload" }, // 2657704823
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -773,10 +542,10 @@ struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_C
 		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 2944413168U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 303766373U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_229933182(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_3337500692(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));

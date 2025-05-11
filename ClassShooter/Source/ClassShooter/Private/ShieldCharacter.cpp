@@ -14,27 +14,6 @@ AShieldCharacter::AShieldCharacter()
 	shieldLocation->SetupAttachment(GetFirstPersonCameraComponent());
 }
 
-void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	/*DOREPLIFETIME(AShieldCharacter, shieldWorldObj);
-	DOREPLIFETIME(AShieldCharacter, shieldCopy);
-	DOREPLIFETIME(AShieldCharacter, shieldThrowCopy);
-	DOREPLIFETIME(AShieldCharacter, shieldBashCooldown);
-	DOREPLIFETIME(AShieldCharacter, shieldThrowPow);
-	DOREPLIFETIME(AShieldCharacter, shieldThrowCooldown);
-	DOREPLIFETIME(AShieldCharacter, ultLength);
-	DOREPLIFETIME(AShieldCharacter, ultCooldown);
-	DOREPLIFETIME(AShieldCharacter, shieldBashVFX);
-	DOREPLIFETIME(AShieldCharacter, baseBodyMat);
-	DOREPLIFETIME(AShieldCharacter, ultimateMat);
-	DOREPLIFETIME(AShieldCharacter, shieldLocation);
-	DOREPLIFETIME(AShieldCharacter, hasShield);
-	DOREPLIFETIME(AShieldCharacter, isShieldBashHBOn);
-	DOREPLIFETIME(AShieldCharacter, shieldBashHitDetected);*/
-}
-
 void AShieldCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -116,7 +95,7 @@ void AShieldCharacter::Tick(float deltaTime)
 
 		if (FVector::Dist(originalCamPos, newLocation) <= .05)
 		{
-			HandleStopAbility2();
+			StopAbility2();
 			cameraUltLerpBack = false;
 		}
 	}
@@ -149,18 +128,18 @@ void AShieldCharacter::Tick(float deltaTime)
 		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
 }
 
-void AShieldCharacter::HandleStartShooting()
+void AShieldCharacter::StartShooting()
 {
 	if (isInUltimate == true)
 		ShieldThrow();
 	else
-		Super::HandleStartShooting();
+		Super::StartShooting();
 }
 
-bool AShieldCharacter::PickupWeapon(AWeaponBase* weapon)
+void AShieldCharacter::PickupWeapon(AWeaponBase* weapon)
 {
 	weapon->shield = shieldCopy;
-	return Super::PickupWeapon(weapon);
+	Super::PickupWeapon(weapon);
 }
 void AShieldCharacter::DropWeapon()
 {
@@ -170,15 +149,15 @@ void AShieldCharacter::DropWeapon()
 }
 
 
-void AShieldCharacter::HandleADS()
+void AShieldCharacter::ADS()
 {
 	StopBlocking();
-	Super::HandleADS();
+	Super::ADS();
 }
-void AShieldCharacter::HandleStopADS()
+void AShieldCharacter::StopADS()
 {
 	Block();
-	Super::HandleStopADS();
+	Super::StopADS();
 }
 void AShieldCharacter::Block()
 {
@@ -192,24 +171,24 @@ void AShieldCharacter::StopBlocking()
 }
 
 
-void AShieldCharacter::HandleStartAbility1()
+void AShieldCharacter::StartAbility1()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldBashTimer) == false
 		&& hasShield == true)
 	{
 		GetWorldTimerManager().SetTimer(shieldBashTimer, this,
-			&AShieldCharacter::HandleStopAbility1, shieldBashCooldown, false);
+			&AShieldCharacter::StopAbility1, shieldBashCooldown, false);
 		ShieldBash();
 	}
 }
-void AShieldCharacter::HandleStopAbility1()
+void AShieldCharacter::StopAbility1()
 {
 	
 }
 void AShieldCharacter::ShieldBash()
 {
 	isShieldBashHBOn = true;
-	HandleADS();
+	ADS();
 	UGameplayStatics::SpawnEmitterAtLocation(
 		GetWorld(),
 		shieldBashVFX,
@@ -226,7 +205,7 @@ void AShieldCharacter::ShieldBash()
 	FTimerHandle DelayTimerHandle1;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 		{
-			HandleStopADS();
+			StopADS();
 			movementComponent->GroundFriction = baseGroundFriction;
 			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		}), .75f, false);
@@ -238,17 +217,17 @@ void AShieldCharacter::ShieldBash()
 		}), 1.0f, false);
 }
 
-void AShieldCharacter::HandleStartAbility2()
+void AShieldCharacter::StartAbility2()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldThrowTimer) == false 
 		&& hasShield == true)
 	{
 		GetWorldTimerManager().SetTimer(shieldThrowTimer, this,
-			&AShieldCharacter::HandleStopAbility2, shieldThrowCooldown, false);
+			&AShieldCharacter::StopAbility2, shieldThrowCooldown, false);
 		ShieldThrow();
 	}
 }
-void AShieldCharacter::HandleStopAbility2()
+void AShieldCharacter::StopAbility2()
 {
 	shieldCopy->SetActorEnableCollision(true);
 	shieldCopy->SetActorHiddenInGame(false);
@@ -288,7 +267,7 @@ void AShieldCharacter::ShieldThrow()
 			* shieldThrowPow, NAME_None, true);
 }
 
-void AShieldCharacter::HandleStartUltimate()
+void AShieldCharacter::StartUltimate()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
@@ -298,7 +277,7 @@ void AShieldCharacter::HandleStartUltimate()
 
 		isInUltimate = true;
 		ultimateTriggered = true;
-		HandleSaveCurWeapons();
+		SaveCurWeapons();
 
 		shieldCopy->SetActorEnableCollision(false);
 		shieldCopy->SetActorHiddenInGame(true);
@@ -319,14 +298,14 @@ void AShieldCharacter::HandleStartUltimate()
 				bodyMesh->SetMaterial(0, ultimateMat);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AShieldCharacter::HandleStopUltimate, ultLength, false);
+					&AShieldCharacter::StopUltimate, ultLength, false);
 			}), .5f, false);
 	}
 }
-void AShieldCharacter::HandleStopUltimate()
+void AShieldCharacter::StopUltimate()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
-	HandleRestoreCurWeapons();
+	RestoreCurWeapons();
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
 

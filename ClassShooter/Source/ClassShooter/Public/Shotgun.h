@@ -15,6 +15,6 @@ class CLASSSHOOTER_API AShotgun : public AWeaponBase
 	GENERATED_BODY()
 
 public:
-	virtual void HandleFire() override;
+	virtual void Fire() override;
 	
 };

@@ -19,6 +19,6 @@ public:
 	TSubclassOf<AActor> projectile;
 
 public:
-	virtual void HandleFire() override;
+	virtual void Fire() override;
 	
 };

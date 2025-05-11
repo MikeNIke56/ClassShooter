@@ -3,7 +3,7 @@
 
 #include "RocketLauncher.h"
 
-void ARocketLauncher::HandleFire()
+void ARocketLauncher::Fire()
 {
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
@@ -13,7 +13,7 @@ void ARocketLauncher::HandleFire()
 
 			// starts fireTimer
 			GetWorldTimerManager().SetTimer(fireTimer, this,
-				&AWeaponBase::HandleCanFireAgain, fireRate, false);
+				&AWeaponBase::CanFireAgain, fireRate, false);
 
 			weaponMesh->PlayAnimation(fireAnim, false);
 

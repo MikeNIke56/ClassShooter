@@ -23,8 +23,8 @@ ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
-// Begin Class AStealthCharacter Function HandleStartAbility1
-struct Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics
+// Begin Class AStealthCharacter Function StartAbility1
+struct Z_Construct_UFunction_AStealthCharacter_StartAbility1_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -34,27 +34,27 @@ struct Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "HandleStartAbility1", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_StartAbility1_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "StartAbility1", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_StartAbility1_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_StartAbility1_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AStealthCharacter_StartAbility1()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_StartAbility1_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AStealthCharacter::execHandleStartAbility1)
+DEFINE_FUNCTION(AStealthCharacter::execStartAbility1)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleStartAbility1();
+	P_THIS->StartAbility1();
 	P_NATIVE_END;
 }
-// End Class AStealthCharacter Function HandleStartAbility1
+// End Class AStealthCharacter Function StartAbility1
 
-// Begin Class AStealthCharacter Function HandleStartAbility2
-struct Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics
+// Begin Class AStealthCharacter Function StartAbility2
+struct Z_Construct_UFunction_AStealthCharacter_StartAbility2_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -64,27 +64,27 @@ struct Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "HandleStartAbility2", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_StartAbility2_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "StartAbility2", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_StartAbility2_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_StartAbility2_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AStealthCharacter_StartAbility2()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_StartAbility2_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AStealthCharacter::execHandleStartAbility2)
+DEFINE_FUNCTION(AStealthCharacter::execStartAbility2)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleStartAbility2();
+	P_THIS->StartAbility2();
 	P_NATIVE_END;
 }
-// End Class AStealthCharacter Function HandleStartAbility2
+// End Class AStealthCharacter Function StartAbility2
 
-// Begin Class AStealthCharacter Function HandleStartUltimate
-struct Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics
+// Begin Class AStealthCharacter Function StartUltimate
+struct Z_Construct_UFunction_AStealthCharacter_StartUltimate_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -94,33 +94,33 @@ struct Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "HandleStartUltimate", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate()
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AStealthCharacter_StartUltimate_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AStealthCharacter, nullptr, "StartUltimate", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AStealthCharacter_StartUltimate_Statics::Function_MetaDataParams), Z_Construct_UFunction_AStealthCharacter_StartUltimate_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AStealthCharacter_StartUltimate()
 {
 	static UFunction* ReturnFunction = nullptr;
 	if (!ReturnFunction)
 	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate_Statics::FuncParams);
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AStealthCharacter_StartUltimate_Statics::FuncParams);
 	}
 	return ReturnFunction;
 }
-DEFINE_FUNCTION(AStealthCharacter::execHandleStartUltimate)
+DEFINE_FUNCTION(AStealthCharacter::execStartUltimate)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->HandleStartUltimate();
+	P_THIS->StartUltimate();
 	P_NATIVE_END;
 }
-// End Class AStealthCharacter Function HandleStartUltimate
+// End Class AStealthCharacter Function StartUltimate
 
 // Begin Class AStealthCharacter
 void AStealthCharacter::StaticRegisterNativesAStealthCharacter()
 {
 	UClass* Class = AStealthCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "HandleStartAbility1", &AStealthCharacter::execHandleStartAbility1 },
-		{ "HandleStartAbility2", &AStealthCharacter::execHandleStartAbility2 },
-		{ "HandleStartUltimate", &AStealthCharacter::execHandleStartUltimate },
+		{ "StartAbility1", &AStealthCharacter::execStartAbility1 },
+		{ "StartAbility2", &AStealthCharacter::execStartAbility2 },
+		{ "StartUltimate", &AStealthCharacter::execStartUltimate },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -269,9 +269,9 @@ struct Z_Construct_UClass_AStealthCharacter_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AStealthCharacter_HandleStartAbility1, "HandleStartAbility1" }, // 3558179042
-		{ &Z_Construct_UFunction_AStealthCharacter_HandleStartAbility2, "HandleStartAbility2" }, // 3766328404
-		{ &Z_Construct_UFunction_AStealthCharacter_HandleStartUltimate, "HandleStartUltimate" }, // 57131505
+		{ &Z_Construct_UFunction_AStealthCharacter_StartAbility1, "StartAbility1" }, // 2060396523
+		{ &Z_Construct_UFunction_AStealthCharacter_StartAbility2, "StartAbility2" }, // 2088239526
+		{ &Z_Construct_UFunction_AStealthCharacter_StartUltimate, "StartUltimate" }, // 3225178150
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -373,10 +373,10 @@ AStealthCharacter::~AStealthCharacter() {}
 struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 993108149U) },
+		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 32376842U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_749315726(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_2282452167(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

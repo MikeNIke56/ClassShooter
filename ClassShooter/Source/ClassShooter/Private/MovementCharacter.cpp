@@ -13,14 +13,6 @@ AMovementCharacter::AMovementCharacter()
 	cableComponent->SetVisibility(false);
 }
 
-void AMovementCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	// Add replication lines for your shield-specific variables
-	// Example:
-	// DOREPLIFETIME(AShieldCharacter, bIsShieldActive);
-}
 
 void AMovementCharacter::BeginPlay()
 {
@@ -137,20 +129,20 @@ void AMovementCharacter::Tick(float deltaTime)
 		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
 }
 
-void AMovementCharacter::HandleStartShooting()
+void AMovementCharacter::StartShooting()
 {
 	if (canGrapple == false)
 	{
 		if (isGrappling == true && didGrappleAtk == false)
 			GrappleAttack(movementVector);
 		else
-			Super::HandleStartShooting();
+			Super::StartShooting();
 	}
 	else
-		Super::HandleStartShooting();
+		Super::StartShooting();
 }
 
-void AMovementCharacter::HandleStartAbility1()
+void AMovementCharacter::StartAbility1()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(grappleTimer) == false &&
 		canGrapple == true)
@@ -160,14 +152,14 @@ void AMovementCharacter::HandleStartAbility1()
 		cableComponent->SetVisibility(true);
 
 		GetWorldTimerManager().SetTimer(grappleTimer, this,
-			&AMovementCharacter::HandleStopAbility1, grappleTime, false);
+			&AMovementCharacter::StopAbility1, grappleTime, false);
 
 		Grapple();
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
-void AMovementCharacter::HandleStopAbility1()
+void AMovementCharacter::StopAbility1()
 {
 	movementComponent->GroundFriction = baseGroundFriction;
 	movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
@@ -276,7 +268,7 @@ void AMovementCharacter::Grapple()
 		}), 1.25f, false);
 }
 
-void AMovementCharacter::HandleStartUltimate()
+void AMovementCharacter::StartUltimate()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
@@ -284,7 +276,7 @@ void AMovementCharacter::HandleStartUltimate()
 		grappleCooldown = 1;
 		isInUltimate = true;
 		ultimateTriggered = true;
-		HandleSaveCurWeapons();
+		SaveCurWeapons();
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -300,14 +292,14 @@ void AMovementCharacter::HandleStartUltimate()
 				bodyMesh->SetMaterial(0, ultimateMat);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AMovementCharacter::HandleStopUltimate, ultLength, false);
+					&AMovementCharacter::StopUltimate, ultLength, false);
 			}), .5f, false);
 	}
 }
-void AMovementCharacter::HandleStopUltimate()
+void AMovementCharacter::StopUltimate()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
-	HandleRestoreCurWeapons();
+	RestoreCurWeapons();
 	grappleCooldown = baseGrappleCooldown;
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
@@ -422,9 +414,9 @@ void AMovementCharacter::BlockWallRun()
 			canWallRun = true;
 		}), wallRunDelay, false);
 }
-void AMovementCharacter::HandleResetMovement()
+void AMovementCharacter::ResetMovement()
 {
-	Super::HandleResetMovement();
+	Super::ResetMovement();
 	isWallRunning = false;
 	isWallRunningR = false;
 	isWallRunningL = false;
@@ -437,7 +429,7 @@ void AMovementCharacter::Jump()
 	if (isWallRunning)
 	{
 		wallRunDelay = .25f;
-		HandleResetMovement();
+		ResetMovement();
 
 		isWallRunning = false;
 		isWallRunningR = false;
@@ -454,7 +446,7 @@ void AMovementCharacter::Jump()
 void AMovementCharacter::LandEvent()
 {
 	wallRunDelay = .05f;
-	HandleResetMovement();
+	ResetMovement();
 	canWallRun = true;
 }
 

@@ -116,7 +116,6 @@ public:
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	virtual void Jump() override;
 
@@ -126,19 +125,19 @@ protected:
 	bool WallRunMovement(FVector start, FVector end, float wallRunDir);
 	void LandEvent();
 	void BlockWallRun();
-	virtual void HandleResetMovement() override;
+	virtual void ResetMovement() override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
-	virtual void HandleStartAbility1() override;
-	virtual void HandleStopAbility1() override;
+	virtual void StartAbility1() override;
+	virtual void StopAbility1() override;
 	void Grapple();
 	void GrappleAttack(FVector2D dir);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
-	virtual void HandleStartUltimate() override;
-	virtual void HandleStopUltimate() override;
-	virtual void HandleStartShooting() override;
+	virtual void StartUltimate() override;
+	virtual void StopUltimate() override;
+	virtual void StartShooting() override;
 	
 };

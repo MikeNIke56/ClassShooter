@@ -2,16 +2,11 @@
 
 
 #include "WeaponBase.h"
-#include "Net/UnrealNetwork.h"
-//#include "../Math/UnrealMathUtility.h"
 
 
 // Sets default values
 AWeaponBase::AWeaponBase()
 {
-	bReplicates = true;
-	SetReplicates(true);
-
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -28,18 +23,6 @@ AWeaponBase::AWeaponBase()
 	state = WeaponState::OutOfInventory;
 }
 
-void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	//DOREPLIFETIME(AClassShooterCharacter, curHealth);
-	//DOREPLIFETIME(AClassShooterCharacter, maxHealth);
-	//DOREPLIFETIME(AClassShooterCharacter, weaponMesh);
-	//DOREPLIFETIME(AClassShooterCharacter, fireAnim);
-	//DOREPLIFETIME(AClassShooterCharacter, reloadAnim);
-	//DOREPLIFETIME(AClassShooterCharacter, fireTimer);
-	//DOREPLIFETIME(AClassShooterCharacter, fireTimer);
-}
 
 // Called when the game starts or when spawned
 void AWeaponBase::BeginPlay()
@@ -56,21 +39,6 @@ void AWeaponBase::Tick(float DeltaTime)
 }
 
 // Fires the weapon
-void AWeaponBase::HandleFire()
-{
-	if (HasAuthority())
-	{
-		Fire(); // We're already on the server
-	}
-	else
-	{
-		ServerFire(); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerFire_Implementation()
-{
-	Fire();
-}
 void AWeaponBase::Fire()
 {
 	if (isShield == false)
@@ -83,7 +51,7 @@ void AWeaponBase::Fire()
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(fireTimer, this,
-					&AWeaponBase::HandleCanFireAgain, fireRate, false);
+					&AWeaponBase::CanFireAgain, fireRate, false);
 			}
 
 
@@ -102,7 +70,10 @@ void AWeaponBase::Fire()
 			FHitResult hitResult;
 			FCollisionQueryParams collisionParams;
 			collisionParams.AddIgnoredActor(this); // Ignore self
-			collisionParams.AddIgnoredActor(GetAttachParentActor());
+			if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+			{
+				collisionParams.AddIgnoredActor(OwnerPawn);
+			}
 
 			if(shield != nullptr)
 				collisionParams.AddIgnoredActor(shield);
@@ -119,7 +90,7 @@ void AWeaponBase::Fire()
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 			// Draw debug line (visible for 1 second)
-			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
+			DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
 
 			AActor* hitActor = hitResult.GetActor();
 			// Check if we hit something
@@ -152,43 +123,14 @@ void AWeaponBase::Fire()
 	}
 }
 
-void AWeaponBase::HandleAutoFire()
-{
-	if (HasAuthority())
-	{
-		AutoFire(); // We're already on the server
-	}
-	else
-	{
-		ServerAutoFire(); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerAutoFire_Implementation()
-{
-	AutoFire();
-}
+
 void AWeaponBase::AutoFire()
 {
-	HandleFire();
+	Fire();
 	GetWorldTimerManager().SetTimer(fireTimer, this,
-		&AWeaponBase::HandleFire, fireRate, true);
+		&AWeaponBase::Fire, fireRate, true);
 }
 
-void AWeaponBase::HandleReload()
-{
-	if (HasAuthority())
-	{
-		Reload(); // We're already on the server
-	}
-	else
-	{
-		ServerReload(); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerReload_Implementation()
-{
-	Reload();
-}
 void AWeaponBase::Reload()
 {
 	if (isShield == false)
@@ -202,27 +144,13 @@ void AWeaponBase::Reload()
 				weaponMesh->PlayAnimation(reloadAnim, false);
 
 				// starts fireTimer
-				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::HandleFinishReloading, reloadTime, false);
+				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);
 			}
 		}
 	}
 }
 
-void AWeaponBase::HandleCanFireAgain()
-{
-	if (HasAuthority())
-	{
-		CanFireAgain(); // We're already on the server
-	}
-	else
-	{
-		ServerCanFireAgain(); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerCanFireAgain_Implementation()
-{
-	CanFireAgain();
-}
+
 void AWeaponBase::CanFireAgain()
 {
 	canFire = true;
@@ -230,21 +158,6 @@ void AWeaponBase::CanFireAgain()
 	UE_LOG(LogTemp, Warning, TEXT("can fire again"));
 }
 
-void AWeaponBase::HandleFinishReloading()
-{
-	if (HasAuthority())
-	{
-		FinishReloading(); // We're already on the server
-	}
-	else
-	{
-		ServerFinishReloading(); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerFinishReloading_Implementation()
-{
-	FinishReloading();
-}
 void AWeaponBase::FinishReloading()
 {
 	curAmmo += ammoToRefill;
@@ -265,23 +178,9 @@ void AWeaponBase::FinishReloading()
 	}), .75f, false);
 }
 
-void AWeaponBase::HandleSetUpWeapon(AWeaponBase* weapon)
-{
-	if (HasAuthority())
-	{
-		SetUpWeapon(weapon); // We're already on the server
-	}
-	else
-	{
-		ServerSetUpWeapon(weapon); // Ask the server to run DropWeapon()
-	}
-}
-void AWeaponBase::ServerSetUpWeapon_Implementation(AWeaponBase* weapon)
-{
-	SetUpWeapon(weapon);
-}
 void AWeaponBase::SetUpWeapon(AWeaponBase* weapon)
 {
+	state = weapon->state;
 	curAmmo = weapon->curAmmo;
 	ammoToRefill = weapon->ammoToRefill;
 	ammoReserves = weapon->ammoReserves;

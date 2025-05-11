@@ -91,21 +91,20 @@ public:
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void HandleStartAbility1() override;
-	virtual void HandleStopAbility1() override;
+	virtual void StartAbility1() override;
+	virtual void StopAbility1() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void HandleStartAbility2() override;
-	virtual void HandleStopAbility2() override;
+	virtual void StartAbility2() override;
+	virtual void StopAbility2() override;
 	void DirectionalDodge(FVector2D dir);
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
-	virtual void HandleStartUltimate() override;
-	virtual void HandleStopUltimate() override;
+	virtual void StartUltimate() override;
+	virtual void StopUltimate() override;
 	void SpawnUltWeapon();
-	virtual void HandleStartShooting() override;
+	virtual void StartShooting() override;
 };

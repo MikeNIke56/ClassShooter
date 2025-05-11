@@ -12,7 +12,6 @@
 #include "Engine/LocalPlayer.h"
 #include "Components/StaticMeshComponent.h"
 #include "Knife.h"
-#include "Net/UnrealNetwork.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -24,9 +23,6 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 AClassShooterCharacter::AClassShooterCharacter()
 {
-	bReplicates = true;
-	SetReplicatingMovement(true);
-
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
@@ -67,24 +63,14 @@ AClassShooterCharacter::AClassShooterCharacter()
 	}
 }
 
-void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	//DOREPLIFETIME(AClassShooterCharacter, curHealth);
-	//DOREPLIFETIME(AClassShooterCharacter, maxHealth);
-	DOREPLIFETIME(AClassShooterCharacter, curWeapon);
-	DOREPLIFETIME(AClassShooterCharacter, weaponArray);
-	DOREPLIFETIME(AClassShooterCharacter, backupWeaponArray);
-	DOREPLIFETIME(AClassShooterCharacter, weaponWorldObj);
-}
 
 void AClassShooterCharacter::BeginPlay()
 {
+	APlayerController* PC = GetWorld()->GetFirstPlayerController(); // or use GetPlayerController(this, Index)
+
 	// Call the base class  
 	Super::BeginPlay();
 
-	APlayerController* PC = Cast<APlayerController>(GetController());
 	if (PC)
 	{
 		PC->bShowMouseCursor = false;
@@ -124,22 +110,24 @@ void AClassShooterCharacter::BeginPlay()
 		sniperWidget = CreateWidget<UUserWidget>(GetWorld(), sniperWidgetClass);
 		if (sniperWidget)
 		{
-			sniperWidget->AddToViewport();
+			sniperWidget->SetOwningPlayer(PC);
+			sniperWidget->AddToPlayerScreen();
 			sniperWidget->SetVisibility(ESlateVisibility::Hidden);
 		}
 	}
-
 	if (unADSWidgetClass)
 	{
 		unADSWidget = CreateWidget<UUserWidget>(GetWorld(), unADSWidgetClass);
 		if (unADSWidget)
 		{
-			unADSWidget->AddToViewport();
+			unADSWidget->SetOwningPlayer(PC);
+			unADSWidget->AddToPlayerScreen();
 			unADSWidget->SetVisibility(ESlateVisibility::Visible);
 		}
 	}
 
 	defaultCameraLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
+	UE_LOG(LogTemp, Warning, TEXT("Character is locally controlled: %d"), IsLocallyControlled());
 }
 
 void AClassShooterCharacter::Tick(float deltaTime)
@@ -147,6 +135,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 	jumpAllowed = IsGrounded();
 	curSpeed = movementComponent->MaxWalkSpeed;
+	isSprinting = IsStillSprinting();
 
 	if (ADSLerp == true)
 	{
@@ -244,8 +233,6 @@ void AClassShooterCharacter::Tick(float deltaTime)
 	curCamLocation = FirstPersonCameraComponent->GetComponentLocation();
 	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
 
-	isSprinting = IsStillSprinting();
-
 	if (movementComponent->Velocity.Length() > 0.1f)
 	{
 		if (curSpeed == sprintSpeed && IsGrounded() == true)
@@ -297,40 +284,40 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Move);
 
 		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleLook);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Look);
 
 		// Sprinting
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AClassShooterCharacter::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopSprinting);
 
 		// ADSing
-		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Started, this, &AClassShooterCharacter::HandleADS);
-		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::HandleStopADS);
+		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Started, this, &AClassShooterCharacter::ADS);
+		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopADS);
 
 		// Shooting
-		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Started, this, &AClassShooterCharacter::HandleStartShooting);
-		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::HandleStopShooting);
-		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Canceled, this, &AClassShooterCharacter::HandleStopShooting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Started, this, &AClassShooterCharacter::StartShooting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopShooting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Canceled, this, &AClassShooterCharacter::StopShooting);
 
 		// Switch Weapons
-		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleSwitchWeapon);
+		EnhancedInputComponent->BindAction(SwitchWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::SwitchWeapon);
 		
 		// Reload
-		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleReload);
+		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Reload);
 
 		// Drop weapon
-		EnhancedInputComponent->BindAction(DropWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleDropWeaponInput);
+		EnhancedInputComponent->BindAction(DropWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::DropWeapon);
 
 		// Crouch
-		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleStartCrouch);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartCrouch);
 
 		// Ability1
-		EnhancedInputComponent->BindAction(Ability1Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleStartAbility1);
+		EnhancedInputComponent->BindAction(Ability1Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartAbility1);
 		// Ability2
-		EnhancedInputComponent->BindAction(Ability2Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleStartAbility2);
+		EnhancedInputComponent->BindAction(Ability2Action, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartAbility2);
 		
 		// Ultimate
-		EnhancedInputComponent->BindAction(UltimateAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::HandleStartUltimate);
+		EnhancedInputComponent->BindAction(UltimateAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartUltimate);
 	}
 	else
 	{
@@ -361,12 +348,14 @@ void AClassShooterCharacter::Jump()
 		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
 			newJumpPow /= 2;
 		movementComponent->AddImpulse(GetActorUpVector() * newJumpPow, true);
-		//LaunchCharacter(GetActorUpVector() * newJumpPow, false, true);
 	}
 }
+
+
 void AClassShooterCharacter::StopJumping()
 {
-	Super::StopJumping(); // Call parent function
+	isJumping = false;
+	Super::StopJumping();
 }
 bool AClassShooterCharacter::IsGrounded()
 {
@@ -396,21 +385,6 @@ bool AClassShooterCharacter::IsGrounded()
 	}
 
 	return false;
-}
-void AClassShooterCharacter::HandleLook(const FInputActionValue& Value)
-{
-	if (HasAuthority())
-	{
-		Look(Value); // We're already on the server
-	}
-	else
-	{
-		ServerLook(Value); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerLook_Implementation(const FInputActionValue& Value)
-{
-	Look(Value);
 }
 void AClassShooterCharacter::Look(const FInputActionValue& Value)
 {
@@ -443,47 +417,17 @@ bool AClassShooterCharacter::IsStillSprinting()
 		return true;
 	return false;
 }
-void AClassShooterCharacter::HandleStartCrouch()
-{
-	if (HasAuthority())
-	{
-		StartCrouch(); // We're already on the server
-	}
-	else
-	{
-		ServerStartCrouch(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStartCrouch_Implementation()
-{
-	StartCrouch();
-}
 void AClassShooterCharacter::StartCrouch()
 {
 	if (isSprinting == true)
-		HandleSlide();
+		Slide();
 	else
 	{
 		if (isCrouching == false)
-			HandleCrouch();
+			Crouch();
 		else
-			HandleStopCrouching();
+			StopCrouching();
 	}
-}
-void AClassShooterCharacter::HandleCrouch()
-{
-	if (HasAuthority())
-	{
-		Crouch(); // We're already on the server
-	}
-	else
-	{
-		ServerCrouch(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerCrouch_Implementation()
-{
-	Crouch();
 }
 void AClassShooterCharacter::Crouch()
 {
@@ -491,45 +435,15 @@ void AClassShooterCharacter::Crouch()
 	movementComponent->MaxWalkSpeed = baseSpeed / 3;
 	isCrouching = true;
 }
-void AClassShooterCharacter::HandleStopCrouching()
-{
-	if (HasAuthority())
-	{
-		StopCrouching(); // We're already on the server
-	}
-	else
-	{
-		ServerStopCrouching(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopCrouching_Implementation()
-{
-	StopCrouching();
-}
 void AClassShooterCharacter::StopCrouching()
 {
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
 
-	if(isSprinting == false)
+	if (isSprinting == false)
 		movementComponent->MaxWalkSpeed = baseSpeed;
 
 	isCrouching = false;
-	HandleResetMovement();
-}
-void AClassShooterCharacter::HandleSlide()
-{
-	if (HasAuthority())
-	{
-		Slide(); // We're already on the server
-	}
-	else
-	{
-		ServerSlide(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerSlide_Implementation()
-{
-	Slide();
+	ResetMovement();
 }
 void AClassShooterCharacter::Slide()
 {
@@ -552,28 +466,13 @@ void AClassShooterCharacter::Slide()
 		{
 			movementComponent->AddImpulse(GetActorForwardVector() * slidePow, true);
 			GetWorld()->GetTimerManager().SetTimer(slideTimer, this, 
-				&AClassShooterCharacter::HandleStopSliding, 1.0f, false);
+				&AClassShooterCharacter::StopSliding, 1.0f, false);
 		}
 	}
 }
-void AClassShooterCharacter::HandleStopSliding()
-{
-	if (HasAuthority())
-	{
-		StopSliding(); // We're already on the server
-	}
-	else
-	{
-		ServerStopSliding(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopSliding_Implementation()
-{
-	StopSliding();
-}
 void AClassShooterCharacter::StopSliding()
 {
-	HandleResetMovement();
+	ResetMovement();
 }
 FVector AClassShooterCharacter::FindSlideVector()
 {
@@ -602,21 +501,6 @@ FVector AClassShooterCharacter::FindSlideVector()
 	return crossProdVec;
 
 }
-void AClassShooterCharacter::HandleResetMovement()
-{
-	if (HasAuthority())
-	{
-		ResetMovement(); // We're already on the server
-	}
-	else
-	{
-		ServerResetMovement(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerResetMovement_Implementation()
-{
-	ResetMovement();
-}
 void AClassShooterCharacter::ResetMovement()
 {
 	isSliding = false;
@@ -633,27 +517,14 @@ void AClassShooterCharacter::ResetMovement()
 
 
 //gun related functions
-void AClassShooterCharacter::HandleADS()
-{
-	if (HasAuthority())
-	{
-		ADS(); // We're already on the server
-	}
-	else
-	{
-		ServerADS(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerADS_Implementation()
-{
-	ADS();
-}
+
 void AClassShooterCharacter::ADS()
 {
 	if (curWeapon)
 	{
+		isADSing = true;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
-		HandleADSCurWeapon(curWeapon);
+		ADSCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
 
@@ -661,9 +532,12 @@ void AClassShooterCharacter::ADS()
 		{
 			if (sniperWidget->IsVisible() == false)
 			{
+				APlayerController* PC = GetWorld()->GetFirstPlayerController();
 				FTimerHandle DelayTimerHandle;
-				GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+				GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this, PC]()
 					{
+						sniperWidget->SetOwningPlayer(PC);
+						sniperWidget->AddToPlayerScreen();
 						unADSWidget->SetVisibility(ESlateVisibility::Hidden);
 						sniperWidget->SetVisibility(ESlateVisibility::Visible);
 						curWeapon->weaponMesh->SetVisibility(false, true);
@@ -705,27 +579,13 @@ void AClassShooterCharacter::ADS()
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
 	}
 }
-void AClassShooterCharacter::HandleStopADS()
-{
-	if (HasAuthority())
-	{
-		StopADS(); // We're already on the server
-	}
-	else
-	{
-		ServerStopADS(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopADS_Implementation()
-{
-	StopADS();
-}
 void AClassShooterCharacter::StopADS()
 {
 	if (curWeapon)
 	{
+		isADSing = false;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone;
-		HandleShowCurWeapon(curWeapon);
+		ShowCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
 
@@ -733,8 +593,11 @@ void AClassShooterCharacter::StopADS()
 		{
 			if (sniperWidget->IsVisible() == true)
 			{
+				APlayerController* PC = GetWorld()->GetFirstPlayerController();
+				sniperWidget->SetOwningPlayer(PC);
 				unADSWidget->SetVisibility(ESlateVisibility::Visible);
 				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
+				sniperWidget->RemoveFromParent();
 				curWeapon->weaponMesh->SetVisibility(true, true);
 			}
 		}
@@ -742,21 +605,6 @@ void AClassShooterCharacter::StopADS()
 		targetFov = baseFov;
 		startFovChange = true;
 	}
-}
-void AClassShooterCharacter::HandleStartShooting()
-{
-	if (HasAuthority())
-	{
-		StartShooting(); // We're already on the server
-	}
-	else
-	{
-		ServerStartShooting(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStartShooting_Implementation()
-{
-	StartShooting();
 }
 void AClassShooterCharacter::StartShooting()
 {
@@ -766,101 +614,38 @@ void AClassShooterCharacter::StartShooting()
 		curWeapon->curCamRot = curCamRotation;
 
 		if (curWeapon->name == "Knife")
-			HandleMelee();
+			Melee();
 		else
-			HandleShoot();
+			Shoot();
 	}			
-}
-void AClassShooterCharacter::HandleStopShooting()
-{
-	if (HasAuthority())
-	{
-		StopShooting(); // We're already on the server
-	}
-	else
-	{
-		ServerStopShooting(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopShooting_Implementation()
-{
-	StopShooting();
 }
 void AClassShooterCharacter::StopShooting()
 {
 	if (curWeapon && curWeapon->isAutomatic)
 		GetWorldTimerManager().ClearTimer(curWeapon->fireTimer);
 }
-void AClassShooterCharacter::HandleShoot()
-{
-	if (HasAuthority())
-	{
-		Shoot(); // We're already on the server
-	}
-	else
-	{
-		ServerShoot(); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerShoot_Implementation()
-{
-	Shoot();
-}
 void AClassShooterCharacter::Shoot()
 {
 	if (curWeapon->isAutomatic == true)
-		curWeapon->HandleAutoFire();
+		curWeapon->AutoFire();
 	else
-		curWeapon->HandleFire();
+		curWeapon->Fire();
 }
 
 
 
 //Picking up and equipping weapons
-void AClassShooterCharacter::HandleEquipWeapon(AWeaponBase* weapon)
-{
-	if (HasAuthority())
-	{
-		EquipWeapon(weapon); // We're already on the server
-	}
-	else
-	{
-		ServerEquipWeapon(weapon); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerEquipWeapon_Implementation(AWeaponBase* weapon)
-{
-	EquipWeapon(weapon);
-}
 void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
 {
+	if (!weaponArray.Contains(weapon)) return;
+
 	weapon->state = WeaponState::Equipped;
 	curWeapon = weapon;
-	HandleShowCurWeapon(weapon);
-	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
-	HandleStopADS();
-	weapon->SetOwner(this);
-
-	BindDelegate();
-}
-void AClassShooterCharacter::OnRep_EquippedWeapon()
-{
-	EquipWeapon(curWeapon);
-}
-void AClassShooterCharacter::HandleShowCurWeapon(AWeaponBase* weapon)
-{
-	if (HasAuthority())
-	{
-		ShowCurWeapon(weapon); // We're already on the server
-	}
-	else
-	{
-		ServerShowCurWeapon(weapon); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerShowCurWeapon_Implementation(AWeaponBase* weapon)
-{
 	ShowCurWeapon(weapon);
+	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+	StopADS();
+	weapon->SetOwner(this);
+	BindDelegate();
 }
 void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
@@ -897,30 +682,38 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
 
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+
+		weaponWorldObj = weapon->GetClass();
+
+		weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
+			FRotator(0,0,0), SpawnParams);
+
+		weaponCopy->SetUpWeapon(weapon);
+
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-		weapon->AttachToComponent(weaponLocation, AttachRules);
-		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
+		weaponCopy->AttachToComponent(weaponLocation, AttachRules);
+		weaponCopy->SetActorRotation(weaponLocation->GetComponentRotation());
+
+		TArray<UActorComponent*> Hitboxes = weaponCopy->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
+		for (UActorComponent* Comp : Hitboxes)
+		{
+			UCapsuleComponent* capsule = Cast<UCapsuleComponent>(Comp);
+			if (capsule)
+			{
+				capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			}
+		}
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }
-void AClassShooterCharacter::HandleADSCurWeapon(AWeaponBase* weapon)
-{
-	if (HasAuthority())
-	{
-		ADSCurWeapon(weapon); // We're already on the server
-	}
-	else
-	{
-		ServerADSCurWeapon(weapon); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerADSCurWeapon_Implementation(AWeaponBase* weapon)
-{
-	ADSCurWeapon(weapon);
-}
 void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 {
+	if (!weaponArray.Contains(weapon)) return;
+
 	if (weapon)
 	{
 		FVector newWeaponPos;
@@ -957,11 +750,11 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
 	}
 	else
-		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
+		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));;
 }
 
 
-bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
+void AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
 	{
@@ -982,50 +775,34 @@ bool AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 		{
 			for (int i = 0; i < weaponArray.Num(); i++)
 			{
-				if (weaponArray[i] == nullptr)
+				if (weaponArray[i] == nullptr && !weaponArray.Contains(weapon))
 				{
 					weaponArray[i] = weapon;
 
 					if (i == 0)
-						HandleEquipWeapon(weapon);
+					{
+						EquipWeapon(weapon);
+					}
 					else
-						HandleStowWeapon(weapon, weapon->name);
-
-					return true;
+					{
+						StowWeapon(weapon, weapon->name);
+					}
 				}
 			}
 		}
 		else
 		{
 			UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
-			return false;
 		}
-		return false;
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
-		return false;
 	}
 }
 
 
 //Switching weapons
-void AClassShooterCharacter::HandleSwitchWeapon(const FInputActionValue& Value)
-{
-	if (HasAuthority())
-	{
-		SwitchWeapon(Value); // We're already on the server
-	}
-	else
-	{
-		ServerSwitchWeapon(Value); // Ask the server to run EquipWeapon()
-	}
-}
-void AClassShooterCharacter::ServerSwitchWeapon_Implementation(const FInputActionValue& Value)
-{
-	SwitchWeapon(Value);
-}
 void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 {
 	if (meleeLerp == false)
@@ -1050,21 +827,21 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
 				curWeapon->weaponMesh->SetVisibility(true, true);
 			}
-			HandleStowWeapon(weaponArray[pos], weaponArray[pos]->name);
+			StowWeapon(weaponArray[pos], weaponArray[pos]->name);
 
 			if (Value.GetMagnitude() > 0.0)
 			{
 				if (pos == numWeapons - 1)
-					HandleEquipWeapon(weaponArray[0]);
+					EquipWeapon(weaponArray[0]);
 				else
-					HandleEquipWeapon(weaponArray[pos += 1]);
+					EquipWeapon(weaponArray[pos += 1]);
 			}
 			else if (Value.GetMagnitude() < 0.0)
 			{
 				if (pos == 0)
-					HandleEquipWeapon(weaponArray[numWeapons -= 1]);
+					EquipWeapon(weaponArray[numWeapons -= 1]);
 				else
-					HandleEquipWeapon(weaponArray[pos -= 1]);
+					EquipWeapon(weaponArray[pos -= 1]);
 			}
 		}
 	}
@@ -1073,21 +850,6 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 
 //Stowing weapons
-void AClassShooterCharacter::HandleStowWeapon(AWeaponBase* weapon, const FName& socketName)
-{
-	if (HasAuthority())
-	{
-		StowWeapon(weapon, socketName); // We're already on the server
-	}
-	else
-	{
-		ServerStowWeapon(weapon, socketName); // Ask the server to run StowWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStowWeapon_Implementation(AWeaponBase* weapon, const FName& socketName)
-{
-	StowWeapon(weapon, socketName);
-}
 void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socketName)
 {	
 	if (bodyMesh->DoesSocketExist(socketName))
@@ -1104,21 +866,6 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 
 
 //Reload and Recoil
-void AClassShooterCharacter::HandleRecoil()
-{
-	if (HasAuthority())
-	{
-		Recoil(); // We're already on the server
-	}
-	else
-	{
-		ServerRecoil(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerRecoil_Implementation()
-{
-	Recoil();
-}
 void AClassShooterCharacter::Recoil()
 {
 	FRotator targetRotationCopy = GetControlRotation();
@@ -1130,52 +877,22 @@ void AClassShooterCharacter::Recoil()
 	curWeapon->curCamRot = targetRotation;
 	recoilLerp = true;
 }
-void AClassShooterCharacter::HandleReload()
-{
-	if (HasAuthority())
-	{
-		Reload(); // We're already on the server
-	}
-	else
-	{
-		ServerReload(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerReload_Implementation()
-{
-	Reload();
-}
 void AClassShooterCharacter::Reload()
 {
 	if (curWeapon)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("reload"));
-		curWeapon->HandleReload();
+		curWeapon->Reload();
 	}
 }
 void AClassShooterCharacter::BindDelegate()
 {
 	//bind delegate event 
 	if (curWeapon)
-		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::HandleRecoil);
+		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
 }
 
 //Dropping weapons
-void AClassShooterCharacter::HandleDropWeaponInput()
-{
-	if (HasAuthority())
-	{
-		DropWeapon(); // We're already on the server
-	}
-	else
-	{
-		ServerDropWeapon(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerDropWeapon_Implementation()
-{
-	DropWeapon();
-}
 void AClassShooterCharacter::DropWeapon()
 {
 	if (curWeapon)
@@ -1193,15 +910,15 @@ void AClassShooterCharacter::DropWeapon()
 		FRotator spawnRot = GetActorRotation();
 		spawnRot.Yaw -= 90;
 
-		AWeaponBase* weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+		weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
 			spawnRot, SpawnParams);
 
 		if(shouldDestroyWeapon == true)
 			weaponCopy->Destroy();
 		else
-			weaponCopy->HandleSetUpWeapon(curWeapon);
+			weaponCopy->SetUpWeapon(curWeapon);
 
-		HandleStopADS();
+		StopADS();
 
 		int pos;
 		for (int i = 0; i < weaponArray.Num(); i++)
@@ -1232,21 +949,6 @@ void AClassShooterCharacter::DropWeapon()
 
 
 //Melee
-void AClassShooterCharacter::HandleMelee()
-{
-	if (HasAuthority())
-	{
-		Melee(); // We're already on the server
-	}
-	else
-	{
-		ServerMelee(); // Ask the server to run Melee()
-	}
-}
-void AClassShooterCharacter::ServerMelee_Implementation()
-{
-	Melee();
-}
 void AClassShooterCharacter::Melee()
 {
 	if (isLeftSwing == true)
@@ -1271,139 +973,34 @@ void AClassShooterCharacter::Melee()
 		isMeleeHBOn = true;
 		meleeLerp = true;
 	}
-	curWeapon->HandleFire();
+	curWeapon->Fire();
 }
 
 
 //Abilities
-void AClassShooterCharacter::HandleStartAbility1()
-{
-	if (HasAuthority())
-	{
-		StartAbility1(); // We're already on the server
-	}
-	else
-	{
-		ServerStartAbility1(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStartAbility1_Implementation()
-{
-	StartAbility1();
-}
 void AClassShooterCharacter::StartAbility1()
 {
 
-}
-void AClassShooterCharacter::HandleStopAbility1()
-{
-	if (HasAuthority())
-	{
-		StopAbility1(); // We're already on the server
-	}
-	else
-	{
-		ServerStopAbility1(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopAbility1_Implementation()
-{
-	StopAbility1();
 }
 void AClassShooterCharacter::StopAbility1()
 {
 
 }
-void AClassShooterCharacter::HandleStartAbility2()
-{
-	if (HasAuthority())
-	{
-		StartAbility2(); // We're already on the server
-	}
-	else
-	{
-		ServerStartAbility2(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStartAbility2_Implementation()
-{
-	StartAbility2();
-}
 void AClassShooterCharacter::StartAbility2()
 {
 
-}
-void AClassShooterCharacter::HandleStopAbility2()
-{
-	if (HasAuthority())
-	{
-		StopAbility2(); // We're already on the server
-	}
-	else
-	{
-		ServerStopAbility2(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopAbility2_Implementation()
-{
-	StopAbility2();
 }
 void AClassShooterCharacter::StopAbility2()
 {
 
 }
-void AClassShooterCharacter::HandleStartUltimate()
-{
-	if (HasAuthority())
-	{
-		StartUltimate(); // We're already on the server
-	}
-	else
-	{
-		ServerStartUltimate(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStartUltimate_Implementation()
-{
-	StartUltimate();
-}
 void AClassShooterCharacter::StartUltimate()
 {
 
 }
-void AClassShooterCharacter::HandleStopUltimate()
-{
-	if (HasAuthority())
-	{
-		StopUltimate(); // We're already on the server
-	}
-	else
-	{
-		ServerStopUltimate(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerStopUltimate_Implementation()
-{
-	StopUltimate();
-}
 void AClassShooterCharacter::StopUltimate()
 {
 
-}
-void AClassShooterCharacter::HandleSaveCurWeapons()
-{
-	if (HasAuthority())
-	{
-		SaveCurWeapons(); // We're already on the server
-	}
-	else
-	{
-		ServerSaveCurWeapons(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerSaveCurWeapons_Implementation()
-{
-	SaveCurWeapons();
 }
 void AClassShooterCharacter::SaveCurWeapons()
 {
@@ -1419,27 +1016,12 @@ void AClassShooterCharacter::SaveCurWeapons()
 		DropWeapon();
 	}
 }
-void AClassShooterCharacter::HandleRestoreCurWeapons()
-{
-	if (HasAuthority())
-	{
-		RestoreCurWeapons(); // We're already on the server
-	}
-	else
-	{
-		ServerDropWeapon(); // Ask the server to run DropWeapon()
-	}
-}
-void AClassShooterCharacter::ServerRestoreCurWeapons_Implementation()
-{
-	RestoreCurWeapons();
-}
 void AClassShooterCharacter::RestoreCurWeapons()
 {
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		shouldDestroyWeapon = true;
-		HandleDropWeaponInput();
+		DropWeapon();
 	}
 	for (int i = 0; i < backupWeaponArray.Num(); i++)
 	{
@@ -1454,7 +1036,7 @@ void AClassShooterCharacter::RestoreCurWeapons()
 			FVector spawnLoc = GetActorLocation();
 			FRotator spawnRot = GetActorRotation();
 
-			AWeaponBase* weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+			weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
 				spawnRot, SpawnParams);
 
 			weaponCopy->state = WeaponState::OutOfInventory;
@@ -1477,17 +1059,6 @@ void AClassShooterCharacter::RestoreCurWeapons()
 //Damage and death
 void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageAmount)
 {
-	if (HasAuthority())
-	{
-		TakeCustomDamage(DamageAmount); // We're already on the server
-	}
-	else
-	{
-		ServerTakeCustomDamage(DamageAmount); // Ask the server to run TakeCustomDamage()
-	}
-}
-void AClassShooterCharacter::ServerTakeCustomDamage_Implementation(float DamageAmount)
-{
 	TakeCustomDamage(DamageAmount);
 }
 void AClassShooterCharacter::TakeCustomDamage(float amount)
@@ -1496,25 +1067,10 @@ void AClassShooterCharacter::TakeCustomDamage(float amount)
 	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 	if (curHealth <= 0.0)
 	{
-		HandleDie();
+		Die();
 	}
 }
 
-void AClassShooterCharacter::HandleDie()
-{
-	if (HasAuthority())
-	{
-		Die(); // We're already on the server
-	}
-	else
-	{
-		ServerDie(); // Ask the server to run Die()
-	}
-}
-void AClassShooterCharacter::ServerDie_Implementation()
-{
-	Die();
-}
 void AClassShooterCharacter::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("die"));

@@ -4,7 +4,7 @@
 #include "GrenadeLauncher.h"
 
 
-void AGrenadeLauncher::HandleFire()
+void AGrenadeLauncher::Fire()
 {
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
@@ -14,7 +14,7 @@ void AGrenadeLauncher::HandleFire()
 
 			// starts fireTimer
 			GetWorldTimerManager().SetTimer(fireTimer, this,
-				&AWeaponBase::HandleCanFireAgain, fireRate, false);
+				&AWeaponBase::CanFireAgain, fireRate, false);
 
 			weaponMesh->PlayAnimation(fireAnim, false);
 

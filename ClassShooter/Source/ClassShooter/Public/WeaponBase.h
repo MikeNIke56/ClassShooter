@@ -60,22 +60,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float range;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int curAmmo;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int maxAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int ammoToRefill;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int ammoReserves;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool canFire;
 
-	UPROPERTY(EditAnywhere,  BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool isReloading;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
@@ -133,45 +133,23 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
-	virtual void HandleFire();
-	UFUNCTION(Server, Reliable)
-	virtual void ServerFire();
-	virtual void ServerFire_Implementation();
 	virtual void Fire();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
-	virtual void HandleAutoFire();
-	UFUNCTION(Server, Reliable)
-	virtual void ServerAutoFire();
-	virtual void ServerAutoFire_Implementation();
 	virtual void AutoFire();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
-	virtual void HandleReload();
-	UFUNCTION(Server, Reliable)
-	virtual void ServerReload();
-	virtual void ServerReload_Implementation();
 	virtual void Reload();
 
-	void HandleCanFireAgain();
-	UFUNCTION(Server, Reliable)
-	virtual void ServerCanFireAgain();
-	virtual void ServerCanFireAgain_Implementation();
+
 	void CanFireAgain();
 
-	void HandleFinishReloading();
-	UFUNCTION(Server, Reliable)
-	virtual void ServerFinishReloading();
-	virtual void ServerFinishReloading_Implementation();
+
 	void FinishReloading();
 
-	void HandleSetUpWeapon(AWeaponBase* weapon);
-	UFUNCTION(Server, Reliable)
-	virtual void ServerSetUpWeapon(AWeaponBase* weapon);
-	virtual void ServerSetUpWeapon_Implementation(AWeaponBase* weapon);
+
 	void SetUpWeapon(AWeaponBase* weapon);
 
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);

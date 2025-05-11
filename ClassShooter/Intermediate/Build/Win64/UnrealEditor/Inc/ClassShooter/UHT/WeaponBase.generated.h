@@ -9,7 +9,6 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class AWeaponBase;
 #ifdef CLASSSHOOTER_WeaponBase_generated_h
 #error "WeaponBase.generated.h already included, missing '#pragma once' in WeaponBase.h"
 #endif
@@ -20,18 +19,11 @@ CLASSSHOOTER_API void FRecoilDelegate_DelegateWrapper(const FMulticastScriptDele
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execServerSetUpWeapon); \
-	DECLARE_FUNCTION(execServerFinishReloading); \
-	DECLARE_FUNCTION(execServerCanFireAgain); \
-	DECLARE_FUNCTION(execServerReload); \
-	DECLARE_FUNCTION(execHandleReload); \
-	DECLARE_FUNCTION(execServerAutoFire); \
-	DECLARE_FUNCTION(execHandleAutoFire); \
-	DECLARE_FUNCTION(execServerFire); \
-	DECLARE_FUNCTION(execHandleFire);
+	DECLARE_FUNCTION(execReload); \
+	DECLARE_FUNCTION(execAutoFire); \
+	DECLARE_FUNCTION(execFire);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_CALLBACK_WRAPPERS
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAWeaponBase(); \
@@ -58,7 +50,6 @@ public: \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_CALLBACK_WRAPPERS \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_INCLASS_NO_PURE_DECLS \
 	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_ENHANCED_CONSTRUCTORS \
 private: \

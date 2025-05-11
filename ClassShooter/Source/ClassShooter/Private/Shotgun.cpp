@@ -3,7 +3,7 @@
 
 #include "Shotgun.h"
 
-void AShotgun::HandleFire()
+void AShotgun::Fire()
 {
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
@@ -11,7 +11,7 @@ void AShotgun::HandleFire()
 
 		// starts fireTimer
 		GetWorldTimerManager().SetTimer(fireTimer, this,
-			&AWeaponBase::HandleCanFireAgain, fireRate, false);
+			&AWeaponBase::CanFireAgain, fireRate, false);
 
 		weaponMesh->PlayAnimation(fireAnim, false);
 
