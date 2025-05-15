@@ -92,6 +92,11 @@ public:
 	float maxHealth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float xSens;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float ySens;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FVector shotLocation;
 
 	//our array of weapons

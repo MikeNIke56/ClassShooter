@@ -31,6 +31,10 @@ void AShotgun::Fire()
 			FCollisionQueryParams collisionParams;
 			collisionParams.AddIgnoredActor(this); // Ignore self
 			collisionParams.AddIgnoredActor(GetAttachParentActor());
+			if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+			{
+				collisionParams.AddIgnoredActor(OwnerPawn);
+			}
 
 			if (shield != nullptr)
 				collisionParams.AddIgnoredActor(shield);

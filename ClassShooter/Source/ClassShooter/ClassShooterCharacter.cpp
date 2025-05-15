@@ -331,7 +331,9 @@ void AClassShooterCharacter::Move(const FInputActionValue& Value)
 	// input is a Vector2D
 	movementVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr && 
+		FMath::Abs(movementVector.Y) > .1f ||
+		FMath::Abs(movementVector.X) > .1f)
 	{
 		// add movement 
 		//MovementVector.Normalize();
@@ -394,8 +396,16 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 	if (Controller != nullptr)
 	{
 		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
+		if (isADSing == true)
+		{
+			AddControllerYawInput(LookAxisVector.X * (xSens / 2));
+			AddControllerPitchInput(LookAxisVector.Y * (ySens / 2));
+		}
+		else
+		{
+			AddControllerYawInput(LookAxisVector.X * xSens);
+			AddControllerPitchInput(LookAxisVector.Y * ySens);
+		}
 	}
 }
 void AClassShooterCharacter::Sprint()

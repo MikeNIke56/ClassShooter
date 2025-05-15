@@ -1,0 +1,141 @@
+[+] Containers:
+ |- [+] Container: /Game/ClassShooterAssets/Maps/Lobby
+ |   |- [+] ActorDescs:
+ |   |   |- Guid:161ACB044F01313CBBCF3DAC1DF72715 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_0 Label:SM_Cube SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=-50.000), Max=(X=3000.000 Y=3500.000 Z=0.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- Guid:2B7DF0834A522CAB755CCCB7B4792B94 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPKnife.BPKnife_C NativeClass:/Script/ClassShooter.Knife Name:BPKnife_C_UAID_04BF1B671083425F02_1874113453 Label:BPKnife SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1125.619 Y=467.591 Z=-34.608), Max=(X=1383.839 Y=627.591 Z=125.392) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:3964D8CE45A0EED6C3EE868C70E5E366 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPPistol.BPPistol_C NativeClass:/Script/ClassShooter.Pistol Name:BPPistol_C_UAID_04BF1B671083425F02_1880666454 Label:BPPistol SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1060.807 Y=698.565 Z=12.820), Max=(X=1360.851 Y=858.565 Z=172.820) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:3C342A1844B771475E23F5AC4C5F1447 BaseClass: NativeClass:/Script/Engine.SkyAtmosphere Name:SkyAtmosphere_0 Label:SkyAtmosphere SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=1020.000), Max=(X=0.000 Y=0.000 Z=1020.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:4B5B6FD44990B59F76DE399FAD0A631E BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPAssaultRifle.BPAssaultRifle_C NativeClass:/Script/ClassShooter.AssaultRifle Name:BPAssaultRifle_C_UAID_04BF1B671083696302_1092788520 Label:BPAssaultRifle SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1566.667 Y=584.996 Z=-15.900), Max=(X=1766.775 Y=744.996 Z=144.100) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:580F6C9B45419825231FC791AD4E9042 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPGrenadeLauncher.BPGrenadeLauncher_C NativeClass:/Script/ClassShooter.GrenadeLauncher Name:BPGrenadeLauncher_C_UAID_04BF1B671083696302_1086930519 Label:BPGrenadeLauncher SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1890.390 Y=1834.097 Z=14.733), Max=(X=2204.408 Y=2130.473 Z=174.733) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:6B45E6CE4C6A85974FB5E58E05A51B22 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPShotgun.BPShotgun_C NativeClass:/Script/ClassShooter.Shotgun Name:BPShotgun_C_UAID_04BF1B671083425F02_1886253455 Label:BPShotgun SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1070.716 Y=918.282 Z=-2.922), Max=(X=1384.955 Y=1078.282 Z=157.078) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:6D67E63A4993E8CE85835D81D6291A9C BaseClass: NativeClass:/Script/Engine.WorldDataLayers Name:WorldDataLayers Label:WorldDataLayers-1 SpatiallyLoaded:0 Bounds:Invalid RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:1
+ |   |   |- Guid:7179B2EB4F978E584C3EE29E1F3A984B BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710832C6702_1172636010 Label:Cube SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1906.250 Y=1848.329 Z=-20.140), Max=(X=2006.250 Y=1948.329 Z=79.860) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:73B4376C405D170C442EA49AD077BA6D BaseClass: NativeClass:/Script/Engine.TextRenderActor Name:TextRenderActor_0 Label:TextRenderActor SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.100 Y=1100.000 Z=65.013), Max=(X=-0.100 Y=2363.461 Z=215.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:74AF625749FCAB9B7C70B6ACD613CAE8 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1468245714 Label:SM_Cube4 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=2980.262 Y=-0.000 Z=-50.000), Max=(X=3030.262 Y=3500.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- Guid:8944E45549B035223CC1EC84AC1C53EA BaseClass: NativeClass:/Script/Engine.PlayerStart Name:PlayerStart_UAID_04BF1B671083FB6402_1326770271 Label:PlayerStart2 SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=1073.201 Y=1966.050 Z=0.013), Max=(X=1153.201 Y=2046.050 Z=184.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:8BE0B6554A39919472BA1DB9576B7736 BaseClass: NativeClass:/Script/Engine.DirectionalLight Name:DirectionalLight_0 Label:DirectionalLight SpatiallyLoaded:0 Bounds:Invalid RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:B1CB47A54B3B5421DAB6B6AF40D458EE BaseClass: NativeClass:/Script/Engine.PlayerStart Name:PlayerStart_0 Label:PlayerStart SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=1063.201 Y=1346.050 Z=0.013), Max=(X=1143.201 Y=1426.050 Z=184.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:C8A5D7F742CA6D482465C0B7738CBED3 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1403501712 Label:SM_Cube2 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-50.000 Y=0.000 Z=-50.000), Max=(X=0.000 Y=3500.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- Guid:CA3F5C2D4B645A256199738514E8C38D BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPSniperRifle.BPSniperRifle_C NativeClass:/Script/ClassShooter.SniperRifle Name:BPSniperRifle_C_UAID_04BF1B671083696302_1105232522 Label:BPSniperRifle SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1546.433 Y=301.551 Z=-39.731), Max=(X=1897.525 Y=461.551 Z=120.269) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:CABA3A934683CD14CA41249B48C019F7 BaseClass: NativeClass:/Script/Engine.PostProcessVolume Name:PostProcessVolume_0 Label:PostProcessVolume SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=400.000), Max=(X=200.000 Y=200.000 Z=600.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:CADEF040423E566682DB83B2B84D362A BaseClass: NativeClass:/Script/Engine.VolumetricCloud Name:VolumetricCloud_0 Label:VolumetricCloud SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=820.000), Max=(X=0.000 Y=0.000 Z=820.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:D328124B470F95FD91FBFEA4B7783723 BaseClass: NativeClass:/Script/Engine.SkyLight Name:SkyLight_0 Label:SkyLight SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=690.000), Max=(X=0.000 Y=0.000 Z=690.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:D6DD8E4942073B9641C4669956748517 BaseClass: NativeClass:/Script/Engine.ExponentialHeightFog Name:ExponentialHeightFog_0 Label:ExponentialHeightFog SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=-5600.000 Y=-50.000 Z=-6850.000), Max=(X=-5600.000 Y=-50.000 Z=-6850.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:ECCC74BF40202EBDD96F9AA8BB69AC75 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPRocketLauncher.BPRocketLauncher_C NativeClass:/Script/ClassShooter.RocketLauncher Name:BPRocketLauncher_C_UAID_04BF1B671083696302_1097686521 Label:BPRocketLauncher SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1506.929 Y=435.843 Z=-55.790), Max=(X=1863.041 Y=595.843 Z=104.210) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- Guid:EF2B318449E0EF2F7DBDA9BAFD4A36E4 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_A4AE111137DC5FFB00_1159438599 Label:SM_SkySphere SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=-1638400.000 Y=-1638400.000 Z=-1638400.000), Max=(X=1638400.000 Y=1638400.000 Z=1638400.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- Guid:F22F88DF46B6F3B1795BC89AFDCFECFA BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1454232713 Label:SM_Cube3 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.000 Y=-0.000 Z=-50.000), Max=(X=3000.000 Y=50.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- Guid:F6C975EA485AA9F3B41098B191F8D710 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1512679715 Label:SM_Cube5 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.000 Y=3453.518 Z=-50.000), Max=(X=3000.000 Y=3503.518 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |- [+] Clusters:
+ |   |   |- [+] [  0]
+ |   |   |   |- Guid:161ACB044F01313CBBCF3DAC1DF72715 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_0 Label:SM_Cube SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=-50.000), Max=(X=3000.000 Y=3500.000 Z=0.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- [+] [  1]
+ |   |   |   |- Guid:2B7DF0834A522CAB755CCCB7B4792B94 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPKnife.BPKnife_C NativeClass:/Script/ClassShooter.Knife Name:BPKnife_C_UAID_04BF1B671083425F02_1874113453 Label:BPKnife SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1125.619 Y=467.591 Z=-34.608), Max=(X=1383.839 Y=627.591 Z=125.392) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  2]
+ |   |   |   |- Guid:3964D8CE45A0EED6C3EE868C70E5E366 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPPistol.BPPistol_C NativeClass:/Script/ClassShooter.Pistol Name:BPPistol_C_UAID_04BF1B671083425F02_1880666454 Label:BPPistol SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1060.807 Y=698.565 Z=12.820), Max=(X=1360.851 Y=858.565 Z=172.820) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  3]
+ |   |   |   |- Guid:3C342A1844B771475E23F5AC4C5F1447 BaseClass: NativeClass:/Script/Engine.SkyAtmosphere Name:SkyAtmosphere_0 Label:SkyAtmosphere SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=1020.000), Max=(X=0.000 Y=0.000 Z=1020.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [  4]
+ |   |   |   |- Guid:4B5B6FD44990B59F76DE399FAD0A631E BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPAssaultRifle.BPAssaultRifle_C NativeClass:/Script/ClassShooter.AssaultRifle Name:BPAssaultRifle_C_UAID_04BF1B671083696302_1092788520 Label:BPAssaultRifle SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1566.667 Y=584.996 Z=-15.900), Max=(X=1766.775 Y=744.996 Z=144.100) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  5]
+ |   |   |   |- Guid:580F6C9B45419825231FC791AD4E9042 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPGrenadeLauncher.BPGrenadeLauncher_C NativeClass:/Script/ClassShooter.GrenadeLauncher Name:BPGrenadeLauncher_C_UAID_04BF1B671083696302_1086930519 Label:BPGrenadeLauncher SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1890.390 Y=1834.097 Z=14.733), Max=(X=2204.408 Y=2130.473 Z=174.733) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  6]
+ |   |   |   |- Guid:6B45E6CE4C6A85974FB5E58E05A51B22 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPShotgun.BPShotgun_C NativeClass:/Script/ClassShooter.Shotgun Name:BPShotgun_C_UAID_04BF1B671083425F02_1886253455 Label:BPShotgun SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1070.716 Y=918.282 Z=-2.922), Max=(X=1384.955 Y=1078.282 Z=157.078) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  7]
+ |   |   |   |- Guid:6D67E63A4993E8CE85835D81D6291A9C BaseClass: NativeClass:/Script/Engine.WorldDataLayers Name:WorldDataLayers Label:WorldDataLayers-1 SpatiallyLoaded:0 Bounds:Invalid RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:1
+ |   |   |- [+] [  8]
+ |   |   |   |- Guid:7179B2EB4F978E584C3EE29E1F3A984B BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710832C6702_1172636010 Label:Cube SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1906.250 Y=1848.329 Z=-20.140), Max=(X=2006.250 Y=1948.329 Z=79.860) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [  9]
+ |   |   |   |- Guid:73B4376C405D170C442EA49AD077BA6D BaseClass: NativeClass:/Script/Engine.TextRenderActor Name:TextRenderActor_0 Label:TextRenderActor SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.100 Y=1100.000 Z=65.013), Max=(X=-0.100 Y=2363.461 Z=215.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [ 10]
+ |   |   |   |- Guid:74AF625749FCAB9B7C70B6ACD613CAE8 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1468245714 Label:SM_Cube4 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=2980.262 Y=-0.000 Z=-50.000), Max=(X=3030.262 Y=3500.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- [+] [ 11]
+ |   |   |   |- Guid:8944E45549B035223CC1EC84AC1C53EA BaseClass: NativeClass:/Script/Engine.PlayerStart Name:PlayerStart_UAID_04BF1B671083FB6402_1326770271 Label:PlayerStart2 SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=1073.201 Y=1966.050 Z=0.013), Max=(X=1153.201 Y=2046.050 Z=184.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [ 12]
+ |   |   |   |- Guid:8BE0B6554A39919472BA1DB9576B7736 BaseClass: NativeClass:/Script/Engine.DirectionalLight Name:DirectionalLight_0 Label:DirectionalLight SpatiallyLoaded:0 Bounds:Invalid RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 13]
+ |   |   |   |- Guid:B1CB47A54B3B5421DAB6B6AF40D458EE BaseClass: NativeClass:/Script/Engine.PlayerStart Name:PlayerStart_0 Label:PlayerStart SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=1063.201 Y=1346.050 Z=0.013), Max=(X=1143.201 Y=1426.050 Z=184.013) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [ 14]
+ |   |   |   |- Guid:C8A5D7F742CA6D482465C0B7738CBED3 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1403501712 Label:SM_Cube2 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-50.000 Y=0.000 Z=-50.000), Max=(X=0.000 Y=3500.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- [+] [ 15]
+ |   |   |   |- Guid:CA3F5C2D4B645A256199738514E8C38D BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPSniperRifle.BPSniperRifle_C NativeClass:/Script/ClassShooter.SniperRifle Name:BPSniperRifle_C_UAID_04BF1B671083696302_1105232522 Label:BPSniperRifle SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1546.433 Y=301.551 Z=-39.731), Max=(X=1897.525 Y=461.551 Z=120.269) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [ 16]
+ |   |   |   |- Guid:CABA3A934683CD14CA41249B48C019F7 BaseClass: NativeClass:/Script/Engine.PostProcessVolume Name:PostProcessVolume_0 Label:PostProcessVolume SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=400.000), Max=(X=200.000 Y=200.000 Z=600.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 17]
+ |   |   |   |- Guid:CADEF040423E566682DB83B2B84D362A BaseClass: NativeClass:/Script/Engine.VolumetricCloud Name:VolumetricCloud_0 Label:VolumetricCloud SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=820.000), Max=(X=0.000 Y=0.000 Z=820.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 18]
+ |   |   |   |- Guid:D328124B470F95FD91FBFEA4B7783723 BaseClass: NativeClass:/Script/Engine.SkyLight Name:SkyLight_0 Label:SkyLight SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=0.000 Y=0.000 Z=690.000), Max=(X=0.000 Y=0.000 Z=690.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 19]
+ |   |   |   |- Guid:D6DD8E4942073B9641C4669956748517 BaseClass: NativeClass:/Script/Engine.ExponentialHeightFog Name:ExponentialHeightFog_0 Label:ExponentialHeightFog SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=-5600.000 Y=-50.000 Z=-6850.000), Max=(X=-5600.000 Y=-50.000 Z=-6850.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 20]
+ |   |   |   |- Guid:ECCC74BF40202EBDD96F9AA8BB69AC75 BaseClass:/Game/ClassShooterAssets/Blueprints/Weapons/BPRocketLauncher.BPRocketLauncher_C NativeClass:/Script/ClassShooter.RocketLauncher Name:BPRocketLauncher_C_UAID_04BF1B671083696302_1097686521 Label:BPRocketLauncher SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=1506.929 Y=435.843 Z=-55.790), Max=(X=1863.041 Y=595.843 Z=104.210) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0
+ |   |   |- [+] [ 21]
+ |   |   |   |- Guid:EF2B318449E0EF2F7DBDA9BAFD4A36E4 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_A4AE111137DC5FFB00_1159438599 Label:SM_SkySphere SpatiallyLoaded:0 Bounds:IsValid=true, Min=(X=-1638400.000 Y=-1638400.000 Z=-1638400.000), Max=(X=1638400.000 Y=1638400.000 Z=1638400.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:0 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Lighting FolderGuid:D9E1224C415FCB205E4105B3245ADAAB
+ |   |   |- [+] [ 22]
+ |   |   |   |- Guid:F22F88DF46B6F3B1795BC89AFDCFECFA BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1454232713 Label:SM_Cube3 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.000 Y=-0.000 Z=-50.000), Max=(X=3000.000 Y=50.000 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |   |   |- [+] [ 23]
+ |   |   |   |- Guid:F6C975EA485AA9F3B41098B191F8D710 BaseClass: NativeClass:/Script/Engine.StaticMeshActor Name:StaticMeshActor_UAID_04BF1B6710836C5D02_1512679715 Label:SM_Cube5 SpatiallyLoaded:1 Bounds:IsValid=true, Min=(X=-0.000 Y=3453.518 Z=-50.000), Max=(X=3000.000 Y=3503.518 Z=950.000) RuntimeGrid:None EditorOnly:0 RuntimeOnly:0 HLODRelevant:1 ListedInSceneOutliner:1 IsMainWorldOnly:0 FolderPath:Playground FolderGuid:CDC3EA2D424DF73175D386948543BF31
+ |- ContainerInstances:
+ |- [+] MainContainer:
+ |   |-        ID: 00000000000000000000000000000000
+ |   |-  ParentID: 00000000000000000000000000000000
+ |   |-    Bounds: IsValid=false, Min=(X=0.000 Y=0.000 Z=0.000), Max=(X=0.000 Y=0.000 Z=0.000)
+ |   |- Transform: 0.000000,0.000000,0.000000|0.000000,0.000000,-0.000000|1.000000,1.000000,1.000000
+ |   |- Container: /Game/ClassShooterAssets/Maps/Lobby
+----------------------------------------------------------------------------------------------------------------
+Lobby - Persistent Level
+----------------------------------------------------------------------------------------------------------------
+[+] Content of Lobby Persistent Level
+ |- Always loaded Actor Count: 24 
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPAssaultRifle_C_UAID_04BF1B671083696302_1092788520
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/E/51/Q4TJB60JYRDOAUNFGBLFXN
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPGrenadeLauncher_C_UAID_04BF1B671083696302_1086930519
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/A/5A/NIS6BIS8BSZZHSD1F8K9XA
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPKnife_C_UAID_04BF1B671083425F02_1874113453
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/1/HV/42I4TB2GZMMHYTCL8DD3JC
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPPistol_C_UAID_04BF1B671083425F02_1880666454
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/B/GY/G5VTZP4FR2XOYYYKKM4K06
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPRocketLauncher_C_UAID_04BF1B671083696302_1097686521
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/D/2G/QELR5PPN6EKO6JITTDUI16
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPShotgun_C_UAID_04BF1B671083425F02_1886253455
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/5/BV/1YNSXISLUFWMWT2RDVBUG5
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.BPSniperRifle_C_UAID_04BF1B671083696302_1105232522
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/8/28/OMVPW9CIM40AG5DSNLBPFG
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.DirectionalLight_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/3/7B/LTWEWQCRMGU325U2SRSA15
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.ExponentialHeightFog_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/2/F6/97HE95OBJDTTEF35GAA2NJ
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.PlayerStart_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/C/TC/BNY63SVJ7O79BPHYULC5VJ
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.PlayerStart_UAID_04BF1B671083FB6402_1326770271
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/2/9F/GAKULF009IY8B5HES83M6I
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.PostProcessVolume_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/3/IG/KLEPFINTGPQI2LGFNR8VAL
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.SkyAtmosphere_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/5/LJ/3QEY9RI8G3K63TFIJDZ9F8
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.SkyLight_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/5/UC/W3ETJJI1QC68LNHI78DWDR
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/A/AG/3KNUD4NBXUA1BNOHMEI6H9
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_04BF1B6710832C6702_1172636010
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/9/P2/16KS4SHEGJ5BO2KOPQZTB2
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_04BF1B6710836C5D02_1403501712
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/6/ZM/S6240WNEERG1IGMHCPMO61
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_04BF1B6710836C5D02_1454232713
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/3/5U/8X3V9X24YW0OBJ91D86GTG
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_04BF1B6710836C5D02_1468245714
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/D/90/ZQL86TRSUFORJ3AO1PLQ5R
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_04BF1B6710836C5D02_1512679715
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/5/33/IOQ3B8M56KDJ9D4N8RKF60
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.StaticMeshActor_UAID_A4AE111137DC5FFB00_1159438599
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/D/6F/29IKWMTICXK50ZDBW8K9I4
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.TextRenderActor_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/9/GG/2Y3S4ZK6LHLJ7XS4Z20BMG
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.VolumetricCloud_0
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/9/X5/4A2V0GDXM6XR0VPESSE1NC
+ |- Actor Path: /Game/ClassShooterAssets/Maps/Lobby.Lobby:PersistentLevel.WorldDataLayers
+ |- Actor Package: /Game/__ExternalActors__/ClassShooterAssets/Maps/Lobby/A/JM/ZH75X0OLWUAA73B98L28B5
+
+----------------------------------------------------------------------------------------------------------------
+Lobby - Runtime Hash Set
+----------------------------------------------------------------------------------------------------------------
+

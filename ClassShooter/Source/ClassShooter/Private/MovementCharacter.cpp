@@ -368,8 +368,9 @@ bool AMovementCharacter::WallRunMovement(FVector start, FVector end, float wallR
 	collisionParams.AddIgnoredActor(this); // Ignore self
 
 	// Perform the trace
-	bool bHit = GetWorld()->LineTraceSingleByChannel(
-		hitResult, start, end, ECC_Visibility, collisionParams);
+	if(GetWorld())
+		bool bHit = GetWorld()->LineTraceSingleByChannel(
+			hitResult, start, end, ECC_Visibility, collisionParams);
 
 	//Draw debug line (visible for 1 second)
 	//DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 1.0f, 0, 2.0f);
