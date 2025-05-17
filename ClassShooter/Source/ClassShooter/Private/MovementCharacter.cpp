@@ -95,31 +95,34 @@ void AMovementCharacter::Tick(float deltaTime)
 	}
 	if (cameraRotateLerp == true)
 	{
-		if (isWallRunning)
+		if (IsValid(this) && GetWorld())
 		{
-			float curRoll = FRotator::NormalizeAxis(GetController()->GetControlRotation().Roll);
-			float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(targetRoll),
-				deltaTime, 10);
+			if (isWallRunning)
+			{
+				float curRoll = FRotator::NormalizeAxis(GetController()->GetControlRotation().Roll);
+				float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(targetRoll),
+					deltaTime, 10);
 
-			FRotator resultRotation = GetController()->GetControlRotation();
-			resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
-			GetController()->SetControlRotation(resultRotation);
+				FRotator resultRotation = GetController()->GetControlRotation();
+				resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+				GetController()->SetControlRotation(resultRotation);
 
-			if (FMath::Abs(targetRoll - newRoll) < .05f)
-				cameraRotateLerp = false;
-		}
-		else
-		{
-			float curRoll = FRotator::NormalizeAxis(GetController()->GetControlRotation().Roll);
-			float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(baseRoll),
-				deltaTime, 10);
+				if (FMath::Abs(targetRoll - newRoll) < .05f)
+					cameraRotateLerp = false;
+			}
+			else
+			{
+				float curRoll = FRotator::NormalizeAxis(GetController()->GetControlRotation().Roll);
+				float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(baseRoll),
+					deltaTime, 10);
 
-			FRotator resultRotation = GetController()->GetControlRotation();
-			resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
-			GetController()->SetControlRotation(resultRotation);
+				FRotator resultRotation = GetController()->GetControlRotation();
+				resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+				GetController()->SetControlRotation(resultRotation);
 
-			if (FMath::Abs(baseRoll - newRoll) < .05f)
-				cameraRotateLerp = false;
+				if (FMath::Abs(baseRoll - newRoll) < .05f)
+					cameraRotateLerp = false;
+			}
 		}
 	}
 
@@ -270,6 +273,17 @@ void AMovementCharacter::Grapple()
 
 void AMovementCharacter::StartUltimate()
 {
+	FString LevelName = GetWorld()->GetMapName();
+
+	// Optional: Strip the prefix (like "UEDPIE_0_")
+	LevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
+
+	// Log it
+	UE_LOG(LogTemp, Warning, TEXT("Current Level: %s"), *LevelName);
+
+	if (LevelName == "Lobby")
+		return;
+
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
@@ -341,23 +355,27 @@ void AMovementCharacter::WallRunUpdate()
 }
 TArray<FVector> AMovementCharacter::WallRunEndVectors()
 {
-	FVector startLocation = GetActorLocation();
-
-	FVector rightVector = GetActorRightVector();
-	FVector endRightLocation = rightVector * 75.0f;
-
-	FVector endLeftLocation = rightVector * -75.0f;
-
-	FVector forwardVector = GetActorForwardVector();
-	FVector endForwardLocation = forwardVector * -35.0f;
-
-
-	FVector rightEndpoint = startLocation + endRightLocation + endForwardLocation;
-	FVector leftEndpoint = startLocation + endLeftLocation + endForwardLocation ;
-
 	TArray<FVector> endPoints;
-	endPoints.Add(rightEndpoint);
-	endPoints.Add(leftEndpoint);
+
+	if (IsValid(this) && GetWorld())
+	{
+		FVector startLocation = GetActorLocation();
+
+		FVector rightVector = GetActorRightVector();
+		FVector endRightLocation = rightVector * 75.0f;
+
+		FVector endLeftLocation = rightVector * -75.0f;
+
+		FVector forwardVector = GetActorForwardVector();
+		FVector endForwardLocation = forwardVector * -35.0f;
+
+
+		FVector rightEndpoint = startLocation + endRightLocation + endForwardLocation;
+		FVector leftEndpoint = startLocation + endLeftLocation + endForwardLocation;
+
+		endPoints.Add(rightEndpoint);
+		endPoints.Add(leftEndpoint);
+	}
 
 	return endPoints;
 }
@@ -368,8 +386,9 @@ bool AMovementCharacter::WallRunMovement(FVector start, FVector end, float wallR
 	collisionParams.AddIgnoredActor(this); // Ignore self
 
 	// Perform the trace
-	if(GetWorld())
-		bool bHit = GetWorld()->LineTraceSingleByChannel(
+	bool bHit;
+	if(IsValid(this) && GetWorld())
+		bHit = GetWorld()->LineTraceSingleByChannel(
 			hitResult, start, end, ECC_Visibility, collisionParams);
 
 	//Draw debug line (visible for 1 second)

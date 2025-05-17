@@ -17,10 +17,12 @@ AWeaponBase::AWeaponBase()
 	interactBox->SetupAttachment(weaponMesh);
 	canFire = true;
 	isShield = false;
+	isWeaponDrop = false;
 
 	//sets the animation mode to only play a single animation at a time
 	weaponMesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
 	state = WeaponState::OutOfInventory;
+	maxAmmoReserves = ammoReserves;
 }
 
 
@@ -90,7 +92,7 @@ void AWeaponBase::Fire()
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 			// Draw debug line (visible for 1 second)
-			DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
+			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
 
 			AActor* hitActor = hitResult.GetActor();
 			// Check if we hit something
@@ -180,10 +182,22 @@ void AWeaponBase::FinishReloading()
 
 void AWeaponBase::SetUpWeapon(AWeaponBase* weapon)
 {
+	name = weapon->name;
 	state = weapon->state;
 	curAmmo = weapon->curAmmo;
 	ammoToRefill = weapon->ammoToRefill;
 	ammoReserves = weapon->ammoReserves;
+}
+
+void AWeaponBase::RestoreWeaponDefaults()
+{
+	if (this)
+	{
+		curAmmo = maxAmmo;
+		ammoReserves = maxAmmoReserves;
+		ammoToRefill = 0;
+		state = WeaponState::OutOfInventory;
+	}
 }
 
 // The bullet cone of the weapon

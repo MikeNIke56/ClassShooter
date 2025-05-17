@@ -223,6 +223,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool knifeHitDetected;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool isSwitchingAfterPickup;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool isDead;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool deathTriggered;
+
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();
 	
@@ -282,7 +290,7 @@ protected:
 
 
 	//Picking up and equipping weapons
-	void EquipWeapon(AWeaponBase* weapon);
+	void EquipWeapon(AWeaponBase* weapon, int pos);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
@@ -304,11 +312,12 @@ protected:
 
 
 	//Stowing weapons
-	void StowWeapon(AWeaponBase* weapon, const FName& socketName);
+	void StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
 
 
 	//Dropping weapons
 	virtual void DropWeapon();
+	void SwapWeaponOver(AWeaponBase* weapon, int pos);
 
 
 	//Abilities
@@ -330,8 +339,6 @@ protected:
 	//Damage and death
 	void HandleTakeCustomDamage_Implementation(float DamageAmount) override;
 	void TakeCustomDamage(float DamageAmount);
-
-	void Die();
 
 
 public:

@@ -72,6 +72,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int ammoReserves;
 
+	int maxAmmoReserves;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool canFire;
 
@@ -126,6 +128,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float damage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	bool isWeaponDrop;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -151,6 +156,9 @@ public:
 
 
 	void SetUpWeapon(AWeaponBase* weapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void RestoreWeaponDefaults();
 
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);
 

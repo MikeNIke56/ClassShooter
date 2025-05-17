@@ -88,6 +88,9 @@ void AClassShooterCharacter::BeginPlay()
 	ADSLerp = false;
 	recoilLerp = false;
 	startFovChange = false;
+	isSwitchingAfterPickup = false;
+	isDead = false;
+	deathTriggered = false;
 
 	isLeftSwing = true;
 	meleeLerp = false;
@@ -645,17 +648,60 @@ void AClassShooterCharacter::Shoot()
 
 
 //Picking up and equipping weapons
-void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon)
+void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, int pos)
 {
-	if (!weaponArray.Contains(weapon)) return;
+	if (weapon != nullptr)
+	{
+		/*if (isSwitchingAfterPickup == true)
+		{
+			TArray<AActor*> foundWeapons;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWeaponBase::StaticClass(), foundWeapons);
 
-	weapon->state = WeaponState::Equipped;
-	curWeapon = weapon;
-	ShowCurWeapon(weapon);
-	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
-	StopADS();
-	weapon->SetOwner(this);
-	BindDelegate();
+			for (AActor* Actor : foundWeapons)
+			{
+				AWeaponBase* weaponObj = Cast<AWeaponBase>(Actor);
+				if (weaponObj)
+				{
+					if (weaponObj->GetOwner() == this && weaponObj->isWeaponDrop == false)
+					{
+						weaponObj->Destroy();
+					}
+				}
+			}
+			isSwitchingAfterPickup = false;
+		}*/
+
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+
+		weaponWorldObj = weapon->GetClass();
+
+		weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
+			FRotator(0, 0, 0), SpawnParams);
+
+		weaponCopy->SetUpWeapon(weapon);
+
+		weaponCopy->state = WeaponState::Equipped;
+		curWeapon = weaponCopy;
+		ShowCurWeapon(weaponCopy);
+		UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+		StopADS();
+		weaponCopy->SetOwner(this);
+
+		if(pos >= 0)
+			weaponArray[pos] = weaponCopy;
+
+		BindDelegate();
+
+		if (weapon->isWeaponDrop == true)
+		{
+			weapon->Destroy();
+			weapon = nullptr;
+			free(weapon);
+		}
+	}
+	
 }
 void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
@@ -692,22 +738,11 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 		else
 			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
 
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.Owner = this;
-		SpawnParams.Instigator = GetInstigator();
-
-		weaponWorldObj = weapon->GetClass();
-
-		weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
-			FRotator(0,0,0), SpawnParams);
-
-		weaponCopy->SetUpWeapon(weapon);
-
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-		weaponCopy->AttachToComponent(weaponLocation, AttachRules);
-		weaponCopy->SetActorRotation(weaponLocation->GetComponentRotation());
+		weapon->AttachToComponent(weaponLocation, AttachRules);
+		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
 
-		TArray<UActorComponent*> Hitboxes = weaponCopy->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
+		TArray<UActorComponent*> Hitboxes = weapon->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
 		for (UActorComponent* Comp : Hitboxes)
 		{
 			UCapsuleComponent* capsule = Cast<UCapsuleComponent>(Comp);
@@ -787,15 +822,15 @@ void AClassShooterCharacter::PickupWeapon(AWeaponBase* weapon)
 			{
 				if (weaponArray[i] == nullptr && !weaponArray.Contains(weapon))
 				{
-					weaponArray[i] = weapon;
-
 					if (i == 0)
 					{
-						EquipWeapon(weapon);
+						EquipWeapon(weapon, i);
+						return;
 					}
 					else
 					{
-						StowWeapon(weapon, weapon->name);
+						StowWeapon(weapon, weapon->name, true, i);
+						return;
 					}
 				}
 			}
@@ -819,6 +854,7 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 	{
 		int numWeapons = 0;
 		int pos = 0;
+ 
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			if (weaponArray[i])
@@ -837,22 +873,18 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
 				curWeapon->weaponMesh->SetVisibility(true, true);
 			}
-			StowWeapon(weaponArray[pos], weaponArray[pos]->name);
 
-			if (Value.GetMagnitude() > 0.0)
-			{
-				if (pos == numWeapons - 1)
-					EquipWeapon(weaponArray[0]);
-				else
-					EquipWeapon(weaponArray[pos += 1]);
-			}
-			else if (Value.GetMagnitude() < 0.0)
-			{
-				if (pos == 0)
-					EquipWeapon(weaponArray[numWeapons -= 1]);
-				else
-					EquipWeapon(weaponArray[pos -= 1]);
-			}
+			isSwitchingAfterPickup = true;
+			int origPos = pos;
+
+			weaponCopy = weaponArray[origPos];
+
+			if (pos == numWeapons - 1)
+				SwapWeaponOver(weaponArray[0], -1);
+			else
+				SwapWeaponOver(weaponArray[pos += 1], -1);
+
+			StowWeapon(weaponArray[origPos], weaponArray[origPos]->name, false, -1);
 		}
 	}
 
@@ -860,15 +892,46 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 
 //Stowing weapons
-void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socketName)
+void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos)
 {	
 	if (bodyMesh->DoesSocketExist(socketName))
 	{
-		weapon->state = WeaponState::Stowed;
+		if (shouldCreateNew == false)
+		{
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+			weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
+			UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
+			weapon->state = WeaponState::Stowed;
+		}
+		else
+		{
+			FActorSpawnParameters SpawnParams;
+			SpawnParams.Owner = this;
+			SpawnParams.Instigator = GetInstigator();
 
-		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-		weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
-		UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weapon->name.ToString());
+			weaponWorldObj = weapon->GetClass();
+
+			weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
+				FRotator(0, 0, 0), SpawnParams);
+
+			weaponCopy->SetUpWeapon(weapon);
+
+			weaponCopy->state = WeaponState::Stowed;
+
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+			weaponCopy->AttachToComponent(bodyMesh, AttachRules, socketName);
+			UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
+		}
+
+		if (pos >= 0)
+			weaponArray[pos] = weaponCopy;
+
+		if (weapon->isWeaponDrop == true)
+		{
+			weapon->Destroy();
+			weapon = nullptr;
+			free(weapon);
+		}
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("fail"));
@@ -928,6 +991,7 @@ void AClassShooterCharacter::DropWeapon()
 		else
 			weaponCopy->SetUpWeapon(curWeapon);
 
+		weaponCopy->state = WeaponState::OutOfInventory;
 		StopADS();
 
 		int pos;
@@ -950,11 +1014,27 @@ void AClassShooterCharacter::DropWeapon()
 				weaponArray[pos] = weaponArray[pos + 1];
 		}
 
+		weaponCopy->isWeaponDrop = true;
+		isSwitchingAfterPickup = true;
+
 		if (weaponArray[0])
-			EquipWeapon(weaponArray[0]);
+			SwapWeaponOver(weaponArray[0], 0);
 
 		shouldDestroyWeapon = false;
 	}
+}
+
+void AClassShooterCharacter::SwapWeaponOver(AWeaponBase* weapon, int pos)
+{
+	weapon->state = WeaponState::Equipped;
+	curWeapon = weapon;
+	ShowCurWeapon(weapon);
+	UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+	StopADS();
+	weapon->SetOwner(this);
+
+	if (pos >= 0)
+		weaponArray[pos] = weapon;
 }
 
 
@@ -1006,7 +1086,7 @@ void AClassShooterCharacter::StopAbility2()
 }
 void AClassShooterCharacter::StartUltimate()
 {
-
+	
 }
 void AClassShooterCharacter::StopUltimate()
 {
@@ -1077,12 +1157,8 @@ void AClassShooterCharacter::TakeCustomDamage(float amount)
 	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 	if (curHealth <= 0.0)
 	{
-		Die();
+		isDead = true;
 	}
 }
 
-void AClassShooterCharacter::Die()
-{
-	UE_LOG(LogTemp, Warning, TEXT("die"));
-}
 

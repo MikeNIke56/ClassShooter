@@ -19,6 +19,7 @@ CLASSSHOOTER_API void FRecoilDelegate_DelegateWrapper(const FMulticastScriptDele
 
 
 #define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execRestoreWeaponDefaults); \
 	DECLARE_FUNCTION(execReload); \
 	DECLARE_FUNCTION(execAutoFire); \
 	DECLARE_FUNCTION(execFire);

@@ -228,6 +228,17 @@ void AStealthCharacter::DirectionalDodge(FVector2D dir)
 
 void AStealthCharacter::StartUltimate()
 {
+	FString LevelName = GetWorld()->GetMapName();
+
+	// Optional: Strip the prefix (like "UEDPIE_0_")
+	LevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
+
+	// Log it
+	UE_LOG(LogTemp, Warning, TEXT("Current Level: %s"), *LevelName);
+
+	if (LevelName == "Lobby")
+		return;
+
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
