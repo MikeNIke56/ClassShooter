@@ -125,7 +125,7 @@ void AShieldCharacter::Tick(float deltaTime)
 	baseShieldThrowRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(shieldThrowTimer);
 	ultRemainingTime = GetWorld()->
-		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
+		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
 void AShieldCharacter::StartShooting()

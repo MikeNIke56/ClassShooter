@@ -63,7 +63,7 @@ void AMovementCharacter::Tick(float deltaTime)
 	if(didGrappleAtk == true)
 		GrappleAttack(movementVector);
 
-	if(canWallRun == true)
+	if(this && canWallRun == true)
 		WallRunUpdate();
 
 	if (cameraUltLerp == true)
@@ -129,7 +129,7 @@ void AMovementCharacter::Tick(float deltaTime)
 	grappleRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(grappleCooldownTimer);
 	ultRemainingTime = GetWorld()->
-		GetTimerManager().GetTimerRemaining(ultCooldownTimer);
+		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
 void AMovementCharacter::StartShooting()
@@ -325,31 +325,34 @@ void AMovementCharacter::StopUltimate()
 
 void AMovementCharacter::WallRunUpdate()
 {
-	if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[0], -1) == true)
+	if (!WallRunEndVectors().IsEmpty())
 	{
-		movementComponent->StopMovementImmediately();
-		isWallRunning = true;
-		isWallRunningR = true;
-		isWallRunningL = false;
-		targetRoll = -15;
-		cameraRotateLerp = true;
-
-		movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
-			targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
-	}
-	else if (isWallRunningR == false)
-	{
-		if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[1], 1) == true)
+		if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[0], -1) == true)
 		{
 			movementComponent->StopMovementImmediately();
 			isWallRunning = true;
-			isWallRunningR = false;
-			isWallRunningL = true;
-			targetRoll = 15;
+			isWallRunningR = true;
+			isWallRunningL = false;
+			targetRoll = -15;
 			cameraRotateLerp = true;
 
 			movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
 				targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
+		}
+		else if (isWallRunningR == false)
+		{
+			if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[1], 1) == true)
+			{
+				movementComponent->StopMovementImmediately();
+				isWallRunning = true;
+				isWallRunningR = false;
+				isWallRunningL = true;
+				targetRoll = 15;
+				cameraRotateLerp = true;
+
+				movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
+					targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
+			}
 		}
 	}
 }

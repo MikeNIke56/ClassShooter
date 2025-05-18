@@ -35,6 +35,7 @@
 			"ShaderMapHash": "171606064EA4501A5D0F37D0F682F17E731AF1AD",
 			"Assets": [
 				"/AnimationSharing/AnimSharingBase",
+				"/Game/ClassShooterAssets/Models/Capsule/M_Basic_Wall",
 				"/Game/ClassShooterAssets/Models/Shield/material_2"
 			]
 		},

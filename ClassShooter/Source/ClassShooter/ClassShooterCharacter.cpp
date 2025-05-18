@@ -66,7 +66,14 @@ AClassShooterCharacter::AClassShooterCharacter()
 
 void AClassShooterCharacter::BeginPlay()
 {
-	APlayerController* PC = GetWorld()->GetFirstPlayerController(); // or use GetPlayerController(this, Index)
+	int index = 0;
+	APlayerController* PC;
+	if (GetName().Contains("0"))
+		index = 0;
+	else
+		index = 1;
+
+	PC = UGameplayStatics::GetPlayerController(this, index);
 
 	// Call the base class  
 	Super::BeginPlay();
@@ -545,7 +552,15 @@ void AClassShooterCharacter::ADS()
 		{
 			if (sniperWidget->IsVisible() == false)
 			{
-				APlayerController* PC = GetWorld()->GetFirstPlayerController();
+				int index = 0;
+				APlayerController* PC;
+				if (GetName().Contains("0"))
+					index = 0;
+				else
+					index = 1;
+
+				PC = UGameplayStatics::GetPlayerController(this, index);
+
 				FTimerHandle DelayTimerHandle;
 				GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this, PC]()
 					{
@@ -652,25 +667,6 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, int pos)
 {
 	if (weapon != nullptr)
 	{
-		/*if (isSwitchingAfterPickup == true)
-		{
-			TArray<AActor*> foundWeapons;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AWeaponBase::StaticClass(), foundWeapons);
-
-			for (AActor* Actor : foundWeapons)
-			{
-				AWeaponBase* weaponObj = Cast<AWeaponBase>(Actor);
-				if (weaponObj)
-				{
-					if (weaponObj->GetOwner() == this && weaponObj->isWeaponDrop == false)
-					{
-						weaponObj->Destroy();
-					}
-				}
-			}
-			isSwitchingAfterPickup = false;
-		}*/
-
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = GetInstigator();
@@ -1117,7 +1113,7 @@ void AClassShooterCharacter::RestoreCurWeapons()
 	{
 		if (backupWeaponArray[i])
 		{
-			FActorSpawnParameters SpawnParams;
+			/*FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
 			SpawnParams.Instigator = GetInstigator();
 
@@ -1127,10 +1123,14 @@ void AClassShooterCharacter::RestoreCurWeapons()
 			FRotator spawnRot = GetActorRotation();
 
 			weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
-				spawnRot, SpawnParams);
+				spawnRot, SpawnParams);*/
 
-			weaponCopy->state = WeaponState::OutOfInventory;
-			PickupWeapon(weaponCopy);
+			backupWeaponArray[i]->state = WeaponState::OutOfInventory;
+			//backupWeaponArray[i]->isWeaponDrop = true;
+			PickupWeapon(backupWeaponArray[i]);
+			//weaponCopy->state = WeaponState::OutOfInventory;
+			//weaponCopy->isWeaponDrop = true;
+			//PickupWeapon(weaponCopy);
 		}
 	}
 	for (int i = 0; i < weaponArray.Num(); i++)
