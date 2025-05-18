@@ -27,7 +27,6 @@
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/Damageable.cpp"
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/GrenadeLauncher.cpp"
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/Knife.cpp"
-#include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/MovementCharacter.cpp"
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/Pistol.cpp"
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/RocketLauncher.cpp"
 #include "C:/Users/17038/Desktop/ClassShooter/ClassShooter/ClassShooter/Source/ClassShooter/Private/Shield.cpp"

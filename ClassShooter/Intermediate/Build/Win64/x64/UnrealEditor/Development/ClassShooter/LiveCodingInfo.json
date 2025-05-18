@@ -23,6 +23,7 @@
 			"TP_WeaponComponent.gen.cpp.obj",
 			"WeaponBase.gen.cpp.obj",
 			"ClassShooter.cpp.obj",
+			"ClassShooterCharacter.cpp.obj",
 			"ClassShooterGameMode.cpp.obj",
 			"ClassShooterPlayerController.cpp.obj",
 			"ClassShooterProjectile.cpp.obj",
@@ -30,18 +31,17 @@
 			"Damageable.cpp.obj",
 			"GrenadeLauncher.cpp.obj",
 			"Knife.cpp.obj",
+			"MovementCharacter.cpp.obj",
 			"Pistol.cpp.obj",
 			"RocketLauncher.cpp.obj",
 			"Shield.cpp.obj",
+			"ShieldCharacter.cpp.obj",
 			"Shotgun.cpp.obj",
 			"SniperRifle.cpp.obj",
 			"StealthCharacter.cpp.obj",
 			"WeaponBase.cpp.obj",
 			"TP_PickUpComponent.cpp.obj",
-			"TP_WeaponComponent.cpp.obj",
-			"ClassShooterCharacter.cpp.obj",
-			"MovementCharacter.cpp.obj",
-			"ShieldCharacter.cpp.obj"
+			"TP_WeaponComponent.cpp.obj"
 		]
 	}
 }

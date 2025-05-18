@@ -30,7 +30,6 @@
 			"Damageable.cpp.obj",
 			"GrenadeLauncher.cpp.obj",
 			"Knife.cpp.obj",
-			"MovementCharacter.cpp.obj",
 			"Pistol.cpp.obj",
 			"RocketLauncher.cpp.obj",
 			"Shield.cpp.obj",
@@ -41,6 +40,7 @@
 			"TP_PickUpComponent.cpp.obj",
 			"TP_WeaponComponent.cpp.obj",
 			"ClassShooterCharacter.cpp.obj",
+			"MovementCharacter.cpp.obj",
 			"ShieldCharacter.cpp.obj"
 		]
 	}
