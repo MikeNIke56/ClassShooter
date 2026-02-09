@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define CLASSSHOOTER_Shield_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_INCLASS_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAShield(); \
 	friend struct Z_Construct_UClass_AShield_Statics; \
@@ -23,7 +23,9 @@ public: \
 	DECLARE_SERIALIZER(AShield)
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_ENHANCED_CONSTRUCTORS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API AShield(); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AShield(AShield&&); \
@@ -35,12 +37,12 @@ public: \
 	NO_API virtual ~AShield();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_13_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_GENERATED_BODY \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_13_PROLOG
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_ENHANCED_CONSTRUCTORS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_INCLASS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -48,7 +50,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> CLASSSHOOTER_API UClass* StaticClass<class AShield>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h
+#define CURRENT_FILE_ID FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

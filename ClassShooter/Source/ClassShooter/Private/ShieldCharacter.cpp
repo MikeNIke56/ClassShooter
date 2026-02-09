@@ -12,6 +12,9 @@ AShieldCharacter::AShieldCharacter()
 {
 	shieldLocation = CreateDefaultSubobject<UArrowComponent>("Shield Position");
 	shieldLocation->SetupAttachment(GetFirstPersonCameraComponent());
+
+	shieldThrowLoc = CreateDefaultSubobject<UArrowComponent>("Shield Throw Position");
+	shieldThrowLoc->SetupAttachment(GetFirstPersonCameraComponent());
 }
 
 void AShieldCharacter::BeginPlay()
@@ -32,7 +35,7 @@ void AShieldCharacter::BeginPlay()
 	shieldBashHitDetected = false;
 	isShieldBashHBOn = false;
 
-	if (HasAuthority() && !shieldCopy)
+	if (HasAuthority() && !eqippedShield)
 	{
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
@@ -42,7 +45,7 @@ void AShieldCharacter::BeginPlay()
 		FVector spawnLoc = GetActorLocation();
 		FRotator spawnRot = GetActorRotation();
 
-		shieldCopy = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
+		eqippedShield = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
 			spawnRot, SpawnParams);
 
 		FAttachmentTransformRules AttachRules(
@@ -51,8 +54,8 @@ void AShieldCharacter::BeginPlay()
 			EAttachmentRule::KeepWorld,      // Scale
 			true                             // Weld Simulated Bodies
 		);
-		shieldCopy->AttachToComponent(shieldLocation, AttachRules);
-		shieldCopy->SetActorRotation(shieldLocation->GetComponentRotation());
+		eqippedShield->AttachToComponent(shieldLocation, AttachRules);
+		eqippedShield->SetActorRotation(shieldLocation->GetComponentRotation());
 	}
 
 	unADSshieldLocation = shieldLocation->GetRelativeLocation();
@@ -138,7 +141,7 @@ void AShieldCharacter::StartShooting()
 
 void AShieldCharacter::PickupWeapon(AWeaponBase* weapon)
 {
-	weapon->shield = shieldCopy;
+	weapon->shield = eqippedShield;
 	Super::PickupWeapon(weapon);
 }
 void AShieldCharacter::DropWeapon()
@@ -229,16 +232,16 @@ void AShieldCharacter::StartAbility2()
 }
 void AShieldCharacter::StopAbility2()
 {
-	shieldCopy->SetActorEnableCollision(true);
-	shieldCopy->SetActorHiddenInGame(false);
-	shieldCopy->SetActorTickEnabled(true);
+	eqippedShield->SetActorEnableCollision(true);
+	eqippedShield->SetActorHiddenInGame(false);
+	eqippedShield->SetActorTickEnabled(true);
 	hasShield = true;
 }
 void AShieldCharacter::ShieldThrow()
 {
-	shieldCopy->SetActorEnableCollision(false);
-	shieldCopy->SetActorHiddenInGame(true);
-	shieldCopy->SetActorTickEnabled(false);
+	eqippedShield->SetActorEnableCollision(false);
+	eqippedShield->SetActorHiddenInGame(true);
+	eqippedShield->SetActorTickEnabled(false);
 	hasShield = false;
 
 	FActorSpawnParameters SpawnParams;
@@ -246,25 +249,11 @@ void AShieldCharacter::ShieldThrow()
 	SpawnParams.Instigator = GetInstigator();
 
 
-	FVector spawnLoc = GetFirstPersonCameraComponent()->GetComponentLocation();
-	spawnLoc.Z -= 50;
-	spawnLoc.Y += 50;
-	FRotator spawnRot = GetFirstPersonCameraComponent()->GetComponentRotation();
+	thrownShield = GetWorld()->SpawnActor<AActor>(shieldThrowWorldObj,
+		shieldThrowLoc->GetComponentLocation(),
+		shieldThrowLoc->GetComponentRotation(), SpawnParams);
 
-	shieldThrowCopy = GetWorld()->SpawnActor<AShield>(shieldThrowWorldObj, spawnLoc,
-		FRotator(90.0f, spawnRot.Pitch, spawnRot.Yaw), SpawnParams);
-
-	shieldThrowCopy->source = this;
-	shieldThrowCopy->wasThrown = true;
-
-	shieldThrowCopy->weaponMesh->
-		SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	shieldThrowCopy->weaponMesh->SetSimulatePhysics(true);
-	shieldThrowCopy->weaponMesh->SetEnableGravity(false);
-	shieldThrowCopy->weaponMesh->SetMobility(EComponentMobility::Movable);
-	shieldThrowCopy->weaponMesh->
-		AddImpulse(GetFirstPersonCameraComponent()->GetForwardVector() 
-			* shieldThrowPow, NAME_None, true);
+	//thrownShield->source = this;
 }
 
 void AShieldCharacter::StartUltimate()
@@ -290,9 +279,9 @@ void AShieldCharacter::StartUltimate()
 		ultimateTriggered = true;
 		SaveCurWeapons();
 
-		shieldCopy->SetActorEnableCollision(false);
-		shieldCopy->SetActorHiddenInGame(true);
-		shieldCopy->SetActorTickEnabled(false);
+		eqippedShield->SetActorEnableCollision(false);
+		eqippedShield->SetActorHiddenInGame(true);
+		eqippedShield->SetActorTickEnabled(false);
 		cameraUltLerp = true;
 
 		FTimerHandle DelayTimerHandle1;

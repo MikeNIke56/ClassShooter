@@ -40,14 +40,8 @@ struct Z_Construct_UClass_AShield_Statics
 		{ "Category", "Entity source" },
 		{ "ModuleRelativePath", "Public/Shield.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_wasThrown_MetaData[] = {
-		{ "Category", "Entity source" },
-		{ "ModuleRelativePath", "Public/Shield.h" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_source;
-	static void NewProp_wasThrown_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_wasThrown;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -56,14 +50,8 @@ struct Z_Construct_UClass_AShield_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShield_Statics::NewProp_source = { "source", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShield, source), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_source_MetaData), NewProp_source_MetaData) };
-void Z_Construct_UClass_AShield_Statics::NewProp_wasThrown_SetBit(void* Obj)
-{
-	((AShield*)Obj)->wasThrown = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AShield_Statics::NewProp_wasThrown = { "wasThrown", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AShield), &Z_Construct_UClass_AShield_Statics::NewProp_wasThrown_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_wasThrown_MetaData), NewProp_wasThrown_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AShield_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShield_Statics::NewProp_source,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShield_Statics::NewProp_wasThrown,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AShield_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AShield_Statics::DependentSingletons[])() = {
@@ -98,19 +86,20 @@ template<> CLASSSHOOTER_API UClass* StaticClass<AShield>()
 {
 	return AShield::StaticClass();
 }
+AShield::AShield() {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(AShield);
 AShield::~AShield() {}
 // End Class AShield
 
 // Begin Registration
-struct Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics
+struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AShield, AShield::StaticClass, TEXT("AShield"), &Z_Registration_Info_UClass_AShield, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShield), 3403295802U) },
+		{ Z_Construct_UClass_AShield, AShield::StaticClass, TEXT("AShield"), &Z_Registration_Info_UClass_AShield, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShield), 2247630421U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_1711663950(TEXT("/Script/ClassShooter"),
-	Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_1216307081(TEXT("/Script/ClassShooter"),
+	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
 // End Registration

@@ -16,7 +16,7 @@ struct FInputActionValue;
 #endif
 #define CLASSSHOOTER_ClassShooterCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execSwitchWeapon); \
 	DECLARE_FUNCTION(execPickupWeapon); \
 	DECLARE_FUNCTION(execADSCurWeapon); \
@@ -24,7 +24,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execBindDelegate);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_INCLASS_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAClassShooterCharacter(); \
 	friend struct Z_Construct_UClass_AClassShooterCharacter_Statics; \
@@ -34,7 +34,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<AClassShooterCharacter*>(this); }
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_ENHANCED_CONSTRUCTORS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AClassShooterCharacter(AClassShooterCharacter&&); \
@@ -46,13 +46,13 @@ public: \
 	NO_API virtual ~AClassShooterCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_GENERATED_BODY \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_29_PROLOG
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_ENHANCED_CONSTRUCTORS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_INCLASS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_32_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -60,7 +60,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> CLASSSHOOTER_API UClass* StaticClass<class AClassShooterCharacter>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h
+#define CURRENT_FILE_ID FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

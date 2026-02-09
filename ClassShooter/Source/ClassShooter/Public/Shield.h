@@ -18,11 +18,4 @@ class CLASSSHOOTER_API AShield : public AWeaponBase
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Entity source")
 	AActor* source;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Entity source")
-	bool wasThrown;
-	
-
-public:
-	AShield();
 };

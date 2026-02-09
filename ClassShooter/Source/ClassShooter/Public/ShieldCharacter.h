@@ -7,6 +7,7 @@
 #include "Particles/ParticleSystem.h"
 #include "ClassShooter/ClassShooterCharacter.h"
 #include <Shield.h>
+#include <ShieldThrowable.h>
 #include "ShieldCharacter.generated.h"
 
 /**
@@ -21,11 +22,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AShield> shieldWorldObj;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AShield> shieldThrowWorldObj;
+	TSubclassOf<AActor> shieldThrowWorldObj;
 
 	
-	AShield* shieldCopy;
-	AShield* shieldThrowCopy;
+	AShield* eqippedShield;
+	AActor* thrownShield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
+	UArrowComponent* shieldThrowLoc;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle shieldBashTimer;
