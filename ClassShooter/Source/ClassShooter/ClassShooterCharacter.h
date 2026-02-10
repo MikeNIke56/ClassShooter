@@ -15,6 +15,13 @@
 #include "InputActionValue.h"
 #include "ClassShooterCharacter.generated.h"
 
+UENUM(BlueprintType)
+enum class PlayerGameState : uint8
+{
+	Walking, Sprinting, Sliding,Jumping, 
+	Diving, Wallrunning, Crouching, Meleeing,
+	Ability1, Ability2, Ultimate, Dying
+};
 
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -81,6 +88,9 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	int controllerID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	TArray<PlayerGameState> currentStates;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* bodyMesh;
@@ -179,13 +189,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool jumpAllowed;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	bool isJumping;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
 	bool isSprinting;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
-	bool isCrouching;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
-	bool isSliding;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
 	bool isADSing;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement Base Values")
@@ -202,8 +206,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	bool shouldDestroyWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	bool isInUltimate;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool ultimateTriggered;
 
@@ -226,8 +228,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isSwitchingAfterPickup;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	bool isDead;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool deathTriggered;
 

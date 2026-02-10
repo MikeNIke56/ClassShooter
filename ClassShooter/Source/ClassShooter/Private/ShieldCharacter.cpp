@@ -23,8 +23,6 @@ void AShieldCharacter::BeginPlay()
 	cameraUltLerp = false;
 	cameraUltLerpBack = false;
 	targetUltPos = originalCamPos;
-	targetUltPos.X -= 250;
-	targetUltPos.Z += 50;
 	shieldADSLerp = false;
 	shieldUnADSLerp = false;
 
@@ -56,13 +54,13 @@ void AShieldCharacter::BeginPlay()
 		);
 		eqippedShield->AttachToComponent(shieldLocation, AttachRules);
 		eqippedShield->SetActorRotation(shieldLocation->GetComponentRotation());
+		originalShieldTrans = eqippedShield->GetActorTransform();
 	}
 
 	unADSshieldLocation = shieldLocation->GetRelativeLocation();
 	ADSshieldLocation = unADSshieldLocation;
 	ADSshieldLocation.Y -= 40;
 	ADSshieldLocation.Z -= 20;
-
 }
 
 void AShieldCharacter::Tick(float deltaTime)
@@ -70,38 +68,8 @@ void AShieldCharacter::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		isInUltimate = true;
-	else if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
-		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
-		isInUltimate = false;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 
-	if (cameraUltLerp == true)
-	{
-		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, targetUltPos,
-			deltaTime, 5);
-		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
-
-		if (FVector::Dist(targetUltPos, newLocation) <= .05f)
-		{
-			cameraUltLerp = false;
-			cameraUltLerpBack = true;
-			movementComponent->GravityScale = baseGravity;
-		}
-	}
-	if (cameraUltLerpBack == true)
-	{
-		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, originalCamPos,
-			deltaTime, 12);
-		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
-
-		if (FVector::Dist(originalCamPos, newLocation) <= .05)
-		{
-			StopAbility2();
-			cameraUltLerpBack = false;
-		}
-	}
 	if (shieldADSLerp == true)
 	{
 		FVector curLocation = shieldLocation->GetRelativeLocation();
@@ -133,10 +101,7 @@ void AShieldCharacter::Tick(float deltaTime)
 
 void AShieldCharacter::StartShooting()
 {
-	if (isInUltimate == true)
-		ShieldThrow();
-	else
-		Super::StartShooting();
+	Super::StartShooting();
 }
 
 void AShieldCharacter::PickupWeapon(AWeaponBase* weapon)
@@ -223,7 +188,7 @@ void AShieldCharacter::ShieldBash()
 void AShieldCharacter::StartAbility2()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldThrowTimer) == false 
-		&& hasShield == true)
+		&& hasShield == true && !currentStates.Contains(PlayerGameState::Ultimate))
 	{
 		GetWorldTimerManager().SetTimer(shieldThrowTimer, this,
 			&AShieldCharacter::StopAbility2, shieldThrowCooldown, false);
@@ -272,28 +237,21 @@ void AShieldCharacter::StartUltimate()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
+		eqippedShield->SetActorEnableCollision(true);
+		eqippedShield->SetActorHiddenInGame(false);
+		eqippedShield->SetActorTickEnabled(true);
+		hasShield = true;
 		shieldBashCooldown = 1;
 		shieldThrowCooldown = 1;
+		eqippedShield->SetActorRelativeScale3D(eqippedShield->GetActorScale() * 3);
+		speedMulti = 2.5f;
 
-		isInUltimate = true;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
 		SaveCurWeapons();
 
-		eqippedShield->SetActorEnableCollision(false);
-		eqippedShield->SetActorHiddenInGame(true);
-		eqippedShield->SetActorTickEnabled(false);
-		cameraUltLerp = true;
-
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
-			{
-				movementComponent->GravityScale = .5f;
-				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
-				cameraUltLerp = true;
-			}), .15f, false);
-
-		FTimerHandle DelayTimerHandle2;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
 				bodyMesh->SetMaterial(0, ultimateMat);
 
@@ -308,6 +266,8 @@ void AShieldCharacter::StopUltimate()
 	RestoreCurWeapons();
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
+	speedMulti = 1.3f;
+	eqippedShield->SetActorTransform(originalShieldTrans);
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{

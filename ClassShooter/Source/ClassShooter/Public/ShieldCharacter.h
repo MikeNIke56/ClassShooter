@@ -7,7 +7,6 @@
 #include "Particles/ParticleSystem.h"
 #include "ClassShooter/ClassShooterCharacter.h"
 #include <Shield.h>
-#include <ShieldThrowable.h>
 #include "ShieldCharacter.generated.h"
 
 /**
@@ -27,6 +26,7 @@ public:
 	
 	AShield* eqippedShield;
 	AActor* thrownShield;
+	FTransform originalShieldTrans;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	UArrowComponent* shieldThrowLoc;

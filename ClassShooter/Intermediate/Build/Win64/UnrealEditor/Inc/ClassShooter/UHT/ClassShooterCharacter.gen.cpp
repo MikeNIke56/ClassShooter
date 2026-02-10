@@ -15,6 +15,7 @@ CLASSSHOOTER_API UClass* Z_Construct_UClass_AClassShooterCharacter();
 CLASSSHOOTER_API UClass* Z_Construct_UClass_AClassShooterCharacter_NoRegister();
 CLASSSHOOTER_API UClass* Z_Construct_UClass_AWeaponBase_NoRegister();
 CLASSSHOOTER_API UClass* Z_Construct_UClass_UDamageable_NoRegister();
+CLASSSHOOTER_API UEnum* Z_Construct_UEnum_ClassShooter_PlayerGameState();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
@@ -29,6 +30,78 @@ ENHANCEDINPUT_API UScriptStruct* Z_Construct_UScriptStruct_FInputActionValue();
 UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
+
+// Begin Enum PlayerGameState
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_PlayerGameState;
+static UEnum* PlayerGameState_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_PlayerGameState.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_PlayerGameState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_ClassShooter_PlayerGameState, (UObject*)Z_Construct_UPackage__Script_ClassShooter(), TEXT("PlayerGameState"));
+	}
+	return Z_Registration_Info_UEnum_PlayerGameState.OuterSingleton;
+}
+template<> CLASSSHOOTER_API UEnum* StaticEnum<PlayerGameState>()
+{
+	return PlayerGameState_StaticEnum();
+}
+struct Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "Ability1.Name", "PlayerGameState::Ability1" },
+		{ "Ability2.Name", "PlayerGameState::Ability2" },
+		{ "BlueprintType", "true" },
+		{ "Crouching.Name", "PlayerGameState::Crouching" },
+		{ "Diving.Name", "PlayerGameState::Diving" },
+		{ "Dying.Name", "PlayerGameState::Dying" },
+		{ "Jumping.Name", "PlayerGameState::Jumping" },
+		{ "Meleeing.Name", "PlayerGameState::Meleeing" },
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+		{ "Sliding.Name", "PlayerGameState::Sliding" },
+		{ "Sprinting.Name", "PlayerGameState::Sprinting" },
+		{ "Ultimate.Name", "PlayerGameState::Ultimate" },
+		{ "Walking.Name", "PlayerGameState::Walking" },
+		{ "Wallrunning.Name", "PlayerGameState::Wallrunning" },
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "PlayerGameState::Walking", (int64)PlayerGameState::Walking },
+		{ "PlayerGameState::Sprinting", (int64)PlayerGameState::Sprinting },
+		{ "PlayerGameState::Sliding", (int64)PlayerGameState::Sliding },
+		{ "PlayerGameState::Jumping", (int64)PlayerGameState::Jumping },
+		{ "PlayerGameState::Diving", (int64)PlayerGameState::Diving },
+		{ "PlayerGameState::Wallrunning", (int64)PlayerGameState::Wallrunning },
+		{ "PlayerGameState::Crouching", (int64)PlayerGameState::Crouching },
+		{ "PlayerGameState::Meleeing", (int64)PlayerGameState::Meleeing },
+		{ "PlayerGameState::Ability1", (int64)PlayerGameState::Ability1 },
+		{ "PlayerGameState::Ability2", (int64)PlayerGameState::Ability2 },
+		{ "PlayerGameState::Ultimate", (int64)PlayerGameState::Ultimate },
+		{ "PlayerGameState::Dying", (int64)PlayerGameState::Dying },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_ClassShooter,
+	nullptr,
+	"PlayerGameState",
+	"PlayerGameState",
+	Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_ClassShooter_PlayerGameState()
+{
+	if (!Z_Registration_Info_UEnum_PlayerGameState.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_PlayerGameState.InnerSingleton, Z_Construct_UEnum_ClassShooter_PlayerGameState_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_PlayerGameState.InnerSingleton;
+}
+// End Enum PlayerGameState
 
 // Begin Class AClassShooterCharacter Function ADSCurWeapon
 struct Z_Construct_UFunction_AClassShooterCharacter_ADSCurWeapon_Statics
@@ -428,6 +501,10 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentStates_MetaData[] = {
+		{ "Category", "Class Base Values" },
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bodyMesh_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Mesh" },
@@ -572,20 +649,8 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isJumping_MetaData[] = {
-		{ "Category", "Class Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isSprinting_MetaData[] = {
-		{ "Category", "Movement Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isCrouching_MetaData[] = {
-		{ "Category", "Movement Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isSliding_MetaData[] = {
-		{ "Category", "Movement Base Values" },
+		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isADSing_MetaData[] = {
@@ -614,10 +679,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_shouldDestroyWeapon_MetaData[] = {
 		{ "Category", "Movement Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isInUltimate_MetaData[] = {
-		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultimateTriggered_MetaData[] = {
@@ -658,10 +719,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isDead_MetaData[] = {
-		{ "Category", "Class Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_deathTriggered_MetaData[] = {
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
@@ -693,6 +750,9 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Ability2Action;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_UltimateAction;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_controllerID;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_currentStates_Inner_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_currentStates_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_currentStates;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_bodyMesh;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_curHealth;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_maxHealth;
@@ -727,14 +787,8 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_slidePow;
 	static void NewProp_jumpAllowed_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_jumpAllowed;
-	static void NewProp_isJumping_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isJumping;
 	static void NewProp_isSprinting_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isSprinting;
-	static void NewProp_isCrouching_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isCrouching;
-	static void NewProp_isSliding_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isSliding;
 	static void NewProp_isADSing_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isADSing;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_movementVector;
@@ -745,8 +799,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isClone;
 	static void NewProp_shouldDestroyWeapon_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldDestroyWeapon;
-	static void NewProp_isInUltimate_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isInUltimate;
 	static void NewProp_ultimateTriggered_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ultimateTriggered;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_bobTimer;
@@ -759,8 +811,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_knifeHitDetected;
 	static void NewProp_isSwitchingAfterPickup_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isSwitchingAfterPickup;
-	static void NewProp_isDead_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isDead;
 	static void NewProp_deathTriggered_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_deathTriggered;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
@@ -795,6 +845,9 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterC
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action = { "Ability2Action", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, Ability2Action), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Ability2Action_MetaData), NewProp_Ability2Action_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_UltimateAction = { "UltimateAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, UltimateAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_UltimateAction_MetaData), NewProp_UltimateAction_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_controllerID = { "controllerID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, controllerID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_controllerID_MetaData), NewProp_controllerID_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner = { "currentStates", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_ClassShooter_PlayerGameState, METADATA_PARAMS(0, nullptr) }; // 1653285969
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates = { "currentStates", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, currentStates), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentStates_MetaData), NewProp_currentStates_MetaData) }; // 1653285969
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bodyMesh = { "bodyMesh", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, bodyMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bodyMesh_MetaData), NewProp_bodyMesh_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_curHealth = { "curHealth", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, curHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curHealth_MetaData), NewProp_curHealth_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_maxHealth = { "maxHealth", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, maxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_maxHealth_MetaData), NewProp_maxHealth_MetaData) };
@@ -832,26 +885,11 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_jumpAllowed_SetB
 	((AClassShooterCharacter*)Obj)->jumpAllowed = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_jumpAllowed = { "jumpAllowed", nullptr, (EPropertyFlags)0x0010000000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_jumpAllowed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_jumpAllowed_MetaData), NewProp_jumpAllowed_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isJumping_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->isJumping = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isJumping = { "isJumping", nullptr, (EPropertyFlags)0x0010000000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isJumping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isJumping_MetaData), NewProp_isJumping_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->isSprinting = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting = { "isSprinting", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isSprinting_MetaData), NewProp_isSprinting_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isCrouching_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->isCrouching = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isCrouching = { "isCrouching", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isCrouching_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isCrouching_MetaData), NewProp_isCrouching_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSliding_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->isSliding = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSliding = { "isSliding", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSliding_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isSliding_MetaData), NewProp_isSliding_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting = { "isSprinting", nullptr, (EPropertyFlags)0x0010000000020005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isSprinting_MetaData), NewProp_isSprinting_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isADSing_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->isADSing = 1;
@@ -871,11 +909,6 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWea
 	((AClassShooterCharacter*)Obj)->shouldDestroyWeapon = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon = { "shouldDestroyWeapon", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shouldDestroyWeapon_MetaData), NewProp_shouldDestroyWeapon_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isInUltimate_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->isInUltimate = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isInUltimate = { "isInUltimate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isInUltimate_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isInUltimate_MetaData), NewProp_isInUltimate_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ultimateTriggered_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->ultimateTriggered = 1;
@@ -900,11 +933,6 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSwitchingAfter
 	((AClassShooterCharacter*)Obj)->isSwitchingAfterPickup = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSwitchingAfterPickup = { "isSwitchingAfterPickup", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSwitchingAfterPickup_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isSwitchingAfterPickup_MetaData), NewProp_isSwitchingAfterPickup_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isDead_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->isDead = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isDead = { "isDead", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isDead_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isDead_MetaData), NewProp_isDead_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->deathTriggered = 1;
@@ -927,6 +955,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_UltimateAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_controllerID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bodyMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_curHealth,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_maxHealth,
@@ -960,10 +991,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_jumpPow,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_slidePow,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_jumpAllowed,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isJumping,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSprinting,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isCrouching,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSliding,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isADSing,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_movementVector,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseGroundFriction,
@@ -971,7 +999,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseGravity,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isClone,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isInUltimate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ultimateTriggered,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bobTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bobSpeed,
@@ -980,7 +1007,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isMeleeHBOn,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_knifeHitDetected,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isSwitchingAfterPickup,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isDead,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_LookAction,
 };
@@ -1027,13 +1053,16 @@ AClassShooterCharacter::~AClassShooterCharacter() {}
 // Begin Registration
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics
 {
+	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
+		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1653285969U) },
+	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 4061349676U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2001998890U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3583521680(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3553454555(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
-	nullptr, 0);
+	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

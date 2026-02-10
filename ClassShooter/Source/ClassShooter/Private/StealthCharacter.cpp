@@ -22,10 +22,7 @@ void AStealthCharacter::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		isInUltimate = true;
-	else if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
-		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
-		isInUltimate = false;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 
 	if (cameraUltLerp == true)
 	{
@@ -67,7 +64,7 @@ void AStealthCharacter::StartShooting()
 {
 	Super::StartShooting();
 	
-	if (swingUltLaunch == false && isInUltimate == true)
+	if (swingUltLaunch == false && currentStates.Contains(PlayerGameState::Ultimate))
 	{
 		swingUltLaunch = true;
 		movementComponent->GroundFriction = 0.0;
@@ -242,7 +239,7 @@ void AStealthCharacter::StartUltimate()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
-		isInUltimate = true;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
 		SaveCurWeapons();
 

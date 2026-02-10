@@ -55,10 +55,7 @@ void AMovementCharacter::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		isInUltimate = true;
-	else if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
-		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
-		isInUltimate = false;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 
 	if(didGrappleAtk == true)
 		GrappleAttack(movementVector);
@@ -288,7 +285,7 @@ void AMovementCharacter::StartUltimate()
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
 		grappleCooldown = 1;
-		isInUltimate = true;
+		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
 		SaveCurWeapons();
 

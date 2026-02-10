@@ -96,22 +96,17 @@ void AClassShooterCharacter::BeginPlay()
 	recoilLerp = false;
 	startFovChange = false;
 	isSwitchingAfterPickup = false;
-	isDead = false;
 	deathTriggered = false;
 
 	isLeftSwing = true;
 	meleeLerp = false;
 
-	isSliding = false;
-	isCrouching = false;
-	isSprinting = false;
 	baseGroundFriction = movementComponent->GroundFriction;
 	baseBrakingDeceleration = movementComponent->BrakingDecelerationWalking;
 	baseGravity = movementComponent->GravityScale;
 	originalCamPos = GetFirstPersonCameraComponent()->GetRelativeLocation();
 	originalBodyScale = GetCapsuleComponent()->GetComponentScale();
 
-	isInUltimate = false;
 	ultimateTriggered = false;
 
 
@@ -144,8 +139,10 @@ void AClassShooterCharacter::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 	jumpAllowed = IsGrounded();
-	curSpeed = movementComponent->MaxWalkSpeed;
 	isSprinting = IsStillSprinting();
+	curSpeed = movementComponent->MaxWalkSpeed;
+
+	//if (state) PlayerGameState::Sprinting = IsStillSprinting();
 
 	if (ADSLerp == true)
 	{
@@ -245,6 +242,9 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 	if (movementComponent->Velocity.Length() > 0.1f)
 	{
+		if (currentStates.Contains(PlayerGameState::Ultimate))
+			return;
+
 		if (curSpeed == sprintSpeed && IsGrounded() == true)
 		{
 			float newBobAmount = bobAmount * 1.5;
@@ -259,6 +259,9 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		}
 		else if (curSpeed == baseSpeed && IsGrounded() == true)
 		{
+			if (!currentStates.Contains(PlayerGameState::Sliding))
+				currentStates.AddUnique(PlayerGameState::Walking);
+
 			bobTimer += deltaTime * bobSpeed;
 			float OffsetZ = FMath::Sin(bobTimer * amplitude) * bobAmount;
 			float OffsetY = FMath::Sin(bobTimer * (bobAmount / amplitude));
@@ -277,6 +280,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 			deltaTime,
 			5.0f
 		));
+		currentStates.Remove(PlayerGameState::Walking);
 	}
 }
 
@@ -355,6 +359,7 @@ void AClassShooterCharacter::Jump()
 {
 	if (jumpAllowed == true)
 	{
+		currentStates.AddUnique(PlayerGameState::Jumping);
 		float newJumpPow = jumpPow;
 
 		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
@@ -366,7 +371,7 @@ void AClassShooterCharacter::Jump()
 
 void AClassShooterCharacter::StopJumping()
 {
-	isJumping = false;
+	currentStates.Remove(PlayerGameState::Jumping);
 	Super::StopJumping();
 }
 bool AClassShooterCharacter::IsGrounded()
@@ -420,15 +425,14 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 }
 void AClassShooterCharacter::Sprint()
 {
-	isSliding = false;
-	isCrouching = false;
-
 	movementComponent->MaxWalkSpeed = sprintSpeed;
+	currentStates.Remove(PlayerGameState::Walking);
+	currentStates.AddUnique(PlayerGameState::Sprinting);
 }
 void AClassShooterCharacter::StopSprinting()
 {
 	movementComponent->MaxWalkSpeed = baseSpeed;
-	isSprinting = false;
+	currentStates.Remove(PlayerGameState::Sprinting);
 }
 bool AClassShooterCharacter::IsStillSprinting()
 {
@@ -439,11 +443,11 @@ bool AClassShooterCharacter::IsStillSprinting()
 }
 void AClassShooterCharacter::StartCrouch()
 {
-	if (isSprinting == true)
+	if (currentStates.Contains(PlayerGameState::Sprinting))
 		Slide();
 	else
 	{
-		if (isCrouching == false)
+		if (!currentStates.Contains(PlayerGameState::Crouching))
 			Crouch();
 		else
 			StopCrouching();
@@ -453,16 +457,15 @@ void AClassShooterCharacter::Crouch()
 {
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
 	movementComponent->MaxWalkSpeed = baseSpeed / 3;
-	isCrouching = true;
+	currentStates.AddUnique(PlayerGameState::Crouching);
 }
 void AClassShooterCharacter::StopCrouching()
 {
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
 
-	if (isSprinting == false)
+	if (!isSprinting)
 		movementComponent->MaxWalkSpeed = baseSpeed;
 
-	isCrouching = false;
 	ResetMovement();
 }
 void AClassShooterCharacter::Slide()
@@ -472,7 +475,10 @@ void AClassShooterCharacter::Slide()
 		GetWorld()->GetTimerManager().ClearTimer(slideTimer);
 		GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
 
-		isSliding = true;
+		if(IsGrounded())
+			currentStates.AddUnique(PlayerGameState::Sliding);
+		else
+			currentStates.AddUnique(PlayerGameState::Diving);
 
 		movementComponent->GroundFriction = 0.0;
 		movementComponent->BrakingDecelerationWalking = 1400;
@@ -523,12 +529,14 @@ FVector AClassShooterCharacter::FindSlideVector()
 }
 void AClassShooterCharacter::ResetMovement()
 {
-	isSliding = false;
+	currentStates.Empty();
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
 	movementComponent->GravityScale = baseGravity;
 
-	if (isSprinting == false)
+	if (!isSprinting)
 		movementComponent->MaxWalkSpeed = baseSpeed;
+	else
+		currentStates.AddUnique(PlayerGameState::Sprinting);
 
 	movementComponent->GroundFriction = baseGroundFriction;
 	movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
@@ -1037,6 +1045,8 @@ void AClassShooterCharacter::SwapWeaponOver(AWeaponBase* weapon, int pos)
 //Melee
 void AClassShooterCharacter::Melee()
 {
+	currentStates.AddUnique(PlayerGameState::Meleeing);
+
 	if (isLeftSwing == true)
 	{
 		FVector location(knifeSwingLocations[0]->GetRelativeLocation());
@@ -1157,7 +1167,8 @@ void AClassShooterCharacter::TakeCustomDamage(float amount)
 	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 	if (curHealth <= 0.0)
 	{
-		isDead = true;
+		currentStates.Empty();
+		currentStates.AddUnique(PlayerGameState::Dying);
 	}
 }
 
