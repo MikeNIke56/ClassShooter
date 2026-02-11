@@ -43,6 +43,8 @@ void AMovementCharacter::BeginPlay()
 
 	baseGrappleCooldown = grappleCooldown;
 
+	canSetPos = true;
+
 	FTimerHandle DelayTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
 		{
@@ -126,7 +128,7 @@ void AMovementCharacter::Tick(float deltaTime)
 	grappleRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(grappleCooldownTimer);
 	ultRemainingTime = GetWorld()->
-		GetTimerManager().GetTimerRemaining(ultTimer);
+		GetTimerManager().GetTimerRemaining(ultTimer);	
 }
 
 void AMovementCharacter::StartShooting()
@@ -284,39 +286,22 @@ void AMovementCharacter::StartUltimate()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
-		grappleCooldown = 1;
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
+		canSetPos = false;
+		movementComponent->SetMovementMode(MOVE_Flying);
 		SaveCurWeapons();
+		bodyMesh->SetMaterial(0, ultimateMat);
 
-		FTimerHandle DelayTimerHandle1;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
-			{
-				movementComponent->GravityScale = .5f;
-				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
-				cameraUltLerp = true;
-			}), .15f, false);
+		GetWorldTimerManager().SetTimer(ultTimer, this,
+			&AMovementCharacter::StopUltimate, ultLength, false);
 
-		FTimerHandle DelayTimerHandle2;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
-			{
-				bodyMesh->SetMaterial(0, ultimateMat);
-
-				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AMovementCharacter::StopUltimate, ultLength, false);
-			}), .5f, false);
+		UE_LOG(LogTemp, Warning, TEXT("recall"));
 	}
 }
 void AMovementCharacter::StopUltimate()
 {
-	bodyMesh->SetMaterial(0, baseBodyMat);
-	RestoreCurWeapons();
-	grappleCooldown = baseGrappleCooldown;
-
-	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
-		{
-			ultimateTriggered = false;
-		}), .05f, false);
+	
 }
 
 
@@ -351,6 +336,9 @@ void AMovementCharacter::WallRunUpdate()
 					targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
 			}
 		}
+
+		if(!currentStates.Contains(PlayerGameState::Wallrunning))
+			currentStates.AddUnique(PlayerGameState::Wallrunning);
 	}
 }
 TArray<FVector> AMovementCharacter::WallRunEndVectors()
@@ -442,6 +430,7 @@ void AMovementCharacter::ResetMovement()
 	isWallRunningL = false;
 	cameraRotateLerp = true;
 	BlockWallRun();
+	currentStates.Remove(PlayerGameState::Wallrunning);
 }
 
 void AMovementCharacter::Jump()

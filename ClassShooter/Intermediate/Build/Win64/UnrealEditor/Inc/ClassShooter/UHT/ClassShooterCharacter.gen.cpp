@@ -224,6 +224,36 @@ DEFINE_FUNCTION(AClassShooterCharacter::execPickupWeapon)
 }
 // End Class AClassShooterCharacter Function PickupWeapon
 
+// Begin Class AClassShooterCharacter Function RestoreCurWeapons
+struct Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Weapon Functions" },
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "RestoreCurWeapons", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AClassShooterCharacter::execRestoreCurWeapons)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->RestoreCurWeapons();
+	P_NATIVE_END;
+}
+// End Class AClassShooterCharacter Function RestoreCurWeapons
+
 // Begin Class AClassShooterCharacter Function ShowCurWeapon
 struct Z_Construct_UFunction_AClassShooterCharacter_ShowCurWeapon_Statics
 {
@@ -327,6 +357,7 @@ void AClassShooterCharacter::StaticRegisterNativesAClassShooterCharacter()
 		{ "ADSCurWeapon", &AClassShooterCharacter::execADSCurWeapon },
 		{ "BindDelegate", &AClassShooterCharacter::execBindDelegate },
 		{ "PickupWeapon", &AClassShooterCharacter::execPickupWeapon },
+		{ "RestoreCurWeapons", &AClassShooterCharacter::execRestoreCurWeapons },
 		{ "ShowCurWeapon", &AClassShooterCharacter::execShowCurWeapon },
 		{ "SwitchWeapon", &AClassShooterCharacter::execSwitchWeapon },
 	};
@@ -820,6 +851,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ &Z_Construct_UFunction_AClassShooterCharacter_ADSCurWeapon, "ADSCurWeapon" }, // 1315547297
 		{ &Z_Construct_UFunction_AClassShooterCharacter_BindDelegate, "BindDelegate" }, // 4237363750
 		{ &Z_Construct_UFunction_AClassShooterCharacter_PickupWeapon, "PickupWeapon" }, // 2623252635
+		{ &Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons, "RestoreCurWeapons" }, // 2612269295
 		{ &Z_Construct_UFunction_AClassShooterCharacter_ShowCurWeapon, "ShowCurWeapon" }, // 1248625749
 		{ &Z_Construct_UFunction_AClassShooterCharacter_SwitchWeapon, "SwitchWeapon" }, // 2942042266
 	};
@@ -1057,10 +1089,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1653285969U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2001998890U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 3064640418U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3553454555(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3286278340(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));

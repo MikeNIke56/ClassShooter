@@ -13,6 +13,7 @@
 #include "NiagaraSystem.h"
 #include "Damageable.h"
 #include "InputActionValue.h"
+#include "DrawDebugHelpers.h"
 #include "ClassShooterCharacter.generated.h"
 
 UENUM(BlueprintType)
@@ -331,6 +332,7 @@ protected:
 	virtual void StopUltimate();
 
 	void SaveCurWeapons();
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void RestoreCurWeapons();
 
 	//Melee

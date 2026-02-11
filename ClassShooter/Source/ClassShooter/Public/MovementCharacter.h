@@ -47,6 +47,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleAtkDist;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float grappleAtkKnockbackAmnt = 1000;
 
 	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
@@ -58,6 +60,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float ultCooldown;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	TArray<FTransform> recallPositions;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	bool canSetPos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UParticleSystem* movementVFX;
@@ -139,5 +145,4 @@ protected:
 	virtual void StartUltimate() override;
 	virtual void StopUltimate() override;
 	virtual void StartShooting() override;
-	
 };

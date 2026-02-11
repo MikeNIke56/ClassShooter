@@ -37,11 +37,16 @@ struct Z_Construct_UClass_AShield_Statics
 		{ "ModuleRelativePath", "Public/Shield.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_source_MetaData[] = {
-		{ "Category", "Entity source" },
+		{ "Category", "Shield Variables" },
+		{ "ModuleRelativePath", "Public/Shield.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_knockbackAmnt_MetaData[] = {
+		{ "Category", "Shield Variables" },
 		{ "ModuleRelativePath", "Public/Shield.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_source;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_knockbackAmnt;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -50,8 +55,10 @@ struct Z_Construct_UClass_AShield_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShield_Statics::NewProp_source = { "source", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShield, source), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_source_MetaData), NewProp_source_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AShield_Statics::NewProp_knockbackAmnt = { "knockbackAmnt", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShield, knockbackAmnt), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_knockbackAmnt_MetaData), NewProp_knockbackAmnt_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AShield_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShield_Statics::NewProp_source,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShield_Statics::NewProp_knockbackAmnt,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AShield_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AShield_Statics::DependentSingletons[])() = {
@@ -95,10 +102,10 @@ AShield::~AShield() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AShield, AShield::StaticClass, TEXT("AShield"), &Z_Registration_Info_UClass_AShield, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShield), 2247630421U) },
+		{ Z_Construct_UClass_AShield, AShield::StaticClass, TEXT("AShield"), &Z_Registration_Info_UClass_AShield, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShield), 651859199U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_1216307081(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_1642129353(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shield_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

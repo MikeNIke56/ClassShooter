@@ -86,7 +86,6 @@ void AClassShooterCharacter::BeginPlay()
 
 	slashSpeed = 10;
 	curHealth = maxHealth;
-
 	movementComponent = GetCharacterMovement();
 	baseSpeed = movementComponent->MaxWalkSpeed;
 	curSpeed = baseSpeed;
@@ -103,6 +102,8 @@ void AClassShooterCharacter::BeginPlay()
 
 	baseGroundFriction = movementComponent->GroundFriction;
 	baseBrakingDeceleration = movementComponent->BrakingDecelerationWalking;
+	movementComponent->GravityScale = 2.0f;
+	movementComponent->JumpZVelocity = 420.0f;
 	baseGravity = movementComponent->GravityScale;
 	originalCamPos = GetFirstPersonCameraComponent()->GetRelativeLocation();
 	originalBodyScale = GetCapsuleComponent()->GetComponentScale();

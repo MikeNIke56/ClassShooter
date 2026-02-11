@@ -11,7 +11,6 @@
 			"Knife.gen.cpp.obj",
 			"Pistol.gen.cpp.obj",
 			"RocketLauncher.gen.cpp.obj",
-			"Shield.gen.cpp.obj",
 			"Shotgun.gen.cpp.obj",
 			"SniperRifle.gen.cpp.obj",
 			"TP_PickUpComponent.gen.cpp.obj",
@@ -27,7 +26,6 @@
 			"Knife.cpp.obj",
 			"Pistol.cpp.obj",
 			"RocketLauncher.cpp.obj",
-			"Shield.cpp.obj",
 			"Shotgun.cpp.obj",
 			"SniperRifle.cpp.obj",
 			"WeaponBase.cpp.obj",
@@ -36,10 +34,12 @@
 			"ClassShooter.init.gen.cpp.obj",
 			"ClassShooterCharacter.gen.cpp.obj",
 			"MovementCharacter.gen.cpp.obj",
+			"Shield.gen.cpp.obj",
 			"ShieldCharacter.gen.cpp.obj",
 			"StealthCharacter.gen.cpp.obj",
 			"ClassShooterCharacter.cpp.obj",
 			"MovementCharacter.cpp.obj",
+			"Shield.cpp.obj",
 			"ShieldCharacter.cpp.obj",
 			"StealthCharacter.cpp.obj"
 		]

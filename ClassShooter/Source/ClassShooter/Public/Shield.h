@@ -16,6 +16,9 @@ class CLASSSHOOTER_API AShield : public AWeaponBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Entity source")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shield Variables")
 	AActor* source;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shield Variables")
+	float knockbackAmnt = 1000;
 };

@@ -167,7 +167,6 @@ void AShieldCharacter::ShieldBash()
 
 	movementComponent->GroundFriction = 0.0;
 	movementComponent->BrakingDecelerationWalking = 1400;
-
 	movementComponent->AddImpulse(GetActorForwardVector() * shieldBashDist, true);
 
 	FTimerHandle DelayTimerHandle1;
@@ -176,7 +175,7 @@ void AShieldCharacter::ShieldBash()
 			StopADS();
 			movementComponent->GroundFriction = baseGroundFriction;
 			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
-		}), .75f, false);
+		}), .5f, false);
 	FTimerHandle DelayTimerHandle2;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 		{

@@ -23,7 +23,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> shieldThrowWorldObj;
 
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shield Class Base Values")
 	AShield* eqippedShield;
 	AActor* thrownShield;
 	FTransform originalShieldTrans;

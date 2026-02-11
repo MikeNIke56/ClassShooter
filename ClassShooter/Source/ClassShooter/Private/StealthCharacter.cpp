@@ -246,8 +246,6 @@ void AStealthCharacter::StartUltimate()
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 			{
-				movementComponent->GravityScale = .5f;
-				movementComponent->AddImpulse(GetActorUpVector() * 500, true);
 				cameraUltLerp = true;
 			}), .15f, false);
 
