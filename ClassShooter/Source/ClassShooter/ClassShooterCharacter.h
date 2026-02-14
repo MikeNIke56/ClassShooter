@@ -19,9 +19,9 @@
 UENUM(BlueprintType)
 enum class PlayerGameState : uint8
 {
-	Walking, Sprinting, Sliding,Jumping, 
-	Diving, Wallrunning, Crouching, Meleeing,
-	Ability1, Ability2, Ultimate, Dying
+	Walking, Sprinting, Sliding, Jumping, ShieldBashing,
+	Grappling, Dashing, Diving, Wallrunning, Crouching, 
+	Meleeing, Ability1, Ability2, Ultimate, Dying
 };
 
 class UInputComponent;
@@ -140,9 +140,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FRotator curCamRotation;
 
-	bool ADSLerp;
-	bool recoilLerp;
 
+	//Recoil and Hand Sway
+	bool ADSLerp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	float springRecoilVal;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	float sideMove;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	float mouseX;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	float mouseY;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	FRotator handSwayRotator;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	FTransform recoilTransform;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
+	FTransform recoil;
+
+
+	//sniper blueprint widgets
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> unADSWidgetClass;
 
@@ -178,11 +195,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float curSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
-	float speedMulti;
+	float curSpeedMulti;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
+	float baseSpeedMulti;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
-	float sprintSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float jumpPow;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
@@ -282,13 +299,9 @@ protected:
 	virtual void StopShooting();
 	void Shoot();
 
-
-	void Recoil();
 	void Reload();
-
-	UFUNCTION()
-	void BindDelegate();
-
+	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
+	void ProceduralRecoil(float multiplier);
 
 	//Picking up and equipping weapons
 	void EquipWeapon(AWeaponBase* weapon, int pos);

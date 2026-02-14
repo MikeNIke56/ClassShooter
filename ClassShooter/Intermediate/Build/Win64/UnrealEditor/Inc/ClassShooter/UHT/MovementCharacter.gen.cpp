@@ -17,6 +17,7 @@ CLASSSHOOTER_API UClass* Z_Construct_UClass_AMovementCharacter();
 CLASSSHOOTER_API UClass* Z_Construct_UClass_AMovementCharacter_NoRegister();
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FTransform();
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
@@ -54,6 +55,36 @@ DEFINE_FUNCTION(AMovementCharacter::execStartAbility1)
 }
 // End Class AMovementCharacter Function StartAbility1
 
+// Begin Class AMovementCharacter Function StartAbility2
+struct Z_Construct_UFunction_AMovementCharacter_StartAbility2_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Stealth Functions" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMovementCharacter_StartAbility2_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AMovementCharacter, nullptr, "StartAbility2", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMovementCharacter_StartAbility2_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMovementCharacter_StartAbility2_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AMovementCharacter_StartAbility2()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMovementCharacter_StartAbility2_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMovementCharacter::execStartAbility2)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->StartAbility2();
+	P_NATIVE_END;
+}
+// End Class AMovementCharacter Function StartAbility2
+
 // Begin Class AMovementCharacter Function StartUltimate
 struct Z_Construct_UFunction_AMovementCharacter_StartUltimate_Statics
 {
@@ -90,6 +121,7 @@ void AMovementCharacter::StaticRegisterNativesAMovementCharacter()
 	UClass* Class = AMovementCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "StartAbility1", &AMovementCharacter::execStartAbility1 },
+		{ "StartAbility2", &AMovementCharacter::execStartAbility2 },
 		{ "StartUltimate", &AMovementCharacter::execStartUltimate },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -112,8 +144,14 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_cableComponent_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//grapple variables\n" },
+#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "grapple variables" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bAttachEnd_MetaData[] = {
 		{ "Category", "Cable" },
@@ -151,15 +189,49 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleObj_MetaData[] = {
-		{ "Category", "MovementCharacter" },
-		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleAtkDist_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleAtkKnockbackAmnt_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_grappleObj_MetaData[] = {
+		{ "Category", "MovementCharacter" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_dashCooldownTimer_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//dash variables\n" },
+#endif
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "dash variables" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_curDashCooldown_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_baseDashCooldown_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_dashDist_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_dashTime_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_targetDashLocation_MetaData[] = {
+		{ "Category", "Movement Class Base Values" },
+		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_dashTimer_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
@@ -179,7 +251,7 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_canSetPos_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_canSetRecallPos_MetaData[] = {
 		{ "Category", "Movement Class Base Values" },
 		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
 	};
@@ -268,16 +340,23 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	static void NewProp_didGrappleAtk_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_didGrappleAtk;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleRemainingTime;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_grappleObj;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleAtkDist;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_grappleAtkKnockbackAmnt;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_grappleObj;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_dashCooldownTimer;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_curDashCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_baseDashCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_dashDist;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_dashTime;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_targetDashLocation;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_dashTimer;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultLength;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultRemainingTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ultCooldown;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_recallPositions_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_recallPositions;
-	static void NewProp_canSetPos_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_canSetPos;
+	static void NewProp_canSetRecallPos_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_canSetRecallPos;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_movementVFX;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_baseBodyMat;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ultimateMat;
@@ -308,6 +387,7 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AMovementCharacter_StartAbility1, "StartAbility1" }, // 2296075615
+		{ &Z_Construct_UFunction_AMovementCharacter_StartAbility2, "StartAbility2" }, // 1186396655
 		{ &Z_Construct_UFunction_AMovementCharacter_StartUltimate, "StartUltimate" }, // 3253523057
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -334,19 +414,26 @@ void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk_SetBit
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk = { "didGrappleAtk", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_didGrappleAtk_MetaData), NewProp_didGrappleAtk_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleRemainingTime = { "grappleRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleRemainingTime_MetaData), NewProp_grappleRemainingTime_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj = { "grappleObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleObj_MetaData), NewProp_grappleObj_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkDist = { "grappleAtkDist", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleAtkDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleAtkDist_MetaData), NewProp_grappleAtkDist_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkKnockbackAmnt = { "grappleAtkKnockbackAmnt", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleAtkKnockbackAmnt), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleAtkKnockbackAmnt_MetaData), NewProp_grappleAtkKnockbackAmnt_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj = { "grappleObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, grappleObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_grappleObj_MetaData), NewProp_grappleObj_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashCooldownTimer = { "dashCooldownTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, dashCooldownTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_dashCooldownTimer_MetaData), NewProp_dashCooldownTimer_MetaData) }; // 756291145
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_curDashCooldown = { "curDashCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, curDashCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curDashCooldown_MetaData), NewProp_curDashCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseDashCooldown = { "baseDashCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, baseDashCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseDashCooldown_MetaData), NewProp_baseDashCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashDist = { "dashDist", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, dashDist), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_dashDist_MetaData), NewProp_dashDist_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashTime = { "dashTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, dashTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_dashTime_MetaData), NewProp_dashTime_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_targetDashLocation = { "targetDashLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, targetDashLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_targetDashLocation_MetaData), NewProp_targetDashLocation_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashTimer = { "dashTimer", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, dashTimer), Z_Construct_UScriptStruct_FTimerHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_dashTimer_MetaData), NewProp_dashTimer_MetaData) }; // 756291145
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultLength = { "ultLength", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultLength), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultLength_MetaData), NewProp_ultLength_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultRemainingTime = { "ultRemainingTime", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultRemainingTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultRemainingTime_MetaData), NewProp_ultRemainingTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultCooldown = { "ultCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultCooldown), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultCooldown_MetaData), NewProp_ultCooldown_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_recallPositions_Inner = { "recallPositions", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FTransform, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_recallPositions = { "recallPositions", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, recallPositions), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_recallPositions_MetaData), NewProp_recallPositions_MetaData) };
-void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetPos_SetBit(void* Obj)
+void Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetRecallPos_SetBit(void* Obj)
 {
-	((AMovementCharacter*)Obj)->canSetPos = 1;
+	((AMovementCharacter*)Obj)->canSetRecallPos = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetPos = { "canSetPos", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetPos_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_canSetPos_MetaData), NewProp_canSetPos_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetRecallPos = { "canSetRecallPos", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMovementCharacter), &Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetRecallPos_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_canSetRecallPos_MetaData), NewProp_canSetRecallPos_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_movementVFX = { "movementVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, movementVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementVFX_MetaData), NewProp_movementVFX_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseBodyMat = { "baseBodyMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, baseBodyMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseBodyMat_MetaData), NewProp_baseBodyMat_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultimateMat = { "ultimateMat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMovementCharacter, ultimateMat), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ultimateMat_MetaData), NewProp_ultimateMat_MetaData) };
@@ -408,15 +495,22 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMovement
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleSpd,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_didGrappleAtk,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleRemainingTime,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkDist,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleAtkKnockbackAmnt,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_grappleObj,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashCooldownTimer,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_curDashCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseDashCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashDist,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashTime,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_targetDashLocation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_dashTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultLength,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultRemainingTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_recallPositions_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_recallPositions,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetPos,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_canSetRecallPos,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_movementVFX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_baseBodyMat,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovementCharacter_Statics::NewProp_ultimateMat,
@@ -477,10 +571,10 @@ AMovementCharacter::~AMovementCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 729218799U) },
+		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 420815955U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_786986771(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_94733974(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

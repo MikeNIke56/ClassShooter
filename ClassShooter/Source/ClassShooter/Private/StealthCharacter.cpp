@@ -242,6 +242,7 @@ void AStealthCharacter::StartUltimate()
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
 		SaveCurWeapons();
+		curSpeedMulti = 2.5f;
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -263,10 +264,12 @@ void AStealthCharacter::StopUltimate()
 {
 	bodyMesh->SetMaterial(0, baseBodyMat);
 	RestoreCurWeapons();
+	curSpeedMulti = baseSpeedMulti;
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{
 			ultimateTriggered = false;
+			currentStates.Remove(PlayerGameState::Ultimate);
 		}), .05f, false);
 }
 void AStealthCharacter::SpawnUltWeapon()

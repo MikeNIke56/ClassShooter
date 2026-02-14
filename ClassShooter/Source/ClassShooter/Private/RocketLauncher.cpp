@@ -40,7 +40,6 @@ void ARocketLauncher::Fire()
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 			shotTimer = 0.0;
 			ammoToRefill++;
-			recoilDel.Broadcast();
 		}
 	}
 }

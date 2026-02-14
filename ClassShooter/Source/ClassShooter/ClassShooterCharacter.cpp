@@ -89,10 +89,9 @@ void AClassShooterCharacter::BeginPlay()
 	movementComponent = GetCharacterMovement();
 	baseSpeed = movementComponent->MaxWalkSpeed;
 	curSpeed = baseSpeed;
-	sprintSpeed = baseSpeed * speedMulti;
+	curSpeedMulti = baseSpeedMulti;
 
 	ADSLerp = false;
-	recoilLerp = false;
 	startFovChange = false;
 	isSwitchingAfterPickup = false;
 	deathTriggered = false;
@@ -141,9 +140,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 	Super::Tick(deltaTime);
 	jumpAllowed = IsGrounded();
 	isSprinting = IsStillSprinting();
-	curSpeed = movementComponent->MaxWalkSpeed;
-
-	//if (state) PlayerGameState::Sprinting = IsStillSprinting();
+	movementComponent->MaxWalkSpeed = curSpeed;
 
 	if (ADSLerp == true)
 	{
@@ -155,18 +152,6 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		if (FVector::Dist(targetLocation, newLocation) <= .05)
 			ADSLerp = false;
 	}
-
-	if (recoilLerp == true)
-	{
-		FRotator curRotation = GetController()->GetControlRotation();
-		FRotator newRotation = FMath::RInterpTo(curRotation, targetRotation,
-			deltaTime, 20);
-		GetController()->SetControlRotation((newRotation));
-
-		if (newRotation.Equals(targetRotation, .05))
-			recoilLerp = false;
-	}
-
 	if (startFovChange == true)
 	{
 		float curFov = FirstPersonCameraComponent->FieldOfView;
@@ -176,7 +161,6 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		if (FMath::Abs(targetFov - newFov) <= .001)
 			startFovChange = false;
 	}
-
 	if (meleeLerp == true)
 	{
 		FVector newLocation = weaponLocation->GetRelativeLocation();
@@ -246,7 +230,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		if (currentStates.Contains(PlayerGameState::Ultimate))
 			return;
 
-		if (curSpeed == sprintSpeed && IsGrounded() == true)
+		if (curSpeed > baseSpeed && IsGrounded() == true)
 		{
 			float newBobAmount = bobAmount * 1.5;
 			float newBobSpd = bobSpeed * 1.5;
@@ -269,6 +253,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
 			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+			curSpeed = baseSpeed;
 		}
 	}
 	else
@@ -281,6 +266,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 			deltaTime,
 			5.0f
 		));
+		curSpeed = baseSpeed;
 		currentStates.Remove(PlayerGameState::Walking);
 	}
 }
@@ -304,6 +290,7 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		// Sprinting
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AClassShooterCharacter::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AClassShooterCharacter::StopSprinting);
+		EnhancedInputComponent->BindAction(ShootingAction, ETriggerEvent::Canceled, this, &AClassShooterCharacter::StopSprinting);
 
 		// ADSing
 		EnhancedInputComponent->BindAction(ADSAction, ETriggerEvent::Started, this, &AClassShooterCharacter::ADS);
@@ -352,8 +339,10 @@ void AClassShooterCharacter::Move(const FInputActionValue& Value)
 	{
 		// add movement 
 		//MovementVector.Normalize();
-		AddMovementInput(GetActorForwardVector() * curSpeed, movementVector.Y);
-		AddMovementInput(GetActorRightVector() * curSpeed, movementVector.X);
+		AddMovementInput(GetActorForwardVector() * movementComponent->MaxWalkSpeed, 
+			movementVector.Y);
+		AddMovementInput(GetActorRightVector() * movementComponent->MaxWalkSpeed, 
+			movementVector.X);
 	}
 }
 void AClassShooterCharacter::Jump()
@@ -414,33 +403,34 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		if (isADSing == true)
 		{
-			AddControllerYawInput(LookAxisVector.X * (xSens / 2));
-			AddControllerPitchInput(LookAxisVector.Y * (ySens / 2));
+			AddControllerYawInput(LookAxisVector.X / 2);
+			AddControllerPitchInput(LookAxisVector.Y / 2);
 		}
 		else
 		{
-			AddControllerYawInput(LookAxisVector.X * xSens);
-			AddControllerPitchInput(LookAxisVector.Y * ySens);
+			AddControllerYawInput(LookAxisVector.X);
+			AddControllerPitchInput(LookAxisVector.Y);
 		}
 	}
 }
 void AClassShooterCharacter::Sprint()
 {
-	movementComponent->MaxWalkSpeed = sprintSpeed;
+	curSpeed = baseSpeed * curSpeedMulti;
 	currentStates.Remove(PlayerGameState::Walking);
 	currentStates.AddUnique(PlayerGameState::Sprinting);
 }
 void AClassShooterCharacter::StopSprinting()
 {
-	movementComponent->MaxWalkSpeed = baseSpeed;
+	curSpeed = baseSpeed;
 	currentStates.Remove(PlayerGameState::Sprinting);
 }
 bool AClassShooterCharacter::IsStillSprinting()
 {
-	if (movementVector.Y > 0.0 && movementComponent->MaxWalkSpeed > baseSpeed
+	if (movementVector.Y > 0.0 && curSpeed > baseSpeed
 		&& IsGrounded() == true)
 		return true;
-	return false;
+	else
+		return false;
 }
 void AClassShooterCharacter::StartCrouch()
 {
@@ -553,6 +543,7 @@ void AClassShooterCharacter::ADS()
 	{
 		isADSing = true;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
+		curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
 		ADSCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
@@ -622,6 +613,7 @@ void AClassShooterCharacter::StopADS()
 	{
 		isADSing = false;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone;
+		curWeapon->recoilAmnt = curWeapon->baseRecoilAmnt;
 		ShowCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
@@ -659,7 +651,10 @@ void AClassShooterCharacter::StartShooting()
 void AClassShooterCharacter::StopShooting()
 {
 	if (curWeapon && curWeapon->isAutomatic)
+	{
 		GetWorldTimerManager().ClearTimer(curWeapon->fireTimer);
+		curWeapon->isFiring = false;
+	}
 }
 void AClassShooterCharacter::Shoot()
 {
@@ -696,8 +691,6 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, int pos)
 
 		if(pos >= 0)
 			weaponArray[pos] = weaponCopy;
-
-		BindDelegate();
 
 		if (weapon->isWeaponDrop == true)
 		{
@@ -944,17 +937,7 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 
 
 //Reload and Recoil
-void AClassShooterCharacter::Recoil()
-{
-	FRotator targetRotationCopy = GetControlRotation();
 
-	targetRotationCopy.Yaw += FMath::FRandRange(curWeapon->minHorRecoilAmnt, curWeapon->maxHorRecoilAmnt);
-	targetRotationCopy.Pitch += FMath::FRandRange(curWeapon->minVertRecoilAmnt, curWeapon->maxVertRecoilAmnt);
-	targetRotation = targetRotationCopy;
-	curWeapon->curCamLoc = curCamLocation;
-	curWeapon->curCamRot = targetRotation;
-	recoilLerp = true;
-}
 void AClassShooterCharacter::Reload()
 {
 	if (curWeapon)
@@ -963,11 +946,24 @@ void AClassShooterCharacter::Reload()
 		curWeapon->Reload();
 	}
 }
-void AClassShooterCharacter::BindDelegate()
+void AClassShooterCharacter::ProceduralRecoil(float multiplier)
 {
-	//bind delegate event 
-	if (curWeapon)
-		curWeapon->recoilDel.AddDynamic(this, &AClassShooterCharacter::Recoil);
+	FRotator recoilRotation;
+	FVector recoilLocation;
+	float localMultiplier = multiplier;
+
+	recoilRotation.Roll = localMultiplier * FMath::FRandRange(-2.5f, -5.0f);
+	recoilRotation.Pitch = localMultiplier * FMath::FRandRange(-0.8f, 0.8f);
+	recoilRotation.Yaw = localMultiplier * FMath::FRandRange(-1.6f, 1.6f);
+
+	recoilTransform.SetRotation(recoilRotation.Quaternion());
+	recoilTransform.SetLocation(recoilLocation);
+
+	recoilLocation.X = localMultiplier * FMath::FRandRange(-1.1f, -2.1f);
+	recoilLocation.Y = localMultiplier * FMath::FRandRange(-.16f, -16);
+	recoilLocation.Z = localMultiplier * FMath::FRandRange(0.0f, 0.0f);
+
+	recoilTransform.SetLocation(recoilLocation);
 }
 
 //Dropping weapons
@@ -1124,24 +1120,8 @@ void AClassShooterCharacter::RestoreCurWeapons()
 	{
 		if (backupWeaponArray[i])
 		{
-			/*FActorSpawnParameters SpawnParams;
-			SpawnParams.Owner = this;
-			SpawnParams.Instigator = GetInstigator();
-
-			weaponWorldObj = backupWeaponArray[i]->GetClass();
-
-			FVector spawnLoc = GetActorLocation();
-			FRotator spawnRot = GetActorRotation();
-
-			weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
-				spawnRot, SpawnParams);*/
-
 			backupWeaponArray[i]->state = WeaponState::OutOfInventory;
-			//backupWeaponArray[i]->isWeaponDrop = true;
 			PickupWeapon(backupWeaponArray[i]);
-			//weaponCopy->state = WeaponState::OutOfInventory;
-			//weaponCopy->isWeaponDrop = true;
-			//PickupWeapon(weaponCopy);
 		}
 	}
 	for (int i = 0; i < weaponArray.Num(); i++)

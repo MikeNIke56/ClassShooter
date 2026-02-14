@@ -31,6 +31,7 @@ void AWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
 	curBulletCone = baseBulletCone;
+	recoilAmnt = baseRecoilAmnt;
 }
 
 // Called every frame
@@ -58,6 +59,7 @@ void AWeaponBase::Fire()
 
 
 			weaponMesh->PlayAnimation(fireAnim, false);
+			isFiring = true;
 
 			// fire offset values
 			FVector fireOffsetForwardVector = curCamRot.Vector();
@@ -120,7 +122,6 @@ void AWeaponBase::Fire()
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 			shotTimer = 0.0;
 			ammoToRefill++;
-			recoilDel.Broadcast();
 		}
 	}
 }

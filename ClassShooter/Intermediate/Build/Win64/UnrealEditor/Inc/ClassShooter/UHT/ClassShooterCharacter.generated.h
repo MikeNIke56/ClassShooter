@@ -22,7 +22,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execPickupWeapon); \
 	DECLARE_FUNCTION(execADSCurWeapon); \
 	DECLARE_FUNCTION(execShowCurWeapon); \
-	DECLARE_FUNCTION(execBindDelegate);
+	DECLARE_FUNCTION(execProceduralRecoil);
 
 
 #define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_40_INCLASS_NO_PURE_DECLS \
@@ -69,6 +69,9 @@ template<> CLASSSHOOTER_API UClass* StaticClass<class AClassShooterCharacter>();
 	op(PlayerGameState::Sprinting) \
 	op(PlayerGameState::Sliding) \
 	op(PlayerGameState::Jumping) \
+	op(PlayerGameState::ShieldBashing) \
+	op(PlayerGameState::Grappling) \
+	op(PlayerGameState::Dashing) \
 	op(PlayerGameState::Diving) \
 	op(PlayerGameState::Wallrunning) \
 	op(PlayerGameState::Crouching) \

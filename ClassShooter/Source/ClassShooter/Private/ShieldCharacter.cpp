@@ -243,7 +243,7 @@ void AShieldCharacter::StartUltimate()
 		shieldBashCooldown = 1;
 		shieldThrowCooldown = 1;
 		eqippedShield->SetActorRelativeScale3D(eqippedShield->GetActorScale() * 3);
-		speedMulti = 2.5f;
+		curSpeedMulti = 2.5f;
 
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
@@ -265,12 +265,13 @@ void AShieldCharacter::StopUltimate()
 	RestoreCurWeapons();
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
-	speedMulti = 1.3f;
+	curSpeedMulti = baseSpeedMulti;
 	eqippedShield->SetActorTransform(originalShieldTrans);
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{
 			ultimateTriggered = false;
+			currentStates.Remove(PlayerGameState::Ultimate);
 		}), .05f, false);
 }
 

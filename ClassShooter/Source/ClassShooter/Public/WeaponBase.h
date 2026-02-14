@@ -13,8 +13,6 @@
 #include "WeaponBase.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRecoilDelegate);
-
 UENUM(BlueprintType)
 enum class WeaponState : uint8
 {
@@ -81,22 +79,17 @@ public:
 	bool isReloading;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	float curBulletCone;
+	bool isFiring;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	float curBulletCone;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float baseBulletCone;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	float minVertRecoilAmnt;
-
+	float recoilAmnt;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	float maxVertRecoilAmnt;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	float minHorRecoilAmnt;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	float maxHorRecoilAmnt;
+	float baseRecoilAmnt;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FTimerHandle fireTimer;
@@ -110,9 +103,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	WeaponState state;
-
-	UPROPERTY(BlueprintCallable, BlueprintAssignable)
-	FRecoilDelegate recoilDel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FVector shotLocation;

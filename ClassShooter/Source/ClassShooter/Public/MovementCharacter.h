@@ -18,6 +18,8 @@ class CLASSSHOOTER_API AMovementCharacter : public AClassShooterCharacter
 	GENERATED_BODY()
 
 public:
+
+	//grapple variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UCableComponent* cableComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cable")
@@ -31,24 +33,42 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleTime;
 	bool canGrapple;
-	bool isGrappling;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	FTimerHandle grappleTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleSpd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	bool didGrappleAtk;
+	bool grappleAtkLerp;
+	FVector targetGrappleAtkLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleRemainingTime;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AActor> grappleObj;
-
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleAtkDist;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float grappleAtkKnockbackAmnt = 1000;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AActor> grappleObj;
+
+	//dash variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	FTimerHandle dashCooldownTimer;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float curDashCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float baseDashCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float dashDist;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float dashTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	FVector targetDashLocation;
+	bool dashingLerp;
+	bool canDash;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	FTimerHandle dashTimer;
+
+
 
 	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
@@ -63,7 +83,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	TArray<FTransform> recallPositions;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
-	bool canSetPos;
+	bool canSetRecallPos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UParticleSystem* movementVFX;
@@ -138,7 +158,12 @@ protected:
 	virtual void StartAbility1() override;
 	virtual void StopAbility1() override;
 	void Grapple();
-	void GrappleAttack(FVector2D dir);
+	void GrappleAttack();
+
+	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
+	virtual void StartAbility2() override;
+	virtual void StopAbility2() override;
+	void Dash();
 
 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
