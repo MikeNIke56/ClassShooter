@@ -90,6 +90,23 @@ void AShieldCharacter::Tick(float deltaTime)
 		if (FVector::Dist(unADSshieldLocation, newLocation) <= .05)
 			shieldUnADSLerp = false;
 	}
+	if (shieldBashLerp == true)
+	{
+		FVector curLocation = GetActorLocation();
+		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetShieldBashLocation,
+			deltaTime, 2400);
+		SetActorLocation(newLocation, true);
+
+		movementComponent->Velocity = FVector::ZeroVector;
+
+		if (FVector::Dist(targetShieldBashLocation, newLocation) <= 5)
+		{
+			shieldBashLerp = false;
+			GetController()->SetIgnoreMoveInput(false);
+			currentStates.Remove(PlayerGameState::ShieldBashing);
+			movementComponent->SetMovementMode(prevMoveMode);
+		}
+	}
 
 	baseShieldBashRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(shieldBashTimer);
@@ -165,9 +182,50 @@ void AShieldCharacter::ShieldBash()
 		true  // Auto destroy
 	);
 
-	movementComponent->GroundFriction = 0.0;
-	movementComponent->BrakingDecelerationWalking = 1400;
-	movementComponent->AddImpulse(GetActorForwardVector() * shieldBashDist, true);
+	currentStates.AddUnique(PlayerGameState::ShieldBashing);
+	FVector fireStartLocation = GetActorLocation();
+	FVector fireEndLocation = fireStartLocation + (GetActorForwardVector() * shieldBashDist);
+
+	// Line trace settings
+	FHitResult hitResult;
+	FCollisionQueryParams collisionParams;
+	collisionParams.AddIgnoredActor(this); // Ignore self
+	collisionParams.AddIgnoredActor(eqippedShield); //ignore shield
+	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+	{
+		collisionParams.AddIgnoredActor(OwnerPawn);
+	}
+
+	// Define Object Types to Trace (e.g., Physics Bodies)
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	// Perform the trace
+	bool bHit = GetWorld()->LineTraceSingleByObjectType(
+		hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
+
+	// Draw debug line (visible for 1 second)
+	DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
+
+	AActor* hitActor = hitResult.GetActor();
+	// Check if we hit something
+	if (bHit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("hit smth"));
+		float bufferDist = hitResult.Distance - 10;
+		targetShieldBashLocation = fireStartLocation + (GetActorForwardVector() * bufferDist);
+	}
+	else
+		targetShieldBashLocation = fireEndLocation;
+
+	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+	prevMoveMode = movementComponent->MovementMode;
+	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
+	GetController()->SetIgnoreMoveInput(true);
+	shieldBashLerp = true;
 
 	FTimerHandle DelayTimerHandle1;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -181,7 +239,7 @@ void AShieldCharacter::ShieldBash()
 		{
 			isShieldBashHBOn = false;
 			shieldBashHitDetected = false;
-		}), 1.0f, false);
+		}), .75f, false);
 }
 
 void AShieldCharacter::StartAbility2()

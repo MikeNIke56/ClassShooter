@@ -257,6 +257,10 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isProjectile_MetaData[] = {
+		{ "Category", "Weapon Variables" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isShield_MetaData[] = {
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
@@ -372,6 +376,8 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 	static const UECodeGen_Private::FNamePropertyParams NewProp_name;
 	static void NewProp_isAutomatic_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isAutomatic;
+	static void NewProp_isProjectile_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isProjectile;
 	static void NewProp_isShield_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isShield;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_fireRate;
@@ -427,6 +433,11 @@ void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic_SetBit(void* Ob
 	((AWeaponBase*)Obj)->isAutomatic = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic = { "isAutomatic", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AWeaponBase), &Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isAutomatic_MetaData), NewProp_isAutomatic_MetaData) };
+void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isProjectile_SetBit(void* Obj)
+{
+	((AWeaponBase*)Obj)->isProjectile = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_isProjectile = { "isProjectile", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AWeaponBase), &Z_Construct_UClass_AWeaponBase_Statics::NewProp_isProjectile_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isProjectile_MetaData), NewProp_isProjectile_MetaData) };
 void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield_SetBit(void* Obj)
 {
 	((AWeaponBase*)Obj)->isShield = 1;
@@ -480,6 +491,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireOffset,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_isAutomatic,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_isProjectile,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_isShield,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_shotTimer,
@@ -551,10 +563,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 2491193135U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 3876586758U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_741075546(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_1505925197(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));

@@ -31,6 +31,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	UArrowComponent* shieldThrowLoc;
 
+	//shield bash variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle shieldBashTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
@@ -41,7 +42,11 @@ public:
 	float baseShieldBashCooldown;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	float baseShieldBashRemainingTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	FVector targetShieldBashLocation;
+	bool shieldBashLerp;
 
+	//shield throw variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")
 	FTimerHandle shieldThrowTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shield Class Base Values")

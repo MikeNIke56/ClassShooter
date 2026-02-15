@@ -83,10 +83,10 @@ ASniperRifle::~ASniperRifle() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_SniperRifle_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASniperRifle, ASniperRifle::StaticClass, TEXT("ASniperRifle"), &Z_Registration_Info_UClass_ASniperRifle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASniperRifle), 996179587U) },
+		{ Z_Construct_UClass_ASniperRifle, ASniperRifle::StaticClass, TEXT("ASniperRifle"), &Z_Registration_Info_UClass_ASniperRifle, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASniperRifle), 1525164595U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_SniperRifle_h_3665722676(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_SniperRifle_h_2339343255(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_SniperRifle_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_SniperRifle_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

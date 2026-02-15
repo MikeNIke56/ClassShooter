@@ -58,7 +58,7 @@ void AWeaponBase::Fire()
 			}
 
 
-			weaponMesh->PlayAnimation(fireAnim, false);
+			//weaponMesh->PlayAnimation(fireAnim, false);
 			isFiring = true;
 
 			// fire offset values
@@ -112,8 +112,11 @@ void AWeaponBase::Fire()
 					if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
 					{
 						IDamageable* Damageable = Cast<IDamageable>(hitActor);
+
 						if (Damageable)
-							Damageable->HandleTakeCustomDamage_Implementation(damage);
+							if (!isProjectile)
+								Damageable->HandleTakeCustomDamage_Implementation(
+									CalcDamageFalloff(hitResult.Distance));
 					}
 				}
 			}
@@ -144,7 +147,9 @@ void AWeaponBase::Reload()
 			{
 				canFire = false;
 				isReloading = true;
-				weaponMesh->PlayAnimation(reloadAnim, false);
+				//weaponMesh->PlayAnimation(reloadAnim, false);
+
+				weaponMesh->SetRelativeRotation(FRotator(-90,0,0));
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);
@@ -206,5 +211,17 @@ FRotator AWeaponBase::BulletSpread(const FVector& muzzDir, const float maxAngle)
 {
 	FVector randInCone = FMath::VRandCone(muzzDir, maxAngle);
 	return FRotationMatrix::MakeFromX(randInCone).Rotator();
+}
+
+float AWeaponBase::CalcDamageFalloff(const float impactDist)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%f"), impactDist);
+	if (impactDist < range / 2.0f)
+		return damage;
+	else if (impactDist > range * .75f)
+		return damage / 4.0f;
+	else if (impactDist > range / 2.0f)
+		return damage / 2.0f;
+	return damage;
 }
 

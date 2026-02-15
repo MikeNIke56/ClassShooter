@@ -150,7 +150,11 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		weaponLocation->SetRelativeLocation(newLocation);
 
 		if (FVector::Dist(targetLocation, newLocation) <= .05)
+		{
 			ADSLerp = false;
+			curWeapon->weaponMesh->SetRelativeRotation(FRotator(0,0,0));
+		}
+		
 	}
 	if (startFovChange == true)
 	{
@@ -544,6 +548,7 @@ void AClassShooterCharacter::ADS()
 		isADSing = true;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
 		curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
+		curWeapon->weaponMesh->SetRelativeRotation(FRotator(0, 0, 0));
 		ADSCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
@@ -717,6 +722,10 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 		{
 			targetLocation = FVector(65.0, -14.0, -30.0);
 		}
+		else if (weapon->name == "SMG")
+		{
+			targetLocation = FVector(65.0, -14.0, -30.0);
+		}
 		else if (weapon->name == "Sniper")
 		{
 			targetLocation = FVector(60.0, -14.0, -30.0);
@@ -773,14 +782,18 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 		{
 			targetLocation = FVector(20.0, 0.0, -19.5);
 		}
+		else if (weapon->name == "SMG")
+		{
+			targetLocation = FVector(20.0, 0.0, -19.5);
+		}
 		else if (weapon->name == "Sniper")
 		{
 			targetLocation = FVector(12.7, 0.0, -21.5);
 		}
-		else if (weapon->name == "GL")
-		{
-			targetLocation = FVector(12.7, 0.0, -23.5);
-		}
+		//else if (weapon->name == "GL")
+		//{
+		//	targetLocation = FVector(12.7, 0.0, -23.5);
+		//}
 		else if (weapon->name == "RPG")
 		{
 			targetLocation = FVector(33.2, 0.0, -25.5);

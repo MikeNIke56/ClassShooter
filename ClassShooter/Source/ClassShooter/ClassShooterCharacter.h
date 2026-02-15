@@ -93,6 +93,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	TArray<PlayerGameState> currentStates;
 
+	EMovementMode prevMoveMode;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* bodyMesh;
 

@@ -16,7 +16,7 @@ void AGrenadeLauncher::Fire()
 			GetWorldTimerManager().SetTimer(fireTimer, this,
 				&AWeaponBase::CanFireAgain, fireRate, false);
 
-			weaponMesh->PlayAnimation(fireAnim, false);
+			//weaponMesh->PlayAnimation(fireAnim, false);
 
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
@@ -27,15 +27,8 @@ void AGrenadeLauncher::Fire()
 			FVector fireOffsetForwardVector = fireOffset->GetForwardVector();
 			FVector fireOffsetLocation = fireOffset->GetComponentLocation();
 
-
-			FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
-			bulletSpread.Pitch += 4;
-			bulletSpread.Yaw += 3;
-
-			FVector fireEndLocation = shotLocation + (bulletSpread.Vector() * range);
-
 			AActor* projectileCopy = GetWorld()->SpawnActor<AActor>(projectile, fireOffsetLocation,
-				bulletSpread, SpawnParams);
+				fireOffset->GetRelativeRotation(), SpawnParams);
 
 			curAmmo -= 1;
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);

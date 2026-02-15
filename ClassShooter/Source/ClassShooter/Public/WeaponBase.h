@@ -42,6 +42,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool isAutomatic;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	bool isProjectile;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool isShield;
@@ -151,6 +153,7 @@ public:
 	void RestoreWeaponDefaults();
 
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);
+	float CalcDamageFalloff(const float impactDist);
 
 protected:
 	// Called when the game starts or when spawned

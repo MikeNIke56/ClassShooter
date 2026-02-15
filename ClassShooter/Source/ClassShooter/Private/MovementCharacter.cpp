@@ -59,9 +59,6 @@ void AMovementCharacter::Tick(float deltaTime)
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 
-	//if(didGrappleAtk == true)
-		//GrappleAttack(movementVector);
-
 	if(this && canWallRun == true)
 		WallRunUpdate();
 
@@ -127,8 +124,8 @@ void AMovementCharacter::Tick(float deltaTime)
 	if (dashingLerp == true)
 	{
 		FVector curLocation = GetActorLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, targetDashLocation,
-			deltaTime, 12);
+		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetDashLocation,
+			deltaTime, 2400);
 		SetActorLocation(newLocation, true);
 
 		movementComponent->Velocity = FVector::ZeroVector;
@@ -136,24 +133,26 @@ void AMovementCharacter::Tick(float deltaTime)
 		if (FVector::Dist(targetDashLocation, newLocation) <= 5)
 		{
 			dashingLerp = false;
+			GetController()->SetIgnoreMoveInput(false);
 			currentStates.Remove(PlayerGameState::Dashing);
-			movementComponent->SetMovementMode(EMovementMode::MOVE_Falling);
+			movementComponent->SetMovementMode(prevMoveMode);
 		}
 	}
 	if (grappleAtkLerp == true)
 	{
 		FVector curLocation = GetActorLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, targetGrappleAtkLocation,
-			deltaTime, 5);
-		SetActorLocation(newLocation, true);
+		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetGrappleAtkLocation,
+			deltaTime, 1900);
+		SetActorLocation(newLocation);
 
-		movementComponent->Velocity = FVector::ZeroVector;
+		movementComponent->Velocity = FVector::ZeroVector;	
 
 		if (FVector::Dist(targetGrappleAtkLocation, newLocation) <= 5)
 		{
 			grappleAtkLerp = false;
+			GetController()->SetIgnoreMoveInput(false);
 			currentStates.Remove(PlayerGameState::Grappling);
-			movementComponent->SetMovementMode(EMovementMode::MOVE_Falling);
+			movementComponent->SetMovementMode(prevMoveMode);
 		}
 	}
 
@@ -218,6 +217,7 @@ void AMovementCharacter::StopAbility1()
 }
 void AMovementCharacter::GrappleAttack()
 {
+	currentStates.AddUnique(PlayerGameState::Dashing);
 	didGrappleAtk = true;
 	isGrappleAtkHBOn = true;
 	movementVector = FVector2D::ZeroVector;
@@ -263,8 +263,10 @@ void AMovementCharacter::GrappleAttack()
 	else
 		targetGrappleAtkLocation = fireEndLocation;
 
-	movementComponent->StopMovementImmediately();
+	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+	prevMoveMode = movementComponent->MovementMode;
 	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
+	GetController()->SetIgnoreMoveInput(true);
 	grappleAtkLerp = true;
 
 	FTimerHandle DelayTimerHandle1;
@@ -278,7 +280,7 @@ void AMovementCharacter::GrappleAttack()
 			isGrappleAtkHBOn = false;
 			grappleAtkHitDetected = false;
 			currentStates.Remove(PlayerGameState::Grappling);
-		}), 1.25f, false);
+		}), 1.0f, false);
 }
 void AMovementCharacter::Grapple()
 {
@@ -389,7 +391,9 @@ void AMovementCharacter::Dash()
 		targetDashLocation = fireEndLocation;
 
 	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+	prevMoveMode = movementComponent->MovementMode;
 	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
+	GetController()->SetIgnoreMoveInput(true);
 	dashingLerp = true;
 }
 

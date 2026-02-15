@@ -13,7 +13,7 @@ void AShotgun::Fire()
 		GetWorldTimerManager().SetTimer(fireTimer, this,
 			&AWeaponBase::CanFireAgain, fireRate, false);
 
-		weaponMesh->PlayAnimation(fireAnim, false);
+		//weaponMesh->PlayAnimation(fireAnim, false);
 
 		for (int i = 0; i < maxAmmo; i++)
 		{
