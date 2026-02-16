@@ -147,9 +147,7 @@ void AWeaponBase::Reload()
 			{
 				canFire = false;
 				isReloading = true;
-				//weaponMesh->PlayAnimation(reloadAnim, false);
-
-				weaponMesh->SetRelativeRotation(FRotator(-90,0,0));
+				weaponMesh->SetRelativeRotation(FRotator(0,90,0));
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);

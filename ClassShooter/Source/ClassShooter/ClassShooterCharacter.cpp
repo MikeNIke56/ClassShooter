@@ -193,8 +193,11 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		}
 	}
 
-	curCamLocation = FirstPersonCameraComponent->GetComponentLocation();
-	curCamRotation = FirstPersonCameraComponent->GetComponentRotation();
+	if (curWeapon)
+	{
+		curWeapon->curCamLoc = FirstPersonCameraComponent->GetComponentLocation();
+		curWeapon->curCamRot = FirstPersonCameraComponent->GetComponentRotation();
+	}
 
 	if (movementComponent->Velocity.Length() > 0.1f)
 	{
@@ -513,12 +516,12 @@ void AClassShooterCharacter::ADS()
 	if (curWeapon)
 	{
 		isADSing = true;
-		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
+		curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
 
 		if(curWeapon->name != "Sniper")
-			curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
+			curWeapon->curBulletCone = curWeapon->baseBulletCone / 5;
 		else
-			curWeapon->recoilAmnt = 0;
+			curWeapon->curBulletCone = 0;
 
 		curWeapon->weaponMesh->SetRelativeRotation(FRotator(0, 0, 0));
 		ADSCurWeapon(curWeapon);
@@ -552,9 +555,6 @@ void AClassShooterCharacter::StartShooting()
 {
 	if (curWeapon && curWeapon->state == WeaponState::Equipped)
 	{
-		curWeapon->curCamLoc = curCamLocation;
-		curWeapon->curCamRot = curCamRotation;
-
 		if (curWeapon->name == "Knife")
 			Melee();
 		else
