@@ -123,6 +123,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool isWeaponDrop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	FVector weaponUnADSLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	FVector weaponADSLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	float weaponADSFOV;
 	
 public:	
 	// Sets default values for this actor's properties

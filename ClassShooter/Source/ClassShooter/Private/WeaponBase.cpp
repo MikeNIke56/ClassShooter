@@ -215,7 +215,7 @@ FRotator AWeaponBase::BulletSpread(const FVector& muzzDir, const float maxAngle)
 
 float AWeaponBase::CalcDamageFalloff(const float impactDist)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%f"), impactDist);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), impactDist);
 	if (impactDist < range / 2.0f)
 		return damage;
 	else if (impactDist > range * .75f)

@@ -160,20 +160,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	FTransform recoil;
 
-
-	//sniper blueprint widgets
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	TSubclassOf<UUserWidget> unADSWidgetClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	UUserWidget* unADSWidget;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	TSubclassOf<UUserWidget> sniperWidgetClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-	UUserWidget* sniperWidget;
-
 	float baseFov;
 	float targetFov;
 	bool startFovChange;

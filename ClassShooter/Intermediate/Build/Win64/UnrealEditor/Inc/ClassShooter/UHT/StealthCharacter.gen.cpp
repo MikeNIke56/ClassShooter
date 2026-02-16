@@ -373,10 +373,10 @@ AStealthCharacter::~AStealthCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 64328551U) },
+		{ Z_Construct_UClass_AStealthCharacter, AStealthCharacter::StaticClass, TEXT("AStealthCharacter"), &Z_Registration_Info_UClass_AStealthCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AStealthCharacter), 2529466000U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_2090724352(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_736447127(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

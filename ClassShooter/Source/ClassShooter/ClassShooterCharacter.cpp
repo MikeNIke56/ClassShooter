@@ -49,18 +49,6 @@ AClassShooterCharacter::AClassShooterCharacter()
 	baseFov = FirstPersonCameraComponent->FieldOfView;
 	isMeleeHBOn = false;
 	knifeHitDetected = false;
-
-	static ConstructorHelpers::FClassFinder<UUserWidget> SniperFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/SniperADSUI.SniperADSUI_C'"));
-	if (SniperFinder.Succeeded())
-	{
-		sniperWidgetClass = SniperFinder.Class;
-	}
-
-	static ConstructorHelpers::FClassFinder<UUserWidget> unADSFinder(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ClassShooterAssets/Blueprints/UI/UnADSCrosshairUI.UnADSCrosshairUI_C'"));
-	if (unADSFinder.Succeeded())
-	{
-		unADSWidgetClass = unADSFinder.Class;
-	}
 }
 
 
@@ -109,27 +97,6 @@ void AClassShooterCharacter::BeginPlay()
 
 	ultimateTriggered = false;
 
-
-	if (sniperWidgetClass)
-	{
-		sniperWidget = CreateWidget<UUserWidget>(GetWorld(), sniperWidgetClass);
-		if (sniperWidget)
-		{
-			sniperWidget->SetOwningPlayer(PC);
-			sniperWidget->AddToPlayerScreen();
-			sniperWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
-	if (unADSWidgetClass)
-	{
-		unADSWidget = CreateWidget<UUserWidget>(GetWorld(), unADSWidgetClass);
-		if (unADSWidget)
-		{
-			unADSWidget->SetOwningPlayer(PC);
-			unADSWidget->AddToPlayerScreen();
-			unADSWidget->SetVisibility(ESlateVisibility::Visible);
-		}
-	}
 
 	defaultCameraLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
 	UE_LOG(LogTemp, Warning, TEXT("Character is locally controlled: %d"), IsLocallyControlled());
@@ -547,69 +514,23 @@ void AClassShooterCharacter::ADS()
 	{
 		isADSing = true;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone / 4;
-		curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
+
+		if(curWeapon->name != "Sniper")
+			curWeapon->recoilAmnt = curWeapon->recoilAmnt / 4;
+		else
+			curWeapon->recoilAmnt = 0;
+
 		curWeapon->weaponMesh->SetRelativeRotation(FRotator(0, 0, 0));
 		ADSCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("ADSing"));
 
-		if (curWeapon->name == "Sniper")
-		{
-			if (sniperWidget->IsVisible() == false)
-			{
-				int index = 0;
-				APlayerController* PC;
-				if (GetName().Contains("0"))
-					index = 0;
-				else
-					index = 1;
-
-				PC = UGameplayStatics::GetPlayerController(this, index);
-
-				FTimerHandle DelayTimerHandle;
-				GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this, PC]()
-					{
-						sniperWidget->SetOwningPlayer(PC);
-						sniperWidget->AddToPlayerScreen();
-						unADSWidget->SetVisibility(ESlateVisibility::Hidden);
-						sniperWidget->SetVisibility(ESlateVisibility::Visible);
-						curWeapon->weaponMesh->SetVisibility(false, true);
-					}), .25f, false);
-			}
-		}
-
-		if (curWeapon->name == "Pistol")
-		{
-			targetFov = 75;
-			startFovChange = true;
-		}
-		else if (curWeapon->name == "Shotgun")
-		{
-			targetFov = 80;
-			startFovChange = true;
-		}
-		else if (curWeapon->name == "AR")
-		{
-			targetFov = 50;
-			startFovChange = true;
-		}
-		else if (curWeapon->name == "Sniper")
-		{
-			targetFov = 30;
-			startFovChange = true;
-		}
-		else if (curWeapon->name == "GL")
-		{
-			targetFov = baseFov;
-			startFovChange = true;
-		}
-		else if (curWeapon->name == "RPG")
-		{
-			targetFov = baseFov;
-			startFovChange = true;
-		}
+		if (curWeapon->name != "Knife" && curWeapon->name != "GL" && curWeapon->name != "RPG")
+			targetFov = curWeapon->weaponADSFOV;
 		else
-			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
+			targetFov = baseFov;
+
+		startFovChange = true;
 	}
 }
 void AClassShooterCharacter::StopADS()
@@ -622,19 +543,6 @@ void AClassShooterCharacter::StopADS()
 		ShowCurWeapon(curWeapon);
 		ADSLerp = true;
 		UE_LOG(LogTemp, Warning, TEXT("stop ADSing"));
-
-		if (curWeapon->name == "Sniper")
-		{
-			if (sniperWidget->IsVisible() == true)
-			{
-				APlayerController* PC = GetWorld()->GetFirstPlayerController();
-				sniperWidget->SetOwningPlayer(PC);
-				unADSWidget->SetVisibility(ESlateVisibility::Visible);
-				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
-				sniperWidget->RemoveFromParent();
-				curWeapon->weaponMesh->SetVisibility(true, true);
-			}
-		}
 
 		targetFov = baseFov;
 		startFovChange = true;
@@ -710,41 +618,7 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
 	{
-		if (weapon->name == "Pistol")
-		{
-			targetLocation = FVector(100.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "Shotgun")
-		{
-			targetLocation = FVector(85.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "AR")
-		{
-			targetLocation = FVector(65.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "SMG")
-		{
-			targetLocation = FVector(65.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "Sniper")
-		{
-			targetLocation = FVector(60.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "GL")
-		{
-			targetLocation = FVector(70.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "RPG")
-		{
-			targetLocation = FVector(50.0, -14.0, -30.0);
-		}
-		else if (weapon->name == "Knife")
-		{
-			targetLocation = FVector(80.0, -14.0, -30.0);
-		}
-		else
-			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
-
+		targetLocation = weapon->weaponUnADSLocation;
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 		weapon->AttachToComponent(weaponLocation, AttachRules);
 		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
@@ -768,42 +642,8 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 
 	if (weapon)
 	{
-		FVector newWeaponPos;
-
-		if (weapon->name == "Pistol")
-		{
-			targetLocation = FVector(25.0, 0.0, -19.5);
-		}
-		else if (weapon->name == "Shotgun")
-		{
-			targetLocation = FVector(0.0, 0.0, -19.5);
-		}
-		else if (weapon->name == "AR")
-		{
-			targetLocation = FVector(20.0, 0.0, -19.5);
-		}
-		else if (weapon->name == "SMG")
-		{
-			targetLocation = FVector(20.0, 0.0, -19.5);
-		}
-		else if (weapon->name == "Sniper")
-		{
-			targetLocation = FVector(12.7, 0.0, -21.5);
-		}
-		//else if (weapon->name == "GL")
-		//{
-		//	targetLocation = FVector(12.7, 0.0, -23.5);
-		//}
-		else if (weapon->name == "RPG")
-		{
-			targetLocation = FVector(33.2, 0.0, -25.5);
-		}
-		else if (weapon->name == "Knife")
-		{
-			targetLocation = targetLocation;
-		}
-		else
-			UE_LOG(LogTemp, Warning, TEXT("invalid weapon"));
+		if (weapon->name != "Knife" && weapon->name != "GL")
+			targetLocation = weapon->weaponADSLocation;
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));;
@@ -879,12 +719,6 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 
 		if (numWeapons > 1)
 		{
-			if (curWeapon->name == "Sniper")
-			{
-				sniperWidget->SetVisibility(ESlateVisibility::Hidden);
-				curWeapon->weaponMesh->SetVisibility(true, true);
-			}
-
 			isSwitchingAfterPickup = true;
 			int origPos = pos;
 

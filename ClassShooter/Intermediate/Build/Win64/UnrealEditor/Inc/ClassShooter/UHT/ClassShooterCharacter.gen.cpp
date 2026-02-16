@@ -28,7 +28,6 @@ ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UScriptStruct* Z_Construct_UScriptStruct_FInputActionValue();
-UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
@@ -666,30 +665,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Gun Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_unADSWidgetClass_MetaData[] = {
-		{ "Category", "UI" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//sniper blueprint widgets\n" },
-#endif
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "sniper blueprint widgets" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_unADSWidget_MetaData[] = {
-		{ "Category", "UI" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_sniperWidgetClass_MetaData[] = {
-		{ "Category", "UI" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_sniperWidget_MetaData[] = {
-		{ "Category", "UI" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_weaponWorldObj_MetaData[] = {
 		{ "Category", "ClassShooterCharacter" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
@@ -863,10 +838,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_handSwayRotator;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_recoilTransform;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_recoil;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_unADSWidgetClass;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_unADSWidget;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_sniperWidgetClass;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_sniperWidget;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_weaponWorldObj;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_knifeSwingLocations_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_knifeSwingLocations;
@@ -966,10 +937,6 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCh
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_handSwayRotator = { "handSwayRotator", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, handSwayRotator), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_handSwayRotator_MetaData), NewProp_handSwayRotator_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_recoilTransform = { "recoilTransform", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, recoilTransform), Z_Construct_UScriptStruct_FTransform, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_recoilTransform_MetaData), NewProp_recoilTransform_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_recoil = { "recoil", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, recoil), Z_Construct_UScriptStruct_FTransform, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_recoil_MetaData), NewProp_recoil_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_unADSWidgetClass = { "unADSWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, unADSWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_unADSWidgetClass_MetaData), NewProp_unADSWidgetClass_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_unADSWidget = { "unADSWidget", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, unADSWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_unADSWidget_MetaData), NewProp_unADSWidget_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_sniperWidgetClass = { "sniperWidgetClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, sniperWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_sniperWidgetClass_MetaData), NewProp_sniperWidgetClass_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_sniperWidget = { "sniperWidget", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, sniperWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_sniperWidget_MetaData), NewProp_sniperWidget_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponWorldObj = { "weaponWorldObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, weaponWorldObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponWorldObj_MetaData), NewProp_weaponWorldObj_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_knifeSwingLocations_Inner = { "knifeSwingLocations", nullptr, (EPropertyFlags)0x0000000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UArrowComponent_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_knifeSwingLocations = { "knifeSwingLocations", nullptr, (EPropertyFlags)0x001000800000000d, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, knifeSwingLocations), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_knifeSwingLocations_MetaData), NewProp_knifeSwingLocations_MetaData) };
@@ -1083,10 +1050,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_handSwayRotator,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_recoilTransform,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_recoil,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_unADSWidgetClass,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_unADSWidget,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_sniperWidgetClass,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_sniperWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponWorldObj,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_knifeSwingLocations_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_knifeSwingLocations,
@@ -1165,10 +1128,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2483051010U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2380169444U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_243630908(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_501929364(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));
