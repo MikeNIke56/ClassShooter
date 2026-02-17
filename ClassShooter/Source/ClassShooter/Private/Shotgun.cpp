@@ -69,8 +69,15 @@ void AShotgun::Fire()
 					if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
 					{
 						IDamageable* Damageable = Cast<IDamageable>(hitActor);
+
 						if (Damageable)
-							Damageable->HandleTakeCustomDamage_Implementation(damage);
+						{
+							if (!isProjectile)
+							{
+								float dmg = CalcDamageFalloff(hitResult.Distance);
+								Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
+							}
+						}
 					}
 				}
 			}

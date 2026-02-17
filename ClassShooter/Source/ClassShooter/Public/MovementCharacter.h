@@ -67,6 +67,8 @@ public:
 	bool canDash;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	FTimerHandle dashTimer;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
+	float dashRemainingTime;
 
 
 

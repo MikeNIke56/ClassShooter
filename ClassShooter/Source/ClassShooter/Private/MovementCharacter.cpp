@@ -158,6 +158,8 @@ void AMovementCharacter::Tick(float deltaTime)
 
 	grappleRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(grappleCooldownTimer);
+	dashRemainingTime = GetWorld()->
+		GetTimerManager().GetTimerRemaining(dashCooldownTimer);
 	ultRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(ultTimer);	
 }
@@ -328,19 +330,17 @@ void AMovementCharacter::Grapple()
 
 void AMovementCharacter::StartAbility2()
 {
-	Dash();
-	/*
-	* if (GetWorld()->GetTimerManager().IsTimerActive(dashTimer) == false &&
+	if (GetWorld()->GetTimerManager().IsTimerActive(dashTimer) == false &&
 		!currentStates.Contains(PlayerGameState::Dashing) &&
 		!currentStates.Contains(PlayerGameState::Wallrunning) &&
 		canDash == true)
 	{
+		canDash = false;
 		GetWorldTimerManager().SetTimer(dashTimer, this,
-			&AMovementCharacter::StopAbility1, dashTime, false);
+			&AMovementCharacter::StopAbility2, dashTime, false);
 
 		Dash();
 	}
-	*/
 }
 void AMovementCharacter::StopAbility2()
 {

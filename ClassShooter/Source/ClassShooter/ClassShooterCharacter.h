@@ -236,6 +236,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool deathTriggered;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool didCauseDmg;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool didGetKill;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool triggerScreenDmgEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	bool triggerDmgPopUp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	float dmgPopUpAmnt;
 
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();
@@ -340,8 +350,8 @@ protected:
 	void Melee();
 
 	//Damage and death
-	void HandleTakeCustomDamage_Implementation(float DamageAmount) override;
-	void TakeCustomDamage(float DamageAmount);
+	void HandleTakeCustomDamage_Implementation(float damage, AActor* source);
+	void TakeCustomDamage(float DamageAmount, AActor* source);
 
 
 public:

@@ -114,9 +114,13 @@ void AWeaponBase::Fire()
 						IDamageable* Damageable = Cast<IDamageable>(hitActor);
 
 						if (Damageable)
+						{
 							if (!isProjectile)
-								Damageable->HandleTakeCustomDamage_Implementation(
-									CalcDamageFalloff(hitResult.Distance));
+							{
+								float dmg = CalcDamageFalloff(hitResult.Distance);
+								Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
+							}
+						}	
 					}
 				}
 			}

@@ -127,7 +127,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FVector weaponUnADSLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	FVector weaponADSLocation;
+	FVector weaponADSStandingLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	FVector weaponADSCrouchedLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float weaponADSFOV;
 	

@@ -9,13 +9,14 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
 #ifdef CLASSSHOOTER_Damageable_generated_h
 #error "Damageable.generated.h already included, missing '#pragma once' in Damageable.h"
 #endif
 #define CLASSSHOOTER_Damageable_generated_h
 
 #define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	virtual void HandleTakeCustomDamage_Implementation(float Amount) {}; \
+	virtual void HandleTakeCustomDamage_Implementation(float Amount, AActor* source) {}; \
 	DECLARE_FUNCTION(execHandleTakeCustomDamage);
 
 
@@ -57,7 +58,7 @@ protected: \
 public: \
 	typedef UDamageable UClassType; \
 	typedef IDamageable ThisClass; \
-	static void Execute_HandleTakeCustomDamage(UObject* O, float Amount); \
+	static void Execute_HandleTakeCustomDamage(UObject* O, float Amount, AActor* source); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 

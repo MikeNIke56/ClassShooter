@@ -201,8 +201,8 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 	if (movementComponent->Velocity.Length() > 0.1f)
 	{
-		if (currentStates.Contains(PlayerGameState::Ultimate))
-			return;
+		//if (currentStates.Contains(PlayerGameState::Ultimate))
+			//return;
 
 		if (curSpeed > baseSpeed && IsGrounded() == true)
 		{
@@ -215,6 +215,14 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
 			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+
+			/*
+			* if (FirstPersonCameraComponent->FieldOfView > 89.5)
+			{
+				targetFov = 75;
+				startFovChange = true;
+			}
+			*/
 		}
 		else if (curSpeed == baseSpeed && IsGrounded() == true)
 		{
@@ -228,6 +236,14 @@ void AClassShooterCharacter::Tick(float deltaTime)
 			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
 			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
 			curSpeed = baseSpeed;
+
+			/*
+			* if (FirstPersonCameraComponent->FieldOfView < 89.5)
+			{
+				targetFov = 90;
+				startFovChange = true;
+			}
+			*/
 		}
 	}
 	else
@@ -312,7 +328,6 @@ void AClassShooterCharacter::Move(const FInputActionValue& Value)
 		FMath::Abs(movementVector.X) > .1f)
 	{
 		// add movement 
-		//MovementVector.Normalize();
 		AddMovementInput(GetActorForwardVector() * movementComponent->MaxWalkSpeed, 
 			movementVector.Y);
 		AddMovementInput(GetActorRightVector() * movementComponent->MaxWalkSpeed, 
@@ -423,6 +438,12 @@ void AClassShooterCharacter::Crouch()
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
 	movementComponent->MaxWalkSpeed = baseSpeed / 3;
 	currentStates.AddUnique(PlayerGameState::Crouching);
+
+	if (curWeapon && isADSing)
+	{
+		targetLocation = curWeapon->weaponADSCrouchedLocation;
+		ADSLerp = true;
+	}
 }
 void AClassShooterCharacter::StopCrouching()
 {
@@ -430,6 +451,12 @@ void AClassShooterCharacter::StopCrouching()
 
 	if (!isSprinting)
 		movementComponent->MaxWalkSpeed = baseSpeed;
+
+	if (curWeapon && isADSing)
+	{
+		targetLocation = curWeapon->weaponADSStandingLocation;
+		ADSLerp = true;
+	}
 
 	ResetMovement();
 }
@@ -618,7 +645,17 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
 	if (weapon)
 	{
-		targetLocation = weapon->weaponUnADSLocation;
+		if (isADSing)
+		{
+			if (currentStates.Contains(PlayerGameState::Crouching))
+				targetLocation = weapon->weaponADSCrouchedLocation;
+			else
+				targetLocation = weapon->weaponADSStandingLocation;
+		}
+		else
+			targetLocation = weapon->weaponUnADSLocation;
+		
+
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 		weapon->AttachToComponent(weaponLocation, AttachRules);
 		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
@@ -643,7 +680,12 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 	if (weapon)
 	{
 		if (weapon->name != "Knife" && weapon->name != "GL")
-			targetLocation = weapon->weaponADSLocation;
+		{
+			if(currentStates.Contains(PlayerGameState::Crouching))
+				targetLocation = weapon->weaponADSCrouchedLocation;
+			else
+				targetLocation = weapon->weaponADSStandingLocation;
+		}
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));;
@@ -985,19 +1027,28 @@ void AClassShooterCharacter::RestoreCurWeapons()
 
 
 //Damage and death
-void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageAmount)
+void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageAmount, AActor* source)
 {
-	TakeCustomDamage(DamageAmount);
+	TakeCustomDamage(DamageAmount, source);
 }
-void AClassShooterCharacter::TakeCustomDamage(float amount)
+void AClassShooterCharacter::TakeCustomDamage(float amount, AActor* source)
 {
 	curHealth -= amount;
 	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
+
+	AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
 	if (curHealth <= 0.0)
 	{
+		sourceObj->didGetKill = true;
 		currentStates.Empty();
 		currentStates.AddUnique(PlayerGameState::Dying);
 	}
+	else
+		sourceObj->didCauseDmg = true;
+
+	triggerScreenDmgEffect = true;
+	triggerDmgPopUp = true;
+	dmgPopUpAmnt = amount;
 }
 
 
