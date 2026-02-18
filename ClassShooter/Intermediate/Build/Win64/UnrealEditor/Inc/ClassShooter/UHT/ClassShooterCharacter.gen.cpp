@@ -28,6 +28,7 @@ ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 ENHANCEDINPUT_API UScriptStruct* Z_Construct_UScriptStruct_FInputActionValue();
+NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
@@ -804,6 +805,14 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_deathExplosionVFX_MetaData[] = {
+		{ "Category", "Class Base Values" },
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_baseBodyLocation_MetaData[] = {
+		{ "Category", "Class Base Values" },
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_LookAction_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Input" },
@@ -906,6 +915,8 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static void NewProp_triggerDmgPopUp_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_triggerDmgPopUp;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_dmgPopUpAmnt;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_deathExplosionVFX;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_baseBodyLocation;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
@@ -1056,6 +1067,8 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_triggerDmgPopUp_
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_triggerDmgPopUp = { "triggerDmgPopUp", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_triggerDmgPopUp_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_triggerDmgPopUp_MetaData), NewProp_triggerDmgPopUp_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_dmgPopUpAmnt = { "dmgPopUpAmnt", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, dmgPopUpAmnt), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_dmgPopUpAmnt_MetaData), NewProp_dmgPopUpAmnt_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathExplosionVFX = { "deathExplosionVFX", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, deathExplosionVFX), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_deathExplosionVFX_MetaData), NewProp_deathExplosionVFX_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseBodyLocation = { "baseBodyLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, baseBodyLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_baseBodyLocation_MetaData), NewProp_baseBodyLocation_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_LookAction = { "LookAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, LookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LookAction_MetaData), NewProp_LookAction_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassShooterCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Mesh1P,
@@ -1134,6 +1147,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_triggerScreenDmgEffect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_triggerDmgPopUp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_dmgPopUpAmnt,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathExplosionVFX,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseBodyLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_LookAction,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AClassShooterCharacter_Statics::PropPointers) < 2048);
@@ -1183,10 +1198,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 3245161790U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2164480359U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_1999236608(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_2097154736(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));

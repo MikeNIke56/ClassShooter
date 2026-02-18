@@ -616,3 +616,57 @@ void AMovementCharacter::LandEvent()
 	canWallRun = true;
 }
 
+void AMovementCharacter::TakeCustomDamage(float amount, AActor* source)
+{
+	if (deathTriggered == false)
+	{
+		curHealth -= amount;
+		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
+
+		AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
+		if (curHealth <= 0.0)
+		{
+			Jump();
+			sourceObj->didGetKill = true;
+			currentStates.Empty();
+			currentStates.AddUnique(PlayerGameState::Dying);
+			APlayerController* PC = Cast<APlayerController>(GetController());
+			DisableInput(PC);
+			movementComponent->StopMovementImmediately();
+			movementComponent->Velocity = FVector(0, 0, 0);
+			deathTriggered = true;
+			BlockWallRun();
+			StopAbility1();
+			StopAbility2();
+			StopUltimate();
+
+
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+				GetWorld(),
+				deathExplosionVFX,
+				GetActorLocation(),
+				GetActorRotation(),
+				FVector(1, 1, 1),
+				true,
+				true
+			);
+
+			FTimerHandle DelayTimerHandle1;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+				{
+					deathTriggered = false;
+					APlayerController* PC = Cast<APlayerController>(GetController());
+					EnableInput(PC);
+					movementComponent->SetMovementMode(EMovementMode::MOVE_Walking);
+					currentStates.Remove(PlayerGameState::Dying);
+				}), 3.2f, false);
+		}
+		else
+			sourceObj->didCauseDmg = true;
+
+		triggerScreenDmgEffect = true;
+		triggerDmgPopUp = true;
+		dmgPopUpAmnt = amount;
+	}
+}
+

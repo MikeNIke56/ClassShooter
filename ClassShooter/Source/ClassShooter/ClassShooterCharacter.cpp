@@ -49,6 +49,7 @@ AClassShooterCharacter::AClassShooterCharacter()
 	baseFov = FirstPersonCameraComponent->FieldOfView;
 	isMeleeHBOn = false;
 	knifeHitDetected = false;
+	baseBodyLocation = bodyMesh->GetRelativeLocation();
 }
 
 
@@ -1033,22 +1034,55 @@ void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageA
 }
 void AClassShooterCharacter::TakeCustomDamage(float amount, AActor* source)
 {
-	curHealth -= amount;
-	UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
-
-	AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
-	if (curHealth <= 0.0)
+	if (deathTriggered == false)
 	{
-		sourceObj->didGetKill = true;
-		currentStates.Empty();
-		currentStates.AddUnique(PlayerGameState::Dying);
-	}
-	else
-		sourceObj->didCauseDmg = true;
+		curHealth -= amount;
+		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 
-	triggerScreenDmgEffect = true;
-	triggerDmgPopUp = true;
-	dmgPopUpAmnt = amount;
+		AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
+		if (curHealth <= 0.0)
+		{
+			sourceObj->didGetKill = true;
+			currentStates.Empty();
+			currentStates.AddUnique(PlayerGameState::Dying);
+			APlayerController* PC = Cast<APlayerController>(GetController());
+			DisableInput(PC);
+			Jump();
+			movementComponent->StopMovementImmediately();
+			movementComponent->Velocity = FVector(0, 0, 0);
+			deathTriggered = true;
+			StopAbility1();
+			StopAbility2();
+			StopUltimate();
+			
+
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+				GetWorld(),
+				deathExplosionVFX,
+				GetActorLocation(),
+				GetActorRotation(),
+				FVector(1, 1, 1),
+				true,
+				true
+			);
+
+			FTimerHandle DelayTimerHandle1;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+				{
+					deathTriggered = false;
+					APlayerController* PC = Cast<APlayerController>(GetController());
+					EnableInput(PC);
+					movementComponent->SetMovementMode(EMovementMode::MOVE_Walking);
+					currentStates.Remove(PlayerGameState::Dying);
+				}), 3.2f, false);
+		}
+		else
+			sourceObj->didCauseDmg = true;
+
+		triggerScreenDmgEffect = true;
+		triggerDmgPopUp = true;
+		dmgPopUpAmnt = amount;
+	}
 }
 
 

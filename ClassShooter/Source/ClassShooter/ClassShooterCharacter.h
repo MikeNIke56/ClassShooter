@@ -87,6 +87,7 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 	UInputAction* UltimateAction;
 
 public:
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	int controllerID;
 
@@ -98,10 +99,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* bodyMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(ReplicatedUsing = OnRep_Health, EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float curHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float maxHealth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -212,7 +213,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	bool shouldDestroyWeapon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool ultimateTriggered;
 
 	// Headbob parameters
@@ -234,8 +235,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isSwitchingAfterPickup;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool deathTriggered;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool didCauseDmg;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
@@ -246,6 +249,12 @@ public:
 	bool triggerDmgPopUp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float dmgPopUpAmnt;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	UNiagaraSystem* deathExplosionVFX;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
+	FVector baseBodyLocation;
 
 protected:
 	UCharacterMovementComponent* movementComponent = GetCharacterMovement();
@@ -351,7 +360,7 @@ protected:
 
 	//Damage and death
 	void HandleTakeCustomDamage_Implementation(float damage, AActor* source);
-	void TakeCustomDamage(float DamageAmount, AActor* source);
+	virtual void TakeCustomDamage(float DamageAmount, AActor* source);
 
 
 public:

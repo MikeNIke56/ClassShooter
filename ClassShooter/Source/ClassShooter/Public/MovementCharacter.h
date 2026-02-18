@@ -172,4 +172,6 @@ protected:
 	virtual void StartUltimate() override;
 	virtual void StopUltimate() override;
 	virtual void StartShooting() override;
+
+	virtual void TakeCustomDamage(float DamageAmount, AActor* source) override;
 };
