@@ -10,6 +10,7 @@
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include <Damageable.h>
+#include "Net/UnrealNetwork.h" 
 #include "WeaponBase.generated.h"
 
 
@@ -26,7 +27,7 @@ class CLASSSHOOTER_API AWeaponBase : public AActor
 
 public:
 	// Skeletal Mesh Component
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Mesh")
 	USkeletalMeshComponent* weaponMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
@@ -57,62 +58,64 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float reloadTime;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float range;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_curAmmo, Category = "Weapon Variables")
 	int curAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int maxAmmo;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	int ammoToRefill;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	int ammoReserves;
 
 	int maxAmmoReserves;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	bool canFire;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	bool isReloading;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	bool isFiring;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float curBulletCone;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float baseBulletCone;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float recoilAmnt;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float baseRecoilAmnt;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FTimerHandle fireTimer;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FTimerHandle reloadTimer;
 
 	// Capsule Component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Replicated, BlueprintReadOnly, Category = "Components")
 	UCapsuleComponent* interactBox;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_weaponState, Category = "Weapon")
 	WeaponState state;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FVector shotLocation;
 
-	UPROPERTY(EditAnywhere, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, Replicated, Category = "Weapon Variables")
 	UParticleSystem* bulletImpactVFX;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Weapon Variables")
 	FVector curCamLoc;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Weapon Variables")
 	FRotator curCamRot;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon Variables")
@@ -124,11 +127,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	bool isWeaponDrop;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FVector weaponUnADSLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FVector weaponADSStandingLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FVector weaponADSCrouchedLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float weaponADSFOV;
@@ -139,21 +142,46 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	UFUNCTION()
+	void OnRep_weaponState(WeaponState lastState);
+	UFUNCTION()
+	void OnRep_curAmmo();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Fire();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_Fire();
+	bool Server_Fire_Validate();
+	void Server_Fire_Implementation();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void AutoFire();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_AutoFire();
+	bool Server_AutoFire_Validate();
+	void Server_AutoFire_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_Fire(FHitResult hitResult);
+	bool Multi_Fire_Validate(FHitResult hitResult);
+	void Multi_Fire_Implementation(FHitResult hitResult);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Reload();
-
-
-	void CanFireAgain();
-
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_Reload();
+	bool Server_Reload_Validate();
+	void Server_Reload_Implementation();
 
 	void FinishReloading();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_FinishReloading();
+	bool Server_FinishReloading_Validate();
+	void Server_FinishReloading_Implementation();
+
+	void CanFireAgain();
 
 
 	void SetUpWeapon(AWeaponBase* weapon);
@@ -162,6 +190,7 @@ public:
 	void RestoreWeaponDefaults();
 
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);
+
 	float CalcDamageFalloff(const float impactDist);
 
 protected:

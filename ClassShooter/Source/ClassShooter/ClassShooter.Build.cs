@@ -9,6 +9,9 @@ public class ClassShooter : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", 
-            "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "Niagara", "CableComponent" });
+            "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "Niagara", 
+            "CableComponent",  "EngineSettings" });
+
+        PublicDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemSteam" });
     }
 }

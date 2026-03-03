@@ -18,93 +18,149 @@ class CLASSSHOOTER_API AStealthCharacter : public AClassShooterCharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle invisTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float invisLength;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle invisCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float invisCooldown;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	float invisRemainingTime;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle decoyTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float decoyLength;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle decoyCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float decoyCooldown;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	float decoyRemainingTime;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	float decoyDodge;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite)
 	TSubclassOf<AStealthCharacter> decoyObj;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle ultTimer;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	float ultLength;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	FTimerHandle ultCooldownTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	float ultCooldown;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	float ultRemainingTime;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	UParticleSystem* invisVFX;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, Replicated, BlueprintReadWrite, Category = "Stealth Class Base Values")
 	UParticleSystem* decoyVFX;
+	UPROPERTY(Replicated)
 	UParticleSystemComponent* decoyComp;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
-	UParticleSystem* decoyFloatiesVFX;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
+	UNiagaraSystem* decoyFloatiesVFX;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	UMaterialInterface* baseBodyMat;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	UMaterialInterface* invisMat;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stealth Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Stealth Class Base Values")
 	UMaterialInterface* ultimateMat;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	TSubclassOf<AWeaponBase> ultWeaponWorldObj;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	TSubclassOf<AKnife> knifeObj;
 
+	UPROPERTY(Replicated)
 	bool cameraUltLerp;
+	UPROPERTY(Replicated)
 	bool cameraUltLerpBack;
+	UPROPERTY(Replicated)
 	FVector targetUltPos;
+	UPROPERTY(Replicated)
 	bool swingUltLaunch;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	AStealthCharacter* clone;
 
 protected:
 	virtual void Tick(float deltaTime) override;
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	void UpdateCooldownValues();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_UpdateCooldownValues();
+	bool Server_UpdateCooldownValues_Validate();
+	void Server_UpdateCooldownValues_Implementation();
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
 	virtual void StartAbility1() override;
+	virtual void Server_StartAbility1_Implementation() override;
+
 	virtual void StopAbility1() override;
+	virtual void Server_StopAbility1_Implementation() override;
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_Invis(bool isOn);
+	bool Multi_Invis_Validate(bool isOn);
+	void Multi_Invis_Implementation(bool isOn);
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
 	virtual void StartAbility2() override;
+	virtual void Server_StartAbility2_Implementation() override;
+
 	virtual void StopAbility2() override;
+	virtual void Server_StopAbility2_Implementation() override;
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_Decoy(FVector loc, FRotator rot);
+	bool Multi_Decoy_Validate(FVector loc, FRotator rot);
+	void Multi_Decoy_Implementation(FVector loc, FRotator rot);
+
 	void DirectionalDodge(FVector2D dir);
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_DirectionalDodge(FVector2D dir);
+	bool Server_DirectionalDodge_Validate(FVector2D dir);
+	void Server_DirectionalDodge_Implementation(FVector2D dir);
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_Dodge(FVector loc, FRotator rot);
+	bool Multi_Dodge_Validate(FVector loc, FRotator rot);
+	void Multi_Dodge_Implementation(FVector loc, FRotator rot);
 
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
 	virtual void StartUltimate() override;
+	virtual void Server_StartUltimate_Implementation() override;
+
 	virtual void StopUltimate() override;
+	virtual void Server_StopUltimate_Implementation() override;
+
 	void SpawnUltWeapon();
+	UFUNCTION(Server, Reliable, WithValidation)
+	virtual void Server_SpawnUltWeapon();
+	virtual bool Server_SpawnUltWeapon_Validate();
+	virtual void Server_SpawnUltWeapon_Implementation();
+
+
 	virtual void StartShooting() override;
+
+	void UltimateMelee();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_UltimateMelee();
+	bool Server_UltimateMelee_Validate();
+	void Server_UltimateMelee_Implementation();
 };

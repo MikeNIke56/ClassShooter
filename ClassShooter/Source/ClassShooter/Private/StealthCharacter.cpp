@@ -16,6 +16,37 @@ void AStealthCharacter::BeginPlay()
 	targetUltPos.Z += 50;
 }
 
+void AStealthCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AStealthCharacter, ultWeaponWorldObj);
+	DOREPLIFETIME(AStealthCharacter, knifeObj);
+	DOREPLIFETIME(AStealthCharacter, invisTimer);
+	DOREPLIFETIME(AStealthCharacter, invisCooldownTimer);
+	DOREPLIFETIME(AStealthCharacter, invisMat);
+	DOREPLIFETIME(AStealthCharacter, baseBodyMat);
+	DOREPLIFETIME(AStealthCharacter, decoyObj);
+	DOREPLIFETIME(AStealthCharacter, decoyTimer);
+	DOREPLIFETIME(AStealthCharacter, decoyCooldownTimer);
+	DOREPLIFETIME(AStealthCharacter, decoyComp);
+	DOREPLIFETIME(AStealthCharacter, decoyFloatiesVFX);
+	DOREPLIFETIME(AStealthCharacter, ultimateMat);
+	DOREPLIFETIME(AStealthCharacter, decoyDodge);
+	DOREPLIFETIME(AStealthCharacter, ultTimer);
+	DOREPLIFETIME(AStealthCharacter, ultLength);
+	DOREPLIFETIME(AStealthCharacter, cameraUltLerp);
+	DOREPLIFETIME(AStealthCharacter, cameraUltLerpBack);
+	DOREPLIFETIME(AStealthCharacter, targetUltPos);
+	DOREPLIFETIME(AStealthCharacter, swingUltLaunch);
+	DOREPLIFETIME(AStealthCharacter, invisRemainingTime);
+	DOREPLIFETIME(AStealthCharacter, decoyRemainingTime);
+	DOREPLIFETIME(AStealthCharacter, ultRemainingTime);
+	DOREPLIFETIME(AStealthCharacter, decoyVFX);
+	DOREPLIFETIME(AStealthCharacter, invisVFX);
+	DOREPLIFETIME(AStealthCharacter, isClone);
+	DOREPLIFETIME(AStealthCharacter, clone);
+}
+
 
 void AStealthCharacter::Tick(float deltaTime)
 {
@@ -52,6 +83,30 @@ void AStealthCharacter::Tick(float deltaTime)
 		}
 	}
 
+	UpdateCooldownValues();
+}
+
+
+void AStealthCharacter::UpdateCooldownValues()
+{
+	if (HasAuthority())
+	{
+		invisRemainingTime = GetWorld()->
+			GetTimerManager().GetTimerRemaining(invisTimer);
+		decoyRemainingTime = GetWorld()->
+			GetTimerManager().GetTimerRemaining(decoyTimer);
+		ultRemainingTime = GetWorld()->
+			GetTimerManager().GetTimerRemaining(ultTimer);
+	}
+	else
+		Server_UpdateCooldownValues();
+}
+bool AStealthCharacter::Server_UpdateCooldownValues_Validate()
+{
+	return true;
+}
+void AStealthCharacter::Server_UpdateCooldownValues_Implementation()
+{
 	invisRemainingTime = GetWorld()->
 		GetTimerManager().GetTimerRemaining(invisTimer);
 	decoyRemainingTime = GetWorld()->
@@ -60,10 +115,41 @@ void AStealthCharacter::Tick(float deltaTime)
 		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
+
 void AStealthCharacter::StartShooting()
 {
 	Super::StartShooting();
 	
+	if (HasAuthority())
+		UltimateMelee();
+	else
+		Server_UltimateMelee();
+}
+
+void AStealthCharacter::UltimateMelee()
+{
+	if (swingUltLaunch == false && currentStates.Contains(PlayerGameState::Ultimate))
+	{
+		swingUltLaunch = true;
+		movementComponent->GroundFriction = 0.0;
+		movementComponent->BrakingDecelerationWalking = 700;
+		movementComponent->AddImpulse(GetActorForwardVector() * 1200, true);
+
+		FTimerHandle DelayTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				movementComponent->GroundFriction = baseGroundFriction;
+				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+				swingUltLaunch = false;
+			}), .75f, false);
+	}
+}
+bool AStealthCharacter::Server_UltimateMelee_Validate()
+{
+	return true;
+}
+void AStealthCharacter::Server_UltimateMelee_Implementation()
+{
 	if (swingUltLaunch == false && currentStates.Contains(PlayerGameState::Ultimate))
 	{
 		swingUltLaunch = true;
@@ -83,12 +169,92 @@ void AStealthCharacter::StartShooting()
 
 void AStealthCharacter::StartAbility1()
 {
+	if (HasAuthority())
+	{
+		if (GetWorld()->GetTimerManager().IsTimerActive(invisTimer) == false &&
+			GetWorld()->GetTimerManager().IsTimerActive(invisCooldownTimer) == false)
+		{
+			GetWorldTimerManager().SetTimer(invisTimer, this,
+				&AStealthCharacter::StopAbility1, invisLength, false);
+
+			UGameplayStatics::SpawnEmitterAtLocation(
+				GetWorld(),
+				invisVFX,
+				GetActorLocation(),
+				GetActorRotation(),
+				true  // Auto destroy
+			);
+
+			Multi_Invis(true);
+
+			FTimerHandle DelayTimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+				{
+					bodyMesh->SetMaterial(0, invisMat);
+				}), .05f, false);
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("ability not available"));
+	}
+	else
+		Server_StartAbility1();   
+}
+void AStealthCharacter::Server_StartAbility1_Implementation()
+{
 	if (GetWorld()->GetTimerManager().IsTimerActive(invisTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(invisCooldownTimer) == false)
 	{
 		GetWorldTimerManager().SetTimer(invisTimer, this,
-			&AStealthCharacter::StopAbility1, invisLength, false);
+			&AStealthCharacter::Server_StopAbility1, invisLength, false);
 
+		Multi_Invis(true);
+
+		FTimerHandle DelayTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				bodyMesh->SetMaterial(0, invisMat);
+			}), .05f, false);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
+}
+
+void AStealthCharacter::StopAbility1()
+{
+	if (HasAuthority())
+	{
+		bodyMesh->SetMaterial(0, baseBodyMat);
+		Multi_Invis(false);
+
+		GetWorld()->GetTimerManager().ClearTimer(invisCooldownTimer);
+		GetWorld()->GetTimerManager().SetTimer(invisCooldownTimer, FTimerDelegate::CreateLambda([this]()
+			{
+
+			}), .01f, false);
+	}
+	else
+		Server_StopAbility1();
+}
+void AStealthCharacter::Server_StopAbility1_Implementation()
+{
+	bodyMesh->SetMaterial(0, baseBodyMat);
+	Multi_Invis(false);
+
+	GetWorld()->GetTimerManager().ClearTimer(invisCooldownTimer);
+	GetWorld()->GetTimerManager().SetTimer(invisCooldownTimer, FTimerDelegate::CreateLambda([this]()
+		{
+
+		}), .01f, false);
+}
+
+bool AStealthCharacter::Multi_Invis_Validate(bool isOn)
+{
+	return true;
+}
+void AStealthCharacter::Multi_Invis_Implementation(bool isOn)
+{
+	if (isOn)
+	{
 		UGameplayStatics::SpawnEmitterAtLocation(
 			GetWorld(),
 			invisVFX,
@@ -101,30 +267,68 @@ void AStealthCharacter::StartAbility1()
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
 			{
 				bodyMesh->SetMaterial(0, invisMat);
-			}), .15f, false);
-	}else
-		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
-    
+			}), .05f, false);
+	}
+	else
+	{
+		FTimerHandle DelayTimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+			{
+				bodyMesh->SetMaterial(0, baseBodyMat);
+			}), .05f, false);
+	}
+	
 }
-void AStealthCharacter::StopAbility1()
-{
-	bodyMesh->SetMaterial(0, baseBodyMat);
-
-	GetWorld()->GetTimerManager().ClearTimer(invisCooldownTimer);
-	GetWorld()->GetTimerManager().SetTimer(invisCooldownTimer, FTimerDelegate::CreateLambda([this]()
-		{
-
-		}), .01f, false);
-}
-
 
 void AStealthCharacter::StartAbility2()
+{
+	if (HasAuthority())
+	{
+		if (GetWorld()->GetTimerManager().IsTimerActive(decoyTimer) == false &&
+			GetWorld()->GetTimerManager().IsTimerActive(decoyCooldownTimer) == false)
+		{
+			GetWorldTimerManager().SetTimer(decoyTimer, this,
+				&AStealthCharacter::StopAbility2, decoyLength, false);
+
+			FActorSpawnParameters SpawnParams;
+			SpawnParams.Owner = this;
+			SpawnParams.Instigator = GetInstigator();
+
+			decoyObj = GetClass();
+
+			FVector spawnLoc = GetActorLocation();
+			spawnLoc += (GetActorForwardVector() * 100);
+
+			FRotator spawnRot = GetActorRotation();
+
+			AStealthCharacter* decoyCopy = GetWorld()->SpawnActor<AStealthCharacter>(decoyObj, spawnLoc,
+				spawnRot, SpawnParams);
+
+			FVector decoySpawnLoc = decoyCopy->GetActorLocation();
+			decoySpawnLoc.Z -= 250;
+
+			clone = decoyCopy;
+			decoyCopy->isClone = true;
+			decoyCopy->GetMesh1P()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			decoyCopy->GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			decoyCopy->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			decoyCopy->bodyMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+			DirectionalDodge(movementVector);
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("ability not available"));
+	}
+	else
+		Server_StartAbility2();
+}
+void AStealthCharacter::Server_StartAbility2_Implementation()
 {
 	if (GetWorld()->GetTimerManager().IsTimerActive(decoyTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(decoyCooldownTimer) == false)
 	{
 		GetWorldTimerManager().SetTimer(decoyTimer, this,
-			&AStealthCharacter::StopAbility2, decoyLength, false);
+			&AStealthCharacter::Server_StopAbility2, decoyLength, false);
 
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
@@ -143,67 +347,108 @@ void AStealthCharacter::StartAbility2()
 		FVector decoySpawnLoc = decoyCopy->GetActorLocation();
 		decoySpawnLoc.Z -= 250;
 
-		decoyComp = UGameplayStatics::SpawnEmitterAtLocation(
-			GetWorld(),
-			decoyFloatiesVFX,
-			decoySpawnLoc,
-			decoyCopy->GetActorRotation(),
-			false  // Auto destroy
-		);
-
+		clone = decoyCopy;
 		decoyCopy->isClone = true;
 		decoyCopy->GetMesh1P()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		decoyCopy->GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		decoyCopy->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		decoyCopy->bodyMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-		DirectionalDodge(movementVector);
+		Server_DirectionalDodge(movementVector);
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
+
 void AStealthCharacter::StopAbility2()
+{
+	if (HasAuthority())
+	{
+		GetWorld()->GetTimerManager().ClearTimer(decoyCooldownTimer);
+		GetWorld()->GetTimerManager().SetTimer(decoyCooldownTimer, FTimerDelegate::CreateLambda([this]()
+			{
+				if(clone)
+					clone->Destroy();
+
+				if(decoyObj)
+					decoyObj = nullptr;
+			}), .05f, false);
+	}
+	else
+		Server_StopAbility2();
+}
+void AStealthCharacter::Server_StopAbility2_Implementation()
 {
 	GetWorld()->GetTimerManager().ClearTimer(decoyCooldownTimer);
 	GetWorld()->GetTimerManager().SetTimer(decoyCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{
-			TArray<AStealthCharacter*> FoundActors;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(),
-				AStealthCharacter::StaticClass(), reinterpret_cast<TArray<AActor*>&>(FoundActors));
+			if (clone)
+				clone->Destroy();
 
-			for (AStealthCharacter* stealthChar : FoundActors)
-			{
-				if (stealthChar->isClone == true)
-					stealthChar->Destroy();
-			}
-			decoyObj = nullptr;
-
-		}), .05f, false);
-
-	TWeakObjectPtr<UParticleSystemComponent> weakParticlePtr = decoyComp;
-	FTimerHandle TimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, FTimerDelegate::CreateLambda([weakParticlePtr]()
-		{
-			if (weakParticlePtr.IsValid())
-				weakParticlePtr->Deactivate();
+			if (decoyObj)
+				decoyObj = nullptr;
 		}), .05f, false);
 }
+
+bool AStealthCharacter::Multi_Decoy_Validate(FVector loc, FRotator rot)
+{
+	return true;
+}
+void AStealthCharacter::Multi_Decoy_Implementation(FVector loc, FRotator rot)
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(),
+		deathExplosionVFX,
+		loc,
+		rot,
+		FVector(1, 1, 1),
+		true,
+		true
+	);
+}
+
 void AStealthCharacter::DirectionalDodge(FVector2D dir)
+{
+	if (HasAuthority())
+	{
+		if (dir.Length() > 0.0)
+		{
+			movementComponent->GroundFriction = 0.0;
+			movementComponent->BrakingDecelerationWalking = 1400;
+
+			if (dir.X > 0.0)
+				movementComponent->AddImpulse(GetActorRightVector() * decoyDodge, true);
+			if (dir.X < 0.0)
+				movementComponent->AddImpulse(GetActorRightVector() * -decoyDodge, true);
+			if (dir.Y > 0.0)
+				movementComponent->AddImpulse(GetActorForwardVector() * decoyDodge, true);
+			if (dir.Y < 0.0)
+				movementComponent->AddImpulse(GetActorForwardVector() * -decoyDodge, true);
+
+			FTimerHandle DelayTimerHandle;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
+				{
+					movementComponent->GroundFriction = baseGroundFriction;
+					movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+				}), .75f, false);
+
+		}
+	}
+	else
+		Server_DirectionalDodge(dir);
+}
+bool AStealthCharacter::Server_DirectionalDodge_Validate(FVector2D dir)
+{
+	return true;
+}
+void AStealthCharacter::Server_DirectionalDodge_Implementation(FVector2D dir)
 {
 	if (dir.Length() > 0.0)
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(
-			GetWorld(),
-			decoyVFX,
-			GetActorLocation(),
-			GetActorRotation(),
-			true  // Auto destroy
-		);
-
 		movementComponent->GroundFriction = 0.0;
 		movementComponent->BrakingDecelerationWalking = 1400;
 
-		if(dir.X > 0.0)
+		if (dir.X > 0.0)
 			movementComponent->AddImpulse(GetActorRightVector() * decoyDodge, true);
 		if (dir.X < 0.0)
 			movementComponent->AddImpulse(GetActorRightVector() * -decoyDodge, true);
@@ -223,32 +468,57 @@ void AStealthCharacter::DirectionalDodge(FVector2D dir)
 }
 
 
+bool AStealthCharacter::Multi_Dodge_Validate(FVector loc, FRotator rot)
+{
+	return true;
+}
+void AStealthCharacter::Multi_Dodge_Implementation(FVector loc, FRotator rot)
+{
+	UGameplayStatics::SpawnEmitterAtLocation(
+		GetWorld(),
+		decoyVFX,
+		GetActorLocation(),
+		GetActorRotation(),
+		true  // Auto destroy
+	);
+}
+
 void AStealthCharacter::StartUltimate()
 {
-	FString LevelName = GetWorld()->GetMapName();
+	if (HasAuthority())
+	{
+		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
+			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
+		{
+			currentStates.AddUnique(PlayerGameState::Ultimate);
+			ultimateTriggered = true;
+			SaveCurWeapons();
+			SpawnUltWeapon();
+			curSpeedMulti = 2.5f;
 
-	// Optional: Strip the prefix (like "UEDPIE_0_")
-	LevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
+			FTimerHandle DelayTimerHandle2;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
+				{
+					bodyMesh->SetMaterial(0, ultimateMat);
 
-	// Log it
-	UE_LOG(LogTemp, Warning, TEXT("Current Level: %s"), *LevelName);
-
-	if (LevelName == "Lobby")
-		return;
-
+					GetWorldTimerManager().SetTimer(ultTimer, this,
+						&AStealthCharacter::StopUltimate, ultLength, false);
+				}), .5f, false);
+		}
+	}
+	else
+		Server_StartUltimate();
+}
+void AStealthCharacter::Server_StartUltimate_Implementation()
+{
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
-		SaveCurWeapons();
+		Server_SaveCurWeapons();
+		Server_SpawnUltWeapon();
 		curSpeedMulti = 2.5f;
-
-		FTimerHandle DelayTimerHandle1;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
-			{
-				cameraUltLerp = true;
-			}), .15f, false);
 
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
@@ -256,14 +526,33 @@ void AStealthCharacter::StartUltimate()
 				bodyMesh->SetMaterial(0, ultimateMat);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
-					&AStealthCharacter::StopUltimate, ultLength, false);
+					&AStealthCharacter::Server_StopUltimate, ultLength, false);
 			}), .5f, false);
 	}
 }
+
 void AStealthCharacter::StopUltimate()
 {
+	if (HasAuthority())
+	{
+		bodyMesh->SetMaterial(0, baseBodyMat);
+		RestoreCurWeapons();
+		curSpeedMulti = baseSpeedMulti;
+
+		GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
+			{
+				ultimateTriggered = false;
+				currentStates.Remove(PlayerGameState::Ultimate);
+			}), .05f, false);
+	}
+	else
+		Server_StopUltimate();
+	
+}
+void AStealthCharacter::Server_StopUltimate_Implementation()
+{
 	bodyMesh->SetMaterial(0, baseBodyMat);
-	RestoreCurWeapons();
+	Server_RestoreCurWeapons();
 	curSpeedMulti = baseSpeedMulti;
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
@@ -272,7 +561,37 @@ void AStealthCharacter::StopUltimate()
 			currentStates.Remove(PlayerGameState::Ultimate);
 		}), .05f, false);
 }
+
+
 void AStealthCharacter::SpawnUltWeapon()
+{
+	if (HasAuthority())
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+
+		weaponWorldObj = knifeObj;
+
+		FVector spawnLoc = GetActorLocation();
+		FRotator spawnRot = GetActorRotation();
+
+		AWeaponBase* ultDaggerCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
+			spawnRot, SpawnParams);
+
+		if (ultDaggerCopy)
+			EquipWeapon(ultDaggerCopy, true);
+		else
+			UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
+	}
+	else
+		Server_SpawnUltWeapon();
+}
+bool AStealthCharacter::Server_SpawnUltWeapon_Validate()
+{
+	return true;
+}
+void AStealthCharacter::Server_SpawnUltWeapon_Implementation()
 {
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
@@ -287,7 +606,7 @@ void AStealthCharacter::SpawnUltWeapon()
 		spawnRot, SpawnParams);
 
 	if (ultDaggerCopy)
-		PickupWeapon(ultDaggerCopy);
+		Server_EquipWeapon(ultDaggerCopy, true);
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }

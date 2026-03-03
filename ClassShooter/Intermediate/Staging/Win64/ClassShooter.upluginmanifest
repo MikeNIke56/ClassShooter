@@ -1,123 +1,6 @@
 {
 	"Contents": [
 		{
-			"File": "../../../ClassShooter/Plugins/AdvancedSessions/AdvancedSessions.uplugin",
-			"Descriptor": 
-			{
-				"FileVersion": 3,
-				"Version": 0,
-				"VersionName": "5.4",
-				"FriendlyName": "Advanced Sessions",
-				"Description": "Adds new blueprint functions to handle more advanced session operations.",
-				"Category": "Advanced Sessions Plugin",
-				"CreatedBy": "Joshua Statzer",
-				"CreatedByURL": "N/A",
-				"DocsURL": "",
-				"MarketplaceURL": "",
-				"SupportURL": "",
-				"CanContainContent": false,
-				"Modules": [
-					{
-						"Name": "AdvancedSessions",
-						"Type": "Runtime",
-						"LoadingPhase": "PreDefault"
-					}
-				],
-				"Plugins": [
-					{
-						"Name": "OnlineSubsystem",
-						"Enabled": true
-					},
-					{
-						"Name": "OnlineSubsystemUtils",
-						"Enabled": true
-					}
-				]
-			}
-		},
-		{
-			"File": "../../../ClassShooter/Plugins/AdvancedSteamSessions/AdvancedSteamSessions.uplugin",
-			"Descriptor": 
-			{
-				"FileVersion": 3,
-				"Version": 0,
-				"VersionName": "5.4",
-				"FriendlyName": "Advanced Steam Sessions",
-				"Description": "Adds new blueprint functions to handle more advanced session operations in Steam. REQUIRES ADVANCED SESSIONS",
-				"Category": "Advanced Sessions Plugin",
-				"CreatedBy": "Joshua Statzer",
-				"CreatedByURL": "N/A",
-				"DocsURL": "",
-				"MarketplaceURL": "",
-				"SupportURL": "",
-				"CanContainContent": false,
-				"Modules": [
-					{
-						"Name": "AdvancedSteamSessions",
-						"Type": "Runtime",
-						"LoadingPhase": "Default"
-					}
-				],
-				"Plugins": [
-					{
-						"Name": "AdvancedSessions",
-						"Enabled": true
-					},
-					{
-						"Name": "OnlineSubsystem",
-						"Enabled": true
-					},
-					{
-						"Name": "OnlineSubsystemSteam",
-						"Enabled": true
-					},
-					{
-						"Name": "OnlineSubsystemUtils",
-						"Enabled": true
-					},
-					{
-						"Name": "SteamShared",
-						"Enabled": true
-					}
-				]
-			}
-		},
-		{
-			"File": "../../../ClassShooter/Plugins/MultiplayerSessions/MultiplayerSessions.uplugin",
-			"Descriptor": 
-			{
-				"FileVersion": 3,
-				"Version": 1,
-				"VersionName": "1.0",
-				"FriendlyName": "MultiplayerSessions",
-				"Description": "A plugin for handling online multiplayer sessions",
-				"Category": "Other",
-				"CreatedBy": "Stephen Ulibarri",
-				"CreatedByURL": "",
-				"DocsURL": "",
-				"MarketplaceURL": "",
-				"SupportURL": "",
-				"CanContainContent": true,
-				"Modules": [
-					{
-						"Name": "MultiplayerSessions",
-						"Type": "Runtime",
-						"LoadingPhase": "Default"
-					}
-				],
-				"Plugins": [
-					{
-						"Name": "OnlineSubsystem",
-						"Enabled": true
-					},
-					{
-						"Name": "OnlineSubsystemSteam",
-						"Enabled": true
-					}
-				]
-			}
-		},
-		{
 			"File": "../../../Engine/Plugins/2D/Paper2D/Paper2D.uplugin",
 			"Descriptor": 
 			{
@@ -466,8 +349,8 @@
 			"Descriptor": 
 			{
 				"FileVersion": 3,
-				"Version": 40,
-				"VersionName": "2024.0.1",
+				"Version": 47,
+				"VersionName": "2024.0.7",
 				"FriendlyName": "Bridge",
 				"Description": "Megascans Link for Quixel Bridge.",
 				"Category": "Editor",
@@ -2296,6 +2179,47 @@
 			}
 		},
 		{
+			"File": "../../../Engine/Plugins/FX/CascadeToNiagaraConverter/CascadeToNiagaraConverter.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 1,
+				"VersionName": "1.0",
+				"FriendlyName": "Cascade To Niagara Converter",
+				"Description": "Add support for scriptable conversion of Cascade Systems to Niagara Systems.",
+				"Category": "FX",
+				"CreatedBy": "Epic Games, Inc.",
+				"CreatedByURL": "https://epicgames.com",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"EnabledByDefault": false,
+				"CanContainContent": true,
+				"IsBetaVersion": true,
+				"Modules": [
+					{
+						"Name": "CascadeToNiagaraConverter",
+						"Type": "Editor",
+						"LoadingPhase": "Default"
+					}
+				],
+				"Plugins": [
+					{
+						"Name": "Niagara",
+						"Enabled": true
+					},
+					{
+						"Name": "PythonScriptPlugin",
+						"Enabled": true
+					},
+					{
+						"Name": "EditorScriptingUtilities",
+						"Enabled": true
+					}
+				]
+			}
+		},
+		{
 			"File": "../../../Engine/Plugins/FX/NiagaraSimCaching/NiagaraSimCaching.uplugin",
 			"Descriptor": 
 			{
@@ -2398,6 +2322,57 @@
 				"Plugins": [
 					{
 						"Name": "PythonScriptPlugin",
+						"Enabled": true
+					}
+				]
+			}
+		},
+		{
+			"File": "../../../Engine/Plugins/Fab/Fab.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 4,
+				"VersionName": "0.0.4",
+				"FriendlyName": "Fab",
+				"Description": "Fab Plugin",
+				"Category": "Other",
+				"CreatedBy": "Epic Games, Inc.",
+				"CreatedByURL": "http://epicgames.com",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"EngineVersion": "5.4.0",
+				"EnabledByDefault": true,
+				"CanContainContent": true,
+				"Modules": [
+					{
+						"Name": "Fab",
+						"Type": "Editor",
+						"LoadingPhase": "PostDefault",
+						"PlatformAllowList": [
+							"Linux",
+							"Win64",
+							"Mac"
+						]
+					}
+				],
+				"Plugins": [
+					{
+						"Name": "Interchange",
+						"Enabled": true,
+						"PlatformAllowList": [
+							"Linux",
+							"Win64",
+							"Mac"
+						]
+					},
+					{
+						"Name": "EditorScriptingUtilities",
+						"Enabled": true
+					},
+					{
+						"Name": "EOSShared",
 						"Enabled": true
 					}
 				]
@@ -3243,6 +3218,40 @@
 					{
 						"Name": "LevelSequenceEditor",
 						"Enabled": true
+					}
+				]
+			}
+		},
+		{
+			"File": "../../../Engine/Plugins/Online/EOSShared/EOSShared.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 1,
+				"VersionName": "1.0",
+				"FriendlyName": "EOS Shared",
+				"Description": "Responsible for init/shutdown of the EOSSDK runtime library.",
+				"Category": "Online Platform",
+				"CreatedBy": "Epic Games, Inc.",
+				"CreatedByURL": "https://epicgames.com",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"EnabledByDefault": false,
+				"CanContainContent": false,
+				"Modules": [
+					{
+						"Name": "EOSShared",
+						"Type": "Runtime",
+						"LoadingPhase": "PostConfigInit",
+						"PlatformAllowList": [
+							"Android",
+							"IOS",
+							"Linux",
+							"LinuxArm64",
+							"Mac",
+							"Win64"
+						]
 					}
 				]
 			}
@@ -4989,6 +4998,123 @@
 						"Name": "CsvMetrics",
 						"Type": "Runtime",
 						"LoadingPhase": "Default"
+					}
+				]
+			}
+		},
+		{
+			"File": "../../../ClassShooter/Plugins/AdvancedSessions/AdvancedSessions.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 0,
+				"VersionName": "5.4",
+				"FriendlyName": "Advanced Sessions",
+				"Description": "Adds new blueprint functions to handle more advanced session operations.",
+				"Category": "Advanced Sessions Plugin",
+				"CreatedBy": "Joshua Statzer",
+				"CreatedByURL": "N/A",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"CanContainContent": false,
+				"Modules": [
+					{
+						"Name": "AdvancedSessions",
+						"Type": "Runtime",
+						"LoadingPhase": "PreDefault"
+					}
+				],
+				"Plugins": [
+					{
+						"Name": "OnlineSubsystem",
+						"Enabled": true
+					},
+					{
+						"Name": "OnlineSubsystemUtils",
+						"Enabled": true
+					}
+				]
+			}
+		},
+		{
+			"File": "../../../ClassShooter/Plugins/AdvancedSteamSessions/AdvancedSteamSessions.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 0,
+				"VersionName": "5.4",
+				"FriendlyName": "Advanced Steam Sessions",
+				"Description": "Adds new blueprint functions to handle more advanced session operations in Steam. REQUIRES ADVANCED SESSIONS",
+				"Category": "Advanced Sessions Plugin",
+				"CreatedBy": "Joshua Statzer",
+				"CreatedByURL": "N/A",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"CanContainContent": false,
+				"Modules": [
+					{
+						"Name": "AdvancedSteamSessions",
+						"Type": "Runtime",
+						"LoadingPhase": "Default"
+					}
+				],
+				"Plugins": [
+					{
+						"Name": "AdvancedSessions",
+						"Enabled": true
+					},
+					{
+						"Name": "OnlineSubsystem",
+						"Enabled": true
+					},
+					{
+						"Name": "OnlineSubsystemSteam",
+						"Enabled": true
+					},
+					{
+						"Name": "OnlineSubsystemUtils",
+						"Enabled": true
+					},
+					{
+						"Name": "SteamShared",
+						"Enabled": true
+					}
+				]
+			}
+		},
+		{
+			"File": "../../../ClassShooter/Plugins/MultiplayerSessions/MultiplayerSessions.uplugin",
+			"Descriptor": 
+			{
+				"FileVersion": 3,
+				"Version": 1,
+				"VersionName": "1.0",
+				"FriendlyName": "MultiplayerSessions",
+				"Description": "A plugin for handling online multiplayer sessions",
+				"Category": "Other",
+				"CreatedBy": "Stephen Ulibarri",
+				"CreatedByURL": "",
+				"DocsURL": "",
+				"MarketplaceURL": "",
+				"SupportURL": "",
+				"CanContainContent": true,
+				"Modules": [
+					{
+						"Name": "MultiplayerSessions",
+						"Type": "Runtime",
+						"LoadingPhase": "Default"
+					}
+				],
+				"Plugins": [
+					{
+						"Name": "OnlineSubsystem",
+						"Enabled": true
+					},
+					{
+						"Name": "OnlineSubsystemSteam",
+						"Enabled": true
 					}
 				]
 			}

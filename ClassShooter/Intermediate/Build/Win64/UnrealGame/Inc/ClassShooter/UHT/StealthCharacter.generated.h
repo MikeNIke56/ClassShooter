@@ -14,22 +14,61 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define CLASSSHOOTER_StealthCharacter_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execServer_UltimateMelee); \
+	DECLARE_FUNCTION(execServer_SpawnUltWeapon); \
 	DECLARE_FUNCTION(execStartUltimate); \
+	DECLARE_FUNCTION(execMulti_Dodge); \
+	DECLARE_FUNCTION(execServer_DirectionalDodge); \
+	DECLARE_FUNCTION(execMulti_Decoy); \
 	DECLARE_FUNCTION(execStartAbility2); \
-	DECLARE_FUNCTION(execStartAbility1);
+	DECLARE_FUNCTION(execMulti_Invis); \
+	DECLARE_FUNCTION(execStartAbility1); \
+	DECLARE_FUNCTION(execServer_UpdateCooldownValues);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_INCLASS_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_CALLBACK_WRAPPERS
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAStealthCharacter(); \
 	friend struct Z_Construct_UClass_AStealthCharacter_Statics; \
 public: \
 	DECLARE_CLASS(AStealthCharacter, AClassShooterCharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/ClassShooter"), NO_API) \
-	DECLARE_SERIALIZER(AStealthCharacter)
+	DECLARE_SERIALIZER(AStealthCharacter) \
+	enum class ENetFields_Private : uint16 \
+	{ \
+		NETFIELD_REP_START=(uint16)((int32)Super::ENetFields_Private::NETFIELD_REP_END + (int32)1), \
+		invisTimer=NETFIELD_REP_START, \
+		invisCooldownTimer, \
+		invisRemainingTime, \
+		decoyTimer, \
+		decoyCooldownTimer, \
+		decoyRemainingTime, \
+		decoyDodge, \
+		decoyObj, \
+		ultTimer, \
+		ultLength, \
+		ultCooldownTimer, \
+		ultRemainingTime, \
+		invisVFX, \
+		decoyVFX, \
+		decoyComp, \
+		decoyFloatiesVFX, \
+		baseBodyMat, \
+		invisMat, \
+		ultimateMat, \
+		ultWeaponWorldObj, \
+		knifeObj, \
+		cameraUltLerp, \
+		cameraUltLerpBack, \
+		targetUltPos, \
+		swingUltLaunch, \
+		clone, \
+		NETFIELD_REP_END=clone	}; \
+	NO_API virtual void ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const override;
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_ENHANCED_CONSTRUCTORS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AStealthCharacter(); \
 private: \
@@ -43,13 +82,14 @@ public: \
 	NO_API virtual ~AStealthCharacter();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_15_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_GENERATED_BODY \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_15_PROLOG
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_INCLASS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_ENHANCED_CONSTRUCTORS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_CALLBACK_WRAPPERS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_INCLASS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -57,7 +97,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> CLASSSHOOTER_API UClass* StaticClass<class AStealthCharacter>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h
+#define CURRENT_FILE_ID FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_StealthCharacter_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

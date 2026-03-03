@@ -9,18 +9,19 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
 #ifdef CLASSSHOOTER_Damageable_generated_h
 #error "Damageable.generated.h already included, missing '#pragma once' in Damageable.h"
 #endif
 #define CLASSSHOOTER_Damageable_generated_h
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	virtual void HandleTakeCustomDamage_Implementation(float Amount) {}; \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void HandleTakeCustomDamage_Implementation(float Amount, AActor* source) {}; \
 	DECLARE_FUNCTION(execHandleTakeCustomDamage);
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_CALLBACK_WRAPPERS
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_ENHANCED_CONSTRUCTORS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_CALLBACK_WRAPPERS
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	CLASSSHOOTER_API UDamageable(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -34,7 +35,7 @@ public: \
 	CLASSSHOOTER_API virtual ~UDamageable();
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_UINTERFACE_BODY() \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_UINTERFACE_BODY() \
 private: \
 	static void StaticRegisterNativesUDamageable(); \
 	friend struct Z_Construct_UClass_UDamageable_Statics; \
@@ -43,31 +44,31 @@ public: \
 	DECLARE_SERIALIZER(UDamageable)
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_BODY \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_BODY \
 	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_UINTERFACE_BODY() \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_ENHANCED_CONSTRUCTORS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_GENERATED_UINTERFACE_BODY() \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
 protected: \
 	virtual ~IDamageable() {} \
 public: \
 	typedef UDamageable UClassType; \
 	typedef IDamageable ThisClass; \
-	static void Execute_HandleTakeCustomDamage(UObject* O, float Amount); \
+	static void Execute_HandleTakeCustomDamage(UObject* O, float Amount, AActor* source); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_10_PROLOG
-#define FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_21_GENERATED_BODY \
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_10_PROLOG
+#define FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_21_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_CALLBACK_WRAPPERS \
-	FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_CALLBACK_WRAPPERS \
+	FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h_13_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -75,7 +76,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> CLASSSHOOTER_API UClass* StaticClass<class UDamageable>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h
+#define CURRENT_FILE_ID FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Damageable_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

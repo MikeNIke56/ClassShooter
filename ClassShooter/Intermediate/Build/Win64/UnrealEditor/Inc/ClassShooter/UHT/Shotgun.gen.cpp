@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "ClassShooter/Public/Shotgun.h"
+#include "UObject/CoreNet.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeShotgun() {}
 
@@ -16,9 +17,53 @@ CLASSSHOOTER_API UClass* Z_Construct_UClass_AWeaponBase();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
+// Begin Class AShotgun Function Server_ShotgunFire
+static FName NAME_AShotgun_Server_ShotgunFire = FName(TEXT("Server_ShotgunFire"));
+void AShotgun::Server_ShotgunFire()
+{
+	ProcessEvent(FindFunctionChecked(NAME_AShotgun_Server_ShotgunFire),NULL);
+}
+struct Z_Construct_UFunction_AShotgun_Server_ShotgunFire_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Shotgun.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AShotgun_Server_ShotgunFire_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AShotgun, nullptr, "Server_ShotgunFire", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80220CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AShotgun_Server_ShotgunFire_Statics::Function_MetaDataParams), Z_Construct_UFunction_AShotgun_Server_ShotgunFire_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AShotgun_Server_ShotgunFire()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AShotgun_Server_ShotgunFire_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AShotgun::execServer_ShotgunFire)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Server_ShotgunFire_Validate())
+	{
+		RPC_ValidateFailed(TEXT("Server_ShotgunFire_Validate"));
+		return;
+	}
+	P_THIS->Server_ShotgunFire_Implementation();
+	P_NATIVE_END;
+}
+// End Class AShotgun Function Server_ShotgunFire
+
 // Begin Class AShotgun
 void AShotgun::StaticRegisterNativesAShotgun()
 {
+	UClass* Class = AShotgun::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "Server_ShotgunFire", &AShotgun::execServer_ShotgunFire },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AShotgun);
 UClass* Z_Construct_UClass_AShotgun_NoRegister()
@@ -37,6 +82,10 @@ struct Z_Construct_UClass_AShotgun_Statics
 	};
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AShotgun_Server_ShotgunFire, "Server_ShotgunFire" }, // 102381169
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AShotgun>::IsAbstract,
 	};
@@ -52,11 +101,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AShotgun_Statics::Class
 	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	nullptr,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	0,
 	0,
 	0x009000A4u,
@@ -83,10 +132,10 @@ AShotgun::~AShotgun() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shotgun_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AShotgun, AShotgun::StaticClass, TEXT("AShotgun"), &Z_Registration_Info_UClass_AShotgun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShotgun), 2532203538U) },
+		{ Z_Construct_UClass_AShotgun, AShotgun::StaticClass, TEXT("AShotgun"), &Z_Registration_Info_UClass_AShotgun, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShotgun), 1131856605U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shotgun_h_1065787605(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shotgun_h_3084591113(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shotgun_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_Shotgun_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
