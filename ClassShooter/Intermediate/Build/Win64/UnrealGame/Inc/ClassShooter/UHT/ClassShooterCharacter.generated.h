@@ -78,7 +78,6 @@ public: \
 		bodyMesh, \
 		curHealth, \
 		weaponArray, \
-		numOfCurWeaponsInInventory, \
 		backupWeaponArray, \
 		curWeapon, \
 		weaponCopy, \

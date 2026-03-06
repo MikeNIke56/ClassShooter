@@ -367,7 +367,7 @@ void AMovementCharacter::GrappleAttack()
 		// Check if we hit something
 		if (bHit)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("hit smth"));
+			UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *hitActor->GetName());
 			float bufferDist = hitResult.Distance - 10;
 			targetGrappleAtkLocation = fireStartLocation + (GetActorForwardVector() * bufferDist);
 		}

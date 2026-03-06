@@ -118,9 +118,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	TArray<AWeaponBase*> weaponArray;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_weaponArray, Category = "Class Base Values")
-	int numOfCurWeaponsInInventory;
-
 	//backup array of weapons when in super
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	TArray<AWeaponBase*> backupWeaponArray;
@@ -252,6 +249,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FVector baseBodyLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	AClassShooterCharacter* playerWhoDamagedMe;
 
 protected:
 	UPROPERTY(Replicated)

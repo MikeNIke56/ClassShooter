@@ -2182,10 +2182,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "ToolTip", "our array of weapons" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_numOfCurWeaponsInInventory_MetaData[] = {
-		{ "Category", "Class Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_backupWeaponArray_MetaData[] = {
 		{ "Category", "Class Base Values" },
 #if !UE_BUILD_SHIPPING
@@ -2447,7 +2443,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_shotLocation;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weaponArray_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_weaponArray;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_numOfCurWeaponsInInventory;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_backupWeaponArray_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_backupWeaponArray;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_curWeapon;
@@ -2598,7 +2593,6 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCh
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shotLocation = { "shotLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, shotLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shotLocation_MetaData), NewProp_shotLocation_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray_Inner = { "weaponArray", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray = { "weaponArray", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, weaponArray), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponArray_MetaData), NewProp_weaponArray_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_numOfCurWeaponsInInventory = { "numOfCurWeaponsInInventory", "OnRep_weaponArray", (EPropertyFlags)0x0010000100000025, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, numOfCurWeaponsInInventory), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_numOfCurWeaponsInInventory_MetaData), NewProp_numOfCurWeaponsInInventory_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_backupWeaponArray_Inner = { "backupWeaponArray", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_backupWeaponArray = { "backupWeaponArray", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, backupWeaponArray), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_backupWeaponArray_MetaData), NewProp_backupWeaponArray_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_curWeapon = { "curWeapon", "OnRep_curWeapon", (EPropertyFlags)0x0010000100000025, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, curWeapon), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curWeapon_MetaData), NewProp_curWeapon_MetaData) };
@@ -2745,7 +2739,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shotLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_numOfCurWeaponsInInventory,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_backupWeaponArray_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_backupWeaponArray,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_curWeapon,
@@ -2844,7 +2837,6 @@ void AClassShooterCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepR
 	static const FName Name_bodyMesh(TEXT("bodyMesh"));
 	static const FName Name_curHealth(TEXT("curHealth"));
 	static const FName Name_weaponArray(TEXT("weaponArray"));
-	static const FName Name_numOfCurWeaponsInInventory(TEXT("numOfCurWeaponsInInventory"));
 	static const FName Name_backupWeaponArray(TEXT("backupWeaponArray"));
 	static const FName Name_curWeapon(TEXT("curWeapon"));
 	static const FName Name_weaponCopy(TEXT("weaponCopy"));
@@ -2887,7 +2879,6 @@ void AClassShooterCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepR
 		&& Name_bodyMesh == ClassReps[(int32)ENetFields_Private::bodyMesh].Property->GetFName()
 		&& Name_curHealth == ClassReps[(int32)ENetFields_Private::curHealth].Property->GetFName()
 		&& Name_weaponArray == ClassReps[(int32)ENetFields_Private::weaponArray].Property->GetFName()
-		&& Name_numOfCurWeaponsInInventory == ClassReps[(int32)ENetFields_Private::numOfCurWeaponsInInventory].Property->GetFName()
 		&& Name_backupWeaponArray == ClassReps[(int32)ENetFields_Private::backupWeaponArray].Property->GetFName()
 		&& Name_curWeapon == ClassReps[(int32)ENetFields_Private::curWeapon].Property->GetFName()
 		&& Name_weaponCopy == ClassReps[(int32)ENetFields_Private::weaponCopy].Property->GetFName()
@@ -2938,10 +2929,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 947890486U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2046783848U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_1780794657(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_2201583228(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));

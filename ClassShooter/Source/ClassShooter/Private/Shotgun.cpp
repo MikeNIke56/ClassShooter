@@ -16,8 +16,6 @@ void AShotgun::Fire()
 			GetWorldTimerManager().SetTimer(fireTimer, this,
 				&AWeaponBase::CanFireAgain, fireRate, false);
 
-			//weaponMesh->PlayAnimation(fireAnim, false);
-
 			for (int i = 0; i < maxAmmo; i++)
 			{
 				// fire offset values
@@ -55,6 +53,23 @@ void AShotgun::Fire()
 
 				// Draw debug line (visible for 1 second)
 				//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
+
+				if (muzzleFlashVFX)
+				{
+					UGameplayStatics::SpawnEmitterAtLocation(
+						GetWorld(),
+						muzzleFlashVFX,
+						muzzleFlashLocation,
+						GetActorRotation()
+					);
+					Multi_MuzzleFlash();
+				}
+
+				if (weaponAtkSound)
+				{
+					UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
+					Multi_FireSoundSFX();
+				}
 
 				AActor* hitActor = hitResult.GetActor();
 				// Check if we hit something
@@ -110,8 +125,6 @@ void AShotgun::Server_ShotgunFire_Implementation()
 		GetWorldTimerManager().SetTimer(fireTimer, this,
 			&AWeaponBase::CanFireAgain, fireRate, false);
 
-		//weaponMesh->PlayAnimation(fireAnim, false);
-
 		for (int i = 0; i < maxAmmo; i++)
 		{
 			// fire offset values
@@ -146,6 +159,12 @@ void AShotgun::Server_ShotgunFire_Implementation()
 			// Perform the trace
 			bool bHit = GetWorld()->LineTraceSingleByObjectType(
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
+
+			if (muzzleFlashVFX)
+				Multi_MuzzleFlash();
+
+			if (weaponAtkSound)
+				Multi_FireSoundSFX();
 
 			// Draw debug line (visible for 1 second)
 			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);

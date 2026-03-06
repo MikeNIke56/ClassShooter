@@ -152,19 +152,12 @@ void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(AClassShooterCharacter, didGetKill);
 	DOREPLIFETIME(AClassShooterCharacter, triggerScreenDmgEffect);
 	DOREPLIFETIME(AClassShooterCharacter, didCauseDmg);
-	DOREPLIFETIME(AClassShooterCharacter, numOfCurWeaponsInInventory);
+	DOREPLIFETIME(AClassShooterCharacter, playerWhoDamagedMe);
 }
 
 void AClassShooterCharacter::OnRep_weaponArray()
 {
-	int numOfCurWeapons = 0;
-	for (int i = 0; i < weaponArray.Num(); i++)
-	{
-		if (weaponArray[i] != nullptr)
-			numOfCurWeapons++;
-	}
-
-	numOfCurWeaponsInInventory = numOfCurWeapons;
+	
 }
 void AClassShooterCharacter::OnRep_curWeapon(AWeaponBase* weapon)
 {
@@ -1917,10 +1910,10 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 		curHealth -= DamageAmount;
 		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 
-		AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
+		playerWhoDamagedMe = Cast<AClassShooterCharacter>(source);
 		if (curHealth <= 0.0)
 		{
-			sourceObj->didGetKill = true;
+			playerWhoDamagedMe->didGetKill = true;
 			currentStates.Empty();
 			currentStates.AddUnique(PlayerGameState::Dying);
 			APlayerController* PC = Cast<APlayerController>(GetController());
@@ -1957,7 +1950,7 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 				}), 3.2f, false);
 		}
 		else
-			sourceObj->didCauseDmg = true;
+			playerWhoDamagedMe->didCauseDmg = true;
 
 		triggerScreenDmgEffect = true;
 		FTimerHandle DelayTimerHandle2;
@@ -1978,10 +1971,10 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 		curHealth -= DamageAmount;
 		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 
-		AClassShooterCharacter* sourceObj = Cast<AClassShooterCharacter>(source);
+		playerWhoDamagedMe = Cast<AClassShooterCharacter>(source);
 		if (curHealth <= 0.0)
 		{
-			sourceObj->didGetKill = true;
+			playerWhoDamagedMe->didGetKill = true;
 			currentStates.Empty();
 			currentStates.AddUnique(PlayerGameState::Dying);
 			APlayerController* PC = Cast<APlayerController>(GetController());
@@ -2007,7 +2000,7 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 				}), 3.2f, false);
 		}
 		else
-			sourceObj->didCauseDmg = true;
+			playerWhoDamagedMe->didCauseDmg = true;
 
 		triggerScreenDmgEffect = true;
 		FTimerHandle DelayTimerHandle2;

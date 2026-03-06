@@ -57,6 +57,10 @@ void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(AWeaponBase, curBulletCone);
 	DOREPLIFETIME(AWeaponBase, range);
 	DOREPLIFETIME(AWeaponBase, recoilAmnt);
+	DOREPLIFETIME(AWeaponBase, muzzleFlashVFX);
+	DOREPLIFETIME(AWeaponBase, weaponAtkSound);
+	DOREPLIFETIME(AWeaponBase, weaponReloadSound);
+	DOREPLIFETIME(AWeaponBase, muzzleFlashLocation);
 }
 
 // Called every frame
@@ -125,6 +129,24 @@ void AWeaponBase::Fire()
 			// Perform the trace
 			bool bHit = GetWorld()->LineTraceSingleByObjectType(
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
+
+			if (muzzleFlashVFX)
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(
+					GetWorld(),
+					muzzleFlashVFX,
+					muzzleFlashLocation,
+					GetActorRotation()
+				);
+				Multi_MuzzleFlash();
+			}
+			
+			if (weaponAtkSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
+				Multi_FireSoundSFX();
+			}
+
 
 			// Draw debug line (visible for 1 second)
 			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
@@ -222,6 +244,12 @@ void AWeaponBase::Server_Fire_Implementation()
 			// Draw debug line (visible for 1 second)
 			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
 
+			if(muzzleFlashVFX)
+				Multi_MuzzleFlash();
+
+			if(weaponAtkSound)
+				Multi_FireSoundSFX();
+
 			AActor* hitActor = hitResult.GetActor();
 			// Check if we hit something
 			if (bHit)
@@ -288,6 +316,29 @@ void AWeaponBase::Multi_Fire_Implementation(FHitResult hitResult)
 	);
 }
 
+bool AWeaponBase::Multi_MuzzleFlash_Validate()
+{
+	return true;
+}
+void AWeaponBase::Multi_MuzzleFlash_Implementation()
+{
+	UGameplayStatics::SpawnEmitterAtLocation(
+		GetWorld(),
+		muzzleFlashVFX,
+		muzzleFlashLocation,
+		GetActorRotation()
+	);
+}
+
+
+bool AWeaponBase::Multi_FireSoundSFX_Validate()
+{
+	return true;
+}
+void AWeaponBase::Multi_FireSoundSFX_Implementation()
+{
+	UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
+}
 
 void AWeaponBase::Reload()
 {
@@ -300,6 +351,12 @@ void AWeaponBase::Reload()
 				canFire = false;
 				isReloading = true;
 				weaponMesh->SetRelativeRotation(FRotator(0,90,0));
+
+				if (weaponReloadSound)
+				{
+					UGameplayStatics::PlaySoundAtLocation(this, weaponReloadSound, GetActorLocation());
+					Multi_ReloadSFX();
+				}
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::FinishReloading, reloadTime, false);
@@ -322,6 +379,9 @@ void AWeaponBase::Server_Reload_Implementation()
 				canFire = false;
 				isReloading = true;
 				weaponMesh->SetRelativeRotation(FRotator(0, 90, 0));
+
+				if (weaponReloadSound)
+					Multi_ReloadSFX();
 
 				// starts fireTimer
 				GetWorldTimerManager().SetTimer(reloadTimer, this, &AWeaponBase::Server_FinishReloading, reloadTime, false);
@@ -372,6 +432,16 @@ void AWeaponBase::Server_FinishReloading_Implementation()
 			UE_LOG(LogTemp, Warning, TEXT("reloaded"));
 		}), .75f, false);
 }
+
+bool AWeaponBase::Multi_ReloadSFX_Validate()
+{
+	return true;
+}
+void AWeaponBase::Multi_ReloadSFX_Implementation()
+{
+	UGameplayStatics::PlaySoundAtLocation(this, weaponReloadSound, GetActorLocation());
+}
+
 
 void AWeaponBase::CanFireAgain()
 {

@@ -15,7 +15,7 @@ void AKnife::Fire()
 
 void AKnife::Swing()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("meleeing"));
+	UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
 }
 
 void AKnife::StopSwing()

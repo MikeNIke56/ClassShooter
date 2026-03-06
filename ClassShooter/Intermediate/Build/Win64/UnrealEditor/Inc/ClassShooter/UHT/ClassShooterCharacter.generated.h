@@ -78,7 +78,6 @@ public: \
 		bodyMesh, \
 		curHealth, \
 		weaponArray, \
-		numOfCurWeaponsInInventory, \
 		backupWeaponArray, \
 		curWeapon, \
 		weaponCopy, \
@@ -115,6 +114,7 @@ public: \
 		didGetKill, \
 		triggerScreenDmgEffect, \
 		deathExplosionVFX, \
+		playerWhoDamagedMe, \
 		movementComponent, \
 		NETFIELD_REP_END=movementComponent	}; \
 	NO_API virtual void ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const override;

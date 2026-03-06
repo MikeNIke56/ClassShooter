@@ -8,9 +8,12 @@
 #include "Components/ArrowComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Particles/ParticleSystem.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include <Damageable.h>
 #include "Net/UnrealNetwork.h" 
+#include <Sound/SoundCue.h>
 #include "WeaponBase.generated.h"
 
 
@@ -135,6 +138,17 @@ public:
 	FVector weaponADSCrouchedLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float weaponADSFOV;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
+	FVector muzzleFlashLocation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
+	UParticleSystem* muzzleFlashVFX;
+
+	//audio
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Audio")
+	USoundBase* weaponAtkSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Audio")
+	USoundBase* weaponReloadSound;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -168,18 +182,33 @@ public:
 	bool Multi_Fire_Validate(FHitResult hitResult);
 	void Multi_Fire_Implementation(FHitResult hitResult);
 
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	virtual void Multi_MuzzleFlash();
+	virtual bool Multi_MuzzleFlash_Validate();
+	virtual void Multi_MuzzleFlash_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	virtual void Multi_FireSoundSFX();
+	virtual bool Multi_FireSoundSFX_Validate();
+	virtual void Multi_FireSoundSFX_Implementation();
+
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Reload();
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_Reload();
-	bool Server_Reload_Validate();
-	void Server_Reload_Implementation();
+	virtual void Server_Reload();
+	virtual bool Server_Reload_Validate();
+	virtual void Server_Reload_Implementation();
 
 	void FinishReloading();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_FinishReloading();
 	bool Server_FinishReloading_Validate();
 	void Server_FinishReloading_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void Multi_ReloadSFX();
+	bool Multi_ReloadSFX_Validate();
+	void Multi_ReloadSFX_Implementation();
 
 	void CanFireAgain();
 
