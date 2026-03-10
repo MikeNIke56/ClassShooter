@@ -24,6 +24,7 @@ ENGINE_API UClass* Z_Construct_UClass_UArrowComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UCapsuleComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USkeletalMeshComponent_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
@@ -196,6 +197,123 @@ DEFINE_FUNCTION(AWeaponBase::execMulti_Fire)
 	P_NATIVE_END;
 }
 // End Class AWeaponBase Function Multi_Fire
+
+// Begin Class AWeaponBase Function Multi_FireSoundSFX
+static FName NAME_AWeaponBase_Multi_FireSoundSFX = FName(TEXT("Multi_FireSoundSFX"));
+void AWeaponBase::Multi_FireSoundSFX()
+{
+	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_Multi_FireSoundSFX),NULL);
+}
+struct Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "Multi_FireSoundSFX", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80024CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AWeaponBase::execMulti_FireSoundSFX)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Multi_FireSoundSFX_Validate())
+	{
+		RPC_ValidateFailed(TEXT("Multi_FireSoundSFX_Validate"));
+		return;
+	}
+	P_THIS->Multi_FireSoundSFX_Implementation();
+	P_NATIVE_END;
+}
+// End Class AWeaponBase Function Multi_FireSoundSFX
+
+// Begin Class AWeaponBase Function Multi_MuzzleFlash
+static FName NAME_AWeaponBase_Multi_MuzzleFlash = FName(TEXT("Multi_MuzzleFlash"));
+void AWeaponBase::Multi_MuzzleFlash()
+{
+	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_Multi_MuzzleFlash),NULL);
+}
+struct Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "Multi_MuzzleFlash", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80024CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AWeaponBase::execMulti_MuzzleFlash)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Multi_MuzzleFlash_Validate())
+	{
+		RPC_ValidateFailed(TEXT("Multi_MuzzleFlash_Validate"));
+		return;
+	}
+	P_THIS->Multi_MuzzleFlash_Implementation();
+	P_NATIVE_END;
+}
+// End Class AWeaponBase Function Multi_MuzzleFlash
+
+// Begin Class AWeaponBase Function Multi_ReloadSFX
+static FName NAME_AWeaponBase_Multi_ReloadSFX = FName(TEXT("Multi_ReloadSFX"));
+void AWeaponBase::Multi_ReloadSFX()
+{
+	ProcessEvent(FindFunctionChecked(NAME_AWeaponBase_Multi_ReloadSFX),NULL);
+}
+struct Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "Multi_ReloadSFX", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80024CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AWeaponBase::execMulti_ReloadSFX)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Multi_ReloadSFX_Validate())
+	{
+		RPC_ValidateFailed(TEXT("Multi_ReloadSFX_Validate"));
+		return;
+	}
+	P_THIS->Multi_ReloadSFX_Implementation();
+	P_NATIVE_END;
+}
+// End Class AWeaponBase Function Multi_ReloadSFX
 
 // Begin Class AWeaponBase Function OnRep_curAmmo
 struct Z_Construct_UFunction_AWeaponBase_OnRep_curAmmo_Statics
@@ -495,6 +613,9 @@ void AWeaponBase::StaticRegisterNativesAWeaponBase()
 		{ "AutoFire", &AWeaponBase::execAutoFire },
 		{ "Fire", &AWeaponBase::execFire },
 		{ "Multi_Fire", &AWeaponBase::execMulti_Fire },
+		{ "Multi_FireSoundSFX", &AWeaponBase::execMulti_FireSoundSFX },
+		{ "Multi_MuzzleFlash", &AWeaponBase::execMulti_MuzzleFlash },
+		{ "Multi_ReloadSFX", &AWeaponBase::execMulti_ReloadSFX },
 		{ "OnRep_curAmmo", &AWeaponBase::execOnRep_curAmmo },
 		{ "OnRep_weaponState", &AWeaponBase::execOnRep_weaponState },
 		{ "Reload", &AWeaponBase::execReload },
@@ -687,6 +808,28 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ "Category", "Weapon Variables" },
 		{ "ModuleRelativePath", "Public/WeaponBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_muzzleFlashLocation_MetaData[] = {
+		{ "Category", "Weapon Variables" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_muzzleFlashVFX_MetaData[] = {
+		{ "Category", "Weapon Variables" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_weaponAtkSound_MetaData[] = {
+		{ "Category", "Audio" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//audio\n" },
+#endif
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "audio" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_weaponReloadSound_MetaData[] = {
+		{ "Category", "Audio" },
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weaponMesh;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_fireAnim;
@@ -734,12 +877,19 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_weaponADSStandingLocation;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_weaponADSCrouchedLocation;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_weaponADSFOV;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_muzzleFlashLocation;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_muzzleFlashVFX;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_weaponAtkSound;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_weaponReloadSound;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AWeaponBase_AutoFire, "AutoFire" }, // 2004454903
 		{ &Z_Construct_UFunction_AWeaponBase_Fire, "Fire" }, // 581559785
 		{ &Z_Construct_UFunction_AWeaponBase_Multi_Fire, "Multi_Fire" }, // 3265869574
+		{ &Z_Construct_UFunction_AWeaponBase_Multi_FireSoundSFX, "Multi_FireSoundSFX" }, // 787300172
+		{ &Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash, "Multi_MuzzleFlash" }, // 1954485701
+		{ &Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX, "Multi_ReloadSFX" }, // 3242556088
 		{ &Z_Construct_UFunction_AWeaponBase_OnRep_curAmmo, "OnRep_curAmmo" }, // 915249934
 		{ &Z_Construct_UFunction_AWeaponBase_OnRep_weaponState, "OnRep_weaponState" }, // 3973844332
 		{ &Z_Construct_UFunction_AWeaponBase_Reload, "Reload" }, // 2657704823
@@ -822,6 +972,10 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_St
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSStandingLocation = { "weaponADSStandingLocation", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, weaponADSStandingLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponADSStandingLocation_MetaData), NewProp_weaponADSStandingLocation_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSCrouchedLocation = { "weaponADSCrouchedLocation", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, weaponADSCrouchedLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponADSCrouchedLocation_MetaData), NewProp_weaponADSCrouchedLocation_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSFOV = { "weaponADSFOV", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, weaponADSFOV), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponADSFOV_MetaData), NewProp_weaponADSFOV_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_muzzleFlashLocation = { "muzzleFlashLocation", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, muzzleFlashLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_muzzleFlashLocation_MetaData), NewProp_muzzleFlashLocation_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_muzzleFlashVFX = { "muzzleFlashVFX", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, muzzleFlashVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_muzzleFlashVFX_MetaData), NewProp_muzzleFlashVFX_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponAtkSound = { "weaponAtkSound", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, weaponAtkSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponAtkSound_MetaData), NewProp_weaponAtkSound_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponReloadSound = { "weaponReloadSound", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, weaponReloadSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponReloadSound_MetaData), NewProp_weaponReloadSound_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBase_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_fireAnim,
@@ -862,6 +1016,10 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AWeaponBa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSStandingLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSCrouchedLocation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponADSFOV,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_muzzleFlashLocation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_muzzleFlashVFX,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponAtkSound,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AWeaponBase_Statics::NewProp_weaponReloadSound,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AWeaponBase_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AWeaponBase_Statics::DependentSingletons[])() = {
@@ -918,6 +1076,10 @@ void AWeaponBase::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& Cla
 	static const FName Name_weaponUnADSLocation(TEXT("weaponUnADSLocation"));
 	static const FName Name_weaponADSStandingLocation(TEXT("weaponADSStandingLocation"));
 	static const FName Name_weaponADSCrouchedLocation(TEXT("weaponADSCrouchedLocation"));
+	static const FName Name_muzzleFlashLocation(TEXT("muzzleFlashLocation"));
+	static const FName Name_muzzleFlashVFX(TEXT("muzzleFlashVFX"));
+	static const FName Name_weaponAtkSound(TEXT("weaponAtkSound"));
+	static const FName Name_weaponReloadSound(TEXT("weaponReloadSound"));
 	const bool bIsValid = true
 		&& Name_weaponMesh == ClassReps[(int32)ENetFields_Private::weaponMesh].Property->GetFName()
 		&& Name_range == ClassReps[(int32)ENetFields_Private::range].Property->GetFName()
@@ -938,7 +1100,11 @@ void AWeaponBase::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& Cla
 		&& Name_curCamRot == ClassReps[(int32)ENetFields_Private::curCamRot].Property->GetFName()
 		&& Name_weaponUnADSLocation == ClassReps[(int32)ENetFields_Private::weaponUnADSLocation].Property->GetFName()
 		&& Name_weaponADSStandingLocation == ClassReps[(int32)ENetFields_Private::weaponADSStandingLocation].Property->GetFName()
-		&& Name_weaponADSCrouchedLocation == ClassReps[(int32)ENetFields_Private::weaponADSCrouchedLocation].Property->GetFName();
+		&& Name_weaponADSCrouchedLocation == ClassReps[(int32)ENetFields_Private::weaponADSCrouchedLocation].Property->GetFName()
+		&& Name_muzzleFlashLocation == ClassReps[(int32)ENetFields_Private::muzzleFlashLocation].Property->GetFName()
+		&& Name_muzzleFlashVFX == ClassReps[(int32)ENetFields_Private::muzzleFlashVFX].Property->GetFName()
+		&& Name_weaponAtkSound == ClassReps[(int32)ENetFields_Private::weaponAtkSound].Property->GetFName()
+		&& Name_weaponReloadSound == ClassReps[(int32)ENetFields_Private::weaponReloadSound].Property->GetFName();
 	checkf(bIsValid, TEXT("UHT Generated Rep Indices do not match runtime populated Rep Indices for properties in AWeaponBase"));
 }
 DEFINE_VTABLE_PTR_HELPER_CTOR(AWeaponBase);
@@ -952,10 +1118,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 4083514140U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 4172207318U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_3858847749(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_699436797(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));

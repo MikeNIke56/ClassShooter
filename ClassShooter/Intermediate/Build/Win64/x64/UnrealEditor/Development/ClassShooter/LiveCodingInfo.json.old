@@ -14,12 +14,10 @@
 			"AssaultRifle.cpp.obj",
 			"Damageable.cpp.obj",
 			"GrenadeLauncher.cpp.obj",
-			"Knife.cpp.obj",
 			"Pistol.cpp.obj",
 			"RocketLauncher.cpp.obj",
 			"Shield.cpp.obj",
 			"ShieldCharacter.cpp.obj",
-			"Shotgun.cpp.obj",
 			"SniperRifle.cpp.obj",
 			"StealthCharacter.cpp.obj",
 			"TP_PickUpComponent.cpp.obj",
@@ -40,7 +38,9 @@
 			"WeaponBase.gen.cpp.obj",
 			"ClassShooterCharacter.cpp.obj",
 			"ClassShooterPlayerController.cpp.obj",
+			"Knife.cpp.obj",
 			"MovementCharacter.cpp.obj",
+			"Shotgun.cpp.obj",
 			"WeaponBase.cpp.obj"
 		]
 	}
