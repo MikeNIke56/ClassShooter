@@ -33,7 +33,7 @@ void AShieldCharacter::BeginPlay()
 	shieldBashHitDetected = false;
 	isShieldBashHBOn = false;
 
-	if (HasAuthority() && !eqippedShield)
+	if (HasAuthority() && !equippedShield)
 	{
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
@@ -43,7 +43,7 @@ void AShieldCharacter::BeginPlay()
 		FVector spawnLoc = GetActorLocation();
 		FRotator spawnRot = GetActorRotation();
 
-		eqippedShield = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
+		equippedShield = GetWorld()->SpawnActor<AShield>(shieldWorldObj, spawnLoc,
 			spawnRot, SpawnParams);
 
 		FAttachmentTransformRules AttachRules(
@@ -52,9 +52,9 @@ void AShieldCharacter::BeginPlay()
 			EAttachmentRule::KeepWorld,      // Scale
 			true                             // Weld Simulated Bodies
 		);
-		eqippedShield->AttachToComponent(shieldLocation, AttachRules);
-		eqippedShield->SetActorRotation(shieldLocation->GetComponentRotation());
-		originalShieldLoc = eqippedShield->GetActorLocation();
+		equippedShield->AttachToComponent(shieldLocation, AttachRules);
+		equippedShield->SetActorRotation(shieldLocation->GetComponentRotation());
+		originalShieldLoc = equippedShield->GetActorLocation();
 	}
 
 	unADSshieldLocation = shieldLocation->GetRelativeLocation();
@@ -126,7 +126,7 @@ void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(AShieldCharacter, isShieldBashHBOn);
 	DOREPLIFETIME(AShieldCharacter, shieldBashVFX);
 	DOREPLIFETIME(AShieldCharacter, shieldBashDist);
-	DOREPLIFETIME(AShieldCharacter, eqippedShield);
+	DOREPLIFETIME(AShieldCharacter, equippedShield);
 	DOREPLIFETIME(AShieldCharacter, shieldBashHitDetected);
 	DOREPLIFETIME(AShieldCharacter, shieldThrowTimer);
 	DOREPLIFETIME(AShieldCharacter, thrownShield);
@@ -178,25 +178,6 @@ void AShieldCharacter::Server_UpdateCooldownValues_Implementation()
 void AShieldCharacter::StartShooting()
 {
 	Super::StartShooting();
-}
-
-
-void AShieldCharacter::DropWeapon()
-{
-	if (HasAuthority())
-	{
-		if (curWeapon)
-			curWeapon->shield = nullptr;
-		Super::DropWeapon();
-	}
-	else
-		Server_DropWeapon();
-}
-void AShieldCharacter::Server_DropWeapon_Implementation()
-{
-	if (curWeapon)
-		curWeapon->shield = nullptr;
-	Super::DropWeapon();
 }
 
 
@@ -344,7 +325,7 @@ void AShieldCharacter::ShieldBash()
 		FHitResult hitResult;
 		FCollisionQueryParams collisionParams;
 		collisionParams.AddIgnoredActor(this); // Ignore self
-		collisionParams.AddIgnoredActor(eqippedShield); //ignore shield
+		collisionParams.AddIgnoredActor(equippedShield); //ignore shield
 		if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
 		{
 			collisionParams.AddIgnoredActor(OwnerPawn);
@@ -420,7 +401,7 @@ void AShieldCharacter::Server_ShieldBash_Implementation()
 	FHitResult hitResult;
 	FCollisionQueryParams collisionParams;
 	collisionParams.AddIgnoredActor(this); // Ignore self
-	collisionParams.AddIgnoredActor(eqippedShield); //ignore shield
+	collisionParams.AddIgnoredActor(equippedShield); //ignore shield
 	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
 	{
 		collisionParams.AddIgnoredActor(OwnerPawn);
@@ -522,9 +503,9 @@ void AShieldCharacter::StopAbility2()
 {
 	if (HasAuthority())
 	{
-		eqippedShield->SetActorEnableCollision(true);
-		eqippedShield->SetActorHiddenInGame(false);
-		eqippedShield->SetActorTickEnabled(true);
+		equippedShield->SetActorEnableCollision(true);
+		equippedShield->SetActorHiddenInGame(false);
+		equippedShield->SetActorTickEnabled(true);
 		hasShield = true;
 	}
 	else
@@ -532,9 +513,9 @@ void AShieldCharacter::StopAbility2()
 }
 void AShieldCharacter::Server_StopAbility2_Implementation()
 {
-	eqippedShield->SetActorEnableCollision(true);
-	eqippedShield->SetActorHiddenInGame(false);
-	eqippedShield->SetActorTickEnabled(true);
+	equippedShield->SetActorEnableCollision(true);
+	equippedShield->SetActorHiddenInGame(false);
+	equippedShield->SetActorTickEnabled(true);
 	hasShield = true;
 }
 
@@ -543,9 +524,9 @@ void AShieldCharacter::ShieldThrow()
 {
 	if (HasAuthority())
 	{
-		eqippedShield->SetActorEnableCollision(false);
-		eqippedShield->SetActorHiddenInGame(true);
-		eqippedShield->SetActorTickEnabled(false);
+		equippedShield->SetActorEnableCollision(false);
+		equippedShield->SetActorHiddenInGame(true);
+		equippedShield->SetActorTickEnabled(false);
 		hasShield = false;
 
 		FActorSpawnParameters SpawnParams;
@@ -568,9 +549,9 @@ bool AShieldCharacter::Server_ShieldThrow_Validate()
 }
 void AShieldCharacter::Server_ShieldThrow_Implementation()
 {
-	eqippedShield->SetActorEnableCollision(false);
-	eqippedShield->SetActorHiddenInGame(true);
-	eqippedShield->SetActorTickEnabled(false);
+	equippedShield->SetActorEnableCollision(false);
+	equippedShield->SetActorHiddenInGame(true);
+	equippedShield->SetActorTickEnabled(false);
 	hasShield = false;
 
 	FActorSpawnParameters SpawnParams;
@@ -592,13 +573,13 @@ void AShieldCharacter::StartUltimate()
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		{
-			eqippedShield->SetActorEnableCollision(true);
-			eqippedShield->SetActorHiddenInGame(false);
-			eqippedShield->SetActorTickEnabled(true);
+			equippedShield->SetActorEnableCollision(true);
+			equippedShield->SetActorHiddenInGame(false);
+			equippedShield->SetActorTickEnabled(true);
 			hasShield = true;
 			shieldBashCooldown = 1;
 			shieldThrowCooldown = 1;
-			eqippedShield->SetActorRelativeScale3D(eqippedShield->GetActorScale() * 3);
+			equippedShield->SetActorRelativeScale3D(equippedShield->GetActorScale() * 3);
 			curSpeedMulti = 2.5f;
 
 			currentStates.AddUnique(PlayerGameState::Ultimate);
@@ -623,13 +604,13 @@ void AShieldCharacter::Server_StartUltimate_Implementation()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
-		eqippedShield->SetActorEnableCollision(true);
-		eqippedShield->SetActorHiddenInGame(false);
-		eqippedShield->SetActorTickEnabled(true);
+		equippedShield->SetActorEnableCollision(true);
+		equippedShield->SetActorHiddenInGame(false);
+		equippedShield->SetActorTickEnabled(true);
 		hasShield = true;
 		shieldBashCooldown = 1;
 		shieldThrowCooldown = 1;
-		eqippedShield->SetActorRelativeScale3D(eqippedShield->GetActorScale() * 3);
+		equippedShield->SetActorRelativeScale3D(equippedShield->GetActorScale() * 3);
 		curSpeedMulti = 2.5f;
 
 		currentStates.AddUnique(PlayerGameState::Ultimate);
@@ -656,7 +637,7 @@ void AShieldCharacter::StopUltimate()
 		shieldBashCooldown = baseShieldBashCooldown;
 		shieldThrowCooldown = baseShieldThrowCooldown;
 		curSpeedMulti = baseSpeedMulti;
-		eqippedShield->SetActorRelativeScale3D(FVector(.01f, .01f, .01f));
+		equippedShield->SetActorRelativeScale3D(FVector(.01f, .01f, .01f));
 
 		GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 			{
@@ -674,7 +655,7 @@ void AShieldCharacter::Server_StopUltimate_Implementation()
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
 	curSpeedMulti = baseSpeedMulti;
-	eqippedShield->SetActorRelativeScale3D(FVector(.01f, .01f, .01f));
+	equippedShield->SetActorRelativeScale3D(FVector(.01f, .01f, .01f));
 
 	GetWorld()->GetTimerManager().SetTimer(ultCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{

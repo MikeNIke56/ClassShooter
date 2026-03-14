@@ -74,9 +74,6 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 	UInputAction* ReloadWeaponAction;
 	/** Drop weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* DropWeaponAction;
-	/** Crouch input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* CrouchAction;
 	/** Drop weapon input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -262,7 +259,7 @@ public:
 
 	//Picking up and equipping weapons
 	UFUNCTION(BlueprintCallable)
-	void EquipWeapon(AWeaponBase* weapon, bool isUltDagger);
+	virtual void EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
 
 protected:
 	virtual void BeginPlay();
@@ -396,9 +393,9 @@ protected:
 	void ProceduralRecoil(float multiplier);
 
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_EquipWeapon(AWeaponBase* weapon, bool isUltDagger);
-	bool Server_EquipWeapon_Validate(AWeaponBase* weapon, bool isUltDagger);
-	void Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool isUltDagger);
+	void Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
+	bool Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
+	void Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
@@ -425,17 +422,10 @@ protected:
 	//Stowing weapons
 	void StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
 	UFUNCTION(Server, Reliable, WithValidation)
-	virtual void Server_StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
-	virtual bool Server_StowWeapon_Validate(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
-	virtual void Server_StowWeapon_Implementation(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
+	void Server_StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
+	bool Server_StowWeapon_Validate(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
+	void Server_StowWeapon_Implementation(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos);
 
-
-	//Dropping weapons
-	virtual void DropWeapon();
-	UFUNCTION(Server, Reliable, WithValidation)
-	virtual void Server_DropWeapon();
-	virtual bool Server_DropWeapon_Validate();
-	virtual void Server_DropWeapon_Implementation();
 
 	void SwapWeaponOver(AWeaponBase* weapon, int pos);
 	UFUNCTION(Server, Reliable, WithValidation)

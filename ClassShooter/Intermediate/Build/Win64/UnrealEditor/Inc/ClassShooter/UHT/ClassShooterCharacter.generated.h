@@ -31,7 +31,6 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execServer_StopAbility1); \
 	DECLARE_FUNCTION(execServer_StartAbility1); \
 	DECLARE_FUNCTION(execServer_SwapWeaponOver); \
-	DECLARE_FUNCTION(execServer_DropWeapon); \
 	DECLARE_FUNCTION(execServer_StowWeapon); \
 	DECLARE_FUNCTION(execServer_SwitchWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \

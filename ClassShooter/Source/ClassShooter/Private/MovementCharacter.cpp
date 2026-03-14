@@ -1079,28 +1079,6 @@ void AMovementCharacter::Jump()
 	else
 		Super::Jump();
 }
-/*
-void AMovementCharacter::Server_Jump_Implementation()
-{
-	if (currentStates.Contains(PlayerGameState::Wallrunning))
-	{
-		wallRunDelay = .25f;
-		Server_ResetMovement();
-
-		isWallRunning = false;
-		isWallRunningR = false;
-		isWallRunningL = false;
-		cameraRotateLerp = true;
-
-		float jumpDistX = wallRunNormal.X * wallRunJumpDist;
-		float jumpDistY = wallRunNormal.Y * wallRunJumpDist;
-		LaunchCharacter(FVector(jumpDistX, jumpDistY, wallRunJumpHeight), false, true);
-	}
-	else
-		Super::Server_Jump();
-}
-*/
-
 
 
 void AMovementCharacter::LandEvent()

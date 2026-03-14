@@ -580,7 +580,7 @@ void AStealthCharacter::SpawnUltWeapon()
 			spawnRot, SpawnParams);
 
 		if (ultDaggerCopy)
-			EquipWeapon(ultDaggerCopy, true);
+			EquipWeapon(ultDaggerCopy, false);
 		else
 			UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 	}

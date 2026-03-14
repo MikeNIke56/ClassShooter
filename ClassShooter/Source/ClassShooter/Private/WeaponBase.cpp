@@ -61,6 +61,7 @@ void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(AWeaponBase, weaponAtkSound);
 	DOREPLIFETIME(AWeaponBase, weaponReloadSound);
 	DOREPLIFETIME(AWeaponBase, muzzleFlashLocation);
+	DOREPLIFETIME(AWeaponBase, shield);
 }
 
 // Called every frame
@@ -72,12 +73,14 @@ void AWeaponBase::Tick(float DeltaTime)
 
 void AWeaponBase::OnRep_weaponState(WeaponState lastState)
 {
-	lastState = state;
+	
 }
 void AWeaponBase::OnRep_curAmmo()
 {
-	curAmmo -= 1;
-	curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
+	
+}
+void AWeaponBase::OnRep_shield()
+{
 }
 
 // Fires the weapon
@@ -115,7 +118,7 @@ void AWeaponBase::Fire()
 			{
 				collisionParams.AddIgnoredActor(OwnerPawn);
 			}
-
+			
 			if(shield != nullptr)
 				collisionParams.AddIgnoredActor(shield);
 

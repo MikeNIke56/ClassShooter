@@ -121,7 +121,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Weapon Variables")
 	FRotator curCamRot;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_shield, Category = "Weapon Variables")
 	AWeaponBase* shield;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
@@ -162,6 +162,8 @@ public:
 	void OnRep_weaponState(WeaponState lastState);
 	UFUNCTION()
 	void OnRep_curAmmo();
+	UFUNCTION()
+	void OnRep_shield();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Fire();

@@ -24,7 +24,7 @@ public:
 	TSubclassOf<AActor> shieldThrowWorldObj;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Shield Class Base Values")
-	AShield* eqippedShield;
+	AShield* equippedShield;
 	UPROPERTY(Replicated)
 	AActor* thrownShield;
 	UPROPERTY(Replicated)
@@ -119,7 +119,9 @@ protected:
 	bool Server_UpdateCooldownValues_Validate();
 	void Server_UpdateCooldownValues_Implementation();
 
+
 	virtual void StartShooting() override;
+
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
 	virtual void ADS() override;
@@ -134,10 +136,6 @@ protected:
 	void Server_ShieldStopADS();
 	bool Server_ShieldStopADS_Validate();
 	void Server_ShieldStopADS_Implementation();
-
-	UFUNCTION(BlueprintCallable, Category = "Shield Functions")
-	virtual void DropWeapon() override;
-	virtual void Server_DropWeapon_Implementation() override;
 
 
 	UFUNCTION(BlueprintCallable, Category = "Shield Functions")

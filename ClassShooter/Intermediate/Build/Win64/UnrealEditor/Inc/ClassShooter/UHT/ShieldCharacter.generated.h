@@ -27,7 +27,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execStopBlocking); \
 	DECLARE_FUNCTION(execServer_Block); \
 	DECLARE_FUNCTION(execBlock); \
-	DECLARE_FUNCTION(execDropWeapon); \
 	DECLARE_FUNCTION(execServer_ShieldStopADS); \
 	DECLARE_FUNCTION(execStopADS); \
 	DECLARE_FUNCTION(execServer_ShieldADS); \
@@ -47,7 +46,7 @@ public: \
 	{ \
 		NETFIELD_REP_START=(uint16)((int32)Super::ENetFields_Private::NETFIELD_REP_END + (int32)1), \
 		shieldThrowWorldObj=NETFIELD_REP_START, \
-		eqippedShield, \
+		equippedShield, \
 		thrownShield, \
 		originalShieldLoc, \
 		shieldThrowLoc, \

@@ -165,21 +165,13 @@ void AClassShooterCharacter::OnRep_curWeapon(AWeaponBase* weapon)
 }
 void AClassShooterCharacter::OnRep_targetLocation()
 {
-	curWeapon->SetOwner(this);
-	FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-	curWeapon->AttachToComponent(weaponLocation, AttachRules);
-	curWeapon->SetActorRotation(weaponLocation->GetComponentRotation());
-	ADSLerp = true;
-
-	TArray<UActorComponent*> Hitboxes = curWeapon->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
-	for (UActorComponent* Comp : Hitboxes)
+	if (curWeapon)
 	{
-		UCapsuleComponent* capsule = Cast<UCapsuleComponent>(Comp);
-		if (capsule)
-		{
-			capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			UE_LOG(LogTemp, Warning, TEXT("disabled"));
-		}
+		curWeapon->SetOwner(this);
+		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+		curWeapon->AttachToComponent(weaponLocation, AttachRules);
+		curWeapon->SetActorRotation(weaponLocation->GetComponentRotation());
+		ADSLerp = true;
 	}
 }
 
@@ -379,9 +371,6 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 		
 		// Reload
 		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::Reload);
-
-		// Drop weapon
-		EnhancedInputComponent->BindAction(DropWeaponAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::DropWeapon);
 
 		// Crouch
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &AClassShooterCharacter::StartCrouch);
@@ -1036,7 +1025,7 @@ void AClassShooterCharacter::Server_Shoot_Implementation()
 
 
 //Picking up and equipping weapons
-void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool isUltDagger)
+void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
 {
 	if (HasAuthority())
 	{
@@ -1063,7 +1052,7 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool isUltDagger)
 					{
 						if (i == 0)
 						{
-							if (isUltDagger == false)
+							if (shouldCreateNewWeaponObj == true)
 							{
 								FActorSpawnParameters SpawnParams;
 								SpawnParams.Owner = this;
@@ -1104,13 +1093,13 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool isUltDagger)
 		}
 	}
 	else
-		Server_EquipWeapon(weapon, isUltDagger);
+		Server_EquipWeapon(weapon, shouldCreateNewWeaponObj);
 }
-bool AClassShooterCharacter::Server_EquipWeapon_Validate(AWeaponBase* weapon, bool isUltDagger)
+bool AClassShooterCharacter::Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
 {
 	return true;
 }
-void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool isUltDagger)
+void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
 {
 	if (weapon != nullptr)
 	{
@@ -1134,7 +1123,7 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 				{
 					if (i == 0)
 					{
-						if (isUltDagger == false)
+						if (shouldCreateNewWeaponObj == true)
 						{
 							FActorSpawnParameters SpawnParams;
 							SpawnParams.Owner = this;
@@ -1362,14 +1351,7 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 	{
 		if (bodyMesh->DoesSocketExist(socketName))
 		{
-			if (shouldCreateNew == false)
-			{
-				FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-				weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
-				UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
-				weapon->state = WeaponState::Stowed;
-			}
-			else
+			if (shouldCreateNew == true)
 			{
 				FActorSpawnParameters SpawnParams;
 				SpawnParams.Owner = this;
@@ -1382,12 +1364,19 @@ void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socket
 
 				weaponCopy->SetUpWeapon(weapon);
 
-				weaponCopy->state = WeaponState::Stowed;
-
 				FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 				weaponCopy->AttachToComponent(bodyMesh, AttachRules, socketName);
 				UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
 			}
+			else
+			{
+				FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+				weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
+				UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
+				weaponCopy->SetUpWeapon(weapon);
+			}
+
+			weaponCopy->state = WeaponState::Stowed;
 
 			if (pos >= 0)
 				weaponArray[pos] = weaponCopy;
@@ -1406,14 +1395,7 @@ void AClassShooterCharacter::Server_StowWeapon_Implementation(AWeaponBase* weapo
 {
 	if (bodyMesh->DoesSocketExist(socketName))
 	{
-		if (shouldCreateNew == false)
-		{
-			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
-			weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
-			UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
-			weapon->state = WeaponState::Stowed;
-		}
-		else
+		if (shouldCreateNew == true)
 		{
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
@@ -1426,12 +1408,19 @@ void AClassShooterCharacter::Server_StowWeapon_Implementation(AWeaponBase* weapo
 
 			weaponCopy->SetUpWeapon(weapon);
 
-			weaponCopy->state = WeaponState::Stowed;
-
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 			weaponCopy->AttachToComponent(bodyMesh, AttachRules, socketName);
 			UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
 		}
+		else
+		{
+			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
+			weapon->AttachToComponent(bodyMesh, AttachRules, socketName);
+			UE_LOG(LogTemp, Warning, TEXT("Stowed weapon: %s"), *weaponCopy->name.ToString());
+			weaponCopy->SetUpWeapon(weapon);
+		}
+
+		weaponCopy->state = WeaponState::Stowed;
 
 		if (pos >= 0)
 			weaponArray[pos] = weaponCopy;
@@ -1487,131 +1476,6 @@ void AClassShooterCharacter::ProceduralRecoil(float multiplier)
 	recoilLocation.Z = localMultiplier * FMath::FRandRange(0.0f, 0.0f);
 
 	recoilTransform.SetLocation(recoilLocation);
-}
-
-//Dropping weapons
-void AClassShooterCharacter::DropWeapon()
-{
-	if (HasAuthority())
-	{
-		if (curWeapon)
-		{
-			FActorSpawnParameters SpawnParams;
-			SpawnParams.Owner = this;
-			SpawnParams.Instigator = GetInstigator();
-
-			weaponWorldObj = curWeapon->GetClass();
-
-			FVector spawnLoc = GetActorLocation();
-			spawnLoc += (GetActorForwardVector() * 100);
-			spawnLoc.Z -= 30;
-
-			FRotator spawnRot = GetActorRotation();
-			spawnRot.Yaw -= 90;
-
-			weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
-				spawnRot, SpawnParams);
-
-			if (shouldDestroyWeapon == true)
-				weaponCopy->Destroy();
-			else
-				weaponCopy->SetUpWeapon(curWeapon);
-
-			weaponCopy->state = WeaponState::OutOfInventory;
-			StopADS();
-
-			int pos;
-			for (int i = 0; i < weaponArray.Num(); i++)
-			{
-				if (weaponArray[i] == curWeapon)
-				{
-					pos = i;
-					weaponArray[i] = NULL;
-				}
-			}
-
-			curWeapon->Destroy();
-			curWeapon = nullptr;
-
-			for (pos; pos < weaponArray.Num(); pos++)
-			{
-				weaponArray[pos] = NULL;
-				if (pos + 1 < weaponArray.Num())
-					weaponArray[pos] = weaponArray[pos + 1];
-			}
-
-			weaponCopy->isWeaponDrop = true;
-			isSwitchingAfterPickup = true;
-
-			if (weaponArray[0])
-				SwapWeaponOver(weaponArray[0], 0);
-
-			shouldDestroyWeapon = false;
-		}
-	}
-	else
-		Server_DropWeapon();
-}
-bool AClassShooterCharacter::Server_DropWeapon_Validate()
-{
-	return true;
-}
-void AClassShooterCharacter::Server_DropWeapon_Implementation()
-{
-	if (curWeapon)
-	{
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.Owner = this;
-		SpawnParams.Instigator = GetInstigator();
-
-		weaponWorldObj = curWeapon->GetClass();
-
-		FVector spawnLoc = GetActorLocation();
-		spawnLoc += (GetActorForwardVector() * 100);
-		spawnLoc.Z -= 30;
-
-		FRotator spawnRot = GetActorRotation();
-		spawnRot.Yaw -= 90;
-
-		weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, spawnLoc,
-			spawnRot, SpawnParams);
-
-		if (shouldDestroyWeapon == true)
-			weaponCopy->Destroy();
-		else
-			weaponCopy->SetUpWeapon(curWeapon);
-
-		weaponCopy->state = WeaponState::OutOfInventory;
-		Server_StopADS();
-
-		int pos;
-		for (int i = 0; i < weaponArray.Num(); i++)
-		{
-			if (weaponArray[i] == curWeapon)
-			{
-				pos = i;
-				weaponArray[i] = NULL;
-			}
-		}
-
-		curWeapon->Destroy();
-		curWeapon = nullptr;
-
-		for (pos; pos < weaponArray.Num(); pos++)
-		{
-			weaponArray[pos] = NULL;
-			if (pos + 1 < weaponArray.Num())
-				weaponArray[pos] = weaponArray[pos + 1];
-		}
-
-		weaponCopy->isWeaponDrop = true;
-		isSwitchingAfterPickup = true;
-
-		if (weaponArray[0])
-			Server_SwapWeaponOver(weaponArray[0], 0);
-
-		shouldDestroyWeapon = false;
-	}
 }
 
 
@@ -1806,7 +1670,6 @@ void AClassShooterCharacter::SaveCurWeapons()
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			shouldDestroyWeapon = true;
-			DropWeapon();
 		}
 	}
 	else
@@ -1827,7 +1690,6 @@ void AClassShooterCharacter::Server_SaveCurWeapons_Implementation()
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		shouldDestroyWeapon = true;
-		Server_DropWeapon();
 	}
 }
 
@@ -1839,7 +1701,6 @@ void AClassShooterCharacter::RestoreCurWeapons()
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			shouldDestroyWeapon = true;
-			DropWeapon();
 		}
 		for (int i = 0; i < backupWeaponArray.Num(); i++)
 		{
@@ -1872,7 +1733,6 @@ void AClassShooterCharacter::Server_RestoreCurWeapons_Implementation()
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		shouldDestroyWeapon = true;
-		Server_DropWeapon();
 	}
 	for (int i = 0; i < backupWeaponArray.Num(); i++)
 	{
@@ -1921,6 +1781,7 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 			movementComponent->StopMovementImmediately();
 			movementComponent->Velocity = FVector(0, 0, 0);
 			deathTriggered = true;
+			SaveCurWeapons();
 			StopAbility1();
 			StopAbility2();
 			StopUltimate();
@@ -1982,6 +1843,7 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 			movementComponent->StopMovementImmediately();
 			movementComponent->Velocity = FVector(0, 0, 0);
 			deathTriggered = true;
+			Server_SaveCurWeapons();
 			Server_StopAbility1();
 			Server_StopAbility2();
 			Server_StopUltimate();

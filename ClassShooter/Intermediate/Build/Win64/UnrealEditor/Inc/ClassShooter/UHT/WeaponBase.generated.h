@@ -29,6 +29,7 @@ struct FHitResult;
 	DECLARE_FUNCTION(execAutoFire); \
 	DECLARE_FUNCTION(execServer_Fire); \
 	DECLARE_FUNCTION(execFire); \
+	DECLARE_FUNCTION(execOnRep_shield); \
 	DECLARE_FUNCTION(execOnRep_curAmmo); \
 	DECLARE_FUNCTION(execOnRep_weaponState);
 
@@ -61,6 +62,7 @@ public: \
 		bulletImpactVFX, \
 		curCamLoc, \
 		curCamRot, \
+		shield, \
 		weaponUnADSLocation, \
 		weaponADSStandingLocation, \
 		weaponADSCrouchedLocation, \

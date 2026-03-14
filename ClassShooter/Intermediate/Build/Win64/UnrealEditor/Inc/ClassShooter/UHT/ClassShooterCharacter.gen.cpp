@@ -162,7 +162,7 @@ struct Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics
 	struct ClassShooterCharacter_eventEquipWeapon_Parms
 	{
 		AWeaponBase* weapon;
-		bool isUltDagger;
+		bool shouldCreateNewWeaponObj;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -176,23 +176,23 @@ struct Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weapon;
-	static void NewProp_isUltDagger_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isUltDagger;
+	static void NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldCreateNewWeaponObj;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_weapon = { "weapon", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ClassShooterCharacter_eventEquipWeapon_Parms, weapon), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
-void Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUltDagger_SetBit(void* Obj)
+void Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj)
 {
-	((ClassShooterCharacter_eventEquipWeapon_Parms*)Obj)->isUltDagger = 1;
+	((ClassShooterCharacter_eventEquipWeapon_Parms*)Obj)->shouldCreateNewWeaponObj = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUltDagger = { "isUltDagger", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventEquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUltDagger_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj = { "shouldCreateNewWeaponObj", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventEquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_weapon,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUltDagger,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::ClassShooterCharacter_eventEquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::ClassShooterCharacter_eventEquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams) };
 static_assert(sizeof(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::ClassShooterCharacter_eventEquipWeapon_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon()
 {
@@ -206,10 +206,10 @@ UFunction* Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon()
 DEFINE_FUNCTION(AClassShooterCharacter::execEquipWeapon)
 {
 	P_GET_OBJECT(AWeaponBase,Z_Param_weapon);
-	P_GET_UBOOL(Z_Param_isUltDagger);
+	P_GET_UBOOL(Z_Param_shouldCreateNewWeaponObj);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->EquipWeapon(Z_Param_weapon,Z_Param_isUltDagger);
+	P_THIS->EquipWeapon(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj);
 	P_NATIVE_END;
 }
 // End Class AClassShooterCharacter Function EquipWeapon
@@ -504,57 +504,18 @@ DEFINE_FUNCTION(AClassShooterCharacter::execServer_Crouch)
 }
 // End Class AClassShooterCharacter Function Server_Crouch
 
-// Begin Class AClassShooterCharacter Function Server_DropWeapon
-static FName NAME_AClassShooterCharacter_Server_DropWeapon = FName(TEXT("Server_DropWeapon"));
-void AClassShooterCharacter::Server_DropWeapon()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AClassShooterCharacter_Server_DropWeapon),NULL);
-}
-struct Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "Server_DropWeapon", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80280CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AClassShooterCharacter::execServer_DropWeapon)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	if (!P_THIS->Server_DropWeapon_Validate())
-	{
-		RPC_ValidateFailed(TEXT("Server_DropWeapon_Validate"));
-		return;
-	}
-	P_THIS->Server_DropWeapon_Implementation();
-	P_NATIVE_END;
-}
-// End Class AClassShooterCharacter Function Server_DropWeapon
-
 // Begin Class AClassShooterCharacter Function Server_EquipWeapon
 struct ClassShooterCharacter_eventServer_EquipWeapon_Parms
 {
 	AWeaponBase* weapon;
-	bool isUltDagger;
+	bool shouldCreateNewWeaponObj;
 };
 static FName NAME_AClassShooterCharacter_Server_EquipWeapon = FName(TEXT("Server_EquipWeapon"));
-void AClassShooterCharacter::Server_EquipWeapon(AWeaponBase* weapon, bool isUltDagger)
+void AClassShooterCharacter::Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
 {
 	ClassShooterCharacter_eventServer_EquipWeapon_Parms Parms;
 	Parms.weapon=weapon;
-	Parms.isUltDagger=isUltDagger ? true : false;
+	Parms.shouldCreateNewWeaponObj=shouldCreateNewWeaponObj ? true : false;
 	ProcessEvent(FindFunctionChecked(NAME_AClassShooterCharacter_Server_EquipWeapon),&Parms);
 }
 struct Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics
@@ -565,20 +526,20 @@ struct Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weapon;
-	static void NewProp_isUltDagger_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isUltDagger;
+	static void NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldCreateNewWeaponObj;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_weapon = { "weapon", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ClassShooterCharacter_eventServer_EquipWeapon_Parms, weapon), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
-void Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUltDagger_SetBit(void* Obj)
+void Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj)
 {
-	((ClassShooterCharacter_eventServer_EquipWeapon_Parms*)Obj)->isUltDagger = 1;
+	((ClassShooterCharacter_eventServer_EquipWeapon_Parms*)Obj)->shouldCreateNewWeaponObj = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUltDagger = { "isUltDagger", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUltDagger_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj = { "shouldCreateNewWeaponObj", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_weapon,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUltDagger,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "Server_EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80280CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::Function_MetaDataParams) };
@@ -595,15 +556,15 @@ UFunction* Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon()
 DEFINE_FUNCTION(AClassShooterCharacter::execServer_EquipWeapon)
 {
 	P_GET_OBJECT(AWeaponBase,Z_Param_weapon);
-	P_GET_UBOOL(Z_Param_isUltDagger);
+	P_GET_UBOOL(Z_Param_shouldCreateNewWeaponObj);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	if (!P_THIS->Server_EquipWeapon_Validate(Z_Param_weapon,Z_Param_isUltDagger))
+	if (!P_THIS->Server_EquipWeapon_Validate(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj))
 	{
 		RPC_ValidateFailed(TEXT("Server_EquipWeapon_Validate"));
 		return;
 	}
-	P_THIS->Server_EquipWeapon_Implementation(Z_Param_weapon,Z_Param_isUltDagger);
+	P_THIS->Server_EquipWeapon_Implementation(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj);
 	P_NATIVE_END;
 }
 // End Class AClassShooterCharacter Function Server_EquipWeapon
@@ -1938,7 +1899,6 @@ void AClassShooterCharacter::StaticRegisterNativesAClassShooterCharacter()
 		{ "RestoreCurWeapons", &AClassShooterCharacter::execRestoreCurWeapons },
 		{ "Server_ADS", &AClassShooterCharacter::execServer_ADS },
 		{ "Server_Crouch", &AClassShooterCharacter::execServer_Crouch },
-		{ "Server_DropWeapon", &AClassShooterCharacter::execServer_DropWeapon },
 		{ "Server_EquipWeapon", &AClassShooterCharacter::execServer_EquipWeapon },
 		{ "Server_Jump", &AClassShooterCharacter::execServer_Jump },
 		{ "Server_Melee", &AClassShooterCharacter::execServer_Melee },
@@ -2089,7 +2049,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "ToolTip", "Reload weapon input Action" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DropWeaponAction_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchAction_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Input" },
 #if !UE_BUILD_SHIPPING
@@ -2098,17 +2058,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 #if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Drop weapon input Action" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CrouchAction_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Input" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/** Crouch input Action */" },
-#endif
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Crouch input Action" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Ability1Action_MetaData[] = {
@@ -2430,7 +2379,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ShootingAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_SwitchWeaponAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReloadWeaponAction;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_DropWeaponAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CrouchAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Ability1Action;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Ability2Action;
@@ -2523,7 +2471,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AClassShooterCharacter_ADSCurWeapon, "ADSCurWeapon" }, // 1315547297
-		{ &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon, "EquipWeapon" }, // 2447173032
+		{ &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon, "EquipWeapon" }, // 284930467
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Multi_Death, "Multi_Death" }, // 1765020820
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_curWeapon, "OnRep_curWeapon" }, // 2679835360
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_targetLocation, "OnRep_targetLocation" }, // 3063494526
@@ -2532,8 +2480,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ &Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons, "RestoreCurWeapons" }, // 2612269295
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_ADS, "Server_ADS" }, // 3374005386
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Crouch, "Server_Crouch" }, // 3880371703
-		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_DropWeapon, "Server_DropWeapon" }, // 1743564831
-		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon, "Server_EquipWeapon" }, // 791312502
+		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon, "Server_EquipWeapon" }, // 80809060
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Jump, "Server_Jump" }, // 2629687361
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Melee, "Server_Melee" }, // 1454201379
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Reload, "Server_Reload" }, // 179809570
@@ -2581,7 +2528,6 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterC
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ShootingAction = { "ShootingAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, ShootingAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ShootingAction_MetaData), NewProp_ShootingAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_SwitchWeaponAction = { "SwitchWeaponAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, SwitchWeaponAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_SwitchWeaponAction_MetaData), NewProp_SwitchWeaponAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ReloadWeaponAction = { "ReloadWeaponAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, ReloadWeaponAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReloadWeaponAction_MetaData), NewProp_ReloadWeaponAction_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_DropWeaponAction = { "DropWeaponAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, DropWeaponAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DropWeaponAction_MetaData), NewProp_DropWeaponAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_CrouchAction = { "CrouchAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, CrouchAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CrouchAction_MetaData), NewProp_CrouchAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability1Action = { "Ability1Action", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, Ability1Action), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Ability1Action_MetaData), NewProp_Ability1Action_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action = { "Ability2Action", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, Ability2Action), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Ability2Action_MetaData), NewProp_Ability2Action_MetaData) };
@@ -2728,7 +2674,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ShootingAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_SwitchWeaponAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ReloadWeaponAction,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_DropWeaponAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_CrouchAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability1Action,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action,
@@ -2938,10 +2883,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 333819612U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2100679411U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_129897701(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_2583116232(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));
