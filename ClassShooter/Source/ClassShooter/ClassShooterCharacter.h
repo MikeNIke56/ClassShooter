@@ -86,9 +86,6 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	int controllerID;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	TArray<PlayerGameState> currentStates;
 
@@ -103,10 +100,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float maxHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float xSens;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	float ySens;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	float xSens = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	float ySens = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FVector shotLocation;
@@ -232,7 +229,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	bool isSwitchingAfterPickup;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_deathTriggered, Category = "Class Base Values")
 	bool deathTriggered;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool didCauseDmg;
@@ -272,6 +269,8 @@ protected:
 	void OnRep_curWeapon(AWeaponBase* weapon);
 	UFUNCTION()
 	void OnRep_targetLocation();
+	UFUNCTION()
+	void OnRep_deathTriggered();
 
 	//movement fucntions
 	void Move(const FInputActionValue& Value);

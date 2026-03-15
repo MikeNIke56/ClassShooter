@@ -23,9 +23,6 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 AClassShooterCharacter::AClassShooterCharacter()
 {
-	//bReplicates = true;
-	//SetReplicateMovement(true);
-
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
@@ -61,23 +58,8 @@ AClassShooterCharacter::AClassShooterCharacter()
 
 void AClassShooterCharacter::BeginPlay()
 {
-	int index = 0;
-	APlayerController* PC;
-	if (GetName().Contains("0"))
-		index = 0;
-	else
-		index = 1;
-
-	PC = UGameplayStatics::GetPlayerController(this, index);
-
 	// Call the base class  
 	Super::BeginPlay();
-
-	if (PC)
-	{
-		PC->bShowMouseCursor = false;
-		PC->SetInputMode(FInputModeGameOnly());
-	}
 
 	slashSpeed = 10;
 	curHealth = maxHealth;
@@ -153,7 +135,10 @@ void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(AClassShooterCharacter, triggerScreenDmgEffect);
 	DOREPLIFETIME(AClassShooterCharacter, didCauseDmg);
 	DOREPLIFETIME(AClassShooterCharacter, playerWhoDamagedMe);
+	DOREPLIFETIME(AClassShooterCharacter, xSens);
+	DOREPLIFETIME(AClassShooterCharacter, ySens);
 }
+
 
 void AClassShooterCharacter::OnRep_weaponArray()
 {
@@ -174,6 +159,10 @@ void AClassShooterCharacter::OnRep_targetLocation()
 		ADSLerp = true;
 	}
 }
+void AClassShooterCharacter::OnRep_deathTriggered()
+{
+}
+
 
 void AClassShooterCharacter::Tick(float deltaTime)
 {
@@ -502,13 +491,13 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		if (isADSing == true)
 		{
-			AddControllerYawInput(LookAxisVector.X / 2);
-			AddControllerPitchInput(LookAxisVector.Y / 2);
+			AddControllerYawInput((LookAxisVector.X * xSens * GetWorld()->GetDeltaSeconds()) / 2);
+			AddControllerPitchInput((LookAxisVector.Y * ySens * GetWorld()->GetDeltaSeconds()) / 2);
 		}
 		else
 		{
-			AddControllerYawInput(LookAxisVector.X);
-			AddControllerPitchInput(LookAxisVector.Y);
+			AddControllerYawInput(LookAxisVector.X * xSens * GetWorld()->GetDeltaSeconds());
+			AddControllerPitchInput(LookAxisVector.Y * ySens * GetWorld()->GetDeltaSeconds());
 		}
 	}
 }
@@ -1802,7 +1791,7 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 				{
-					//deathTriggered = false;
+					deathTriggered = false;
 					APlayerController* PC = Cast<APlayerController>(GetController());
 					EnableInput(PC);
 					movementComponent->SetMovementMode(EMovementMode::MOVE_Walking);
@@ -1853,7 +1842,7 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 				{
-					//deathTriggered = false;
+					deathTriggered = false;
 					APlayerController* PC = Cast<APlayerController>(GetController());
 					EnableInput(PC);
 					movementComponent->SetMovementMode(EMovementMode::MOVE_Walking);

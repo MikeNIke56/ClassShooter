@@ -295,6 +295,35 @@ DEFINE_FUNCTION(AClassShooterCharacter::execOnRep_curWeapon)
 }
 // End Class AClassShooterCharacter Function OnRep_curWeapon
 
+// Begin Class AClassShooterCharacter Function OnRep_deathTriggered
+struct Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "OnRep_deathTriggered", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AClassShooterCharacter::execOnRep_deathTriggered)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnRep_deathTriggered();
+	P_NATIVE_END;
+}
+// End Class AClassShooterCharacter Function OnRep_deathTriggered
+
 // Begin Class AClassShooterCharacter Function OnRep_targetLocation
 struct Z_Construct_UFunction_AClassShooterCharacter_OnRep_targetLocation_Statics
 {
@@ -1893,6 +1922,7 @@ void AClassShooterCharacter::StaticRegisterNativesAClassShooterCharacter()
 		{ "EquipWeapon", &AClassShooterCharacter::execEquipWeapon },
 		{ "Multi_Death", &AClassShooterCharacter::execMulti_Death },
 		{ "OnRep_curWeapon", &AClassShooterCharacter::execOnRep_curWeapon },
+		{ "OnRep_deathTriggered", &AClassShooterCharacter::execOnRep_deathTriggered },
 		{ "OnRep_targetLocation", &AClassShooterCharacter::execOnRep_targetLocation },
 		{ "OnRep_weaponArray", &AClassShooterCharacter::execOnRep_weaponArray },
 		{ "ProceduralRecoil", &AClassShooterCharacter::execProceduralRecoil },
@@ -2085,10 +2115,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_UltimateAction_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Input" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_controllerID_MetaData[] = {
-		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentStates_MetaData[] = {
@@ -2383,7 +2409,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Ability1Action;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Ability2Action;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_UltimateAction;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_controllerID;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_currentStates_Inner_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp_currentStates_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_currentStates;
@@ -2474,6 +2499,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon, "EquipWeapon" }, // 284930467
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Multi_Death, "Multi_Death" }, // 1765020820
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_curWeapon, "OnRep_curWeapon" }, // 2679835360
+		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered, "OnRep_deathTriggered" }, // 3821261459
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_targetLocation, "OnRep_targetLocation" }, // 3063494526
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_weaponArray, "OnRep_weaponArray" }, // 732359659
 		{ &Z_Construct_UFunction_AClassShooterCharacter_ProceduralRecoil, "ProceduralRecoil" }, // 2308756292
@@ -2532,15 +2558,14 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterC
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability1Action = { "Ability1Action", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, Ability1Action), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Ability1Action_MetaData), NewProp_Ability1Action_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action = { "Ability2Action", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, Ability2Action), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Ability2Action_MetaData), NewProp_Ability2Action_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_UltimateAction = { "UltimateAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, UltimateAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_UltimateAction_MetaData), NewProp_UltimateAction_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_controllerID = { "controllerID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, controllerID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_controllerID_MetaData), NewProp_controllerID_MetaData) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner = { "currentStates", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_ClassShooter_PlayerGameState, METADATA_PARAMS(0, nullptr) }; // 436607797
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates = { "currentStates", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, currentStates), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentStates_MetaData), NewProp_currentStates_MetaData) }; // 436607797
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bodyMesh = { "bodyMesh", nullptr, (EPropertyFlags)0x00100000000a003d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, bodyMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bodyMesh_MetaData), NewProp_bodyMesh_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_curHealth = { "curHealth", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, curHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curHealth_MetaData), NewProp_curHealth_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_maxHealth = { "maxHealth", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, maxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_maxHealth_MetaData), NewProp_maxHealth_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_xSens = { "xSens", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, xSens), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_xSens_MetaData), NewProp_xSens_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ySens = { "ySens", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, ySens), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ySens_MetaData), NewProp_ySens_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_xSens = { "xSens", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, xSens), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_xSens_MetaData), NewProp_xSens_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ySens = { "ySens", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, ySens), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ySens_MetaData), NewProp_ySens_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shotLocation = { "shotLocation", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, shotLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shotLocation_MetaData), NewProp_shotLocation_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray_Inner = { "weaponArray", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_weaponArray = { "weaponArray", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AClassShooterCharacter, weaponArray), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_weaponArray_MetaData), NewProp_weaponArray_MetaData) };
@@ -2643,7 +2668,7 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered_S
 {
 	((AClassShooterCharacter*)Obj)->deathTriggered = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered = { "deathTriggered", nullptr, (EPropertyFlags)0x0010000000000025, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_deathTriggered_MetaData), NewProp_deathTriggered_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered = { "deathTriggered", "OnRep_deathTriggered", (EPropertyFlags)0x0010000100000025, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_deathTriggered_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_deathTriggered_MetaData), NewProp_deathTriggered_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_didCauseDmg_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->didCauseDmg = 1;
@@ -2678,7 +2703,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability1Action,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_Ability2Action,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_UltimateAction,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_controllerID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_currentStates,
@@ -2788,6 +2812,8 @@ void AClassShooterCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepR
 	static const FName Name_currentStates(TEXT("currentStates"));
 	static const FName Name_bodyMesh(TEXT("bodyMesh"));
 	static const FName Name_curHealth(TEXT("curHealth"));
+	static const FName Name_xSens(TEXT("xSens"));
+	static const FName Name_ySens(TEXT("ySens"));
 	static const FName Name_weaponArray(TEXT("weaponArray"));
 	static const FName Name_backupWeaponArray(TEXT("backupWeaponArray"));
 	static const FName Name_curWeapon(TEXT("curWeapon"));
@@ -2831,6 +2857,8 @@ void AClassShooterCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepR
 		&& Name_currentStates == ClassReps[(int32)ENetFields_Private::currentStates].Property->GetFName()
 		&& Name_bodyMesh == ClassReps[(int32)ENetFields_Private::bodyMesh].Property->GetFName()
 		&& Name_curHealth == ClassReps[(int32)ENetFields_Private::curHealth].Property->GetFName()
+		&& Name_xSens == ClassReps[(int32)ENetFields_Private::xSens].Property->GetFName()
+		&& Name_ySens == ClassReps[(int32)ENetFields_Private::ySens].Property->GetFName()
 		&& Name_weaponArray == ClassReps[(int32)ENetFields_Private::weaponArray].Property->GetFName()
 		&& Name_backupWeaponArray == ClassReps[(int32)ENetFields_Private::backupWeaponArray].Property->GetFName()
 		&& Name_curWeapon == ClassReps[(int32)ENetFields_Private::curWeapon].Property->GetFName()
@@ -2883,10 +2911,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 2100679411U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 3905809278U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_2583116232(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3054041613(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));
