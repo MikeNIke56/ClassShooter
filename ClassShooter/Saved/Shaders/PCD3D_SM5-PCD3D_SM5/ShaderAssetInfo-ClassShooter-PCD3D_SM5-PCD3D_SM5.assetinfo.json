@@ -382,12 +382,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "86D10266FF97763DAAED13A78A5ACAFD17E83E92",
-			"Assets": [
-				"/Game/ClassShooterAssets/VFX/ARScope_Mat"
-			]
-		},
-		{
 			"ShaderMapHash": "7754556757CDE3B6339979C9B23F6026BB72D09E",
 			"Assets": [
 				"/Interchange/gltf/MaterialInstances/MI_SpecularGlossiness_Opaque_DS"
@@ -397,6 +391,12 @@
 			"ShaderMapHash": "1DCED2673E63A690855B3E3B1BED24A9D9846D0B",
 			"Assets": [
 				"/Game/MilitaryWeapSilver/FX/Materials/M_Debris_Tileable_01"
+			]
+		},
+		{
+			"ShaderMapHash": "959BBD6BF302B365411C14F67BD23339850DAF6E",
+			"Assets": [
+				"/Game/ClassShooterAssets/VFX/ARScope_Mat"
 			]
 		},
 		{

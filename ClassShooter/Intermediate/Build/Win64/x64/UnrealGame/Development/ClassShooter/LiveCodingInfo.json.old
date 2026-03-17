@@ -24,7 +24,6 @@
 			"WeaponBase.gen.cpp.obj",
 			"ClassShooter.cpp.obj",
 			"ClassShooterCharacter.cpp.obj",
-			"ClassShooterGameMode.cpp.obj",
 			"ClassShooterPlayerController.cpp.obj",
 			"ClassShooterProjectile.cpp.obj",
 			"AssaultRifle.cpp.obj",
@@ -41,7 +40,8 @@
 			"StealthCharacter.cpp.obj",
 			"WeaponBase.cpp.obj",
 			"TP_PickUpComponent.cpp.obj",
-			"TP_WeaponComponent.cpp.obj"
+			"TP_WeaponComponent.cpp.obj",
+			"ClassShooterGameMode.cpp.obj"
 		]
 	}
 }

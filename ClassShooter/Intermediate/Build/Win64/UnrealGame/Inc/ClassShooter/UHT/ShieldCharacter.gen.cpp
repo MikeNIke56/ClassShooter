@@ -86,36 +86,6 @@ DEFINE_FUNCTION(AShieldCharacter::execBlock)
 }
 // End Class AShieldCharacter Function Block
 
-// Begin Class AShieldCharacter Function DropWeapon
-struct Z_Construct_UFunction_AShieldCharacter_DropWeapon_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "Category", "Shield Functions" },
-		{ "ModuleRelativePath", "Public/ShieldCharacter.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AShieldCharacter_DropWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AShieldCharacter, nullptr, "DropWeapon", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AShieldCharacter_DropWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AShieldCharacter_DropWeapon_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AShieldCharacter_DropWeapon()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AShieldCharacter_DropWeapon_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AShieldCharacter::execDropWeapon)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	P_THIS->DropWeapon();
-	P_NATIVE_END;
-}
-// End Class AShieldCharacter Function DropWeapon
-
 // Begin Class AShieldCharacter Function Multi_ShieldBash
 static FName NAME_AShieldCharacter_Multi_ShieldBash = FName(TEXT("Multi_ShieldBash"));
 void AShieldCharacter::Multi_ShieldBash()
@@ -645,7 +615,6 @@ void AShieldCharacter::StaticRegisterNativesAShieldCharacter()
 	static const FNameNativePtrPair Funcs[] = {
 		{ "ADS", &AShieldCharacter::execADS },
 		{ "Block", &AShieldCharacter::execBlock },
-		{ "DropWeapon", &AShieldCharacter::execDropWeapon },
 		{ "Multi_ShieldBash", &AShieldCharacter::execMulti_ShieldBash },
 		{ "Server_Block", &AShieldCharacter::execServer_Block },
 		{ "Server_ShieldADS", &AShieldCharacter::execServer_ShieldADS },
@@ -688,7 +657,7 @@ struct Z_Construct_UClass_AShieldCharacter_Statics
 		{ "Category", "ShieldCharacter" },
 		{ "ModuleRelativePath", "Public/ShieldCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_eqippedShield_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_equippedShield_MetaData[] = {
 		{ "Category", "Shield Class Base Values" },
 		{ "ModuleRelativePath", "Public/ShieldCharacter.h" },
 	};
@@ -826,7 +795,7 @@ struct Z_Construct_UClass_AShieldCharacter_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FClassPropertyParams NewProp_shieldWorldObj;
 	static const UECodeGen_Private::FClassPropertyParams NewProp_shieldThrowWorldObj;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_eqippedShield;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_equippedShield;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_thrownShield;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_originalShieldLoc;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_shieldThrowLoc;
@@ -869,7 +838,6 @@ struct Z_Construct_UClass_AShieldCharacter_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AShieldCharacter_ADS, "ADS" }, // 1215942994
 		{ &Z_Construct_UFunction_AShieldCharacter_Block, "Block" }, // 570295080
-		{ &Z_Construct_UFunction_AShieldCharacter_DropWeapon, "DropWeapon" }, // 2095734768
 		{ &Z_Construct_UFunction_AShieldCharacter_Multi_ShieldBash, "Multi_ShieldBash" }, // 3514365498
 		{ &Z_Construct_UFunction_AShieldCharacter_Server_Block, "Server_Block" }, // 1906205071
 		{ &Z_Construct_UFunction_AShieldCharacter_Server_ShieldADS, "Server_ShieldADS" }, // 33356270
@@ -894,7 +862,7 @@ struct Z_Construct_UClass_AShieldCharacter_Statics
 };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldWorldObj = { "shieldWorldObj", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, shieldWorldObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AShield_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shieldWorldObj_MetaData), NewProp_shieldWorldObj_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldThrowWorldObj = { "shieldThrowWorldObj", nullptr, (EPropertyFlags)0x0014000000000025, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, shieldThrowWorldObj), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shieldThrowWorldObj_MetaData), NewProp_shieldThrowWorldObj_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_eqippedShield = { "eqippedShield", nullptr, (EPropertyFlags)0x0010000000020035, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, eqippedShield), Z_Construct_UClass_AShield_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_eqippedShield_MetaData), NewProp_eqippedShield_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_equippedShield = { "equippedShield", nullptr, (EPropertyFlags)0x0010000000020035, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, equippedShield), Z_Construct_UClass_AShield_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_equippedShield_MetaData), NewProp_equippedShield_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_thrownShield = { "thrownShield", nullptr, (EPropertyFlags)0x0010000000000020, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, thrownShield), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_thrownShield_MetaData), NewProp_thrownShield_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_originalShieldLoc = { "originalShieldLoc", nullptr, (EPropertyFlags)0x0010000000000020, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, originalShieldLoc), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_originalShieldLoc_MetaData), NewProp_originalShieldLoc_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldThrowLoc = { "shieldThrowLoc", nullptr, (EPropertyFlags)0x001000000008002d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AShieldCharacter, shieldThrowLoc), Z_Construct_UClass_UArrowComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shieldThrowLoc_MetaData), NewProp_shieldThrowLoc_MetaData) };
@@ -953,7 +921,7 @@ const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AShieldCharacter
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AShieldCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldWorldObj,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldThrowWorldObj,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_eqippedShield,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_equippedShield,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_thrownShield,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_originalShieldLoc,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AShieldCharacter_Statics::NewProp_shieldThrowLoc,
@@ -1022,7 +990,7 @@ template<> CLASSSHOOTER_API UClass* StaticClass<AShieldCharacter>()
 void AShieldCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const
 {
 	static const FName Name_shieldThrowWorldObj(TEXT("shieldThrowWorldObj"));
-	static const FName Name_eqippedShield(TEXT("eqippedShield"));
+	static const FName Name_equippedShield(TEXT("equippedShield"));
 	static const FName Name_thrownShield(TEXT("thrownShield"));
 	static const FName Name_originalShieldLoc(TEXT("originalShieldLoc"));
 	static const FName Name_shieldThrowLoc(TEXT("shieldThrowLoc"));
@@ -1054,7 +1022,7 @@ void AShieldCharacter::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>
 	static const FName Name_shieldBashHitDetected(TEXT("shieldBashHitDetected"));
 	const bool bIsValid = true
 		&& Name_shieldThrowWorldObj == ClassReps[(int32)ENetFields_Private::shieldThrowWorldObj].Property->GetFName()
-		&& Name_eqippedShield == ClassReps[(int32)ENetFields_Private::eqippedShield].Property->GetFName()
+		&& Name_equippedShield == ClassReps[(int32)ENetFields_Private::equippedShield].Property->GetFName()
 		&& Name_thrownShield == ClassReps[(int32)ENetFields_Private::thrownShield].Property->GetFName()
 		&& Name_originalShieldLoc == ClassReps[(int32)ENetFields_Private::originalShieldLoc].Property->GetFName()
 		&& Name_shieldThrowLoc == ClassReps[(int32)ENetFields_Private::shieldThrowLoc].Property->GetFName()
@@ -1094,10 +1062,10 @@ AShieldCharacter::~AShieldCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AShieldCharacter, AShieldCharacter::StaticClass, TEXT("AShieldCharacter"), &Z_Registration_Info_UClass_AShieldCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShieldCharacter), 3540685962U) },
+		{ Z_Construct_UClass_AShieldCharacter, AShieldCharacter::StaticClass, TEXT("AShieldCharacter"), &Z_Registration_Info_UClass_AShieldCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AShieldCharacter), 3696709848U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_760534713(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_1293173226(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_ShieldCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

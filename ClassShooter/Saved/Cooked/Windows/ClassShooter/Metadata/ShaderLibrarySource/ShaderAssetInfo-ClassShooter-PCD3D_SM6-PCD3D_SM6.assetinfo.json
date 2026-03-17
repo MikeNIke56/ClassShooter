@@ -150,12 +150,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "9532922F96E580997768F283454BB87141C4254C",
-			"Assets": [
-				"/Game/ClassShooterAssets/VFX/ARScope_Mat"
-			]
-		},
-		{
 			"ShaderMapHash": "388E1B33F65DB226062D6CA8751C5C0D8CC3DDC0",
 			"Assets": [
 				"/Interchange/gltf/MaterialInstances/MI_Unlit_Blend_DS"
@@ -238,6 +232,12 @@
 			"ShaderMapHash": "59FF4F491CF2DE1B86AF978D474157EBFF8FB757",
 			"Assets": [
 				"/Engine/TemplateResources/M_Template_Master"
+			]
+		},
+		{
+			"ShaderMapHash": "02AF9E49FDA57ED1B34D4EF9AD9E1C638770D63A",
+			"Assets": [
+				"/Game/ClassShooterAssets/VFX/ARScope_Mat"
 			]
 		},
 		{

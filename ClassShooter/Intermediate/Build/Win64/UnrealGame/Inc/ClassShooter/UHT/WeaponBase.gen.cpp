@@ -344,6 +344,35 @@ DEFINE_FUNCTION(AWeaponBase::execOnRep_curAmmo)
 }
 // End Class AWeaponBase Function OnRep_curAmmo
 
+// Begin Class AWeaponBase Function OnRep_shield
+struct Z_Construct_UFunction_AWeaponBase_OnRep_shield_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/WeaponBase.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AWeaponBase_OnRep_shield_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AWeaponBase, nullptr, "OnRep_shield", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AWeaponBase_OnRep_shield_Statics::Function_MetaDataParams), Z_Construct_UFunction_AWeaponBase_OnRep_shield_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AWeaponBase_OnRep_shield()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AWeaponBase_OnRep_shield_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AWeaponBase::execOnRep_shield)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnRep_shield();
+	P_NATIVE_END;
+}
+// End Class AWeaponBase Function OnRep_shield
+
 // Begin Class AWeaponBase Function OnRep_weaponState
 struct Z_Construct_UFunction_AWeaponBase_OnRep_weaponState_Statics
 {
@@ -617,6 +646,7 @@ void AWeaponBase::StaticRegisterNativesAWeaponBase()
 		{ "Multi_MuzzleFlash", &AWeaponBase::execMulti_MuzzleFlash },
 		{ "Multi_ReloadSFX", &AWeaponBase::execMulti_ReloadSFX },
 		{ "OnRep_curAmmo", &AWeaponBase::execOnRep_curAmmo },
+		{ "OnRep_shield", &AWeaponBase::execOnRep_shield },
 		{ "OnRep_weaponState", &AWeaponBase::execOnRep_weaponState },
 		{ "Reload", &AWeaponBase::execReload },
 		{ "RestoreWeaponDefaults", &AWeaponBase::execRestoreWeaponDefaults },
@@ -891,6 +921,7 @@ struct Z_Construct_UClass_AWeaponBase_Statics
 		{ &Z_Construct_UFunction_AWeaponBase_Multi_MuzzleFlash, "Multi_MuzzleFlash" }, // 1954485701
 		{ &Z_Construct_UFunction_AWeaponBase_Multi_ReloadSFX, "Multi_ReloadSFX" }, // 3242556088
 		{ &Z_Construct_UFunction_AWeaponBase_OnRep_curAmmo, "OnRep_curAmmo" }, // 915249934
+		{ &Z_Construct_UFunction_AWeaponBase_OnRep_shield, "OnRep_shield" }, // 4119734840
 		{ &Z_Construct_UFunction_AWeaponBase_OnRep_weaponState, "OnRep_weaponState" }, // 3973844332
 		{ &Z_Construct_UFunction_AWeaponBase_Reload, "Reload" }, // 2657704823
 		{ &Z_Construct_UFunction_AWeaponBase_RestoreWeaponDefaults, "RestoreWeaponDefaults" }, // 3905622946
@@ -961,7 +992,7 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_St
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_bulletImpactVFX = { "bulletImpactVFX", nullptr, (EPropertyFlags)0x0010000000000021, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, bulletImpactVFX), Z_Construct_UClass_UParticleSystem_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bulletImpactVFX_MetaData), NewProp_bulletImpactVFX_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_curCamLoc = { "curCamLoc", nullptr, (EPropertyFlags)0x0010000000020035, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, curCamLoc), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curCamLoc_MetaData), NewProp_curCamLoc_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_curCamRot = { "curCamRot", nullptr, (EPropertyFlags)0x0010000000020035, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, curCamRot), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_curCamRot_MetaData), NewProp_curCamRot_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_shield = { "shield", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, shield), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shield_MetaData), NewProp_shield_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_shield = { "shield", "OnRep_shield", (EPropertyFlags)0x0010000100000025, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, shield), Z_Construct_UClass_AWeaponBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shield_MetaData), NewProp_shield_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AWeaponBase_Statics::NewProp_damage = { "damage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AWeaponBase, damage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damage_MetaData), NewProp_damage_MetaData) };
 void Z_Construct_UClass_AWeaponBase_Statics::NewProp_isWeaponDrop_SetBit(void* Obj)
 {
@@ -1073,6 +1104,7 @@ void AWeaponBase::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& Cla
 	static const FName Name_bulletImpactVFX(TEXT("bulletImpactVFX"));
 	static const FName Name_curCamLoc(TEXT("curCamLoc"));
 	static const FName Name_curCamRot(TEXT("curCamRot"));
+	static const FName Name_shield(TEXT("shield"));
 	static const FName Name_weaponUnADSLocation(TEXT("weaponUnADSLocation"));
 	static const FName Name_weaponADSStandingLocation(TEXT("weaponADSStandingLocation"));
 	static const FName Name_weaponADSCrouchedLocation(TEXT("weaponADSCrouchedLocation"));
@@ -1098,6 +1130,7 @@ void AWeaponBase::ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& Cla
 		&& Name_bulletImpactVFX == ClassReps[(int32)ENetFields_Private::bulletImpactVFX].Property->GetFName()
 		&& Name_curCamLoc == ClassReps[(int32)ENetFields_Private::curCamLoc].Property->GetFName()
 		&& Name_curCamRot == ClassReps[(int32)ENetFields_Private::curCamRot].Property->GetFName()
+		&& Name_shield == ClassReps[(int32)ENetFields_Private::shield].Property->GetFName()
 		&& Name_weaponUnADSLocation == ClassReps[(int32)ENetFields_Private::weaponUnADSLocation].Property->GetFName()
 		&& Name_weaponADSStandingLocation == ClassReps[(int32)ENetFields_Private::weaponADSStandingLocation].Property->GetFName()
 		&& Name_weaponADSCrouchedLocation == ClassReps[(int32)ENetFields_Private::weaponADSCrouchedLocation].Property->GetFName()
@@ -1118,10 +1151,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ WeaponState_StaticEnum, TEXT("WeaponState"), &Z_Registration_Info_UEnum_WeaponState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3274410147U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 4172207318U) },
+		{ Z_Construct_UClass_AWeaponBase, AWeaponBase::StaticClass, TEXT("AWeaponBase"), &Z_Registration_Info_UClass_AWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AWeaponBase), 1730355533U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_699436797(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_16613930(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_WeaponBase_h_Statics::EnumInfo));

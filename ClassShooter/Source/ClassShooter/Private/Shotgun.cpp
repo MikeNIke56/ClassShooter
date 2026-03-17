@@ -60,7 +60,7 @@ void AShotgun::Fire()
 						GetWorld(),
 						muzzleFlashVFX,
 						muzzleFlashLocation,
-						GetActorRotation()
+						FRotator(90, 0, 0)
 					);
 					Multi_MuzzleFlash();
 				}
@@ -79,7 +79,7 @@ void AShotgun::Fire()
 						GetWorld(),
 						bulletImpactVFX,
 						hitResult.Location,
-						GetActorRotation()
+						FRotator(0, 0, 0)
 					);
 					Multi_Fire(hitResult);
 

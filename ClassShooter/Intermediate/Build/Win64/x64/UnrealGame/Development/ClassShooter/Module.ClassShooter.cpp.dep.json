@@ -248,6 +248,7 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\public\\charactermovementcomponentasync.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\engine\\uht\\charactermovementcomponentasync.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\engine\\uht\\charactermovementcomponent.generated.h",
+            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\classshootergamemode.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\classshooterplayercontroller.cpp",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\enginesettings\\classes\\gamemapssettings.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\enginesettings\\uht\\gamemapssettings.generated.h",
@@ -263,10 +264,8 @@
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\rocketlauncher.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\shield.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\shieldcharacter.cpp",
-            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\shotgun.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\sniperrifle.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\stealthcharacter.cpp",
-            "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\private\\weaponbase.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\tp_pickupcomponent.cpp",
             "c:\\users\\17038\\desktop\\classshooter\\classshooter\\classshooter\\source\\classshooter\\tp_weaponcomponent.cpp"
         ],

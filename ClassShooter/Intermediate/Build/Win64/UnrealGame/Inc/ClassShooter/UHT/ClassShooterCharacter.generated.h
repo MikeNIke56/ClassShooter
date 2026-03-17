@@ -31,7 +31,6 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execServer_StopAbility1); \
 	DECLARE_FUNCTION(execServer_StartAbility1); \
 	DECLARE_FUNCTION(execServer_SwapWeaponOver); \
-	DECLARE_FUNCTION(execServer_DropWeapon); \
 	DECLARE_FUNCTION(execServer_StowWeapon); \
 	DECLARE_FUNCTION(execServer_SwitchWeapon); \
 	DECLARE_FUNCTION(execSwitchWeapon); \
@@ -56,6 +55,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execServer_Sprint); \
 	DECLARE_FUNCTION(execServer_StopJumping); \
 	DECLARE_FUNCTION(execServer_Jump); \
+	DECLARE_FUNCTION(execOnRep_deathTriggered); \
 	DECLARE_FUNCTION(execOnRep_targetLocation); \
 	DECLARE_FUNCTION(execOnRep_curWeapon); \
 	DECLARE_FUNCTION(execOnRep_weaponArray); \
@@ -77,6 +77,8 @@ public: \
 		currentStates=NETFIELD_REP_START, \
 		bodyMesh, \
 		curHealth, \
+		xSens, \
+		ySens, \
 		weaponArray, \
 		backupWeaponArray, \
 		curWeapon, \
