@@ -65,51 +65,54 @@ void AShieldCharacter::BeginPlay()
 
 void AShieldCharacter::Tick(float deltaTime)
 {
-	Super::Tick(deltaTime);
-
-	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		currentStates.AddUnique(PlayerGameState::Ultimate);
-
-	if (shieldADSLerp == true)
+	if (IsValid(this))
 	{
-		FVector curLocation = shieldLocation->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, ADSshieldLocation,
-			deltaTime, 10);
-		shieldLocation->SetRelativeLocation(newLocation);
+		Super::Tick(deltaTime);
 
-		if (FVector::Dist(ADSshieldLocation, newLocation) <= .05)
-			shieldADSLerp = false;
-	}
-	if (shieldUnADSLerp == true)
-	{
-		FVector curLocation = shieldLocation->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, unADSshieldLocation,
-			deltaTime, 10);
-		shieldLocation->SetRelativeLocation(newLocation);
+		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
+			currentStates.AddUnique(PlayerGameState::Ultimate);
 
-		if (FVector::Dist(unADSshieldLocation, newLocation) <= .05)
-			shieldUnADSLerp = false;
-	}
-	if (shieldBashLerp == true)
-	{
-		FVector curLocation = GetActorLocation();
-		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetShieldBashLocation,
-			deltaTime, 2400);
-		SetActorLocation(newLocation, true);
-
-		movementComponent->Velocity = FVector::ZeroVector;
-
-		if (FVector::Dist(targetShieldBashLocation, newLocation) <= 5)
+		if (shieldADSLerp == true)
 		{
-			shieldBashLerp = false;
-			if(IsLocallyControlled())
-				GetController()->SetIgnoreMoveInput(false);
-			currentStates.Remove(PlayerGameState::ShieldBashing);
-			movementComponent->SetMovementMode(prevMoveMode);
-		}
-	}
+			FVector curLocation = shieldLocation->GetRelativeLocation();
+			FVector newLocation = FMath::VInterpTo(curLocation, ADSshieldLocation,
+				deltaTime, 10);
+			shieldLocation->SetRelativeLocation(newLocation);
 
-	UpdateCooldownValues();
+			if (FVector::Dist(ADSshieldLocation, newLocation) <= .05)
+				shieldADSLerp = false;
+		}
+		if (shieldUnADSLerp == true)
+		{
+			FVector curLocation = shieldLocation->GetRelativeLocation();
+			FVector newLocation = FMath::VInterpTo(curLocation, unADSshieldLocation,
+				deltaTime, 10);
+			shieldLocation->SetRelativeLocation(newLocation);
+
+			if (FVector::Dist(unADSshieldLocation, newLocation) <= .05)
+				shieldUnADSLerp = false;
+		}
+		if (shieldBashLerp == true)
+		{
+			FVector curLocation = GetActorLocation();
+			FVector newLocation = FMath::VInterpConstantTo(curLocation, targetShieldBashLocation,
+				deltaTime, 2400);
+			SetActorLocation(newLocation, true);
+
+			movementComponent->Velocity = FVector::ZeroVector;
+
+			if (FVector::Dist(targetShieldBashLocation, newLocation) <= 5)
+			{
+				shieldBashLerp = false;
+				if (IsLocallyControlled())
+					GetController()->SetIgnoreMoveInput(false);
+				currentStates.Remove(PlayerGameState::ShieldBashing);
+				movementComponent->SetMovementMode(prevMoveMode);
+			}
+		}
+
+		UpdateCooldownValues();
+	}
 }
 
 void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

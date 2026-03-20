@@ -12,6 +12,7 @@ public class ClassShooter : ModuleRules
             "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "Niagara", 
             "CableComponent",  "EngineSettings" });
 
-        PublicDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemSteam" });
+        PublicDependencyModuleNames.AddRange(new string[] { "OnlineSubsystemNull", 
+            "OnlineSubsystem", "OnlineSubsystemSteam" });
     }
 }

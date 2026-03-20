@@ -166,163 +166,166 @@ void AClassShooterCharacter::OnRep_deathTriggered()
 
 void AClassShooterCharacter::Tick(float deltaTime)
 {
-	Super::Tick(deltaTime);
-	jumpAllowed = IsGrounded();
-	isSprinting = IsStillSprinting();
-	movementComponent->MaxWalkSpeed = curSpeed;
-
-	if (ADSLerp == true)
+	if (IsValid(this))
 	{
-		FVector curLocation = weaponLocation->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, targetLocation, 
-			deltaTime, 10);
-		weaponLocation->SetRelativeLocation(newLocation);
+		Super::Tick(deltaTime);
+		jumpAllowed = IsGrounded();
+		isSprinting = IsStillSprinting();
+		movementComponent->MaxWalkSpeed = curSpeed;
 
-		if (FVector::Dist(targetLocation, newLocation) <= .05)
+		if (ADSLerp == true)
 		{
-			ADSLerp = false;
+			FVector curLocation = weaponLocation->GetRelativeLocation();
+			FVector newLocation = FMath::VInterpTo(curLocation, targetLocation,
+				deltaTime, 10);
+			weaponLocation->SetRelativeLocation(newLocation);
 
-			if(curWeapon)
-				curWeapon->weaponMesh->SetRelativeRotation(FRotator(0,0,0));
-		}
-		
-	}
-	if (startFovChange == true)
-	{
-		float curFov = FirstPersonCameraComponent->FieldOfView;
-		float newFov = FMath::FInterpTo(curFov, targetFov, deltaTime, 10);
-		FirstPersonCameraComponent->SetFieldOfView(newFov);
-
-		if (FMath::Abs(targetFov - newFov) <= .001)
-			startFovChange = false;
-	}
-	if (meleeLerp == true)
-	{
-		FVector newLocation = weaponLocation->GetRelativeLocation();
-		FRotator newRotation = weaponLocation->GetRelativeRotation();
-
-		if (isLeftSwing == true)
-		{
-			newLocation = FMath::VInterpTo(newLocation,
-				knifeSwingLocations[1]->GetRelativeLocation(),
-				deltaTime, slashSpeed);
-
-			newRotation = FMath::RInterpTo(newRotation,
-				knifeSwingLocations[1]->GetRelativeRotation(),
-				deltaTime, slashSpeed);
-		}
-		else
-		{
-			newLocation = FMath::VInterpTo(newLocation,
-				knifeSwingLocations[3]->GetRelativeLocation(),
-				deltaTime, slashSpeed);
-
-			newRotation = FMath::RInterpTo(newRotation,
-				knifeSwingLocations[3]->GetRelativeRotation(),
-				deltaTime, slashSpeed);
-		}
-
-		weaponLocation->SetRelativeLocation(newLocation);
-		weaponLocation->SetRelativeRotation(newRotation);
-
-		if (isLeftSwing == true)
-		{
-			if (FVector::Dist(knifeSwingLocations[1]->
-				GetRelativeLocation(), newLocation) <= 2)
+			if (FVector::Dist(targetLocation, newLocation) <= .05)
 			{
-				meleeLerp = false;
-				isLeftSwing = false;
-				targetLocation = FVector(70.0, -14.0, -30.0);
-				FRotator resetRot(0, -90, 0);
-				weaponLocation->SetRelativeLocation(targetLocation);
-				weaponLocation->SetRelativeRotation(resetRot);
-				isMeleeHBOn = false;
-				knifeHitDetected = false;
+				ADSLerp = false;
+
+				if (curWeapon)
+					curWeapon->weaponMesh->SetRelativeRotation(FRotator(0, 0, 0));
+			}
+
+		}
+		if (startFovChange == true)
+		{
+			float curFov = FirstPersonCameraComponent->FieldOfView;
+			float newFov = FMath::FInterpTo(curFov, targetFov, deltaTime, 10);
+			FirstPersonCameraComponent->SetFieldOfView(newFov);
+
+			if (FMath::Abs(targetFov - newFov) <= .001)
+				startFovChange = false;
+		}
+		if (meleeLerp == true)
+		{
+			FVector newLocation = weaponLocation->GetRelativeLocation();
+			FRotator newRotation = weaponLocation->GetRelativeRotation();
+
+			if (isLeftSwing == true)
+			{
+				newLocation = FMath::VInterpTo(newLocation,
+					knifeSwingLocations[1]->GetRelativeLocation(),
+					deltaTime, slashSpeed);
+
+				newRotation = FMath::RInterpTo(newRotation,
+					knifeSwingLocations[1]->GetRelativeRotation(),
+					deltaTime, slashSpeed);
+			}
+			else
+			{
+				newLocation = FMath::VInterpTo(newLocation,
+					knifeSwingLocations[3]->GetRelativeLocation(),
+					deltaTime, slashSpeed);
+
+				newRotation = FMath::RInterpTo(newRotation,
+					knifeSwingLocations[3]->GetRelativeRotation(),
+					deltaTime, slashSpeed);
+			}
+
+			weaponLocation->SetRelativeLocation(newLocation);
+			weaponLocation->SetRelativeRotation(newRotation);
+
+			if (isLeftSwing == true)
+			{
+				if (FVector::Dist(knifeSwingLocations[1]->
+					GetRelativeLocation(), newLocation) <= 2)
+				{
+					meleeLerp = false;
+					isLeftSwing = false;
+					targetLocation = FVector(70.0, -14.0, -30.0);
+					FRotator resetRot(0, -90, 0);
+					weaponLocation->SetRelativeLocation(targetLocation);
+					weaponLocation->SetRelativeRotation(resetRot);
+					isMeleeHBOn = false;
+					knifeHitDetected = false;
+				}
+			}
+			else
+			{
+				if (FVector::Dist(knifeSwingLocations[3]->
+					GetRelativeLocation(), newLocation) <= 2)
+				{
+					meleeLerp = false;
+					isLeftSwing = true;
+					targetLocation = FVector(70.0, -14.0, -30.0);
+					FRotator resetRot(0, -90, 0);
+					weaponLocation->SetRelativeLocation(targetLocation);
+					weaponLocation->SetRelativeRotation(resetRot);
+					isMeleeHBOn = false;
+					knifeHitDetected = false;
+				}
+			}
+		}
+
+		if (curWeapon)
+		{
+			curWeapon->curCamLoc = FirstPersonCameraComponent->GetComponentLocation();
+			curWeapon->curCamRot = GetBaseAimRotation();
+		}
+
+		if (movementComponent->Velocity.Length() > 0.1f)
+		{
+			//if (currentStates.Contains(PlayerGameState::Ultimate))
+				//return;
+
+			if (curSpeed > baseSpeed && IsGrounded() == true)
+			{
+				float newBobAmount = bobAmount * 1.5;
+				float newBobSpd = bobSpeed * 1.5;
+				float newAmplitude = amplitude * 1.5;
+				bobTimer += deltaTime * newBobSpd;
+				float OffsetZ = FMath::Sin(bobTimer * amplitude) * newBobAmount;
+				float OffsetY = FMath::Sin(bobTimer * (newBobAmount / amplitude));
+
+				FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
+				FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+
+				/*
+				* if (FirstPersonCameraComponent->FieldOfView > 89.5)
+				{
+					targetFov = 75;
+					startFovChange = true;
+				}
+				*/
+			}
+			else if (curSpeed == baseSpeed && IsGrounded() == true)
+			{
+				if (!currentStates.Contains(PlayerGameState::Sliding))
+					currentStates.AddUnique(PlayerGameState::Walking);
+
+				bobTimer += deltaTime * bobSpeed;
+				float OffsetZ = FMath::Sin(bobTimer * amplitude) * bobAmount;
+				float OffsetY = FMath::Sin(bobTimer * (bobAmount / amplitude));
+
+				FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
+				FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+				curSpeed = baseSpeed;
+
+				/*
+				* if (FirstPersonCameraComponent->FieldOfView < 89.5)
+				{
+					targetFov = 90;
+					startFovChange = true;
+				}
+				*/
 			}
 		}
 		else
 		{
-			if (FVector::Dist(knifeSwingLocations[3]->
-				GetRelativeLocation(), newLocation) <= 2)
-			{
-				meleeLerp = false;
-				isLeftSwing = true;
-				targetLocation = FVector(70.0, -14.0, -30.0);
-				FRotator resetRot(0, -90, 0);
-				weaponLocation->SetRelativeLocation(targetLocation);
-				weaponLocation->SetRelativeRotation(resetRot);
-				isMeleeHBOn = false;
-				knifeHitDetected = false;
-			}
-		}
-	}
-
-	if (curWeapon)
-	{
-		curWeapon->curCamLoc = FirstPersonCameraComponent->GetComponentLocation();
-		curWeapon->curCamRot = GetBaseAimRotation();
-	}
-
-	if (movementComponent->Velocity.Length() > 0.1f)
-	{
-		//if (currentStates.Contains(PlayerGameState::Ultimate))
-			//return;
-
-		if (curSpeed > baseSpeed && IsGrounded() == true)
-		{
-			float newBobAmount = bobAmount * 1.5;
-			float newBobSpd = bobSpeed * 1.5;
-			float newAmplitude = amplitude * 1.5;
-			bobTimer += deltaTime * newBobSpd;
-			float OffsetZ = FMath::Sin(bobTimer * amplitude) * newBobAmount;
-			float OffsetY = FMath::Sin(bobTimer * (newBobAmount / amplitude));
-
-			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
-			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
-
-			/*
-			* if (FirstPersonCameraComponent->FieldOfView > 89.5)
-			{
-				targetFov = 75;
-				startFovChange = true;
-			}
-			*/
-		}
-		else if (curSpeed == baseSpeed && IsGrounded() == true)
-		{
-			if (!currentStates.Contains(PlayerGameState::Sliding))
-				currentStates.AddUnique(PlayerGameState::Walking);
-
-			bobTimer += deltaTime * bobSpeed;
-			float OffsetZ = FMath::Sin(bobTimer * amplitude) * bobAmount;
-			float OffsetY = FMath::Sin(bobTimer * (bobAmount / amplitude));
-
-			FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
-			FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
+			// Reset bob
+			bobTimer = 0.0f;
+			FirstPersonCameraComponent->SetRelativeLocation(FMath::VInterpTo(
+				FirstPersonCameraComponent->GetRelativeLocation(),
+				defaultCameraLocation,
+				deltaTime,
+				5.0f
+			));
 			curSpeed = baseSpeed;
-
-			/*
-			* if (FirstPersonCameraComponent->FieldOfView < 89.5)
-			{
-				targetFov = 90;
-				startFovChange = true;
-			}
-			*/
+			currentStates.Remove(PlayerGameState::Walking);
 		}
-	}
-	else
-	{
-		// Reset bob
-		bobTimer = 0.0f;
-		FirstPersonCameraComponent->SetRelativeLocation(FMath::VInterpTo(
-			FirstPersonCameraComponent->GetRelativeLocation(),
-			defaultCameraLocation,
-			deltaTime,
-			5.0f
-		));
-		curSpeed = baseSpeed;
-		currentStates.Remove(PlayerGameState::Walking);
-	}
+	}	
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -1177,17 +1180,6 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 			weapon->AttachToComponent(weaponLocation, AttachRules);
 			weapon->SetActorRotation(weaponLocation->GetComponentRotation());
 			ADSLerp = true;
-
-			TArray<UActorComponent*> Hitboxes = weapon->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
-			for (UActorComponent* Comp : Hitboxes)
-			{
-				UCapsuleComponent* capsule = Cast<UCapsuleComponent>(Comp);
-				if (capsule)
-				{
-					capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-					UE_LOG(LogTemp, Warning, TEXT("disabled"));
-				}
-			}
 		}
 	}
 	else
@@ -1218,17 +1210,6 @@ void AClassShooterCharacter::Server_ShowCurWeapon_Implementation(AWeaponBase* we
 		weapon->AttachToComponent(weaponLocation, AttachRules);
 		weapon->SetActorRotation(weaponLocation->GetComponentRotation());
 		ADSLerp = true;
-
-		TArray<UActorComponent*> Hitboxes = weapon->GetComponentsByTag(UCapsuleComponent::StaticClass(), FName("DisableMe"));
-		for (UActorComponent* Comp : Hitboxes)
-		{
-			UCapsuleComponent* capsule = Cast<UCapsuleComponent>(Comp);
-			if (capsule)
-			{
-				capsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-				UE_LOG(LogTemp, Warning, TEXT("disabled"));
-			}
-		}
 	}
 }
 

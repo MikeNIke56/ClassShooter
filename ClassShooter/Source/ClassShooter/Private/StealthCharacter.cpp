@@ -50,40 +50,43 @@ void AStealthCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 void AStealthCharacter::Tick(float deltaTime)
 {
-	Super::Tick(deltaTime);
-
-	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		currentStates.AddUnique(PlayerGameState::Ultimate);
-
-	if (cameraUltLerp == true)
+	if (IsValid(this))
 	{
-		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, targetUltPos,
-			deltaTime, 5);
-		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
+		Super::Tick(deltaTime);
 
-		if (FVector::Dist(targetUltPos, newLocation) <= .05f)
+		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
+			currentStates.AddUnique(PlayerGameState::Ultimate);
+
+		if (cameraUltLerp == true)
 		{
-			cameraUltLerp = false;
-			cameraUltLerpBack = true;
-			movementComponent->GravityScale = baseGravity;
-		}
-	}
-	if (cameraUltLerpBack == true)
-	{
-		FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
-		FVector newLocation = FMath::VInterpTo(curLocation, originalCamPos,
-			deltaTime, 12);
-		GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
+			FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
+			FVector newLocation = FMath::VInterpTo(curLocation, targetUltPos,
+				deltaTime, 5);
+			GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
 
-		if (FVector::Dist(originalCamPos, newLocation) <= .05)
+			if (FVector::Dist(targetUltPos, newLocation) <= .05f)
+			{
+				cameraUltLerp = false;
+				cameraUltLerpBack = true;
+				movementComponent->GravityScale = baseGravity;
+			}
+		}
+		if (cameraUltLerpBack == true)
 		{
-			cameraUltLerpBack = false;
-			SpawnUltWeapon();
-		}
-	}
+			FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
+			FVector newLocation = FMath::VInterpTo(curLocation, originalCamPos,
+				deltaTime, 12);
+			GetFirstPersonCameraComponent()->SetRelativeLocation(newLocation);
 
-	UpdateCooldownValues();
+			if (FVector::Dist(originalCamPos, newLocation) <= .05)
+			{
+				cameraUltLerpBack = false;
+				SpawnUltWeapon();
+			}
+		}
+
+		UpdateCooldownValues();
+	}
 }
 
 

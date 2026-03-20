@@ -103,93 +103,92 @@ void AMovementCharacter::BeginPlay()
 
 void AMovementCharacter::Tick(float deltaTime)
 {
-	Super::Tick(deltaTime);
-
-	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
-		currentStates.AddUnique(PlayerGameState::Ultimate);
-
-
-	//if (IsLocallyControlled() && canWallRun == true)
-		//WallRunUpdate();
-
-	if (cameraRotateLerp == true)
+	if (IsValid(this))
 	{
-		if (IsValid(this) && GetWorld())
-		{
-			if (isWallRunning)
-			{
-				float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
-				float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(targetRoll),
-					deltaTime, 10);
+		Super::Tick(deltaTime);
 
-				FRotator resultRotation = GetBaseAimRotation();
-				resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
+			currentStates.AddUnique(PlayerGameState::Ultimate);
+
+		if (cameraRotateLerp == true)
+		{
+			if (IsValid(this) && GetWorld())
+			{
+				if (isWallRunning)
+				{
+					float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
+					float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(targetRoll),
+						deltaTime, 10);
+
+					FRotator resultRotation = GetBaseAimRotation();
+					resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+
+					if (IsLocallyControlled())
+						GetController()->SetControlRotation(resultRotation);
+
+					if (FMath::Abs(targetRoll - newRoll) < .05f)
+						cameraRotateLerp = false;
+				}
+				else
+				{
+					float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
+					float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(baseRoll),
+						deltaTime, 10);
+
+					FRotator resultRotation = GetBaseAimRotation();
+					resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+
+					if (IsLocallyControlled())
+						GetController()->SetControlRotation(resultRotation);
+
+					if (FMath::Abs(baseRoll - newRoll) < .05f)
+						cameraRotateLerp = false;
+				}
+			}
+		}
+		if (dashingLerp == true)
+		{
+			FVector curLocation = GetActorLocation();
+			FVector newLocation = FMath::VInterpConstantTo(curLocation, targetDashLocation,
+				deltaTime, 2400);
+			SetActorLocation(newLocation, true);
+
+			movementComponent->Velocity = FVector::ZeroVector;
+
+			if (FVector::Dist(targetDashLocation, newLocation) <= 5)
+			{
+				dashingLerp = false;
 
 				if (IsLocallyControlled())
-					GetController()->SetControlRotation(resultRotation);
+					GetController()->SetIgnoreMoveInput(false);
 
-				if (FMath::Abs(targetRoll - newRoll) < .05f)
-					cameraRotateLerp = false;
+				currentStates.Remove(PlayerGameState::Dashing);
+				movementComponent->SetMovementMode(prevMoveMode);
 			}
-			else
-			{
-				float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
-				float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(baseRoll),
-					deltaTime, 10);
+		}
+		if (grappleAtkLerp == true)
+		{
+			FVector curLocation = GetActorLocation();
+			FVector newLocation = FMath::VInterpConstantTo(curLocation, targetGrappleAtkLocation,
+				deltaTime, 1900);
+			SetActorLocation(newLocation);
 
-				FRotator resultRotation = GetBaseAimRotation();
-				resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
+			movementComponent->Velocity = FVector::ZeroVector;
+
+			if (FVector::Dist(targetGrappleAtkLocation, newLocation) <= 5)
+			{
+				grappleAtkLerp = false;
 
 				if (IsLocallyControlled())
-					GetController()->SetControlRotation(resultRotation);
+					GetController()->SetIgnoreMoveInput(false);
 
-				if (FMath::Abs(baseRoll - newRoll) < .05f)
-					cameraRotateLerp = false;
+				currentStates.Remove(PlayerGameState::Grappling);
+				movementComponent->SetMovementMode(prevMoveMode);
 			}
 		}
+
+		UpdateCooldownValues();
 	}
-	if (dashingLerp == true)
-	{
-		FVector curLocation = GetActorLocation();
-		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetDashLocation,
-			deltaTime, 2400);
-		SetActorLocation(newLocation, true);
-
-		movementComponent->Velocity = FVector::ZeroVector;
-
-		if (FVector::Dist(targetDashLocation, newLocation) <= 5)
-		{
-			dashingLerp = false;
-
-			if (IsLocallyControlled())
-				GetController()->SetIgnoreMoveInput(false);
-
-			currentStates.Remove(PlayerGameState::Dashing);
-			movementComponent->SetMovementMode(prevMoveMode);
-		}
-	}
-	if (grappleAtkLerp == true)
-	{
-		FVector curLocation = GetActorLocation();
-		FVector newLocation = FMath::VInterpConstantTo(curLocation, targetGrappleAtkLocation,
-			deltaTime, 1900);
-		SetActorLocation(newLocation);
-
-		movementComponent->Velocity = FVector::ZeroVector;	
-
-		if (FVector::Dist(targetGrappleAtkLocation, newLocation) <= 5)
-		{
-			grappleAtkLerp = false;
-
-			if(IsLocallyControlled())
-				GetController()->SetIgnoreMoveInput(false);
-
-			currentStates.Remove(PlayerGameState::Grappling);
-			movementComponent->SetMovementMode(prevMoveMode);
-		}
-	}
-
-	UpdateCooldownValues();
 }
 
 void AMovementCharacter::UpdateCooldownValues()
