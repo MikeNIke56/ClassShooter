@@ -170,6 +170,7 @@ void AStealthCharacter::Server_UltimateMelee_Implementation()
 	}
 }
 
+
 void AStealthCharacter::StartAbility1()
 {
 	if (HasAuthority())
@@ -499,11 +500,12 @@ void AStealthCharacter::StartUltimate()
 			SpawnUltWeapon();
 			curSpeedMulti = 2.5f;
 
-			FTimerHandle DelayTimerHandle2;
-			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
-				{
-					bodyMesh->SetMaterial(0, ultimateMat);
+			bodyMesh->SetMaterial(0, ultimateMat);
+			Multi_StartUlt(bodyMesh);
 
+			FTimerHandle DelayTimerHandle1;
+			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+				{
 					GetWorldTimerManager().SetTimer(ultTimer, this,
 						&AStealthCharacter::StopUltimate, ultLength, false);
 				}), .5f, false);
@@ -523,11 +525,11 @@ void AStealthCharacter::Server_StartUltimate_Implementation()
 		Server_SpawnUltWeapon();
 		curSpeedMulti = 2.5f;
 
-		FTimerHandle DelayTimerHandle2;
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
-			{
-				bodyMesh->SetMaterial(0, ultimateMat);
+		Multi_StartUlt(bodyMesh);
 
+		FTimerHandle DelayTimerHandle1;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+			{
 				GetWorldTimerManager().SetTimer(ultTimer, this,
 					&AStealthCharacter::Server_StopUltimate, ultLength, false);
 			}), .5f, false);
@@ -539,6 +541,7 @@ void AStealthCharacter::StopUltimate()
 	if (HasAuthority())
 	{
 		bodyMesh->SetMaterial(0, baseBodyMat);
+		Multi_StopUlt(bodyMesh);
 		RestoreCurWeapons();
 		curSpeedMulti = baseSpeedMulti;
 
@@ -554,7 +557,7 @@ void AStealthCharacter::StopUltimate()
 }
 void AStealthCharacter::Server_StopUltimate_Implementation()
 {
-	bodyMesh->SetMaterial(0, baseBodyMat);
+	Multi_StopUlt(bodyMesh);
 	Server_RestoreCurWeapons();
 	curSpeedMulti = baseSpeedMulti;
 
@@ -565,6 +568,16 @@ void AStealthCharacter::Server_StopUltimate_Implementation()
 		}), .05f, false);
 }
 
+void AStealthCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+	if(multiMesh)
+		multiMesh->SetMaterial(0, ultimateMat);
+}
+void AStealthCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+	if (multiMesh)
+		multiMesh->SetMaterial(0, baseBodyMat);
+}
 
 void AStealthCharacter::SpawnUltWeapon()
 {
@@ -583,7 +596,7 @@ void AStealthCharacter::SpawnUltWeapon()
 			spawnRot, SpawnParams);
 
 		if (ultDaggerCopy)
-			EquipWeapon(ultDaggerCopy, false);
+			EquipWeapon(ultDaggerCopy, false, true);
 		else
 			UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 	}
@@ -609,7 +622,7 @@ void AStealthCharacter::Server_SpawnUltWeapon_Implementation()
 		spawnRot, SpawnParams);
 
 	if (ultDaggerCopy)
-		Server_EquipWeapon(ultDaggerCopy, true);
+		Server_EquipWeapon(ultDaggerCopy, false, true);
 	else
 		UE_LOG(LogTemp, Warning, TEXT("no such weapon"));
 }

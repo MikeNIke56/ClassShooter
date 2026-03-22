@@ -52,24 +52,14 @@ void AShotgun::Fire()
 					hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 				// Draw debug line (visible for 1 second)
-				//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
+				DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, 
+					FColor::Red, false, 1.0f, 0, 2.0f);
 
 				if (muzzleFlashVFX)
-				{
-					UGameplayStatics::SpawnEmitterAtLocation(
-						GetWorld(),
-						muzzleFlashVFX,
-						muzzleFlashLocation,
-						FRotator(90, 0, 0)
-					);
 					Multi_MuzzleFlash();
-				}
 
 				if (weaponAtkSound)
-				{
-					UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
 					Multi_FireSoundSFX();
-				}
 
 				AActor* hitActor = hitResult.GetActor();
 				// Check if we hit something
@@ -109,7 +99,11 @@ void AShotgun::Fire()
 		}
 	}
 	else
-		Server_ShotgunFire();
+		Server_Fire();
+}
+void AShotgun::Server_Fire()
+{
+	Server_ShotgunFire();
 }
 bool AShotgun::Server_ShotgunFire_Validate()
 {
@@ -160,14 +154,15 @@ void AShotgun::Server_ShotgunFire_Implementation()
 			bool bHit = GetWorld()->LineTraceSingleByObjectType(
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
+			// Draw debug line (visible for 1 second)
+			DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation,
+				FColor::Red, false, 1.0f, 0, 2.0f);
+
 			if (muzzleFlashVFX)
 				Multi_MuzzleFlash();
 
 			if (weaponAtkSound)
 				Multi_FireSoundSFX();
-
-			// Draw debug line (visible for 1 second)
-			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 1.0f, 0, 2.0f);
 
 			AActor* hitActor = hitResult.GetActor();
 			// Check if we hit something

@@ -149,6 +149,10 @@ protected:
 	virtual void StopUltimate() override;
 	virtual void Server_StopUltimate_Implementation() override;
 
+	virtual void Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh) override;
+	virtual void Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh) override;
+
+
 	void SpawnUltWeapon();
 	UFUNCTION(Server, Reliable, WithValidation)
 	virtual void Server_SpawnUltWeapon();

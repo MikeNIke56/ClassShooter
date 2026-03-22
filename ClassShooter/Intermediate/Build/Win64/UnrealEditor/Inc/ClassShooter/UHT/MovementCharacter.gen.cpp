@@ -26,45 +26,6 @@ ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTimerHandle();
 UPackage* Z_Construct_UPackage__Script_ClassShooter();
 // End Cross Module References
 
-// Begin Class AMovementCharacter Function Server_BlockWallRun
-static FName NAME_AMovementCharacter_Server_BlockWallRun = FName(TEXT("Server_BlockWallRun"));
-void AMovementCharacter::Server_BlockWallRun()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AMovementCharacter_Server_BlockWallRun),NULL);
-}
-struct Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AMovementCharacter, nullptr, "Server_BlockWallRun", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80280CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AMovementCharacter::execServer_BlockWallRun)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	if (!P_THIS->Server_BlockWallRun_Validate())
-	{
-		RPC_ValidateFailed(TEXT("Server_BlockWallRun_Validate"));
-		return;
-	}
-	P_THIS->Server_BlockWallRun_Implementation();
-	P_NATIVE_END;
-}
-// End Class AMovementCharacter Function Server_BlockWallRun
-
 // Begin Class AMovementCharacter Function Server_Dash
 static FName NAME_AMovementCharacter_Server_Dash = FName(TEXT("Server_Dash"));
 void AMovementCharacter::Server_Dash()
@@ -260,45 +221,6 @@ DEFINE_FUNCTION(AMovementCharacter::execServer_UpdateCooldownValues)
 }
 // End Class AMovementCharacter Function Server_UpdateCooldownValues
 
-// Begin Class AMovementCharacter Function Server_WallRunUpdate
-static FName NAME_AMovementCharacter_Server_WallRunUpdate = FName(TEXT("Server_WallRunUpdate"));
-void AMovementCharacter::Server_WallRunUpdate()
-{
-	ProcessEvent(FindFunctionChecked(NAME_AMovementCharacter_Server_WallRunUpdate),NULL);
-}
-struct Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/MovementCharacter.h" },
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AMovementCharacter, nullptr, "Server_WallRunUpdate", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80280CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-DEFINE_FUNCTION(AMovementCharacter::execServer_WallRunUpdate)
-{
-	P_FINISH;
-	P_NATIVE_BEGIN;
-	if (!P_THIS->Server_WallRunUpdate_Validate())
-	{
-		RPC_ValidateFailed(TEXT("Server_WallRunUpdate_Validate"));
-		return;
-	}
-	P_THIS->Server_WallRunUpdate_Implementation();
-	P_NATIVE_END;
-}
-// End Class AMovementCharacter Function Server_WallRunUpdate
-
 // Begin Class AMovementCharacter Function StartAbility1
 struct Z_Construct_UFunction_AMovementCharacter_StartAbility1_Statics
 {
@@ -394,13 +316,11 @@ void AMovementCharacter::StaticRegisterNativesAMovementCharacter()
 {
 	UClass* Class = AMovementCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
-		{ "Server_BlockWallRun", &AMovementCharacter::execServer_BlockWallRun },
 		{ "Server_Dash", &AMovementCharacter::execServer_Dash },
 		{ "Server_Grapple", &AMovementCharacter::execServer_Grapple },
 		{ "Server_GrappleAttack", &AMovementCharacter::execServer_GrappleAttack },
 		{ "Server_LandEvent", &AMovementCharacter::execServer_LandEvent },
 		{ "Server_UpdateCooldownValues", &AMovementCharacter::execServer_UpdateCooldownValues },
-		{ "Server_WallRunUpdate", &AMovementCharacter::execServer_WallRunUpdate },
 		{ "StartAbility1", &AMovementCharacter::execStartAbility1 },
 		{ "StartAbility2", &AMovementCharacter::execStartAbility2 },
 		{ "StartUltimate", &AMovementCharacter::execStartUltimate },
@@ -710,13 +630,11 @@ struct Z_Construct_UClass_AMovementCharacter_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AMovementCharacter_Server_BlockWallRun, "Server_BlockWallRun" }, // 3731481249
 		{ &Z_Construct_UFunction_AMovementCharacter_Server_Dash, "Server_Dash" }, // 3511360969
 		{ &Z_Construct_UFunction_AMovementCharacter_Server_Grapple, "Server_Grapple" }, // 4131204916
 		{ &Z_Construct_UFunction_AMovementCharacter_Server_GrappleAttack, "Server_GrappleAttack" }, // 2621211945
 		{ &Z_Construct_UFunction_AMovementCharacter_Server_LandEvent, "Server_LandEvent" }, // 4097328090
 		{ &Z_Construct_UFunction_AMovementCharacter_Server_UpdateCooldownValues, "Server_UpdateCooldownValues" }, // 1795834552
-		{ &Z_Construct_UFunction_AMovementCharacter_Server_WallRunUpdate, "Server_WallRunUpdate" }, // 880572195
 		{ &Z_Construct_UFunction_AMovementCharacter_StartAbility1, "StartAbility1" }, // 2296075615
 		{ &Z_Construct_UFunction_AMovementCharacter_StartAbility2, "StartAbility2" }, // 1186396655
 		{ &Z_Construct_UFunction_AMovementCharacter_StartUltimate, "StartUltimate" }, // 3253523057
@@ -1019,10 +937,10 @@ AMovementCharacter::~AMovementCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 3223851285U) },
+		{ Z_Construct_UClass_AMovementCharacter, AMovementCharacter::StaticClass, TEXT("AMovementCharacter"), &Z_Registration_Info_UClass_AMovementCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMovementCharacter), 811939248U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_817237974(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_3114730966(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_Public_MovementCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

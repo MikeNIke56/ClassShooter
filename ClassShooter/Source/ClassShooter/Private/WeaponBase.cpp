@@ -134,21 +134,10 @@ void AWeaponBase::Fire()
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
 			if (muzzleFlashVFX)
-			{
-				UGameplayStatics::SpawnEmitterAtLocation(
-					GetWorld(),
-					muzzleFlashVFX,
-					muzzleFlashLocation,
-					FRotator(90, 0, 0)
-				);
 				Multi_MuzzleFlash();
-			}
 			
 			if (weaponAtkSound)
-			{
-				//UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
 				Multi_FireSoundSFX();
-			}
 
 
 			// Draw debug line (visible for 1 second)

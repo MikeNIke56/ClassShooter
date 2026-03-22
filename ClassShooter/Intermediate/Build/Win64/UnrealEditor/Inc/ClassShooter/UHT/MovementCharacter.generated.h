@@ -21,9 +21,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	DECLARE_FUNCTION(execServer_GrappleAttack); \
 	DECLARE_FUNCTION(execServer_Grapple); \
 	DECLARE_FUNCTION(execStartAbility1); \
-	DECLARE_FUNCTION(execServer_BlockWallRun); \
 	DECLARE_FUNCTION(execServer_LandEvent); \
-	DECLARE_FUNCTION(execServer_WallRunUpdate); \
 	DECLARE_FUNCTION(execServer_UpdateCooldownValues);
 
 

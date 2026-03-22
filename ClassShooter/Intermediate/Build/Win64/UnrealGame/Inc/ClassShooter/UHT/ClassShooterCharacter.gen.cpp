@@ -163,6 +163,7 @@ struct Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics
 	{
 		AWeaponBase* weapon;
 		bool shouldCreateNewWeaponObj;
+		bool isUlt;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -178,6 +179,8 @@ struct Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weapon;
 	static void NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldCreateNewWeaponObj;
+	static void NewProp_isUlt_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isUlt;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
@@ -187,9 +190,15 @@ void Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_s
 	((ClassShooterCharacter_eventEquipWeapon_Parms*)Obj)->shouldCreateNewWeaponObj = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj = { "shouldCreateNewWeaponObj", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventEquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUlt_SetBit(void* Obj)
+{
+	((ClassShooterCharacter_eventEquipWeapon_Parms*)Obj)->isUlt = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUlt = { "isUlt", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventEquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUlt_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_weapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::NewProp_isUlt,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::PropPointers), sizeof(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::ClassShooterCharacter_eventEquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020400, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon_Statics::Function_MetaDataParams) };
@@ -207,9 +216,10 @@ DEFINE_FUNCTION(AClassShooterCharacter::execEquipWeapon)
 {
 	P_GET_OBJECT(AWeaponBase,Z_Param_weapon);
 	P_GET_UBOOL(Z_Param_shouldCreateNewWeaponObj);
+	P_GET_UBOOL(Z_Param_isUlt);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->EquipWeapon(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj);
+	P_THIS->EquipWeapon(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj,Z_Param_isUlt);
 	P_NATIVE_END;
 }
 // End Class AClassShooterCharacter Function EquipWeapon
@@ -252,6 +262,120 @@ DEFINE_FUNCTION(AClassShooterCharacter::execMulti_Death)
 	P_NATIVE_END;
 }
 // End Class AClassShooterCharacter Function Multi_Death
+
+// Begin Class AClassShooterCharacter Function Multi_StartUlt
+struct ClassShooterCharacter_eventMulti_StartUlt_Parms
+{
+	UStaticMeshComponent* multiMesh;
+};
+static FName NAME_AClassShooterCharacter_Multi_StartUlt = FName(TEXT("Multi_StartUlt"));
+void AClassShooterCharacter::Multi_StartUlt(UStaticMeshComponent* multiMesh)
+{
+	ClassShooterCharacter_eventMulti_StartUlt_Parms Parms;
+	Parms.multiMesh=multiMesh;
+	ProcessEvent(FindFunctionChecked(NAME_AClassShooterCharacter_Multi_StartUlt),&Parms);
+}
+struct Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_multiMesh_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_multiMesh;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::NewProp_multiMesh = { "multiMesh", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ClassShooterCharacter_eventMulti_StartUlt_Parms, multiMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_multiMesh_MetaData), NewProp_multiMesh_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::NewProp_multiMesh,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "Multi_StartUlt", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::PropPointers), sizeof(ClassShooterCharacter_eventMulti_StartUlt_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80084CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::Function_MetaDataParams) };
+static_assert(sizeof(ClassShooterCharacter_eventMulti_StartUlt_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AClassShooterCharacter::execMulti_StartUlt)
+{
+	P_GET_OBJECT(UStaticMeshComponent,Z_Param_multiMesh);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Multi_StartUlt_Validate(Z_Param_multiMesh))
+	{
+		RPC_ValidateFailed(TEXT("Multi_StartUlt_Validate"));
+		return;
+	}
+	P_THIS->Multi_StartUlt_Implementation(Z_Param_multiMesh);
+	P_NATIVE_END;
+}
+// End Class AClassShooterCharacter Function Multi_StartUlt
+
+// Begin Class AClassShooterCharacter Function Multi_StopUlt
+struct ClassShooterCharacter_eventMulti_StopUlt_Parms
+{
+	UStaticMeshComponent* multiMesh;
+};
+static FName NAME_AClassShooterCharacter_Multi_StopUlt = FName(TEXT("Multi_StopUlt"));
+void AClassShooterCharacter::Multi_StopUlt(UStaticMeshComponent* multiMesh)
+{
+	ClassShooterCharacter_eventMulti_StopUlt_Parms Parms;
+	Parms.multiMesh=multiMesh;
+	ProcessEvent(FindFunctionChecked(NAME_AClassShooterCharacter_Multi_StopUlt),&Parms);
+}
+struct Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_multiMesh_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_multiMesh;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::NewProp_multiMesh = { "multiMesh", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ClassShooterCharacter_eventMulti_StopUlt_Parms, multiMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_multiMesh_MetaData), NewProp_multiMesh_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::NewProp_multiMesh,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "Multi_StopUlt", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::PropPointers), sizeof(ClassShooterCharacter_eventMulti_StopUlt_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80084CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::Function_MetaDataParams) };
+static_assert(sizeof(ClassShooterCharacter_eventMulti_StopUlt_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AClassShooterCharacter::execMulti_StopUlt)
+{
+	P_GET_OBJECT(UStaticMeshComponent,Z_Param_multiMesh);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	if (!P_THIS->Multi_StopUlt_Validate(Z_Param_multiMesh))
+	{
+		RPC_ValidateFailed(TEXT("Multi_StopUlt_Validate"));
+		return;
+	}
+	P_THIS->Multi_StopUlt_Implementation(Z_Param_multiMesh);
+	P_NATIVE_END;
+}
+// End Class AClassShooterCharacter Function Multi_StopUlt
 
 // Begin Class AClassShooterCharacter Function OnRep_curWeapon
 struct Z_Construct_UFunction_AClassShooterCharacter_OnRep_curWeapon_Statics
@@ -538,13 +662,15 @@ struct ClassShooterCharacter_eventServer_EquipWeapon_Parms
 {
 	AWeaponBase* weapon;
 	bool shouldCreateNewWeaponObj;
+	bool isUlt;
 };
 static FName NAME_AClassShooterCharacter_Server_EquipWeapon = FName(TEXT("Server_EquipWeapon"));
-void AClassShooterCharacter::Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
+void AClassShooterCharacter::Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt)
 {
 	ClassShooterCharacter_eventServer_EquipWeapon_Parms Parms;
 	Parms.weapon=weapon;
 	Parms.shouldCreateNewWeaponObj=shouldCreateNewWeaponObj ? true : false;
+	Parms.isUlt=isUlt ? true : false;
 	ProcessEvent(FindFunctionChecked(NAME_AClassShooterCharacter_Server_EquipWeapon),&Parms);
 }
 struct Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics
@@ -557,6 +683,8 @@ struct Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_weapon;
 	static void NewProp_shouldCreateNewWeaponObj_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldCreateNewWeaponObj;
+	static void NewProp_isUlt_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isUlt;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
@@ -566,9 +694,15 @@ void Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::Ne
 	((ClassShooterCharacter_eventServer_EquipWeapon_Parms*)Obj)->shouldCreateNewWeaponObj = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj = { "shouldCreateNewWeaponObj", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj_SetBit, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUlt_SetBit(void* Obj)
+{
+	((ClassShooterCharacter_eventServer_EquipWeapon_Parms*)Obj)->isUlt = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUlt = { "isUlt", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUlt_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_weapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_shouldCreateNewWeaponObj,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::NewProp_isUlt,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AClassShooterCharacter, nullptr, "Server_EquipWeapon", nullptr, nullptr, Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::PropPointers), sizeof(ClassShooterCharacter_eventServer_EquipWeapon_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x80280CC0, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon_Statics::Function_MetaDataParams) };
@@ -586,14 +720,15 @@ DEFINE_FUNCTION(AClassShooterCharacter::execServer_EquipWeapon)
 {
 	P_GET_OBJECT(AWeaponBase,Z_Param_weapon);
 	P_GET_UBOOL(Z_Param_shouldCreateNewWeaponObj);
+	P_GET_UBOOL(Z_Param_isUlt);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	if (!P_THIS->Server_EquipWeapon_Validate(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj))
+	if (!P_THIS->Server_EquipWeapon_Validate(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj,Z_Param_isUlt))
 	{
 		RPC_ValidateFailed(TEXT("Server_EquipWeapon_Validate"));
 		return;
 	}
-	P_THIS->Server_EquipWeapon_Implementation(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj);
+	P_THIS->Server_EquipWeapon_Implementation(Z_Param_weapon,Z_Param_shouldCreateNewWeaponObj,Z_Param_isUlt);
 	P_NATIVE_END;
 }
 // End Class AClassShooterCharacter Function Server_EquipWeapon
@@ -1921,6 +2056,8 @@ void AClassShooterCharacter::StaticRegisterNativesAClassShooterCharacter()
 		{ "ADSCurWeapon", &AClassShooterCharacter::execADSCurWeapon },
 		{ "EquipWeapon", &AClassShooterCharacter::execEquipWeapon },
 		{ "Multi_Death", &AClassShooterCharacter::execMulti_Death },
+		{ "Multi_StartUlt", &AClassShooterCharacter::execMulti_StartUlt },
+		{ "Multi_StopUlt", &AClassShooterCharacter::execMulti_StopUlt },
 		{ "OnRep_curWeapon", &AClassShooterCharacter::execOnRep_curWeapon },
 		{ "OnRep_deathTriggered", &AClassShooterCharacter::execOnRep_deathTriggered },
 		{ "OnRep_targetLocation", &AClassShooterCharacter::execOnRep_targetLocation },
@@ -2310,10 +2447,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_shouldDestroyWeapon_MetaData[] = {
-		{ "Category", "Movement Base Values" },
-		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ultimateTriggered_MetaData[] = {
 		{ "Category", "Class Base Values" },
 		{ "ModuleRelativePath", "ClassShooterCharacter.h" },
@@ -2465,8 +2598,6 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_baseGravity;
 	static void NewProp_isClone_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_isClone;
-	static void NewProp_shouldDestroyWeapon_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_shouldDestroyWeapon;
 	static void NewProp_ultimateTriggered_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ultimateTriggered;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_bobTimer;
@@ -2496,8 +2627,10 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AClassShooterCharacter_ADSCurWeapon, "ADSCurWeapon" }, // 1315547297
-		{ &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon, "EquipWeapon" }, // 284930467
+		{ &Z_Construct_UFunction_AClassShooterCharacter_EquipWeapon, "EquipWeapon" }, // 541849085
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Multi_Death, "Multi_Death" }, // 1765020820
+		{ &Z_Construct_UFunction_AClassShooterCharacter_Multi_StartUlt, "Multi_StartUlt" }, // 513194167
+		{ &Z_Construct_UFunction_AClassShooterCharacter_Multi_StopUlt, "Multi_StopUlt" }, // 2584486620
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_curWeapon, "OnRep_curWeapon" }, // 2679835360
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_deathTriggered, "OnRep_deathTriggered" }, // 3821261459
 		{ &Z_Construct_UFunction_AClassShooterCharacter_OnRep_targetLocation, "OnRep_targetLocation" }, // 3063494526
@@ -2506,7 +2639,7 @@ struct Z_Construct_UClass_AClassShooterCharacter_Statics
 		{ &Z_Construct_UFunction_AClassShooterCharacter_RestoreCurWeapons, "RestoreCurWeapons" }, // 2612269295
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_ADS, "Server_ADS" }, // 3374005386
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Crouch, "Server_Crouch" }, // 3880371703
-		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon, "Server_EquipWeapon" }, // 80809060
+		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_EquipWeapon, "Server_EquipWeapon" }, // 1730468695
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Jump, "Server_Jump" }, // 2629687361
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Melee, "Server_Melee" }, // 1454201379
 		{ &Z_Construct_UFunction_AClassShooterCharacter_Server_Reload, "Server_Reload" }, // 179809570
@@ -2635,11 +2768,6 @@ void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isClone_SetBit(v
 	((AClassShooterCharacter*)Obj)->isClone = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isClone = { "isClone", nullptr, (EPropertyFlags)0x0010000000020025, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isClone_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isClone_MetaData), NewProp_isClone_MetaData) };
-void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon_SetBit(void* Obj)
-{
-	((AClassShooterCharacter*)Obj)->shouldDestroyWeapon = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon = { "shouldDestroyWeapon", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AClassShooterCharacter), &Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shouldDestroyWeapon_MetaData), NewProp_shouldDestroyWeapon_MetaData) };
 void Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ultimateTriggered_SetBit(void* Obj)
 {
 	((AClassShooterCharacter*)Obj)->ultimateTriggered = 1;
@@ -2752,7 +2880,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AClassSho
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseBrakingDeceleration,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_baseGravity,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_isClone,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_shouldDestroyWeapon,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_ultimateTriggered,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bobTimer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AClassShooterCharacter_Statics::NewProp_bobSpeed,
@@ -2911,10 +3038,10 @@ struct Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_C
 		{ PlayerGameState_StaticEnum, TEXT("PlayerGameState"), &Z_Registration_Info_UEnum_PlayerGameState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 436607797U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 3905809278U) },
+		{ Z_Construct_UClass_AClassShooterCharacter, AClassShooterCharacter::StaticClass, TEXT("AClassShooterCharacter"), &Z_Registration_Info_UClass_AClassShooterCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AClassShooterCharacter), 137087141U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_3054041613(TEXT("/Script/ClassShooter"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_2355598589(TEXT("/Script/ClassShooter"),
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_17038_Desktop_ClassShooter_ClassShooter_ClassShooter_Source_ClassShooter_ClassShooterCharacter_h_Statics::EnumInfo));

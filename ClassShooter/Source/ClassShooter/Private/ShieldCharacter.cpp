@@ -587,12 +587,12 @@ void AShieldCharacter::StartUltimate()
 
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 			ultimateTriggered = true;
-			SaveCurWeapons();
+			//SaveCurWeapons();
 
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 				{
-					bodyMesh->SetMaterial(0, ultimateMat);
+					Multi_StartUlt(bodyMesh);
 
 					GetWorldTimerManager().SetTimer(ultTimer, this,
 						&AShieldCharacter::StopUltimate, ultLength, false);
@@ -618,12 +618,12 @@ void AShieldCharacter::Server_StartUltimate_Implementation()
 
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
-		Server_SaveCurWeapons();
+		//Server_SaveCurWeapons();
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 			{
-				bodyMesh->SetMaterial(0, ultimateMat);
+				Multi_StartUlt(bodyMesh);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
 					&AShieldCharacter::Server_StopUltimate, ultLength, false);
@@ -635,8 +635,8 @@ void AShieldCharacter::StopUltimate()
 {
 	if (HasAuthority())
 	{
-		bodyMesh->SetMaterial(0, baseBodyMat);
-		RestoreCurWeapons();
+		Multi_StopUlt(bodyMesh);
+		//RestoreCurWeapons();
 		shieldBashCooldown = baseShieldBashCooldown;
 		shieldThrowCooldown = baseShieldThrowCooldown;
 		curSpeedMulti = baseSpeedMulti;
@@ -653,8 +653,8 @@ void AShieldCharacter::StopUltimate()
 }
 void AShieldCharacter::Server_StopUltimate_Implementation()
 {
-	bodyMesh->SetMaterial(0, baseBodyMat);
-	Server_RestoreCurWeapons();
+	Multi_StopUlt(bodyMesh);
+	//Server_RestoreCurWeapons();
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
 	curSpeedMulti = baseSpeedMulti;
@@ -665,5 +665,16 @@ void AShieldCharacter::Server_StopUltimate_Implementation()
 			ultimateTriggered = false;
 			currentStates.Remove(PlayerGameState::Ultimate);
 		}), .05f, false);
+}
+
+void AShieldCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+	if (multiMesh)
+		multiMesh->SetMaterial(0, ultimateMat);
+}
+void AShieldCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+	if (multiMesh)
+		multiMesh->SetMaterial(0, baseBodyMat);
 }
 

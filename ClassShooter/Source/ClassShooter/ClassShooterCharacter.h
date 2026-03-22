@@ -204,8 +204,6 @@ public:
 	FTimerHandle slideTimer;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool isClone;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
-	bool shouldDestroyWeapon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool ultimateTriggered;
@@ -256,7 +254,7 @@ public:
 
 	//Picking up and equipping weapons
 	UFUNCTION(BlueprintCallable)
-	virtual void EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
+	virtual void EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
 
 protected:
 	virtual void BeginPlay();
@@ -392,9 +390,9 @@ protected:
 	void ProceduralRecoil(float multiplier);
 
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
-	bool Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
-	void Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj);
+	void Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
+	bool Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
+	void Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
@@ -469,6 +467,16 @@ protected:
 	virtual void Server_StopUltimate();
 	virtual bool Server_StopUltimate_Validate();
 	virtual void Server_StopUltimate_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	virtual void Multi_StartUlt(UStaticMeshComponent* multiMesh);
+	virtual bool Multi_StartUlt_Validate(UStaticMeshComponent* multiMesh);
+	virtual void Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh);
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	virtual void Multi_StopUlt(UStaticMeshComponent* multiMesh);
+	virtual bool Multi_StopUlt_Validate(UStaticMeshComponent* multiMesh);
+	virtual void Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh);
 
 	void SaveCurWeapons();
 	UFUNCTION(Server, Reliable, WithValidation)

@@ -16,6 +16,7 @@ class CLASSSHOOTER_API AShotgun : public AWeaponBase
 
 public:
 	virtual void Fire() override;
+	virtual void Server_Fire() override;
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_ShotgunFire();
 	bool Server_ShotgunFire_Validate();

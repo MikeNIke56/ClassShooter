@@ -160,19 +160,6 @@ protected:
 	void Server_UpdateCooldownValues_Implementation();
 
 	virtual void Jump() override;
-	//virtual void Server_Jump_Implementation();
-
-
-	void WallRunUpdate();
-	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_WallRunUpdate();
-	bool Server_WallRunUpdate_Validate();
-	void Server_WallRunUpdate_Implementation();
-
-
-	TArray<FVector> WallRunEndVectors();
-	bool IsValidWallRunVector(FVector inVec);
-	bool WallRunMovement(FVector start, FVector end, float wallRunDir);
 
 
 	void LandEvent();
@@ -181,11 +168,6 @@ protected:
 	bool Server_LandEvent_Validate();
 	void Server_LandEvent_Implementation();
 
-	void BlockWallRun();
-	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_BlockWallRun();
-	bool Server_BlockWallRun_Validate();
-	void Server_BlockWallRun_Implementation();
 
 	virtual void ResetMovement() override;
 	virtual void Server_ResetMovement_Implementation();
@@ -229,6 +211,9 @@ protected:
 
 	virtual void StopUltimate() override;
 	virtual void Server_StopUltimate_Implementation() override;
+
+	virtual void Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh) override;
+	virtual void Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh) override;
 
 	virtual void StartShooting() override;
 };

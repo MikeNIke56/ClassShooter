@@ -168,7 +168,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Fire();
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_Fire();
+	virtual void Server_Fire();
 	bool Server_Fire_Validate();
 	void Server_Fire_Implementation();
 

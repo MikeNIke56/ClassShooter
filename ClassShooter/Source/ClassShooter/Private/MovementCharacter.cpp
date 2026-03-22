@@ -146,7 +146,7 @@ void AMovementCharacter::Tick(float deltaTime)
 				}
 			}
 		}
-		if (dashingLerp == true)
+		/*if (dashingLerp == true)
 		{
 			FVector curLocation = GetActorLocation();
 			FVector newLocation = FMath::VInterpConstantTo(curLocation, targetDashLocation,
@@ -165,7 +165,7 @@ void AMovementCharacter::Tick(float deltaTime)
 				currentStates.Remove(PlayerGameState::Dashing);
 				movementComponent->SetMovementMode(prevMoveMode);
 			}
-		}
+		}*/
 		if (grappleAtkLerp == true)
 		{
 			FVector curLocation = GetActorLocation();
@@ -499,14 +499,12 @@ void AMovementCharacter::Grapple()
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this, spawnRotForwardVec]()
 			{
 				movementComponent->GroundFriction = 0.0;
-				movementComponent->BrakingDecelerationWalking = 1400;
 				movementComponent->AddImpulse(spawnRotForwardVec * grappleSpd, true);
 			}), .25f, false);
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
 				movementComponent->GroundFriction = baseGroundFriction;
-				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 			}), 1.5f, false);
 		FTimerHandle DelayTimerHandle3;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle3, FTimerDelegate::CreateLambda([this, grapplePointCopy]()
@@ -550,14 +548,12 @@ void AMovementCharacter::Server_Grapple_Implementation()
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this, spawnRotForwardVec]()
 		{
 			movementComponent->GroundFriction = 0.0;
-			movementComponent->BrakingDecelerationWalking = 1400;
 			movementComponent->AddImpulse(spawnRotForwardVec * grappleSpd, true);
 		}), .25f, false);
 	FTimerHandle DelayTimerHandle2;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 		{
 			movementComponent->GroundFriction = baseGroundFriction;
-			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		}), 1.5f, false);
 	FTimerHandle DelayTimerHandle3;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle3, FTimerDelegate::CreateLambda([this, grapplePointCopy]()
@@ -628,7 +624,23 @@ void AMovementCharacter::Dash()
 	if (HasAuthority())
 	{
 		currentStates.AddUnique(PlayerGameState::Dashing);
-		FVector fireStartLocation = GetActorLocation();
+
+		FRotator spawnRot = GetBaseAimRotation();
+		FVector spawnRotForwardVec = spawnRot.Vector();
+
+		movementComponent->GroundFriction = 0.0;
+		movementComponent->AddImpulse(spawnRotForwardVec * dashDist, true);
+
+		FTimerHandle DelayTimerHandle1;
+		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+			{
+				movementComponent->GroundFriction = baseGroundFriction;
+				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+				currentStates.Remove(PlayerGameState::Dashing);
+			}), .25f, false);
+
+
+		/*FVector fireStartLocation = GetActorLocation();
 		FVector fireEndLocation = fireStartLocation + (GetActorForwardVector() * dashDist);
 
 		// Line trace settings
@@ -669,7 +681,7 @@ void AMovementCharacter::Dash()
 		prevMoveMode = movementComponent->MovementMode;
 		movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 		GetController()->SetIgnoreMoveInput(true);
-		dashingLerp = true;
+		dashingLerp = true;*/
 	}
 	else
 		Server_Dash();
@@ -681,7 +693,22 @@ bool AMovementCharacter::Server_Dash_Validate()
 void AMovementCharacter::Server_Dash_Implementation()
 {
 	currentStates.AddUnique(PlayerGameState::Dashing);
-	FVector fireStartLocation = GetActorLocation();
+
+	FRotator spawnRot = GetBaseAimRotation();
+	FVector spawnRotForwardVec = spawnRot.Vector();
+
+	movementComponent->GroundFriction = 0.0;
+	movementComponent->AddImpulse(spawnRotForwardVec * dashDist, true);
+
+	FTimerHandle DelayTimerHandle1;
+	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
+		{
+			movementComponent->GroundFriction = baseGroundFriction;
+			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
+			currentStates.Remove(PlayerGameState::Dashing);
+		}), .25f, false);
+
+	/*FVector fireStartLocation = GetActorLocation();
 	FVector fireEndLocation = fireStartLocation + (GetActorForwardVector() * dashDist);
 
 	// Line trace settings
@@ -722,7 +749,7 @@ void AMovementCharacter::Server_Dash_Implementation()
 	prevMoveMode = movementComponent->MovementMode;
 	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 	GetController()->SetIgnoreMoveInput(true);
-	dashingLerp = true;
+	dashingLerp = true;*/
 }
 
 void AMovementCharacter::StartUltimate()
@@ -733,11 +760,11 @@ void AMovementCharacter::StartUltimate()
 			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		{
 			currentStates.AddUnique(PlayerGameState::Ultimate);
-			curDashCooldown = 1;
-			grappleCooldown = 1;
+			//curDashCooldown = 1;
+			//grappleCooldown = 1;
 			curSpeedMulti = 2.5f;
 			ultimateTriggered = true;
-			SaveCurWeapons();
+			//SaveCurWeapons();
 
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -748,7 +775,7 @@ void AMovementCharacter::StartUltimate()
 			FTimerHandle DelayTimerHandle2;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 				{
-					bodyMesh->SetMaterial(0, ultimateMat);
+					Multi_StartUlt(bodyMesh);
 
 					GetWorldTimerManager().SetTimer(ultTimer, this,
 						&AMovementCharacter::StopUltimate, ultLength, false);
@@ -764,11 +791,11 @@ void AMovementCharacter::Server_StartUltimate_Implementation()
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
 		currentStates.AddUnique(PlayerGameState::Ultimate);
-		curDashCooldown = 1;
-		grappleCooldown = 1;
-		curSpeedMulti = 2.5f;
+		//curDashCooldown = 1;
+		//grappleCooldown = 1;
+		curSpeedMulti = 4.5f;
 		ultimateTriggered = true;
-		Server_SaveCurWeapons();
+		//Server_SaveCurWeapons();
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -779,7 +806,7 @@ void AMovementCharacter::Server_StartUltimate_Implementation()
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
-				bodyMesh->SetMaterial(0, ultimateMat);
+				Multi_StartUlt(bodyMesh);
 
 				GetWorldTimerManager().SetTimer(ultTimer, this,
 					&AMovementCharacter::Server_StopUltimate, ultLength, false);
@@ -791,8 +818,8 @@ void AMovementCharacter::StopUltimate()
 {
 	if (HasAuthority())
 	{
-		bodyMesh->SetMaterial(0, baseBodyMat);
-		RestoreCurWeapons();
+		Multi_StopUlt(bodyMesh);
+		//RestoreCurWeapons();
 		curSpeedMulti = baseSpeedMulti;
 		curDashCooldown = baseDashCooldown;
 		grappleCooldown = baseGrappleCooldown;
@@ -808,8 +835,8 @@ void AMovementCharacter::StopUltimate()
 }
 void AMovementCharacter::Server_StopUltimate_Implementation()
 {
-	bodyMesh->SetMaterial(0, baseBodyMat);
-	RestoreCurWeapons();
+	Multi_StopUlt(bodyMesh);
+	//RestoreCurWeapons();
 	curSpeedMulti = baseSpeedMulti;
 	curDashCooldown = baseDashCooldown;
 	grappleCooldown = baseGrappleCooldown;
@@ -821,208 +848,16 @@ void AMovementCharacter::Server_StopUltimate_Implementation()
 		}), .05f, false);
 }
 
-
-void AMovementCharacter::WallRunUpdate()
+void AMovementCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
-	if (HasAuthority())
-	{
-		if (!WallRunEndVectors().IsEmpty())
-		{
-			if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[0], -1) == true)
-			{
-				dashingLerp = false;
-				currentStates.Remove(PlayerGameState::Dashing);
-
-				movementComponent->StopMovementImmediately();
-				isWallRunning = true;
-				isWallRunningR = true;
-				isWallRunningL = false;
-				targetRoll = -15;
-				cameraRotateLerp = true;
-
-				movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
-					targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
-
-				if (!currentStates.Contains(PlayerGameState::Wallrunning))
-					currentStates.AddUnique(PlayerGameState::Wallrunning);
-			}
-			else if (isWallRunningR == false)
-			{
-				if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[1], 1) == true)
-				{
-					dashingLerp = false;
-					currentStates.Remove(PlayerGameState::Dashing);
-
-					movementComponent->StopMovementImmediately();
-					isWallRunning = true;
-					isWallRunningR = false;
-					isWallRunningL = true;
-					targetRoll = 15;
-					cameraRotateLerp = true;
-
-					movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
-						targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
-
-					if (!currentStates.Contains(PlayerGameState::Wallrunning))
-						currentStates.AddUnique(PlayerGameState::Wallrunning);
-				}
-			}
-		}
-	}
-	else
-		Server_WallRunUpdate();
-}
-bool AMovementCharacter::Server_WallRunUpdate_Validate()
-{
-	return true;
-}
-void AMovementCharacter::Server_WallRunUpdate_Implementation()
-{
-	if (!WallRunEndVectors().IsEmpty())
-	{
-		if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[0], -1) == true)
-		{
-			dashingLerp = false;
-			currentStates.Remove(PlayerGameState::Dashing);
-
-			movementComponent->StopMovementImmediately();
-			isWallRunning = true;
-			isWallRunningR = true;
-			isWallRunningL = false;
-			targetRoll = -15;
-			cameraRotateLerp = true;
-
-			movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
-				targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
-
-			if (!currentStates.Contains(PlayerGameState::Wallrunning))
-				currentStates.AddUnique(PlayerGameState::Wallrunning);
-		}
-		else if (isWallRunningR == false)
-		{
-			if (WallRunMovement(GetActorLocation(), WallRunEndVectors()[1], 1) == true)
-			{
-				dashingLerp = false;
-				currentStates.Remove(PlayerGameState::Dashing);
-
-				movementComponent->StopMovementImmediately();
-				isWallRunning = true;
-				isWallRunningR = false;
-				isWallRunningL = true;
-				targetRoll = 15;
-				cameraRotateLerp = true;
-
-				movementComponent->GravityScale = FMath::FInterpTo(movementComponent->GravityScale,
-					targetWallRunGrav, GetWorld()->DeltaTimeSeconds, 10.0f);
-
-				if (!currentStates.Contains(PlayerGameState::Wallrunning))
-					currentStates.AddUnique(PlayerGameState::Wallrunning);
-			}
-		}
-	}
+	if (multiMesh)
+		multiMesh->SetMaterial(0, ultimateMat);
 }
 
-
-TArray<FVector> AMovementCharacter::WallRunEndVectors()
+void AMovementCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
-	TArray<FVector> endPoints;
-
-	if (IsValid(this) && GetWorld())
-	{
-		FVector startLocation = GetActorLocation();
-
-		FVector rightVector = GetActorRightVector();
-		FVector endRightLocation = rightVector * 75.0f;
-
-		FVector endLeftLocation = rightVector * -75.0f;
-
-		FVector forwardVector = GetActorForwardVector();
-		FVector endForwardLocation = forwardVector * -35.0f;
-
-
-		FVector rightEndpoint = startLocation + endRightLocation + endForwardLocation;
-		FVector leftEndpoint = startLocation + endLeftLocation + endForwardLocation;
-
-		endPoints.Add(rightEndpoint);
-		endPoints.Add(leftEndpoint);
-	}
-
-	return endPoints;
-}
-bool AMovementCharacter::WallRunMovement(FVector start, FVector end, float wallRunDir)
-{
-	FHitResult hitResult;
-	FCollisionQueryParams collisionParams;
-	collisionParams.AddIgnoredActor(this); // Ignore self
-
-	// Perform the trace
-	bool bHit;
-	if(IsValid(this) && GetWorld())
-		bHit = GetWorld()->LineTraceSingleByChannel(
-			hitResult, start, end, ECC_Visibility, collisionParams);
-
-	//Draw debug line (visible for 1 second)
-	//DrawDebugLine(GetWorld(), start, end, FColor::Red, false, 1.0f, 0, 2.0f);
-
-	// Check if we hit something
-	if (bHit)
-	{
-		if (IsValidWallRunVector(hitResult.Normal) && movementComponent->MovementMode == MOVE_Falling)
-		{
-			wallRunNormal = hitResult.Normal;
-
-			FVector lauchDir = wallRunNormal - GetActorLocation();
-			FVector launchOutput = lauchDir * wallRunNormal;
-			LaunchCharacter(launchOutput, false, false);
-
-			float totalSpd = wallRunSpd * wallRunDir;
-			FVector forwardDir = wallRunNormal.Cross(FVector(0, 0, 1)) * totalSpd;
-			LaunchCharacter(forwardDir, true, wallRunGravity);
-
-			return true;
-		}
-		return false;
-	}
-	return false;
-}
-bool AMovementCharacter::IsValidWallRunVector(FVector inVec)
-{
-	if (inVec.Z > -.52 && inVec.Z < .52)
-		return true;
-	else
-		return false;
-}
-
-void AMovementCharacter::BlockWallRun()
-{
-	if (HasAuthority())
-	{
-		canWallRun = false;
-
-		FTimerHandle DelayTimerHandle;
-		GetWorld()->GetTimerManager().ClearTimer(DelayTimerHandle);
-		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
-			{
-				canWallRun = true;
-			}), wallRunDelay, false);
-	}
-	else
-		Server_BlockWallRun();
-}
-bool AMovementCharacter::Server_BlockWallRun_Validate()
-{
-	return true;
-}
-void AMovementCharacter::Server_BlockWallRun_Implementation()
-{
-	canWallRun = false;
-
-	FTimerHandle DelayTimerHandle;
-	GetWorld()->GetTimerManager().ClearTimer(DelayTimerHandle);
-	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
-		{
-			canWallRun = true;
-		}), wallRunDelay, false);
+	if (multiMesh)
+		multiMesh->SetMaterial(0, baseBodyMat);
 }
 
 
@@ -1035,7 +870,6 @@ void AMovementCharacter::ResetMovement()
 		isWallRunningR = false;
 		isWallRunningL = false;
 		cameraRotateLerp = true;
-		BlockWallRun();
 		currentStates.Remove(PlayerGameState::Wallrunning);
 		currentStates.Remove(PlayerGameState::Grappling);
 	}
@@ -1049,7 +883,6 @@ void AMovementCharacter::Server_ResetMovement_Implementation()
 	isWallRunningR = false;
 	isWallRunningL = false;
 	cameraRotateLerp = true;
-	Server_BlockWallRun();
 	currentStates.Remove(PlayerGameState::Wallrunning);
 	currentStates.Remove(PlayerGameState::Grappling);
 }

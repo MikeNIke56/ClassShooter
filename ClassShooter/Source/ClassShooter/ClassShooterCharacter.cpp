@@ -68,6 +68,9 @@ void AClassShooterCharacter::BeginPlay()
 	curSpeed = baseSpeed;
 	curSpeedMulti = baseSpeedMulti;
 
+	//movementComponent->bServerAcceptClientAuthoritativePosition = true;
+	//movementComponent->bIgnoreClientMovementErrorChecksAndCorrection = true;
+
 	ADSLerp = false;
 	startFovChange = false;
 	isSwitchingAfterPickup = false;
@@ -1017,7 +1020,7 @@ void AClassShooterCharacter::Server_Shoot_Implementation()
 
 
 //Picking up and equipping weapons
-void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
+void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt)
 {
 	if (HasAuthority())
 	{
@@ -1025,6 +1028,107 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 		{
 			bool isInInventory = false;
 
+			if (isUlt == true)
+			{
+				weaponCopy = weapon;
+				weaponCopy->state = WeaponState::Equipped;
+				curWeapon = weaponCopy;
+				ShowCurWeapon(weaponCopy);
+
+				UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+
+				weaponArray[0] = weaponCopy;
+				return;
+			}
+			else
+			{
+				for (int i = 0; i < weaponArray.Num(); i++)
+				{
+					if (weaponArray[i] && weaponArray[i]->name == weapon->name)
+					{
+						isInInventory = true;
+						UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
+						i = 3;
+					}
+
+				}
+
+				if (weapon->state == WeaponState::OutOfInventory && isInInventory == false)
+				{
+					for (int i = 0; i < weaponArray.Num(); i++)
+					{
+						if (weaponArray[i] == nullptr && !weaponArray.Contains(weapon))
+						{
+							if (i == 0)
+							{
+								if (shouldCreateNewWeaponObj == true)
+								{
+									FActorSpawnParameters SpawnParams;
+									SpawnParams.Owner = this;
+									SpawnParams.Instigator = GetInstigator();
+
+									weaponWorldObj = weapon->GetClass();
+
+									weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
+										FRotator(0, 0, 0), SpawnParams);
+								}
+								else
+								{
+									weaponCopy = weapon;
+								}
+
+								weaponCopy->state = WeaponState::Equipped;
+								curWeapon = weaponCopy;
+
+								ShowCurWeapon(weaponCopy);
+
+								UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+
+								weaponArray[i] = weaponCopy;
+								return;
+							}
+							else
+							{
+								StowWeapon(weapon, weapon->name, true, i);
+								return;
+							}
+						}
+					}
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
+				}
+			}
+		}
+	}
+	else
+		Server_EquipWeapon(weapon, shouldCreateNewWeaponObj, isUlt);
+}
+bool AClassShooterCharacter::Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt)
+{
+	return true;
+}
+void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt)
+{
+	if (weapon != nullptr)
+	{
+		bool isInInventory = false;
+
+		if (isUlt == true)
+		{
+			weaponCopy = weapon;
+			weaponCopy->state = WeaponState::Equipped;
+			curWeapon = weaponCopy;
+			Server_ShowCurWeapon(weaponCopy);
+
+			UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
+
+			weaponArray[0] = weaponCopy;
+			return;
+		}
+		else
+		{
 			for (int i = 0; i < weaponArray.Num(); i++)
 			{
 				if (weaponArray[i] && weaponArray[i]->name == weapon->name)
@@ -1033,7 +1137,6 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 					UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
 					i = 3;
 				}
-
 			}
 
 			if (weapon->state == WeaponState::OutOfInventory && isInInventory == false)
@@ -1059,20 +1162,22 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 							{
 								weaponCopy = weapon;
 							}
+							weaponCopy->SetUpWeapon(weapon);
 
 							weaponCopy->state = WeaponState::Equipped;
 							curWeapon = weaponCopy;
 
-							ShowCurWeapon(weaponCopy);
+							Server_ShowCurWeapon(weaponCopy);
 
 							UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
 
-							weaponArray[i] = weaponCopy;
+							if (i >= 0)
+								weaponArray[i] = weaponCopy;
 							return;
 						}
 						else
 						{
-							StowWeapon(weapon, weapon->name, true, i);
+							Server_StowWeapon(weapon, weapon->name, true, i);
 							return;
 						}
 					}
@@ -1082,78 +1187,6 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 			{
 				UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
 			}
-		}
-	}
-	else
-		Server_EquipWeapon(weapon, shouldCreateNewWeaponObj);
-}
-bool AClassShooterCharacter::Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
-{
-	return true;
-}
-void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj)
-{
-	if (weapon != nullptr)
-	{
-		bool isInInventory = false;
-
-		for (int i = 0; i < weaponArray.Num(); i++)
-		{
-			if (weaponArray[i] && weaponArray[i]->name == weapon->name)
-			{
-				isInInventory = true;
-				UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
-				i = 3;
-			}
-		}
-
-		if (weapon->state == WeaponState::OutOfInventory && isInInventory == false)
-		{
-			for (int i = 0; i < weaponArray.Num(); i++)
-			{
-				if (weaponArray[i] == nullptr && !weaponArray.Contains(weapon))
-				{
-					if (i == 0)
-					{
-						if (shouldCreateNewWeaponObj == true)
-						{
-							FActorSpawnParameters SpawnParams;
-							SpawnParams.Owner = this;
-							SpawnParams.Instigator = GetInstigator();
-
-							weaponWorldObj = weapon->GetClass();
-
-							weaponCopy = GetWorld()->SpawnActor<AWeaponBase>(weaponWorldObj, targetLocation,
-								FRotator(0, 0, 0), SpawnParams);
-						}
-						else
-						{
-							weaponCopy = weapon;
-						}
-						weaponCopy->SetUpWeapon(weapon);
-
-						weaponCopy->state = WeaponState::Equipped;
-						curWeapon = weaponCopy;
-
-						Server_ShowCurWeapon(weaponCopy);
-
-						UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
-
-						if (i >= 0)
-							weaponArray[i] = weaponCopy;
-						return;
-					}
-					else
-					{
-						Server_StowWeapon(weapon, weapon->name, true, i);
-						return;
-					}
-				}
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("weapon is already in inventory"));
 		}
 	}
 }
@@ -1192,7 +1225,6 @@ bool AClassShooterCharacter::Server_ShowCurWeapon_Validate(AWeaponBase* weapon)
 }
 void AClassShooterCharacter::Server_ShowCurWeapon_Implementation(AWeaponBase* weapon)
 {
-	// Server can call implementation directly
 	if (weapon)
 	{
 		if (isADSing)
@@ -1626,6 +1658,22 @@ void AClassShooterCharacter::Server_StopUltimate_Implementation()
 
 }
 
+bool AClassShooterCharacter::Multi_StartUlt_Validate(UStaticMeshComponent* multiMesh)
+{
+	return true;
+}
+void AClassShooterCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+
+}
+bool AClassShooterCharacter::Multi_StopUlt_Validate(UStaticMeshComponent* multiMesh)
+{
+	return true;
+}
+void AClassShooterCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh)
+{
+}
+
 
 void AClassShooterCharacter::SaveCurWeapons()
 {
@@ -1635,11 +1683,18 @@ void AClassShooterCharacter::SaveCurWeapons()
 		{
 			backupWeaponArray[i] = nullptr;
 			if (weaponArray[i])
+			{
 				backupWeaponArray[i] = weaponArray[i];
+				backupWeaponArray[i]->state = WeaponState::OutOfInventory;
+			}
 		}
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
-			shouldDestroyWeapon = true;
+			if (weaponArray[i])
+			{
+				weaponArray[i]->Destroy();
+				weaponArray[i] = nullptr;
+			}
 		}
 	}
 	else
@@ -1655,11 +1710,18 @@ void AClassShooterCharacter::Server_SaveCurWeapons_Implementation()
 	{
 		backupWeaponArray[i] = nullptr;
 		if (weaponArray[i])
+		{
 			backupWeaponArray[i] = weaponArray[i];
+			backupWeaponArray[i]->state = WeaponState::OutOfInventory;
+		}
 	}
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
-		shouldDestroyWeapon = true;
+		if (weaponArray[i])
+		{
+			weaponArray[i]->Destroy();
+			weaponArray[i] = nullptr;
+		}
 	}
 }
 
@@ -1670,25 +1732,16 @@ void AClassShooterCharacter::RestoreCurWeapons()
 	{
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
-			shouldDestroyWeapon = true;
+			if (weaponArray[i])
+			{
+				weaponArray[i]->Destroy();
+				weaponArray[i] = nullptr;
+			}
 		}
 		for (int i = 0; i < backupWeaponArray.Num(); i++)
 		{
 			if (backupWeaponArray[i])
-			{
-				backupWeaponArray[i]->state = WeaponState::OutOfInventory;
-				EquipWeapon(backupWeaponArray[i], false);
-			}
-		}
-		for (int i = 0; i < weaponArray.Num(); i++)
-		{
-			if (weaponArray[i])
-			{
-				if (i == 0)
-					weaponArray[i]->state = WeaponState::Equipped;
-				else
-					weaponArray[i]->state = WeaponState::Stowed;
-			}
+				EquipWeapon(backupWeaponArray[i], true, false);
 		}
 	}
 	else
@@ -1702,25 +1755,16 @@ void AClassShooterCharacter::Server_RestoreCurWeapons_Implementation()
 {
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
-		shouldDestroyWeapon = true;
+		if (weaponArray[i])
+		{
+			weaponArray[i]->Destroy();
+			weaponArray[i] = nullptr;
+		}
 	}
 	for (int i = 0; i < backupWeaponArray.Num(); i++)
 	{
 		if (backupWeaponArray[i])
-		{
-			backupWeaponArray[i]->state = WeaponState::OutOfInventory;
-			Server_EquipWeapon(backupWeaponArray[i], false);
-		}
-	}
-	for (int i = 0; i < weaponArray.Num(); i++)
-	{
-		if (weaponArray[i])
-		{
-			if (i == 0)
-				weaponArray[i]->state = WeaponState::Equipped;
-			else
-				weaponArray[i]->state = WeaponState::Stowed;
-		}
+			Server_EquipWeapon(backupWeaponArray[i], true, false);
 	}
 }
 
@@ -1735,6 +1779,8 @@ void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageA
 }
 void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source)
 {
+	if (isClone == true) return;
+
 	if (deathTriggered == false)
 	{
 		curHealth -= DamageAmount;
@@ -1797,6 +1843,8 @@ bool AClassShooterCharacter::Server_TakeCustomDamage_Validate(float DamageAmount
 }
 void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float DamageAmount, AActor* source)
 {
+	if (isClone == true) return;
+
 	if (deathTriggered == false)
 	{
 		curHealth -= DamageAmount;

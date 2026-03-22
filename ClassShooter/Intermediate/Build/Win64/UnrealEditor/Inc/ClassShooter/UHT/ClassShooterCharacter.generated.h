@@ -11,6 +11,7 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class AActor;
 class AWeaponBase;
+class UStaticMeshComponent;
 struct FInputActionValue;
 #ifdef CLASSSHOOTER_ClassShooterCharacter_generated_h
 #error "ClassShooterCharacter.generated.h already included, missing '#pragma once' in ClassShooterCharacter.h"
@@ -24,6 +25,8 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execServer_RestoreCurWeapons); \
 	DECLARE_FUNCTION(execRestoreCurWeapons); \
 	DECLARE_FUNCTION(execServer_SaveCurWeapons); \
+	DECLARE_FUNCTION(execMulti_StopUlt); \
+	DECLARE_FUNCTION(execMulti_StartUlt); \
 	DECLARE_FUNCTION(execServer_StopUltimate); \
 	DECLARE_FUNCTION(execServer_StartUltimate); \
 	DECLARE_FUNCTION(execServer_StopAbility2); \
