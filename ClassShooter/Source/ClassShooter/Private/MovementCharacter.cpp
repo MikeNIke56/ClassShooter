@@ -5,6 +5,9 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+/*
+* AMovementCharacter
+*/
 AMovementCharacter::AMovementCharacter()
 	:AClassShooterCharacter()
 {
@@ -13,6 +16,9 @@ AMovementCharacter::AMovementCharacter()
 	cableComponent->SetVisibility(false);
 }
 
+/*
+* Replicated variables
+*/
 void AMovementCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -57,6 +63,9 @@ void AMovementCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(AMovementCharacter, grappleRemainingTime);
 }
 
+/*
+* Begin Play
+*/
 void AMovementCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -73,34 +82,18 @@ void AMovementCharacter::BeginPlay()
 	cableComponent->NumSegments = 1;
 	cableComponent->CableWidth = 4.0f;
 
-	wallRunGravity = false;
-	isWallRunning = false;
-	isWallRunningR = false;
-	isWallRunningL = false;
-	canWallRun = true;
-	cameraRotateLerp = false;
-
 	isGrappleAtkHBOn = false;
 	grappleAtkHitDetected = false;
 
 	baseGrappleCooldown = grappleCooldown;
 	baseDashCooldown = curDashCooldown;
 
-	canSetRecallPos = true;
 	canDash = true;
-
-	/*
-	FTimerHandle DelayTimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
-		{
-			if(IsLocallyControlled())
-				WallRunUpdate();
-			//else
-			//	Server_WallRunUpdate();
-		}), .02f, true);
-	*/
 }
 
+/*
+* Tick
+*/
 void AMovementCharacter::Tick(float deltaTime)
 {
 	if (IsValid(this))
@@ -110,62 +103,7 @@ void AMovementCharacter::Tick(float deltaTime)
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 
-		if (cameraRotateLerp == true)
-		{
-			if (IsValid(this) && GetWorld())
-			{
-				if (isWallRunning)
-				{
-					float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
-					float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(targetRoll),
-						deltaTime, 10);
-
-					FRotator resultRotation = GetBaseAimRotation();
-					resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
-
-					if (IsLocallyControlled())
-						GetController()->SetControlRotation(resultRotation);
-
-					if (FMath::Abs(targetRoll - newRoll) < .05f)
-						cameraRotateLerp = false;
-				}
-				else
-				{
-					float curRoll = FRotator::NormalizeAxis(GetBaseAimRotation().Roll);
-					float newRoll = FMath::FInterpTo(curRoll, FRotator::NormalizeAxis(baseRoll),
-						deltaTime, 10);
-
-					FRotator resultRotation = GetBaseAimRotation();
-					resultRotation.Roll = FRotator::NormalizeAxis(newRoll);
-
-					if (IsLocallyControlled())
-						GetController()->SetControlRotation(resultRotation);
-
-					if (FMath::Abs(baseRoll - newRoll) < .05f)
-						cameraRotateLerp = false;
-				}
-			}
-		}
-		/*if (dashingLerp == true)
-		{
-			FVector curLocation = GetActorLocation();
-			FVector newLocation = FMath::VInterpConstantTo(curLocation, targetDashLocation,
-				deltaTime, 2400);
-			SetActorLocation(newLocation, true);
-
-			movementComponent->Velocity = FVector::ZeroVector;
-
-			if (FVector::Dist(targetDashLocation, newLocation) <= 5)
-			{
-				dashingLerp = false;
-
-				if (IsLocallyControlled())
-					GetController()->SetIgnoreMoveInput(false);
-
-				currentStates.Remove(PlayerGameState::Dashing);
-				movementComponent->SetMovementMode(prevMoveMode);
-			}
-		}*/
+		//moves character from point A to point B
 		if (grappleAtkLerp == true)
 		{
 			FVector curLocation = GetActorLocation();
@@ -191,6 +129,9 @@ void AMovementCharacter::Tick(float deltaTime)
 	}
 }
 
+/*
+* Updates character ability timers
+*/
 void AMovementCharacter::UpdateCooldownValues()
 {
 	if (HasAuthority())
@@ -219,12 +160,18 @@ void AMovementCharacter::Server_UpdateCooldownValues_Implementation()
 		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
+/*
+* Start shooting
+*/
 void AMovementCharacter::StartShooting()
 {
 	if (canGrapple == false)
 	{
+		//if triggered while grappling, grapple attack
 		if (currentStates.Contains(PlayerGameState::Grappling) && didGrappleAtk == false)
 			GrappleAttack();
+
+		//if not, fire weapon
 		else
 			Super::StartShooting();
 	}
@@ -232,6 +179,9 @@ void AMovementCharacter::StartShooting()
 		Super::StartShooting();
 }
 
+/*
+* Start Ability 1
+*/
 void AMovementCharacter::StartAbility1()
 {
 	if (HasAuthority())
@@ -272,10 +222,14 @@ void AMovementCharacter::Server_StartAbility1_Implementation()
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
 
+/*
+* Stop Ability 1
+*/
 void AMovementCharacter::StopAbility1()
 {
 	if (HasAuthority())
 	{
+		//resets movement component values
 		movementComponent->GroundFriction = baseGroundFriction;
 		movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		cableComponent->SetVisibility(false);
@@ -300,6 +254,7 @@ void AMovementCharacter::StopAbility1()
 }
 void AMovementCharacter::Server_StopAbility1_Implementation()
 {
+	//resets movement component values
 	movementComponent->GroundFriction = baseGroundFriction;
 	movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 	cableComponent->SetVisibility(false);
@@ -322,7 +277,9 @@ void AMovementCharacter::Server_StopAbility1_Implementation()
 		}), grappleCooldown, false);
 }
 
-
+/*
+* Grapple attack
+*/
 void AMovementCharacter::GrappleAttack()
 {
 	if (HasAuthority())
@@ -330,6 +287,8 @@ void AMovementCharacter::GrappleAttack()
 		currentStates.AddUnique(PlayerGameState::Dashing);
 		didGrappleAtk = true;
 		isGrappleAtkHBOn = true;
+
+		//zero out character velocity before applying dash attack impulse
 		movementVector = FVector2D::ZeroVector;
 		movementComponent->StopMovementImmediately();
 
@@ -373,7 +332,8 @@ void AMovementCharacter::GrappleAttack()
 		else
 			targetGrappleAtkLocation = fireEndLocation;
 
-		movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+		// prevents old velocity fighting lerp
+		movementComponent->StopMovementImmediately(); 
 		prevMoveMode = movementComponent->MovementMode;
 		movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 		GetController()->SetIgnoreMoveInput(true);
@@ -405,6 +365,8 @@ void AMovementCharacter::Server_GrappleAttack_Implementation()
 	currentStates.AddUnique(PlayerGameState::Dashing);
 	didGrappleAtk = true;
 	isGrappleAtkHBOn = true;
+
+	//zero out character velocity before applying dash attack impulse
 	movementVector = FVector2D::ZeroVector;
 	movementComponent->StopMovementImmediately();
 
@@ -448,7 +410,8 @@ void AMovementCharacter::Server_GrappleAttack_Implementation()
 	else
 		targetGrappleAtkLocation = fireEndLocation;
 
-	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+	// prevents old velocity fighting lerp
+	movementComponent->StopMovementImmediately();
 	prevMoveMode = movementComponent->MovementMode;
 	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 	GetController()->SetIgnoreMoveInput(true);
@@ -469,10 +432,15 @@ void AMovementCharacter::Server_GrappleAttack_Implementation()
 		}), 1.0f, false);
 }
 
+
+/*
+* Grapple
+*/
 void AMovementCharacter::Grapple()
 {
 	if (HasAuthority())
 	{
+		//spawn cable endpoint object
 		cableComponent->bAttachEnd = true;
 
 		FActorSpawnParameters SpawnParams;
@@ -495,12 +463,15 @@ void AMovementCharacter::Grapple()
 			FName("GrapplePoint.Sphere Sphere"));
 		currentStates.Remove(PlayerGameState::Dashing);
 
+		//adjust movement component values to allow for character to be launched up
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this, spawnRotForwardVec]()
 			{
 				movementComponent->GroundFriction = 0.0;
 				movementComponent->AddImpulse(spawnRotForwardVec * grappleSpd, true);
 			}), .25f, false);
+
+		//reset movement component values
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
@@ -522,6 +493,7 @@ bool AMovementCharacter::Server_Grapple_Validate()
 }
 void AMovementCharacter::Server_Grapple_Implementation()
 {
+	//spawn cable endpoint object
 	cableComponent->bAttachEnd = true;
 
 	FActorSpawnParameters SpawnParams;
@@ -544,12 +516,15 @@ void AMovementCharacter::Server_Grapple_Implementation()
 		FName("GrapplePoint.Sphere Sphere"));
 	currentStates.Remove(PlayerGameState::Dashing);
 
+	//adjust movement component values to allow for character to be launched up
 	FTimerHandle DelayTimerHandle1;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this, spawnRotForwardVec]()
 		{
 			movementComponent->GroundFriction = 0.0;
 			movementComponent->AddImpulse(spawnRotForwardVec * grappleSpd, true);
 		}), .25f, false);
+
+	//reset movement component values
 	FTimerHandle DelayTimerHandle2;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 		{
@@ -563,6 +538,9 @@ void AMovementCharacter::Server_Grapple_Implementation()
 		}), 1.25f, false);
 }
 
+/*
+* Start Ability 2
+*/
 void AMovementCharacter::StartAbility2()
 {
 	if (HasAuthority())
@@ -597,6 +575,9 @@ void AMovementCharacter::Server_StartAbility2_Implementation()
 	}
 }
 
+/*
+* Stop Ability 2
+*/
 void AMovementCharacter::StopAbility2()
 {
 	if (HasAuthority())
@@ -619,12 +600,16 @@ void AMovementCharacter::Server_StopAbility2_Implementation()
 		}), curDashCooldown, false);
 }
 
+/*
+* Dash
+*/
 void AMovementCharacter::Dash()
 {
 	if (HasAuthority())
 	{
 		currentStates.AddUnique(PlayerGameState::Dashing);
 
+		//character dashes in actor forward vector
 		FRotator spawnRot = GetBaseAimRotation();
 		FVector spawnRotForwardVec = spawnRot.Vector();
 
@@ -638,50 +623,6 @@ void AMovementCharacter::Dash()
 				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 				currentStates.Remove(PlayerGameState::Dashing);
 			}), .25f, false);
-
-
-		/*FVector fireStartLocation = GetActorLocation();
-		FVector fireEndLocation = fireStartLocation + (GetActorForwardVector() * dashDist);
-
-		// Line trace settings
-		FHitResult hitResult;
-		FCollisionQueryParams collisionParams;
-		collisionParams.AddIgnoredActor(this); // Ignore self
-		if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
-		{
-			collisionParams.AddIgnoredActor(OwnerPawn);
-		}
-
-		// Define Object Types to Trace (e.g., Physics Bodies)
-		FCollisionObjectQueryParams ObjectQueryParams;
-		ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
-		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
-		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-		ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
-
-		// Perform the trace
-		bool bHit = GetWorld()->LineTraceSingleByObjectType(
-			hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
-
-		// Draw debug line (visible for 1 second)
-		//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
-
-		AActor* hitActor = hitResult.GetActor();
-		// Check if we hit something
-		if (bHit)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("hit smth"));
-			float bufferDist = hitResult.Distance - 10;
-			targetDashLocation = fireStartLocation + (GetActorForwardVector() * bufferDist);
-		}
-		else
-			targetDashLocation = fireEndLocation;
-
-		movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
-		prevMoveMode = movementComponent->MovementMode;
-		movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
-		GetController()->SetIgnoreMoveInput(true);
-		dashingLerp = true;*/
 	}
 	else
 		Server_Dash();
@@ -694,6 +635,7 @@ void AMovementCharacter::Server_Dash_Implementation()
 {
 	currentStates.AddUnique(PlayerGameState::Dashing);
 
+	//character dashes in actor forward vector
 	FRotator spawnRot = GetBaseAimRotation();
 	FVector spawnRotForwardVec = spawnRot.Vector();
 
@@ -707,51 +649,11 @@ void AMovementCharacter::Server_Dash_Implementation()
 			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 			currentStates.Remove(PlayerGameState::Dashing);
 		}), .25f, false);
-
-	/*FVector fireStartLocation = GetActorLocation();
-	FVector fireEndLocation = fireStartLocation + (GetActorForwardVector() * dashDist);
-
-	// Line trace settings
-	FHitResult hitResult;
-	FCollisionQueryParams collisionParams;
-	collisionParams.AddIgnoredActor(this); // Ignore self
-	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
-	{
-		collisionParams.AddIgnoredActor(OwnerPawn);
-	}
-
-	// Define Object Types to Trace (e.g., Physics Bodies)
-	FCollisionObjectQueryParams ObjectQueryParams;
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_PhysicsBody);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
-
-	// Perform the trace
-	bool bHit = GetWorld()->LineTraceSingleByObjectType(
-		hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
-
-	// Draw debug line (visible for 1 second)
-	//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
-
-	AActor* hitActor = hitResult.GetActor();
-	// Check if we hit something
-	if (bHit)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("hit smth"));
-		float bufferDist = hitResult.Distance - 10;
-		targetDashLocation = fireStartLocation + (GetActorForwardVector() * bufferDist);
-	}
-	else
-		targetDashLocation = fireEndLocation;
-
-	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
-	prevMoveMode = movementComponent->MovementMode;
-	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
-	GetController()->SetIgnoreMoveInput(true);
-	dashingLerp = true;*/
 }
 
+/*
+* Start Ultimate
+*/
 void AMovementCharacter::StartUltimate()
 {
 	if (HasAuthority())
@@ -760,11 +662,8 @@ void AMovementCharacter::StartUltimate()
 			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		{
 			currentStates.AddUnique(PlayerGameState::Ultimate);
-			//curDashCooldown = 1;
-			//grappleCooldown = 1;
 			curSpeedMulti = 2.5f;
 			ultimateTriggered = true;
-			//SaveCurWeapons();
 
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -791,11 +690,8 @@ void AMovementCharacter::Server_StartUltimate_Implementation()
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
 		currentStates.AddUnique(PlayerGameState::Ultimate);
-		//curDashCooldown = 1;
-		//grappleCooldown = 1;
-		curSpeedMulti = 4.5f;
+		curSpeedMulti = 2.5f;
 		ultimateTriggered = true;
-		//Server_SaveCurWeapons();
 
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -814,12 +710,16 @@ void AMovementCharacter::Server_StartUltimate_Implementation()
 	}
 }
 
+/*
+* Stop Ultimate
+*/
 void AMovementCharacter::StopUltimate()
 {
 	if (HasAuthority())
 	{
 		Multi_StopUlt(bodyMesh);
-		//RestoreCurWeapons();
+
+		//reset speed and cooldowns
 		curSpeedMulti = baseSpeedMulti;
 		curDashCooldown = baseDashCooldown;
 		grappleCooldown = baseGrappleCooldown;
@@ -836,7 +736,8 @@ void AMovementCharacter::StopUltimate()
 void AMovementCharacter::Server_StopUltimate_Implementation()
 {
 	Multi_StopUlt(bodyMesh);
-	//RestoreCurWeapons();
+
+	//reset speed and cooldowns
 	curSpeedMulti = baseSpeedMulti;
 	curDashCooldown = baseDashCooldown;
 	grappleCooldown = baseGrappleCooldown;
@@ -848,28 +749,28 @@ void AMovementCharacter::Server_StopUltimate_Implementation()
 		}), .05f, false);
 }
 
+/*
+* Multicast for character's material set
+*/
 void AMovementCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
 	if (multiMesh)
 		multiMesh->SetMaterial(0, ultimateMat);
 }
-
 void AMovementCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
 	if (multiMesh)
 		multiMesh->SetMaterial(0, baseBodyMat);
 }
 
-
+/*
+* Resets character's movement component and current states
+*/
 void AMovementCharacter::ResetMovement()
 {
 	if (HasAuthority())
 	{
 		Super::ResetMovement();
-		isWallRunning = false;
-		isWallRunningR = false;
-		isWallRunningL = false;
-		cameraRotateLerp = true;
 		currentStates.Remove(PlayerGameState::Wallrunning);
 		currentStates.Remove(PlayerGameState::Grappling);
 	}
@@ -879,47 +780,35 @@ void AMovementCharacter::ResetMovement()
 void AMovementCharacter::Server_ResetMovement_Implementation()
 {
 	Super::ResetMovement();
-	isWallRunning = false;
-	isWallRunningR = false;
-	isWallRunningL = false;
-	cameraRotateLerp = true;
 	currentStates.Remove(PlayerGameState::Wallrunning);
 	currentStates.Remove(PlayerGameState::Grappling);
 }
 
 
+/*
+* Jump
+*/
 void AMovementCharacter::Jump()
 {
 	if (currentStates.Contains(PlayerGameState::Wallrunning))
 	{
-		wallRunDelay = .25f;
-
 		if(HasAuthority())
 			ResetMovement();
 		else
 			Server_ResetMovement();
-
-		isWallRunning = false;
-		isWallRunningR = false;
-		isWallRunningL = false;
-		cameraRotateLerp = true;
-
-		float jumpDistX = wallRunNormal.X * wallRunJumpDist;
-		float jumpDistY = wallRunNormal.Y * wallRunJumpDist;
-		LaunchCharacter(FVector(jumpDistX, jumpDistY, wallRunJumpHeight), false, true);
 	}
 	else
 		Super::Jump();
 }
 
-
+/*
+* Land
+*/
 void AMovementCharacter::LandEvent()
 {
 	if (HasAuthority())
 	{
-		wallRunDelay = .05f;
 		ResetMovement();
-		canWallRun = true;
 	}
 	else
 		Server_LandEvent();
@@ -930,8 +819,6 @@ bool AMovementCharacter::Server_LandEvent_Validate()
 }
 void AMovementCharacter::Server_LandEvent_Implementation()
 {
-	wallRunDelay = .05f;
 	Server_ResetMovement();
-	canWallRun = true;
 }
 

@@ -16,9 +16,11 @@ class CLASSSHOOTER_API AShield : public AWeaponBase
 	GENERATED_BODY()
 
 public:
+	//the owner of this object
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shield Variables")
 	AActor* source;
 
+	//the amount of knockback to apply to the hit enemy
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shield Variables")
 	float knockbackAmnt = 1000;
 };

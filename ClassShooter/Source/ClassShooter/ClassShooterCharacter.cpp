@@ -18,9 +18,10 @@
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-//////////////////////////////////////////////////////////////////////////
-// AClassShooterCharacter
 
+/*
+* AClassShooterCharacter
+*/
 AClassShooterCharacter::AClassShooterCharacter()
 {
 	// Set size for collision capsule
@@ -56,11 +57,15 @@ AClassShooterCharacter::AClassShooterCharacter()
 }
 
 
+/*
+* Begin Play
+*/
 void AClassShooterCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
 
+	//setting initial values
 	slashSpeed = 10;
 	curHealth = maxHealth;
 	movementComponent = GetCharacterMovement();
@@ -68,12 +73,8 @@ void AClassShooterCharacter::BeginPlay()
 	curSpeed = baseSpeed;
 	curSpeedMulti = baseSpeedMulti;
 
-	//movementComponent->bServerAcceptClientAuthoritativePosition = true;
-	//movementComponent->bIgnoreClientMovementErrorChecksAndCorrection = true;
-
 	ADSLerp = false;
 	startFovChange = false;
-	isSwitchingAfterPickup = false;
 	deathTriggered = false;
 
 	isLeftSwing = true;
@@ -94,6 +95,9 @@ void AClassShooterCharacter::BeginPlay()
 	UE_LOG(LogTemp, Warning, TEXT("Character is locally controlled: %d"), IsLocallyControlled());
 }
 
+/*
+* Replicated variables
+*/
 void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -142,7 +146,9 @@ void AClassShooterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(AClassShooterCharacter, ySens);
 }
 
-
+/*
+* OnRep functions
+*/
 void AClassShooterCharacter::OnRep_weaponArray()
 {
 	
@@ -155,6 +161,7 @@ void AClassShooterCharacter::OnRep_targetLocation()
 {
 	if (curWeapon)
 	{
+		//attaches equipped weapon to weaponLocation
 		curWeapon->SetOwner(this);
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 		curWeapon->AttachToComponent(weaponLocation, AttachRules);
@@ -166,7 +173,9 @@ void AClassShooterCharacter::OnRep_deathTriggered()
 {
 }
 
-
+/*
+* Tick
+*/
 void AClassShooterCharacter::Tick(float deltaTime)
 {
 	if (IsValid(this))
@@ -175,9 +184,10 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		jumpAllowed = IsGrounded();
 		isSprinting = IsStillSprinting();
 		movementComponent->MaxWalkSpeed = curSpeed;
-
+		
 		if (ADSLerp == true)
 		{
+			//weapon lerps between unADS and ADS locations within given time
 			FVector curLocation = weaponLocation->GetRelativeLocation();
 			FVector newLocation = FMath::VInterpTo(curLocation, targetLocation,
 				deltaTime, 10);
@@ -194,6 +204,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		}
 		if (startFovChange == true)
 		{
+			//FOV lerps between the current FOV and the target FOV within given time
 			float curFov = FirstPersonCameraComponent->FieldOfView;
 			float newFov = FMath::FInterpTo(curFov, targetFov, deltaTime, 10);
 			FirstPersonCameraComponent->SetFieldOfView(newFov);
@@ -203,6 +214,7 @@ void AClassShooterCharacter::Tick(float deltaTime)
 		}
 		if (meleeLerp == true)
 		{
+			//knife lerps between knife melee locations within given time
 			FVector newLocation = weaponLocation->GetRelativeLocation();
 			FRotator newRotation = weaponLocation->GetRelativeRotation();
 
@@ -264,15 +276,14 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 		if (curWeapon)
 		{
+			//sets curCamLoc and curCamRot of the equipped weapon for shooting 
 			curWeapon->curCamLoc = FirstPersonCameraComponent->GetComponentLocation();
 			curWeapon->curCamRot = GetBaseAimRotation();
 		}
 
+		//applies headbob to camera when player is walking or running
 		if (movementComponent->Velocity.Length() > 0.1f)
 		{
-			//if (currentStates.Contains(PlayerGameState::Ultimate))
-				//return;
-
 			if (curSpeed > baseSpeed && IsGrounded() == true)
 			{
 				float newBobAmount = bobAmount * 1.5;
@@ -284,14 +295,6 @@ void AClassShooterCharacter::Tick(float deltaTime)
 
 				FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
 				FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
-
-				/*
-				* if (FirstPersonCameraComponent->FieldOfView > 89.5)
-				{
-					targetFov = 75;
-					startFovChange = true;
-				}
-				*/
 			}
 			else if (curSpeed == baseSpeed && IsGrounded() == true)
 			{
@@ -305,14 +308,6 @@ void AClassShooterCharacter::Tick(float deltaTime)
 				FVector NewLocation = defaultCameraLocation + FVector(0.0f, OffsetY, OffsetZ);
 				FirstPersonCameraComponent->SetRelativeLocation(NewLocation);
 				curSpeed = baseSpeed;
-
-				/*
-				* if (FirstPersonCameraComponent->FieldOfView < 89.5)
-				{
-					targetFov = 90;
-					startFovChange = true;
-				}
-				*/
 			}
 		}
 		else
@@ -384,7 +379,10 @@ void AClassShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 	}
 }
 
-//movement fucntions
+
+/*
+* Move
+*/
 void AClassShooterCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -402,7 +400,9 @@ void AClassShooterCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-
+/*
+* Jump
+*/
 void AClassShooterCharacter::Jump()
 {
 	if (HasAuthority())
@@ -412,6 +412,7 @@ void AClassShooterCharacter::Jump()
 			currentStates.AddUnique(PlayerGameState::Jumping);
 			float newJumpPow = jumpPow;
 
+			//add impulse to character
 			if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
 				newJumpPow /= 2;
 			movementComponent->AddImpulse(GetActorUpVector() * newJumpPow, true);
@@ -431,12 +432,16 @@ void AClassShooterCharacter::Server_Jump_Implementation()
 		currentStates.AddUnique(PlayerGameState::Jumping);
 		float newJumpPow = jumpPow;
 
+		//add impulse to character
 		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == true)
 			newJumpPow /= 2;
 		movementComponent->AddImpulse(GetActorUpVector() * newJumpPow, true);
 	}
 }
 
+/*
+* Stop Jumping
+*/
 void AClassShooterCharacter::StopJumping()
 {
 	if (HasAuthority())
@@ -457,7 +462,9 @@ void AClassShooterCharacter::Server_StopJumping_Implementation()
 	Super::StopJumping();
 }
 
-
+/*
+* Finds if player is currently on the ground
+*/
 bool AClassShooterCharacter::IsGrounded()
 {
 	// Get the start location (from the pawn's camera or actor position)
@@ -487,6 +494,10 @@ bool AClassShooterCharacter::IsGrounded()
 
 	return false;
 }
+
+/*
+* Look
+*/
 void AClassShooterCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -509,10 +520,14 @@ void AClassShooterCharacter::Look(const FInputActionValue& Value)
 }
 
 
+/*
+* Sprint
+*/
 void AClassShooterCharacter::Sprint()
 {
 	if (HasAuthority())
 	{
+		//apply speed multi to current speed
 		curSpeed = baseSpeed * curSpeedMulti;
 		currentStates.Remove(PlayerGameState::Walking);
 		currentStates.AddUnique(PlayerGameState::Sprinting);
@@ -526,14 +541,20 @@ bool AClassShooterCharacter::Server_Sprint_Validate()
 }
 void AClassShooterCharacter::Server_Sprint_Implementation()
 {
+	//apply speed multi to current speed
 	curSpeed = baseSpeed * curSpeedMulti;
 	currentStates.Remove(PlayerGameState::Walking);
 	currentStates.AddUnique(PlayerGameState::Sprinting);
 }
+
+/*
+* Stop Sprinting
+*/
 void AClassShooterCharacter::StopSprinting()
 {
 	if (HasAuthority())
 	{
+		//reset speed
 		curSpeed = baseSpeed;
 		currentStates.Remove(PlayerGameState::Sprinting);
 	}
@@ -546,11 +567,17 @@ bool AClassShooterCharacter::Server_StopSprinting_Validate()
 }
 void AClassShooterCharacter::Server_StopSprinting_Implementation()
 {
+	//reset speed
 	curSpeed = baseSpeed;
 	currentStates.Remove(PlayerGameState::Sprinting);
 }
+
+/*
+* Finds if player is currently sprinting
+*/
 bool AClassShooterCharacter::IsStillSprinting()
 {
+	//is the player holding sprint while moving on the ground?
 	if (movementVector.Y > 0.0 && curSpeed > baseSpeed
 		&& IsGrounded() == true)
 		return true;
@@ -559,16 +586,23 @@ bool AClassShooterCharacter::IsStillSprinting()
 }
 
 
+/*
+* Starts player crouch
+*/
 void AClassShooterCharacter::StartCrouch()
 {
 	if (HasAuthority())
 	{
+		//when we press crouch, are we sprinting, then slide
 		if (currentStates.Contains(PlayerGameState::Sprinting))
 			Slide();
 		else
 		{
+			//when we press crouch, are we standing still, then crouch
 			if (!currentStates.Contains(PlayerGameState::Crouching))
 				Crouch();
+
+			//when we press crouch, are we already crouched, then uncrouch
 			else
 				StopCrouching();
 		}
@@ -582,24 +616,34 @@ bool AClassShooterCharacter::Server_StartCrouch_Validate()
 }
 void AClassShooterCharacter::Server_StartCrouch_Implementation()
 {
+	//when we press crouch, are we sprinting, then slide
 	if (currentStates.Contains(PlayerGameState::Sprinting))
 		Server_Slide();
 	else
 	{
+		//when we press crouch, are we standing still, then crouch
 		if (!currentStates.Contains(PlayerGameState::Crouching))
 			Server_Crouch();
+
+		//when we press crouch, are we already crouched, then uncrouch
 		else
 			Server_StopCrouching();
 	}
 }
+
+/*
+* Starts Crouch
+*/
 void AClassShooterCharacter::Crouch()
 {
 	if (HasAuthority())
 	{
+		//make character smaller and reduce their speed
 		GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
 		movementComponent->MaxWalkSpeed = baseSpeed / 3;
 		currentStates.AddUnique(PlayerGameState::Crouching);
 
+		//adjusts the weapon location while crouched
 		if (curWeapon && isADSing)
 		{
 			targetLocation = curWeapon->weaponADSCrouchedLocation;
@@ -615,20 +659,27 @@ bool AClassShooterCharacter::Server_Crouch_Validate()
 }
 void AClassShooterCharacter::Server_Crouch_Implementation()
 {
+	//make character smaller and reduce their speed
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale / 2);
 	movementComponent->MaxWalkSpeed = baseSpeed / 3;
 	currentStates.AddUnique(PlayerGameState::Crouching);
 
+	//adjusts the weapon location while crouched
 	if (curWeapon && isADSing)
 	{
 		targetLocation = curWeapon->weaponADSCrouchedLocation;
 		ADSLerp = true;
 	}
 }
+
+/*
+* Stops Crouch
+*/
 void AClassShooterCharacter::StopCrouching()
 {
 	if (HasAuthority())
 	{
+		//reset character scale, speed, and weapon location
 		GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
 
 		if (!isSprinting)
@@ -651,6 +702,7 @@ bool AClassShooterCharacter::Server_StopCrouching_Validate()
 }
 void AClassShooterCharacter::Server_StopCrouching_Implementation()
 {
+	//reset character scale, speed, and weapon location
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
 
 	if (!isSprinting)
@@ -665,11 +717,14 @@ void AClassShooterCharacter::Server_StopCrouching_Implementation()
 	Server_ResetMovement();
 }
 
-
+/*
+* Slide
+*/
 void AClassShooterCharacter::Slide()
 {
 	if (HasAuthority())
 	{
+		//if the slide timer is not active
 		if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == false)
 		{
 			GetWorld()->GetTimerManager().ClearTimer(slideTimer);
@@ -680,14 +735,21 @@ void AClassShooterCharacter::Slide()
 			else
 				currentStates.AddUnique(PlayerGameState::Diving);
 
+			//adjust movement components to allow for sliding
 			movementComponent->GroundFriction = 0.0;
 			movementComponent->BrakingDecelerationWalking = 1400;
+
+			//normalize velocity vector
 			FVector velocity = GetCharacterMovement()->Velocity;
 			velocity.Normalize();
+
+			//constrain slide along appropriate axis
 			movementComponent->SetPlaneConstraintFromVectors(velocity, GetActorUpVector());
 			movementComponent->SetPlaneConstraintEnabled(true);
 
 			FVector slideVec = FindSlideVector();
+
+			//apply impulse to character
 			if (slideVec.Z <= .02 || IsGrounded() == true)
 			{
 				movementComponent->AddImpulse(GetActorForwardVector() * slidePow, true);
@@ -705,6 +767,7 @@ bool AClassShooterCharacter::Server_Slide_Validate()
 }
 void AClassShooterCharacter::Server_Slide_Implementation()
 {
+	//if the slide timer is not active
 	if (GetWorld()->GetTimerManager().IsTimerActive(slideTimer) == false)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(slideTimer);
@@ -715,14 +778,21 @@ void AClassShooterCharacter::Server_Slide_Implementation()
 		else
 			currentStates.AddUnique(PlayerGameState::Diving);
 
+		//adjust movement components to allow for sliding
 		movementComponent->GroundFriction = 0.0;
 		movementComponent->BrakingDecelerationWalking = 1400;
+
+		//normalize velocity vector
 		FVector velocity = GetCharacterMovement()->Velocity;
 		velocity.Normalize();
+
+		//constrain slide along appropriate axis
 		movementComponent->SetPlaneConstraintFromVectors(velocity, GetActorUpVector());
 		movementComponent->SetPlaneConstraintEnabled(true);
 
 		FVector slideVec = FindSlideVector();
+
+		//apply impulse to character
 		if (slideVec.Z <= .02 || IsGrounded() == true)
 		{
 			movementComponent->AddImpulse(GetActorForwardVector() * slidePow, true);
@@ -732,10 +802,14 @@ void AClassShooterCharacter::Server_Slide_Implementation()
 	}
 }
 
+/*
+* Stops Slide
+*/
 void AClassShooterCharacter::StopSliding()
 {
 	if (HasAuthority())
 	{
+		//resets player movement
 		ResetMovement();
 	}
 	else
@@ -747,10 +821,13 @@ bool AClassShooterCharacter::Server_StopSliding_Validate()
 }
 void AClassShooterCharacter::Server_StopSliding_Implementation()
 {
+	//resets player movement
 	Server_ResetMovement();
 }
 
-
+/*
+* Finds slide vector depending on character's current location
+*/
 FVector AClassShooterCharacter::FindSlideVector()
 {
 	// Get the start location (from the pawn's camera or actor position)
@@ -779,13 +856,18 @@ FVector AClassShooterCharacter::FindSlideVector()
 
 }
 
-
+/*
+* Resets player's movement component to normal
+*/
 void AClassShooterCharacter::ResetMovement()
 {
 	if (HasAuthority())
 	{
 		currentStates.Empty();
+
+		//reset scale if crouched previously
 		GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
+
 		movementComponent->GravityScale = baseGravity;
 
 		if (!isSprinting)
@@ -793,6 +875,7 @@ void AClassShooterCharacter::ResetMovement()
 		else
 			currentStates.AddUnique(PlayerGameState::Sprinting);
 
+		//resets movement component values
 		movementComponent->GroundFriction = baseGroundFriction;
 		movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		movementComponent->SetPlaneConstraintEnabled(false);
@@ -807,7 +890,10 @@ bool AClassShooterCharacter::Server_ResetMovement_Validate()
 void AClassShooterCharacter::Server_ResetMovement_Implementation()
 {
 	currentStates.Empty();
+
+	//reset scale if crouched previously
 	GetCapsuleComponent()->SetWorldScale3D(originalBodyScale);
+
 	movementComponent->GravityScale = baseGravity;
 
 	if (!isSprinting)
@@ -815,18 +901,22 @@ void AClassShooterCharacter::Server_ResetMovement_Implementation()
 	else
 		currentStates.AddUnique(PlayerGameState::Sprinting);
 
+	//resets movement component values
 	movementComponent->GroundFriction = baseGroundFriction;
 	movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 	movementComponent->SetPlaneConstraintEnabled(false);
 }
 
 
-//gun related functions
-
+/*
+* ADS equipped weapon
+*/
 void AClassShooterCharacter::ADS()
 {
 	if (HasAuthority())
 	{
+		//change FOV, move weapon mesh to target ADS location, and reduce bullet cone 
+		//and recoil
 		if (curWeapon && curWeapon->name != "Knife" &&
 			curWeapon->name != "GL" && curWeapon->name != "RPG")
 		{
@@ -861,6 +951,8 @@ bool AClassShooterCharacter::Server_ADS_Validate()
 }
 void AClassShooterCharacter::Server_ADS_Implementation()
 {
+	//change FOV, move weapon mesh to target ADS location, and reduce bullet cone 
+	//and recoil
 	if (curWeapon && curWeapon->name != "Knife" &&
 		curWeapon->name != "GL" && curWeapon->name != "RPG")
 	{
@@ -886,10 +978,16 @@ void AClassShooterCharacter::Server_ADS_Implementation()
 		startFovChange = true;
 	}
 }
+
+/*
+* unADS equipped weapon
+*/
 void AClassShooterCharacter::StopADS()
 {
 	if (HasAuthority())
 	{
+		//change FOV, move weapon mesh to target unADS location, and reset bullet cone 
+		//and recoil
 		if (curWeapon)
 		{
 			isADSing = false;
@@ -916,6 +1014,8 @@ void AClassShooterCharacter::Server_StopADS_Implementation()
 {
 	if (curWeapon)
 	{
+		//change FOV, move weapon mesh to target unADS location, and reset bullet cone 
+		//and recoil
 		isADSing = false;
 		curWeapon->curBulletCone = curWeapon->baseBulletCone;
 		curWeapon->recoilAmnt = curWeapon->baseRecoilAmnt;
@@ -929,10 +1029,15 @@ void AClassShooterCharacter::Server_StopADS_Implementation()
 		startFovChange = true;
 	}
 }
+
+/*
+* Start Firing
+*/
 void AClassShooterCharacter::StartShooting()
 {
 	if (HasAuthority())
 	{
+		//fires the equipped weapon
 		if (curWeapon && curWeapon->state == WeaponState::Equipped)
 		{
 			if (curWeapon->name == "Knife")
@@ -951,6 +1056,7 @@ bool AClassShooterCharacter::Server_StartShooting_Validate()
 }
 void AClassShooterCharacter::Server_StartShooting_Implementation()
 {
+	//fires the equipped weapon
 	if (curWeapon && curWeapon->state == WeaponState::Equipped)
 	{
 		if (curWeapon->name == "Knife")
@@ -959,6 +1065,10 @@ void AClassShooterCharacter::Server_StartShooting_Implementation()
 			Server_Shoot();
 	}
 }
+
+/*
+* Stop Firing
+*/
 void AClassShooterCharacter::StopShooting()
 {
 	if (HasAuthority())
@@ -986,9 +1096,11 @@ void AClassShooterCharacter::Server_StopShooting_Implementation()
 	}
 }
 
+/*
+* Fire
+*/
 void AClassShooterCharacter::Shoot()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("client shooting"));
 	//on client
 
 	if (HasAuthority())
@@ -1008,8 +1120,6 @@ bool AClassShooterCharacter::Server_Shoot_Validate()
 }
 void AClassShooterCharacter::Server_Shoot_Implementation()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("server received shooting signal"));
-
 	if (curWeapon->isAutomatic == true)
 		curWeapon->Server_AutoFire();
 	else
@@ -1019,7 +1129,9 @@ void AClassShooterCharacter::Server_Shoot_Implementation()
 
 
 
-//Picking up and equipping weapons
+/*
+* Equipping weapons
+*/
 void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt)
 {
 	if (HasAuthority())
@@ -1028,8 +1140,10 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 		{
 			bool isInInventory = false;
 
+			//if player is currently ulting
 			if (isUlt == true)
 			{
+				//show current weapon
 				weaponCopy = weapon;
 				weaponCopy->state = WeaponState::Equipped;
 				curWeapon = weaponCopy;
@@ -1042,6 +1156,7 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 			}
 			else
 			{
+				//check if weapon is already in inventory
 				for (int i = 0; i < weaponArray.Num(); i++)
 				{
 					if (weaponArray[i] && weaponArray[i]->name == weapon->name)
@@ -1061,6 +1176,7 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 						{
 							if (i == 0)
 							{
+								//spawn in and equip weapon
 								if (shouldCreateNewWeaponObj == true)
 								{
 									FActorSpawnParameters SpawnParams;
@@ -1077,6 +1193,7 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 									weaponCopy = weapon;
 								}
 
+								//change weapon state and show weapon
 								weaponCopy->state = WeaponState::Equipped;
 								curWeapon = weaponCopy;
 
@@ -1089,6 +1206,7 @@ void AClassShooterCharacter::EquipWeapon(AWeaponBase* weapon, bool shouldCreateN
 							}
 							else
 							{
+								//stow weapon
 								StowWeapon(weapon, weapon->name, true, i);
 								return;
 							}
@@ -1115,7 +1233,9 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 	{
 		bool isInInventory = false;
 
+		//if player is currently ulting
 		if (isUlt == true)
+			//show current weapon
 		{
 			weaponCopy = weapon;
 			weaponCopy->state = WeaponState::Equipped;
@@ -1129,6 +1249,7 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 		}
 		else
 		{
+			//check if weapon is already in inventory
 			for (int i = 0; i < weaponArray.Num(); i++)
 			{
 				if (weaponArray[i] && weaponArray[i]->name == weapon->name)
@@ -1149,6 +1270,7 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 						{
 							if (shouldCreateNewWeaponObj == true)
 							{
+								//spawn in and equip weapon
 								FActorSpawnParameters SpawnParams;
 								SpawnParams.Owner = this;
 								SpawnParams.Instigator = GetInstigator();
@@ -1162,6 +1284,8 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 							{
 								weaponCopy = weapon;
 							}
+
+							//change weapon state and show weapon
 							weaponCopy->SetUpWeapon(weapon);
 
 							weaponCopy->state = WeaponState::Equipped;
@@ -1177,6 +1301,7 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 						}
 						else
 						{
+							//stow weapon
 							Server_StowWeapon(weapon, weapon->name, true, i);
 							return;
 						}
@@ -1192,12 +1317,16 @@ void AClassShooterCharacter::Server_EquipWeapon_Implementation(AWeaponBase* weap
 }
 
 
+/*
+* Show equipped weapon mesh
+*/
 void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 {
 	if (HasAuthority())
 	{
 		if (weapon)
 		{
+			//determines where to set weapon mesh location
 			if (isADSing)
 			{
 				if (currentStates.Contains(PlayerGameState::Crouching))
@@ -1208,6 +1337,7 @@ void AClassShooterCharacter::ShowCurWeapon(AWeaponBase* weapon)
 			else
 				targetLocation = weapon->weaponUnADSLocation;
 
+			//attach weapon
 			weapon->SetOwner(this);
 			FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 			weapon->AttachToComponent(weaponLocation, AttachRules);
@@ -1227,6 +1357,7 @@ void AClassShooterCharacter::Server_ShowCurWeapon_Implementation(AWeaponBase* we
 {
 	if (weapon)
 	{
+		//determines where to set weapon mesh location
 		if (isADSing)
 		{
 			if (currentStates.Contains(PlayerGameState::Crouching))
@@ -1237,6 +1368,7 @@ void AClassShooterCharacter::Server_ShowCurWeapon_Implementation(AWeaponBase* we
 		else
 			targetLocation = weapon->weaponUnADSLocation;
 
+		//attach weapon
 		weapon->SetOwner(this);
 		FAttachmentTransformRules AttachRules(EAttachmentRule::SnapToTarget, true);
 		weapon->AttachToComponent(weaponLocation, AttachRules);
@@ -1246,12 +1378,16 @@ void AClassShooterCharacter::Server_ShowCurWeapon_Implementation(AWeaponBase* we
 }
 
 
+/*
+* ADS equipped weapon
+*/
 void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 {
 	if (!weaponArray.Contains(weapon)) return;
 
 	if (weapon)
 	{
+		//set equipped weapon mesh to target location
 		if (weapon->name != "Knife" && weapon->name != "GL")
 		{
 			if(currentStates.Contains(PlayerGameState::Crouching))
@@ -1265,7 +1401,9 @@ void AClassShooterCharacter::ADSCurWeapon(AWeaponBase* weapon)
 }
 
 
-//Switching weapons
+/*
+* Switching weapons
+*/
 void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 {
 	if (HasAuthority())
@@ -1275,6 +1413,7 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 			int numWeapons = 0;
 			int pos = 0;
 
+			//checks how many weapons are currently in player's inventory
 			for (int i = 0; i < weaponArray.Num(); i++)
 			{
 				if (weaponArray[i])
@@ -1286,9 +1425,9 @@ void AClassShooterCharacter::SwitchWeapon(const FInputActionValue& Value)
 				}
 			}
 
+			//swaps and stows weapons 
 			if (numWeapons > 1)
 			{
-				isSwitchingAfterPickup = true;
 				int origPos = pos;
 
 				weaponCopy = weaponArray[origPos];
@@ -1317,6 +1456,7 @@ void AClassShooterCharacter::Server_SwitchWeapon_Implementation(const FInputActi
 		int numWeapons = 0;
 		int pos = 0;
 
+		//checks how many weapons are currently in player's inventory
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			if (weaponArray[i])
@@ -1328,9 +1468,9 @@ void AClassShooterCharacter::Server_SwitchWeapon_Implementation(const FInputActi
 			}
 		}
 
+		//swaps and stows weapons 
 		if (numWeapons > 1)
 		{
-			isSwitchingAfterPickup = true;
 			int origPos = pos;
 
 			weaponCopy = weaponArray[origPos];
@@ -1346,11 +1486,14 @@ void AClassShooterCharacter::Server_SwitchWeapon_Implementation(const FInputActi
 }
 
 
-//Stowing weapons
+/*
+* Stowing weapons
+*/
 void AClassShooterCharacter::StowWeapon(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos)
 {	
 	if (HasAuthority())
 	{
+		//attaches stowed weapon object to sockets on the character model
 		if (bodyMesh->DoesSocketExist(socketName))
 		{
 			if (shouldCreateNew == true)
@@ -1395,6 +1538,7 @@ bool AClassShooterCharacter::Server_StowWeapon_Validate(AWeaponBase* weapon, con
 }
 void AClassShooterCharacter::Server_StowWeapon_Implementation(AWeaponBase* weapon, const FName& socketName, bool shouldCreateNew, int pos)
 {
+	//attaches stowed weapon object to sockets on the character model
 	if (bodyMesh->DoesSocketExist(socketName))
 	{
 		if (shouldCreateNew == true)
@@ -1432,15 +1576,15 @@ void AClassShooterCharacter::Server_StowWeapon_Implementation(AWeaponBase* weapo
 }
 
 
-//Reload and Recoil
-
+/*
+* Reload
+*/
 void AClassShooterCharacter::Reload()
 {
 	if (HasAuthority())
 	{
 		if (curWeapon)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("reload"));
 			curWeapon->Reload();
 		}
 	}
@@ -1455,13 +1599,17 @@ void AClassShooterCharacter::Server_Reload_Implementation()
 {
 	if (curWeapon)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("reload"));
 		curWeapon->Server_Reload();
 	}
 }
 
+/*
+* Procedural Recoil
+*/
 void AClassShooterCharacter::ProceduralRecoil(float multiplier)
 {
+	//applies slight locational and rotational offsets, within range, to weapon mesh 
+	// model when firing
 	FRotator recoilRotation;
 	FVector recoilLocation;
 	float localMultiplier = multiplier;
@@ -1481,14 +1629,17 @@ void AClassShooterCharacter::ProceduralRecoil(float multiplier)
 }
 
 
+/*
+* Swap weapons
+*/
 void AClassShooterCharacter::SwapWeaponOver(AWeaponBase* weapon, int pos)
 {
 	if (HasAuthority())
 	{
+		//changes weapon state and shows weapon mesh
 		weapon->state = WeaponState::Equipped;
 		curWeapon = weapon;
 		ShowCurWeapon(weapon);
-		UE_LOG(LogTemp, Warning, TEXT("Equipped weapon: %s"), *weapon->name.ToString());
 		StopADS();
 		weapon->SetOwner(this);
 
@@ -1504,6 +1655,7 @@ bool AClassShooterCharacter::Server_SwapWeaponOver_Validate(AWeaponBase* weapon,
 }
 void AClassShooterCharacter::Server_SwapWeaponOver_Implementation(AWeaponBase* weapon, int pos)
 {
+	//changes weapon state and shows weapon mesh
 	weapon->state = WeaponState::Equipped;
 	curWeapon = weapon;
 	Server_ShowCurWeapon(weapon);
@@ -1516,13 +1668,16 @@ void AClassShooterCharacter::Server_SwapWeaponOver_Implementation(AWeaponBase* w
 }
 
 
-//Melee
+/*
+* Melee
+*/
 void AClassShooterCharacter::Melee()
 {
 	if (HasAuthority())
 	{
 		currentStates.AddUnique(PlayerGameState::Meleeing);
 
+		//sets knife swing location
 		if (isLeftSwing == true)
 		{
 			FVector location(knifeSwingLocations[0]->GetRelativeLocation());
@@ -1558,6 +1713,7 @@ void AClassShooterCharacter::Server_Melee_Implementation()
 {
 	currentStates.AddUnique(PlayerGameState::Meleeing);
 
+	//sets knife swing location
 	if (isLeftSwing == true)
 	{
 		FVector location(knifeSwingLocations[0]->GetRelativeLocation());
@@ -1584,7 +1740,9 @@ void AClassShooterCharacter::Server_Melee_Implementation()
 }
 
 
-//Abilities
+/*
+* Abilities
+*/
 void AClassShooterCharacter::StartAbility1()
 {
 	
@@ -1658,6 +1816,9 @@ void AClassShooterCharacter::Server_StopUltimate_Implementation()
 
 }
 
+/*
+* Multicast functions
+*/
 bool AClassShooterCharacter::Multi_StartUlt_Validate(UStaticMeshComponent* multiMesh)
 {
 	return true;
@@ -1674,11 +1835,14 @@ void AClassShooterCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* 
 {
 }
 
-
+/*
+* Save current weapons
+*/
 void AClassShooterCharacter::SaveCurWeapons()
 {
 	if (HasAuthority())
 	{
+		//assigns weapons to backup
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			backupWeaponArray[i] = nullptr;
@@ -1688,6 +1852,7 @@ void AClassShooterCharacter::SaveCurWeapons()
 				backupWeaponArray[i]->state = WeaponState::OutOfInventory;
 			}
 		}
+		//clears current loadout
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			if (weaponArray[i])
@@ -1706,6 +1871,7 @@ bool AClassShooterCharacter::Server_SaveCurWeapons_Validate()
 }
 void AClassShooterCharacter::Server_SaveCurWeapons_Implementation()
 {
+	//assigns weapons to backup
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		backupWeaponArray[i] = nullptr;
@@ -1715,6 +1881,7 @@ void AClassShooterCharacter::Server_SaveCurWeapons_Implementation()
 			backupWeaponArray[i]->state = WeaponState::OutOfInventory;
 		}
 	}
+	//clears current loadout
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		if (weaponArray[i])
@@ -1725,11 +1892,14 @@ void AClassShooterCharacter::Server_SaveCurWeapons_Implementation()
 	}
 }
 
-
+/*
+* Restore weapons
+*/
 void AClassShooterCharacter::RestoreCurWeapons()
 {
 	if (HasAuthority())
 	{
+		//clears current loadout
 		for (int i = 0; i < weaponArray.Num(); i++)
 		{
 			if (weaponArray[i])
@@ -1738,6 +1908,7 @@ void AClassShooterCharacter::RestoreCurWeapons()
 				weaponArray[i] = nullptr;
 			}
 		}
+		//re-assigns weapons from backup
 		for (int i = 0; i < backupWeaponArray.Num(); i++)
 		{
 			if (backupWeaponArray[i])
@@ -1753,6 +1924,7 @@ bool AClassShooterCharacter::Server_RestoreCurWeapons_Validate()
 }
 void AClassShooterCharacter::Server_RestoreCurWeapons_Implementation()
 {
+	//clears current loadout
 	for (int i = 0; i < weaponArray.Num(); i++)
 	{
 		if (weaponArray[i])
@@ -1761,6 +1933,7 @@ void AClassShooterCharacter::Server_RestoreCurWeapons_Implementation()
 			weaponArray[i] = nullptr;
 		}
 	}
+	//re-assigns weapons from backup
 	for (int i = 0; i < backupWeaponArray.Num(); i++)
 	{
 		if (backupWeaponArray[i])
@@ -1769,7 +1942,9 @@ void AClassShooterCharacter::Server_RestoreCurWeapons_Implementation()
 }
 
 
-//Damage and death
+/*
+* Damage and death
+*/
 void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageAmount, AActor* source)
 {
 	if(HasAuthority())
@@ -1779,6 +1954,7 @@ void AClassShooterCharacter::HandleTakeCustomDamage_Implementation(float DamageA
 }
 void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source)
 {
+	//if clone, then return
 	if (isClone == true) return;
 
 	if (deathTriggered == false)
@@ -1786,23 +1962,34 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 		curHealth -= DamageAmount;
 		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 
+		//assign player who killed this player
 		playerWhoDamagedMe = Cast<AClassShooterCharacter>(source);
 		if (curHealth <= 0.0)
 		{
 			playerWhoDamagedMe->didGetKill = true;
+
+			//clear current player states
 			currentStates.Empty();
 			currentStates.AddUnique(PlayerGameState::Dying);
+
+			//disable player input
 			APlayerController* PC = Cast<APlayerController>(GetController());
 			DisableInput(PC);
+
+			//zero out player's movement
 			movementComponent->StopMovementImmediately();
 			movementComponent->Velocity = FVector(0, 0, 0);
 			deathTriggered = true;
+
+			//save current status of weapons
 			SaveCurWeapons();
+
+			//stop all active abilities
 			StopAbility1();
 			StopAbility2();
 			StopUltimate();
 			
-
+			//spawns niagara at location
 			UNiagaraFunctionLibrary::SpawnSystemAtLocation(
 				GetWorld(),
 				deathExplosionVFX,
@@ -1815,6 +2002,7 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 
 			Multi_Death();
 
+			//death timer that resets player after completing
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 				{
@@ -1829,6 +2017,7 @@ void AClassShooterCharacter::TakeCustomDamage(float DamageAmount, AActor* source
 		else
 			playerWhoDamagedMe->didCauseDmg = true;
 
+		//resettable timer that plays screen damage effect 
 		triggerScreenDmgEffect = true;
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
@@ -1843,6 +2032,7 @@ bool AClassShooterCharacter::Server_TakeCustomDamage_Validate(float DamageAmount
 }
 void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float DamageAmount, AActor* source)
 {
+	//if clone, then return
 	if (isClone == true) return;
 
 	if (deathTriggered == false)
@@ -1850,24 +2040,38 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 		curHealth -= DamageAmount;
 		UE_LOG(LogTemp, Warning, TEXT("%f"), curHealth);
 
+		//assign player who killed this player
 		playerWhoDamagedMe = Cast<AClassShooterCharacter>(source);
 		if (curHealth <= 0.0)
 		{
 			playerWhoDamagedMe->didGetKill = true;
+
+			//clear current player states
 			currentStates.Empty();
 			currentStates.AddUnique(PlayerGameState::Dying);
+
+			//disable player input
 			APlayerController* PC = Cast<APlayerController>(GetController());
 			DisableInput(PC);
+
+			//zero out player's movement
 			movementComponent->StopMovementImmediately();
 			movementComponent->Velocity = FVector(0, 0, 0);
 			deathTriggered = true;
+
+			//save current status of weapons
 			Server_SaveCurWeapons();
+
+			//stop all active abilities
 			Server_StopAbility1();
 			Server_StopAbility2();
 			Server_StopUltimate();
 
+			//spawns niagara at location
 			Multi_Death();
 
+
+			//death timer that resets player after completing
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 				{
@@ -1882,6 +2086,8 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 		else
 			playerWhoDamagedMe->didCauseDmg = true;
 
+
+		//resettable timer that plays screen damage effect 
 		triggerScreenDmgEffect = true;
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
@@ -1891,12 +2097,16 @@ void AClassShooterCharacter::Server_TakeCustomDamage_Implementation(float Damage
 	}
 }
 
+/*
+* Multicast niagara vfx
+*/
 bool AClassShooterCharacter::Multi_Death_Validate()
 {
 	return true;
 }
 void AClassShooterCharacter::Multi_Death_Implementation()
 {
+	//spawns niagara at location
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(
 		GetWorld(),
 		deathExplosionVFX,

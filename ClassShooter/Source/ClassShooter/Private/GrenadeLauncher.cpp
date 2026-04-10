@@ -3,9 +3,12 @@
 
 #include "GrenadeLauncher.h"
 
-
+/*
+* Grenade laucher's unique firing logic
+*/
 void AGrenadeLauncher::Fire()
 {
+	//can weapon fire
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
 		if (projectile)

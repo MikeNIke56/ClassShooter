@@ -29,7 +29,7 @@ class CLASSSHOOTER_API AWeaponBase : public AActor
 	GENERATED_BODY()
 
 public:
-	// Skeletal Mesh Component
+	//weapon's skeletal Mesh Component
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Mesh")
 	USkeletalMeshComponent* weaponMesh;
 
@@ -64,18 +64,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float range;
 
+	//ammo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_curAmmo, Category = "Weapon Variables")
 	int curAmmo;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	int maxAmmo;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	int ammoToRefill;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	int ammoReserves;
-
 	int maxAmmoReserves;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
@@ -87,49 +84,53 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	bool isFiring;
 
+	//bullet cone
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float curBulletCone;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float baseBulletCone;
 
+	//recoil
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	float recoilAmnt;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float baseRecoilAmnt;
 
+	//timer to determine when weapon can fire again
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FTimerHandle fireTimer;
 
+	//timer to determine when weapon chas finished reloading
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FTimerHandle reloadTimer;
 
-	// Capsule Component
-	UPROPERTY(VisibleAnywhere, Replicated, BlueprintReadOnly, Category = "Components")
-	UCapsuleComponent* interactBox;
-
+	//weapon's current state
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_weaponState, Category = "Weapon")
 	WeaponState state;
 
+	//the ending point of the equipped gun's fire trace
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	FVector shotLocation;
 
+	//bullet impact vfx
 	UPROPERTY(EditAnywhere, Replicated, Category = "Weapon Variables")
 	UParticleSystem* bulletImpactVFX;
 
+	//location and rotation to determine where to fire line traces from
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Weapon Variables")
 	FVector curCamLoc;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Weapon Variables")
 	FRotator curCamRot;
 
+	//sets the variable to the owning character's shield object, if applicable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_shield, Category = "Weapon Variables")
 	AWeaponBase* shield;
 
+	//weapon damage
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float damage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
-	bool isWeaponDrop;
-
+	//weapon ADS variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FVector weaponUnADSLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
@@ -139,6 +140,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	float weaponADSFOV;
 
+	//muzzle flash variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
 	FVector muzzleFlashLocation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Weapon Variables")
@@ -158,6 +160,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	//OnRep functions
 	UFUNCTION()
 	void OnRep_weaponState(WeaponState lastState);
 	UFUNCTION()
@@ -165,6 +168,7 @@ public:
 	UFUNCTION()
 	void OnRep_shield();
 
+	//fire
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Fire();
 	UFUNCTION(Server, Reliable, WithValidation)
@@ -179,21 +183,26 @@ public:
 	bool Server_AutoFire_Validate();
 	void Server_AutoFire_Implementation();
 
+	//multicast bullet impact vfx
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
 	void Multi_Fire(FHitResult hitResult);
 	bool Multi_Fire_Validate(FHitResult hitResult);
 	void Multi_Fire_Implementation(FHitResult hitResult);
 
+	//multicast muzzle flast vfx
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
 	virtual void Multi_MuzzleFlash();
 	virtual bool Multi_MuzzleFlash_Validate();
 	virtual void Multi_MuzzleFlash_Implementation();
 
+	//multicast fire sfx
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
 	virtual void Multi_FireSoundSFX();
 	virtual bool Multi_FireSoundSFX_Validate();
 	virtual void Multi_FireSoundSFX_Implementation();
 
+
+	//reload
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	virtual void Reload();
 	UFUNCTION(Server, Reliable, WithValidation)
@@ -207,21 +216,26 @@ public:
 	bool Server_FinishReloading_Validate();
 	void Server_FinishReloading_Implementation();
 
+	//multicast reload sfx
 	UFUNCTION(NetMulticast, Reliable, WithValidation)
 	void Multi_ReloadSFX();
 	bool Multi_ReloadSFX_Validate();
 	void Multi_ReloadSFX_Implementation();
 
+	//can weapon fire again
 	void CanFireAgain();
 
-
+	//sets up weapon
 	void SetUpWeapon(AWeaponBase* weapon);
 
+	//reset weapon ammo and state
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void RestoreWeaponDefaults();
 
+	//calculate bullet spread
 	virtual FRotator BulletSpread(const FVector& muzzDir, const float maxAngle);
 
+	//calculate weapon damage falloff
 	float CalcDamageFalloff(const float impactDist);
 
 protected:

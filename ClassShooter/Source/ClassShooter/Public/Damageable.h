@@ -20,8 +20,8 @@ class IDamageable
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	//the take damage function that the characters implement
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Damage")
 	void HandleTakeCustomDamage(float Amount, AActor* source);
 };

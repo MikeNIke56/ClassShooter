@@ -53,6 +53,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> grappleObj;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	bool isGrappleAtkHBOn;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
+	bool grappleAtkHitDetected;
+
 	//dash variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
 	FTimerHandle dashCooldownTimer;
@@ -75,7 +80,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
 	float dashRemainingTime;
 
-
+	//ultimate variables
 	UPROPERTY(Replicated)
 	FTimerHandle ultTimer;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
@@ -88,22 +93,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	float ultCooldown;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
-	TArray<FTransform> recallPositions;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
-	bool canSetRecallPos;
 
+	//visuals variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UParticleSystem* movementVFX;
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UMaterialInterface* baseBodyMat;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Class Base Values")
 	UMaterialInterface* ultimateMat;
 
 
-
+	//camera lerp variables
 	bool cameraUltLerp;
 	bool cameraUltLerpBack;
 	FVector targetUltPos;
@@ -116,35 +116,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Class Base Values")
 	float baseRoll;
 
-	UPROPERTY(Replicated)
-	FVector wallRunNormal;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	float wallRunSpd;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	bool wallRunGravity;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Class Base Values")
-	bool isWallRunning;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Class Base Values")
-	bool isWallRunningR;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Class Base Values")
-	bool isWallRunningL;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	float targetWallRunGrav;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Class Base Values")
-	bool canWallRun;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	float wallRunDelay;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	float wallRunJumpDist;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Class Base Values")
-	float wallRunJumpHeight;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
-	bool isGrappleAtkHBOn;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
-	bool grappleAtkHitDetected;
-
 public:
 	AMovementCharacter();
 
@@ -153,25 +124,28 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	//ability timers
 	void UpdateCooldownValues();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_UpdateCooldownValues();
 	bool Server_UpdateCooldownValues_Validate();
 	void Server_UpdateCooldownValues_Implementation();
 
+	//jump
 	virtual void Jump() override;
 
-
+	//land event
 	void LandEvent();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_LandEvent();
 	bool Server_LandEvent_Validate();
 	void Server_LandEvent_Implementation();
 
-
+	//reset movement
 	virtual void ResetMovement() override;
 	virtual void Server_ResetMovement_Implementation();
 
+	//ability 1
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
 	virtual void StartAbility1() override;
 	virtual void Server_StartAbility1_Implementation() override;
@@ -179,18 +153,21 @@ protected:
 	virtual void StopAbility1() override;
 	virtual void Server_StopAbility1_Implementation() override;
 
+	//grapple functions
 	void Grapple();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Grapple();
 	bool Server_Grapple_Validate();
 	void Server_Grapple_Implementation();
 
+	//grapple attack functions
 	void GrappleAttack();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_GrappleAttack();
 	bool Server_GrappleAttack_Validate();
 	void Server_GrappleAttack_Implementation();
 
+	//ability 2
 	UFUNCTION(BlueprintCallable, Category = "Stealth Functions")
 	virtual void StartAbility2() override;
 	virtual void Server_StartAbility2_Implementation() override;
@@ -198,13 +175,14 @@ protected:
 	virtual void StopAbility2() override;
 	virtual void Server_StopAbility2_Implementation() override;
 
+	//dash functions
 	void Dash();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Dash();
 	bool Server_Dash_Validate();
 	void Server_Dash_Implementation();
 
-
+	//ultimate 
 	UFUNCTION(BlueprintCallable, Category = "Movement Functions")
 	virtual void StartUltimate() override;
 	virtual void Server_StartUltimate_Implementation() override;
@@ -212,6 +190,7 @@ protected:
 	virtual void StopUltimate() override;
 	virtual void Server_StopUltimate_Implementation() override;
 
+	//multicast for ultimate vfx
 	virtual void Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh) override;
 	virtual void Multi_StopUlt_Implementation(UStaticMeshComponent* multiMesh) override;
 

@@ -4,7 +4,9 @@
 #include "WeaponBase.h"
 
 
-// Sets default values
+/*
+* Sets default values
+*/
 AWeaponBase::AWeaponBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -13,11 +15,8 @@ AWeaponBase::AWeaponBase()
 	weaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon Mesh"); // Initialize the pointer
 	fireOffset = CreateDefaultSubobject<UArrowComponent>("Fire Offset");
 	fireOffset->SetupAttachment(weaponMesh); // Attach to the mesh
-	interactBox = CreateDefaultSubobject<UCapsuleComponent>("Interaction Hitbox");
-	interactBox->SetupAttachment(weaponMesh);
 	canFire = true;
 	isShield = false;
-	isWeaponDrop = false;
 
 	//sets the animation mode to only play a single animation at a time
 	weaponMesh->SetAnimationMode(EAnimationMode::AnimationSingleNode);
@@ -27,7 +26,9 @@ AWeaponBase::AWeaponBase()
 }
 
 
-// Called when the game starts or when spawned
+/*
+* Begin Play
+*/ 
 void AWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -35,6 +36,9 @@ void AWeaponBase::BeginPlay()
 	recoilAmnt = baseRecoilAmnt;
 }
 
+/*
+* Replicated variables
+*/
 void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -43,7 +47,6 @@ void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(AWeaponBase, weaponADSCrouchedLocation);
 	DOREPLIFETIME(AWeaponBase, weaponADSStandingLocation);
 	DOREPLIFETIME(AWeaponBase, weaponUnADSLocation);
-	DOREPLIFETIME(AWeaponBase, interactBox);
 	DOREPLIFETIME(AWeaponBase, curAmmo);
 	DOREPLIFETIME(AWeaponBase, canFire);
 	DOREPLIFETIME(AWeaponBase, ammoToRefill);
@@ -64,13 +67,17 @@ void AWeaponBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(AWeaponBase, shield);
 }
 
-// Called every frame
+/*
+* Tick
+*/
 void AWeaponBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//isReloading = GetWorld()->GetTimerManager().IsTimerActive(reloadTimer);
 }
 
+/*
+* OnRep functions
+*/
 void AWeaponBase::OnRep_weaponState(WeaponState lastState)
 {
 	
@@ -83,11 +90,14 @@ void AWeaponBase::OnRep_shield()
 {
 }
 
-// Fires the weapon
+/*
+* Fire logic
+*/
 void AWeaponBase::Fire()
 {
 	if (isShield == false)
 	{
+		//can weapon fire
 		if (isReloading == false && canFire == true && curAmmo > 0)
 		{
 			if (isAutomatic == false)
@@ -133,6 +143,7 @@ void AWeaponBase::Fire()
 			bool bHit = GetWorld()->LineTraceSingleByObjectType(
 				hitResult, fireStartLocation, fireEndLocation, ObjectQueryParams, collisionParams);
 
+			//plays muzzle flash vfx and firing sfx
 			if (muzzleFlashVFX)
 				Multi_MuzzleFlash();
 			
@@ -165,6 +176,7 @@ void AWeaponBase::Fire()
 						{
 							if (!isProjectile)
 							{
+								//apply damage falloff
 								float dmg = CalcDamageFalloff(hitResult.Distance);
 								Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
 							}
@@ -173,6 +185,7 @@ void AWeaponBase::Fire()
 				}
 			}
 
+			//subtract from current ammo
 			curAmmo -= 1;
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 			shotTimer = 0.0;
@@ -188,6 +201,7 @@ void AWeaponBase::Server_Fire_Implementation()
 {
 	if (isShield == false)
 	{
+		//can weapon fire
 		if (isReloading == false && canFire == true && curAmmo > 0)
 		{
 			if (isAutomatic == false)
@@ -236,6 +250,7 @@ void AWeaponBase::Server_Fire_Implementation()
 			// Draw debug line (visible for 1 second)
 			//DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, FColor::Red, false, 5.0f, 0, 2.0f);
 
+			//plays muzzle flash vfx and firing sfx
 			if(muzzleFlashVFX)
 				Multi_MuzzleFlash();
 
@@ -258,6 +273,7 @@ void AWeaponBase::Server_Fire_Implementation()
 						{
 							if (!isProjectile)
 							{
+								//apply damage falloff
 								float dmg = CalcDamageFalloff(hitResult.Distance);
 								Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
 							}
@@ -266,6 +282,7 @@ void AWeaponBase::Server_Fire_Implementation()
 				}
 			}
 
+			//subtract from current ammo
 			curAmmo -= 1;
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 			shotTimer = 0.0;
@@ -274,7 +291,10 @@ void AWeaponBase::Server_Fire_Implementation()
 	}
 }
 
-
+/*
+* Auto Fire logic that is called repeatedly while player is holding
+* down fire input
+*/
 void AWeaponBase::AutoFire()
 {
 	Fire();
@@ -292,6 +312,10 @@ void AWeaponBase::Server_AutoFire_Implementation()
 		&AWeaponBase::Server_Fire, fireRate, true);
 }
 
+
+/*
+* Multicast for bullet impact vfx
+*/
 bool AWeaponBase::Multi_Fire_Validate(FHitResult hitResult)
 {
 	return true;
@@ -308,6 +332,10 @@ void AWeaponBase::Multi_Fire_Implementation(FHitResult hitResult)
 	);
 }
 
+
+/*
+* Multicast for muzzle flash vfx
+*/
 bool AWeaponBase::Multi_MuzzleFlash_Validate()
 {
 	return true;
@@ -323,6 +351,9 @@ void AWeaponBase::Multi_MuzzleFlash_Implementation()
 }
 
 
+/*
+* Multicast for fire sfx
+*/
 bool AWeaponBase::Multi_FireSoundSFX_Validate()
 {
 	return true;
@@ -332,6 +363,9 @@ void AWeaponBase::Multi_FireSoundSFX_Implementation()
 	UGameplayStatics::PlaySoundAtLocation(this, weaponAtkSound, GetActorLocation());
 }
 
+/*
+* Reload weapon
+*/
 void AWeaponBase::Reload()
 {
 	if (isShield == false)
@@ -381,7 +415,6 @@ void AWeaponBase::Server_Reload_Implementation()
 		}
 	}
 }
-
 void AWeaponBase::FinishReloading()
 {
 	curAmmo += ammoToRefill;
@@ -425,6 +458,9 @@ void AWeaponBase::Server_FinishReloading_Implementation()
 		}), .75f, false);
 }
 
+/*
+* Multicast for reload sfx
+*/
 bool AWeaponBase::Multi_ReloadSFX_Validate()
 {
 	return true;
@@ -434,7 +470,9 @@ void AWeaponBase::Multi_ReloadSFX_Implementation()
 	UGameplayStatics::PlaySoundAtLocation(this, weaponReloadSound, GetActorLocation());
 }
 
-
+/*
+* determined through timer whether this weapon can fire again
+*/
 void AWeaponBase::CanFireAgain()
 {
 	canFire = true;
@@ -442,6 +480,10 @@ void AWeaponBase::CanFireAgain()
 	UE_LOG(LogTemp, Warning, TEXT("can fire again"));
 }
 
+/*
+* Sets up weapon when created through the player character (functions like a 
+* constructor)
+*/
 void AWeaponBase::SetUpWeapon(AWeaponBase* weapon)
 {
 	name = weapon->name;
@@ -451,6 +493,9 @@ void AWeaponBase::SetUpWeapon(AWeaponBase* weapon)
 	ammoReserves = weapon->ammoReserves;
 }
 
+/*
+* Resets weapon's ammo and state
+*/
 void AWeaponBase::RestoreWeaponDefaults()
 {
 	if (this)
@@ -462,13 +507,19 @@ void AWeaponBase::RestoreWeaponDefaults()
 	}
 }
 
-// The bullet cone of the weapon
+/*
+*  The bullet cone of the weapon
+*/
 FRotator AWeaponBase::BulletSpread(const FVector& muzzDir, const float maxAngle)
 {
+	//finds and returns random trajectory from within a cone
 	FVector randInCone = FMath::VRandCone(muzzDir, maxAngle);
 	return FRotationMatrix::MakeFromX(randInCone).Rotator();
 }
 
+/*
+*  Calculates damage falloff of the weapon
+*/
 float AWeaponBase::CalcDamageFalloff(const float impactDist)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("%f"), impactDist);

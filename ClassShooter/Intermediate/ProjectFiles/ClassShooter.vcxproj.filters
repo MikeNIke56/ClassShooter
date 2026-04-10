@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <None Include="..\..\ClassShooter.uproject" />
-    <Filter Include="Source">
-      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Source\ClassShooter.Target.cs">
-      <Filter>Source</Filter>
-    </None>
-    <None Include="..\..\Source\ClassShooterEditor.Target.cs">
-      <Filter>Source</Filter>
-    </None>
     <None Include="..\..\.vsconfig" />
-    <None Include="..\..\steam_appid.txt" />
+    <None Include="..\..\ClassShooter.uproject" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -37,6 +27,21 @@
     <Filter Include="Plugins\AdvancedSessions">
       <UniqueIdentifier>{34FBD4F0-1E3B-3044-ADA7-CA81199DD621}</UniqueIdentifier>
     </Filter>
+    <None Include="..\..\Plugins\AdvancedSessions\AdvancedSessions.uplugin">
+      <Filter>Plugins\AdvancedSessions</Filter>
+    </None>
+    <Filter Include="Plugins\AdvancedSessions\Config">
+      <UniqueIdentifier>{870532F9-B807-3207-98A2-967ED3487D89}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\AdvancedSessions\Config\FilterPlugin.ini">
+      <Filter>Plugins\AdvancedSessions\Config</Filter>
+    </None>
+    <Filter Include="Plugins\AdvancedSessions\Resources">
+      <UniqueIdentifier>{3A09B924-9C98-3A34-97BB-76A089E2B464}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\AdvancedSessions\Resources\Icon128.png">
+      <Filter>Plugins\AdvancedSessions\Resources</Filter>
+    </None>
     <Filter Include="Plugins\AdvancedSessions\Source">
       <UniqueIdentifier>{53AA3BD6-531F-34C1-90BD-61566636E2B0}</UniqueIdentifier>
     </Filter>
@@ -193,21 +198,6 @@
     <ClCompile Include="..\..\Plugins\AdvancedSessions\Source\AdvancedSessions\Private\UpdateSessionCallbackProxyAdvanced.cpp">
       <Filter>Plugins\AdvancedSessions\Source\AdvancedSessions\Private</Filter>
     </ClCompile>
-    <None Include="..\..\Plugins\AdvancedSessions\AdvancedSessions.uplugin">
-      <Filter>Plugins\AdvancedSessions</Filter>
-    </None>
-    <Filter Include="Plugins\AdvancedSessions\Config">
-      <UniqueIdentifier>{870532F9-B807-3207-98A2-967ED3487D89}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\AdvancedSessions\Config\FilterPlugin.ini">
-      <Filter>Plugins\AdvancedSessions\Config</Filter>
-    </None>
-    <Filter Include="Plugins\AdvancedSessions\Resources">
-      <UniqueIdentifier>{3A09B924-9C98-3A34-97BB-76A089E2B464}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\AdvancedSessions\Resources\Icon128.png">
-      <Filter>Plugins\AdvancedSessions\Resources</Filter>
-    </None>
     <Filter Include="Plugins\AdvancedSteamSessions">
       <UniqueIdentifier>{740F8616-A9B4-3B9B-96D8-C61750798FBC}</UniqueIdentifier>
     </Filter>
@@ -225,18 +215,6 @@
     </Filter>
     <None Include="..\..\Plugins\AdvancedSteamSessions\Resources\Icon128.png">
       <Filter>Plugins\AdvancedSteamSessions\Resources</Filter>
-    </None>
-    <Filter Include="Plugins\MultiplayerSessions">
-      <UniqueIdentifier>{B376FBB0-9029-37B4-9E5C-F55FC20DD6CD}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\MultiplayerSessions\MultiplayerSessions.uplugin">
-      <Filter>Plugins\MultiplayerSessions</Filter>
-    </None>
-    <Filter Include="Plugins\MultiplayerSessions\Resources">
-      <UniqueIdentifier>{309C2CD4-0086-329B-99DB-BDFA765BCE16}</UniqueIdentifier>
-    </Filter>
-    <None Include="..\..\Plugins\MultiplayerSessions\Resources\Icon128.png">
-      <Filter>Plugins\MultiplayerSessions\Resources</Filter>
     </None>
     <Filter Include="Plugins\AdvancedSteamSessions\Source">
       <UniqueIdentifier>{D96B0581-0D1E-3EAD-A89C-A9EE4E8E7D00}</UniqueIdentifier>
@@ -286,6 +264,18 @@
     <ClCompile Include="..\..\Plugins\AdvancedSteamSessions\Source\AdvancedSteamSessions\Private\SteamWSRequestUGCDetailsCallbackProxy.cpp">
       <Filter>Plugins\AdvancedSteamSessions\Source\AdvancedSteamSessions\Private</Filter>
     </ClCompile>
+    <Filter Include="Plugins\MultiplayerSessions">
+      <UniqueIdentifier>{B376FBB0-9029-37B4-9E5C-F55FC20DD6CD}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\MultiplayerSessions\MultiplayerSessions.uplugin">
+      <Filter>Plugins\MultiplayerSessions</Filter>
+    </None>
+    <Filter Include="Plugins\MultiplayerSessions\Resources">
+      <UniqueIdentifier>{309C2CD4-0086-329B-99DB-BDFA765BCE16}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\MultiplayerSessions\Resources\Icon128.png">
+      <Filter>Plugins\MultiplayerSessions\Resources</Filter>
+    </None>
     <Filter Include="Plugins\MultiplayerSessions\Source">
       <UniqueIdentifier>{CAE7E189-351A-3AEF-AA65-9181E027D3DC}</UniqueIdentifier>
     </Filter>
@@ -319,6 +309,15 @@
     <ClInclude Include="..\..\Plugins\MultiplayerSessions\Source\MultiplayerSessions\Public\MultiplayerSessionsSubsystem.h">
       <Filter>Plugins\MultiplayerSessions\Source\MultiplayerSessions\Public</Filter>
     </ClInclude>
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ClassShooter.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\ClassShooterEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
     <Filter Include="Source\ClassShooter">
       <UniqueIdentifier>{11937526-F18D-3C55-B892-DE6952F82F1E}</UniqueIdentifier>
     </Filter>
@@ -353,18 +352,6 @@
       <Filter>Source\ClassShooter</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ClassShooter\ClassShooterProjectile.h">
-      <Filter>Source\ClassShooter</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
-      <Filter>Source\ClassShooter</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ClassShooter\TP_PickUpComponent.h">
-      <Filter>Source\ClassShooter</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\ClassShooter\TP_WeaponComponent.cpp">
-      <Filter>Source\ClassShooter</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\ClassShooter\TP_WeaponComponent.h">
       <Filter>Source\ClassShooter</Filter>
     </ClInclude>
     <Filter Include="Source\ClassShooter\Private">
@@ -451,5 +438,18 @@
     <ClInclude Include="..\..\Source\ClassShooter\Public\WeaponBase.h">
       <Filter>Source\ClassShooter\Public</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\TP_PickUpComponent.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\TP_PickUpComponent.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ClassShooter\TP_WeaponComponent.cpp">
+      <Filter>Source\ClassShooter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ClassShooter\TP_WeaponComponent.h">
+      <Filter>Source\ClassShooter</Filter>
+    </ClInclude>
+    <None Include="..\..\steam_appid.txt" />
   </ItemGroup>
 </Project>

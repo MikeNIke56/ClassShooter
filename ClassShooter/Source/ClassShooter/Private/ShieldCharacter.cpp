@@ -17,6 +17,9 @@ AShieldCharacter::AShieldCharacter()
 	shieldThrowLoc->SetupAttachment(GetFirstPersonCameraComponent());
 }
 
+/*
+* Begin Play
+*/
 void AShieldCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -33,6 +36,7 @@ void AShieldCharacter::BeginPlay()
 	shieldBashHitDetected = false;
 	isShieldBashHBOn = false;
 
+	//spawn in and equip character's shield
 	if (HasAuthority() && !equippedShield)
 	{
 		FActorSpawnParameters SpawnParams;
@@ -63,6 +67,9 @@ void AShieldCharacter::BeginPlay()
 	ADSshieldLocation.Z -= 20;
 }
 
+/*
+* Tick
+*/
 void AShieldCharacter::Tick(float deltaTime)
 {
 	if (IsValid(this))
@@ -72,6 +79,7 @@ void AShieldCharacter::Tick(float deltaTime)
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 
+		//handles shield location when blocking 
 		if (shieldADSLerp == true)
 		{
 			FVector curLocation = shieldLocation->GetRelativeLocation();
@@ -92,6 +100,8 @@ void AShieldCharacter::Tick(float deltaTime)
 			if (FVector::Dist(unADSshieldLocation, newLocation) <= .05)
 				shieldUnADSLerp = false;
 		}
+
+		//lerps character from point A to point B within given time
 		if (shieldBashLerp == true)
 		{
 			FVector curLocation = GetActorLocation();
@@ -115,6 +125,9 @@ void AShieldCharacter::Tick(float deltaTime)
 	}
 }
 
+/*
+* Replicated variables
+*/
 void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -149,6 +162,9 @@ void AShieldCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(AShieldCharacter, baseShieldThrowRemainingTime);
 }
 
+/*
+* Updates character ability timers
+*/
 void AShieldCharacter::UpdateCooldownValues()
 {
 	if (HasAuthority())
@@ -177,13 +193,18 @@ void AShieldCharacter::Server_UpdateCooldownValues_Implementation()
 		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
-
+/*
+* Start firing currently equipped weapon
+*/
 void AShieldCharacter::StartShooting()
 {
 	Super::StartShooting();
 }
 
 
+/*
+* ADS
+*/
 void AShieldCharacter::ADS()
 {
 	if (HasAuthority())
@@ -204,7 +225,9 @@ void AShieldCharacter::Server_ShieldADS_Implementation()
 	Super::Server_ADS();
 }
 
-
+/*
+* Stop ADS
+*/
 void AShieldCharacter::StopADS()
 {
 	if (HasAuthority())
@@ -225,7 +248,9 @@ void AShieldCharacter::Server_ShieldStopADS_Implementation()
 	Super::StopADS();
 }
 
-
+/*
+* Blocks with shield
+*/
 void AShieldCharacter::Block()
 {
 	if (HasAuthority())
@@ -246,6 +271,9 @@ void AShieldCharacter::Server_Block_Implementation()
 	shieldUnADSLerp = true;
 }
 
+/*
+* Stops blocking with shield
+*/
 void AShieldCharacter::StopBlocking()
 {
 	if (HasAuthority())
@@ -266,7 +294,9 @@ void AShieldCharacter::Server_StopBlocking_Implementation()
 	shieldADSLerp = true;
 }
 
-
+/*
+* Start Ability 1
+*/
 void AShieldCharacter::StartAbility1()
 {
 	if (HasAuthority())
@@ -274,6 +304,7 @@ void AShieldCharacter::StartAbility1()
 		if (GetWorld()->GetTimerManager().IsTimerActive(shieldBashTimer) == false
 			&& hasShield == true)
 		{
+			//character charges forward while blocking
 			GetWorldTimerManager().SetTimer(shieldBashTimer, this,
 				&AShieldCharacter::StopAbility1, shieldBashCooldown, false);
 			ShieldBash();
@@ -287,6 +318,7 @@ void AShieldCharacter::Server_StartAbility1_Implementation()
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldBashTimer) == false
 		&& hasShield == true)
 	{
+		//character charges forward while blocking
 		GetWorldTimerManager().SetTimer(shieldBashTimer, this,
 			&AShieldCharacter::Server_StopAbility1, shieldBashCooldown, false);
 		Server_ShieldBash();
@@ -294,6 +326,9 @@ void AShieldCharacter::Server_StartAbility1_Implementation()
 }
 
 
+/*
+* Stop Ability 1
+*/
 void AShieldCharacter::StopAbility1()
 {
 	
@@ -303,7 +338,9 @@ void AShieldCharacter::Server_StopAbility1_Implementation()
 
 }
 
-
+/*
+* Shield Bash
+*/
 void AShieldCharacter::ShieldBash()
 {
 	if (HasAuthority())
@@ -359,7 +396,8 @@ void AShieldCharacter::ShieldBash()
 		else
 			targetShieldBashLocation = fireEndLocation;
 
-		movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+		// prevents old velocity fighting location lerp
+		movementComponent->StopMovementImmediately(); 
 		prevMoveMode = movementComponent->MovementMode;
 		movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 
@@ -369,6 +407,7 @@ void AShieldCharacter::ShieldBash()
 
 		shieldBashLerp = true;
 
+		//stop ADSing and reset movement component values
 		FTimerHandle DelayTimerHandle1;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 			{
@@ -376,6 +415,8 @@ void AShieldCharacter::ShieldBash()
 				movementComponent->GroundFriction = baseGroundFriction;
 				movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 			}), .5f, false);
+
+		//turn off shield hitbox
 		FTimerHandle DelayTimerHandle2;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 			{
@@ -435,7 +476,8 @@ void AShieldCharacter::Server_ShieldBash_Implementation()
 	else
 		targetShieldBashLocation = fireEndLocation;
 
-	movementComponent->StopMovementImmediately(); // prevents old velocity fighting your lerp
+	// prevents old velocity fighting location lerp
+	movementComponent->StopMovementImmediately();
 	prevMoveMode = movementComponent->MovementMode;
 	movementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
 
@@ -444,6 +486,7 @@ void AShieldCharacter::Server_ShieldBash_Implementation()
 
 	shieldBashLerp = true;
 
+	//stop ADSing and reset movement component values
 	FTimerHandle DelayTimerHandle1;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
 		{
@@ -451,6 +494,8 @@ void AShieldCharacter::Server_ShieldBash_Implementation()
 			movementComponent->GroundFriction = baseGroundFriction;
 			movementComponent->BrakingDecelerationWalking = baseBrakingDeceleration;
 		}), .5f, false);
+
+	//turn off shield hitbox
 	FTimerHandle DelayTimerHandle2;
 	GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle2, FTimerDelegate::CreateLambda([this]()
 		{
@@ -459,6 +504,9 @@ void AShieldCharacter::Server_ShieldBash_Implementation()
 		}), .75f, false);
 }
 
+/*
+* Multicast for shield bash vfx
+*/
 bool AShieldCharacter::Multi_ShieldBash_Validate()
 {
 	return true;
@@ -475,6 +523,9 @@ void AShieldCharacter::Multi_ShieldBash_Implementation()
 }
 
 
+/*
+* Start Ability 2
+*/
 void AShieldCharacter::StartAbility2()
 {
 	if (HasAuthority())
@@ -482,6 +533,7 @@ void AShieldCharacter::StartAbility2()
 		if (GetWorld()->GetTimerManager().IsTimerActive(shieldThrowTimer) == false
 			&& hasShield == true && !currentStates.Contains(PlayerGameState::Ultimate))
 		{
+			//launch shield in camera's forward vector
 			GetWorldTimerManager().SetTimer(shieldThrowTimer, this,
 				&AShieldCharacter::StopAbility2, shieldThrowCooldown, false);
 			ShieldThrow();
@@ -495,17 +547,21 @@ void AShieldCharacter::Server_StartAbility2_Implementation()
 	if (GetWorld()->GetTimerManager().IsTimerActive(shieldThrowTimer) == false
 		&& hasShield == true && !currentStates.Contains(PlayerGameState::Ultimate))
 	{
+		//launch shield in camera's forward vector
 		GetWorldTimerManager().SetTimer(shieldThrowTimer, this,
 			&AShieldCharacter::Server_StopAbility2, shieldThrowCooldown, false);
 		Server_ShieldThrow();
 	}
 }
 
-
+/*
+* Stop Ability 2
+*/
 void AShieldCharacter::StopAbility2()
 {
 	if (HasAuthority())
 	{
+		//re-equip shield
 		equippedShield->SetActorEnableCollision(true);
 		equippedShield->SetActorHiddenInGame(false);
 		equippedShield->SetActorTickEnabled(true);
@@ -516,13 +572,16 @@ void AShieldCharacter::StopAbility2()
 }
 void AShieldCharacter::Server_StopAbility2_Implementation()
 {
+	//re-equip shield
 	equippedShield->SetActorEnableCollision(true);
 	equippedShield->SetActorHiddenInGame(false);
 	equippedShield->SetActorTickEnabled(true);
 	hasShield = true;
 }
 
-
+/*
+* Launch shield in camera's forward vector
+*/
 void AShieldCharacter::ShieldThrow()
 {
 	if (HasAuthority())
@@ -569,6 +628,9 @@ void AShieldCharacter::Server_ShieldThrow_Implementation()
 	//thrownShield->source = this;
 }
 
+/*
+* Ultimate
+*/
 void AShieldCharacter::StartUltimate()
 {
 	if (HasAuthority())
@@ -576,9 +638,12 @@ void AShieldCharacter::StartUltimate()
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		{
+			//increase size of shield
 			equippedShield->SetActorEnableCollision(true);
 			equippedShield->SetActorHiddenInGame(false);
 			equippedShield->SetActorTickEnabled(true);
+
+
 			hasShield = true;
 			shieldBashCooldown = 1;
 			shieldThrowCooldown = 1;
@@ -587,7 +652,6 @@ void AShieldCharacter::StartUltimate()
 
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 			ultimateTriggered = true;
-			//SaveCurWeapons();
 
 			FTimerHandle DelayTimerHandle1;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle1, FTimerDelegate::CreateLambda([this]()
@@ -607,9 +671,12 @@ void AShieldCharacter::Server_StartUltimate_Implementation()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
+		//increase size of shield
 		equippedShield->SetActorEnableCollision(true);
 		equippedShield->SetActorHiddenInGame(false);
 		equippedShield->SetActorTickEnabled(true);
+
+
 		hasShield = true;
 		shieldBashCooldown = 1;
 		shieldThrowCooldown = 1;
@@ -631,12 +698,16 @@ void AShieldCharacter::Server_StartUltimate_Implementation()
 	}
 }
 
+/*
+* Stop Ultimate
+*/
 void AShieldCharacter::StopUltimate()
 {
 	if (HasAuthority())
 	{
 		Multi_StopUlt(bodyMesh);
-		//RestoreCurWeapons();
+
+		//reset shield size
 		shieldBashCooldown = baseShieldBashCooldown;
 		shieldThrowCooldown = baseShieldThrowCooldown;
 		curSpeedMulti = baseSpeedMulti;
@@ -654,7 +725,8 @@ void AShieldCharacter::StopUltimate()
 void AShieldCharacter::Server_StopUltimate_Implementation()
 {
 	Multi_StopUlt(bodyMesh);
-	//Server_RestoreCurWeapons();
+
+	//reset shield size
 	shieldBashCooldown = baseShieldBashCooldown;
 	shieldThrowCooldown = baseShieldThrowCooldown;
 	curSpeedMulti = baseSpeedMulti;
@@ -667,6 +739,10 @@ void AShieldCharacter::Server_StopUltimate_Implementation()
 		}), .05f, false);
 }
 
+
+/*
+* Multicast for setting character material
+*/
 void AShieldCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
 	if (multiMesh)

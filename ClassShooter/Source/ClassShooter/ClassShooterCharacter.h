@@ -86,25 +86,30 @@ class AClassShooterCharacter : public ACharacter, public IDamageable
 
 public:
 
+	//current states the player could be in at any given time
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	TArray<PlayerGameState> currentStates;
 
+	//previous movement mode of the character's movement component
 	EMovementMode prevMoveMode;
 
+	//player character's body mesh
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = Mesh, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* bodyMesh;
 
+	//current and max health of the player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	float curHealth;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float maxHealth;
 
+	//X and Y sensitivities
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	float xSens = 1.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	float ySens = 1.0f;
 
+	//the ending point of the equipped gun's fire trace
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	FVector shotLocation;
 
@@ -120,15 +125,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_curWeapon, Category = "Class Base Values")
 	AWeaponBase* curWeapon;
 
+	//copy of the equipped weapon, used for ultimate loadout changes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	AWeaponBase* weaponCopy;
 
+	//the intial location to set the equipped weapon
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Components")
 	UArrowComponent* weaponLocation;
 
+	//the location and rotation to set the equipped weapon to (while adsing or un ads)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_targetLocation, Category = "Class Base Values")
 	FVector targetLocation;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	FRotator targetRotation;
 
@@ -139,17 +146,22 @@ public:
 	float springRecoilVal;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	float sideMove;
+
+	//adds slight rotation to gun mesh when moving side to side
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	float mouseX;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	float mouseY;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	FRotator handSwayRotator;
+
+	//the transform the gun mesh will lerp to
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	FTransform recoilTransform;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Values")
 	FTransform recoil;
 
+	//base FOV and and target FOV when ADSing or crouching while ADSing
 	float baseFov;
 	UPROPERTY(Replicated)
 	float targetFov;
@@ -158,11 +170,14 @@ public:
 	UPROPERTY(Replicated)
 	FVector originalCamPos;
 
+	//world object of weapon 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	TSubclassOf<AWeaponBase> weaponWorldObj;
 
+	//locations that the knife will lerp between
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	TArray<UArrowComponent*> knifeSwingLocations;
+
 
 	UPROPERTY(Replicated)
 	bool isLeftSwing;
@@ -175,33 +190,50 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Class Base Values")
 	FVector originalBodyScale;
 
+	//current speed of the player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float curSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
+	float baseSpeed;
+
+	//multiplier to apply to the curSpeed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float curSpeedMulti;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float baseSpeedMulti;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
-	float baseSpeed;
+	
+	//jump power
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float jumpPow;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
-	float slidePow;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool jumpAllowed;
+
+	//slide power
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
+	float slidePow;
+
+	//amount of time to wait before able to slide again
+	FTimerHandle slideTimer;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool isSprinting;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Base Values")
 	bool isADSing;
+	
+	//the -1 to 1 XY movement value
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category = "Movement Base Values")
 	FVector2D movementVector;
+	
+	//base movement component values
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float baseGroundFriction;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Movement Base Values")
 	float baseBrakingDeceleration;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Base Values")
 	float baseGravity;
-	FTimerHandle slideTimer;
+	
+	//is this instance of object a clone made from the Stealth class
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool isClone;
 
@@ -216,16 +248,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
 	float bobAmount = 2.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	int amplitude = 2.0f;
+	float amplitude = 2.0f;
 	FVector defaultCameraLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool isMeleeHBOn;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = "Class Base Values")
 	bool knifeHitDetected;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Class Base Values")
-	bool isSwitchingAfterPickup;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_deathTriggered, Category = "Class Base Values")
 	bool deathTriggered;
@@ -261,6 +290,7 @@ protected:
 	virtual void Tick(float deltaTime);
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	//OnRep functions
 	UFUNCTION()
 	void OnRep_weaponArray();
 	UFUNCTION()
@@ -274,22 +304,26 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
-
-	virtual void Jump() override;         //override Jump
+	//override Jump
+	virtual void Jump() override;        
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Jump();
 	bool Server_Jump_Validate();
 	void Server_Jump_Implementation();
 
-	virtual void StopJumping() override;  //override StopJumping
+	//override StopJumping
+	virtual void StopJumping() override;
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_StopJumping();
 	bool Server_StopJumping_Validate();
 	void Server_StopJumping_Implementation();
 
+
+	//checks if player is grounded
 	bool IsGrounded();
 
 
+	//sprint functions
 	void Sprint();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Sprint();
@@ -305,6 +339,7 @@ protected:
 	bool IsStillSprinting();
 
 
+	//crouch functions
 	void StartCrouch();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_StartCrouch();
@@ -324,6 +359,7 @@ protected:
 	void Server_StopCrouching_Implementation();
 
 
+	//slide functions
 	void Slide();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Slide();
@@ -336,9 +372,10 @@ protected:
 	bool Server_StopSliding_Validate();
 	void Server_StopSliding_Implementation();
 
+	//finds slide vector to determine slide trajectory
 	FVector FindSlideVector();
 
-
+	//resets all movement changes to player
 	virtual void ResetMovement();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_ResetMovement();
@@ -360,6 +397,7 @@ protected:
 	void Server_StopADS_Implementation();
 
 
+	//shooting functions
 	virtual void StartShooting();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_StartShooting();
@@ -379,6 +417,7 @@ protected:
 	void Server_Shoot_Implementation();
 
 
+	//reload functions
 	void Reload();
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_Reload();
@@ -386,15 +425,18 @@ protected:
 	void Server_Reload_Implementation();
 
 
+	//apply recoil to gun mesh through code
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ProceduralRecoil(float multiplier);
 
+
+	//equip functions
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_EquipWeapon(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
 	bool Server_EquipWeapon_Validate(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
 	void Server_EquipWeapon_Implementation(AWeaponBase* weapon, bool shouldCreateNewWeaponObj, bool isUlt);
 
-
+	//shows equipped weapon's mesh
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ShowCurWeapon(AWeaponBase* weapon);
 	UFUNCTION(Server, Reliable, WithValidation)
@@ -403,6 +445,7 @@ protected:
 	void Server_ShowCurWeapon_Implementation(AWeaponBase* weapon);
 
 
+	//ADSes current weapon
 	UFUNCTION(BlueprintCallable, Category = "Weapon Functions")
 	void ADSCurWeapon(AWeaponBase* weapon);
 

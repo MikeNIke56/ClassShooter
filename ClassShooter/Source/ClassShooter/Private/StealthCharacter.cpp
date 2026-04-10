@@ -5,9 +5,12 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-
+/*
+* Begin Play
+*/
 void AStealthCharacter::BeginPlay()
 {
+	//set initial values
 	Super::BeginPlay();
 	cameraUltLerp = false;
 	cameraUltLerpBack = false;
@@ -16,6 +19,9 @@ void AStealthCharacter::BeginPlay()
 	targetUltPos.Z += 50;
 }
 
+/*
+* Replicated variables
+*/
 void AStealthCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -47,7 +53,9 @@ void AStealthCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	DOREPLIFETIME(AStealthCharacter, clone);
 }
 
-
+/*
+* Tick
+*/
 void AStealthCharacter::Tick(float deltaTime)
 {
 	if (IsValid(this))
@@ -57,6 +65,7 @@ void AStealthCharacter::Tick(float deltaTime)
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == true)
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 
+		//camera lerp for ulting
 		if (cameraUltLerp == true)
 		{
 			FVector curLocation = GetFirstPersonCameraComponent()->GetRelativeLocation();
@@ -90,6 +99,9 @@ void AStealthCharacter::Tick(float deltaTime)
 }
 
 
+/*
+* Updates character ability timers
+*/
 void AStealthCharacter::UpdateCooldownValues()
 {
 	if (HasAuthority())
@@ -118,7 +130,9 @@ void AStealthCharacter::Server_UpdateCooldownValues_Implementation()
 		GetTimerManager().GetTimerRemaining(ultTimer);
 }
 
-
+/*
+* Start firing currently equipped weapon
+*/
 void AStealthCharacter::StartShooting()
 {
 	Super::StartShooting();
@@ -129,13 +143,20 @@ void AStealthCharacter::StartShooting()
 		Server_UltimateMelee();
 }
 
+/*
+* Handles ultimate knife swings 
+*/
 void AStealthCharacter::UltimateMelee()
 {
 	if (swingUltLaunch == false && currentStates.Contains(PlayerGameState::Ultimate))
 	{
 		swingUltLaunch = true;
+
+		//decreases character friction and braking deceleration
 		movementComponent->GroundFriction = 0.0;
 		movementComponent->BrakingDecelerationWalking = 700;
+
+		//adds impulse to character
 		movementComponent->AddImpulse(GetActorForwardVector() * 1200, true);
 
 		FTimerHandle DelayTimerHandle;
@@ -156,8 +177,12 @@ void AStealthCharacter::Server_UltimateMelee_Implementation()
 	if (swingUltLaunch == false && currentStates.Contains(PlayerGameState::Ultimate))
 	{
 		swingUltLaunch = true;
+
+		//decreases character friction and braking deceleration
 		movementComponent->GroundFriction = 0.0;
 		movementComponent->BrakingDecelerationWalking = 700;
+
+		//adds impulse to character
 		movementComponent->AddImpulse(GetActorForwardVector() * 1200, true);
 
 		FTimerHandle DelayTimerHandle;
@@ -171,6 +196,9 @@ void AStealthCharacter::Server_UltimateMelee_Implementation()
 }
 
 
+/*
+* Start Ability 1
+*/
 void AStealthCharacter::StartAbility1()
 {
 	if (HasAuthority())
@@ -181,6 +209,7 @@ void AStealthCharacter::StartAbility1()
 			GetWorldTimerManager().SetTimer(invisTimer, this,
 				&AStealthCharacter::StopAbility1, invisLength, false);
 
+			//spawn niagara vfx
 			UGameplayStatics::SpawnEmitterAtLocation(
 				GetWorld(),
 				invisVFX,
@@ -191,6 +220,7 @@ void AStealthCharacter::StartAbility1()
 
 			Multi_Invis(true);
 
+			//set character material to invisible material
 			FTimerHandle DelayTimerHandle;
 			GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
 				{
@@ -211,8 +241,10 @@ void AStealthCharacter::Server_StartAbility1_Implementation()
 		GetWorldTimerManager().SetTimer(invisTimer, this,
 			&AStealthCharacter::Server_StopAbility1, invisLength, false);
 
+		//spawn niagara vfx
 		Multi_Invis(true);
 
+		//set character material to invisible material
 		FTimerHandle DelayTimerHandle;
 		GetWorld()->GetTimerManager().SetTimer(DelayTimerHandle, FTimerDelegate::CreateLambda([this]()
 			{
@@ -223,10 +255,14 @@ void AStealthCharacter::Server_StartAbility1_Implementation()
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
 
+/*
+* Stop Ability 1
+*/
 void AStealthCharacter::StopAbility1()
 {
 	if (HasAuthority())
 	{
+		//reset character material
 		bodyMesh->SetMaterial(0, baseBodyMat);
 		Multi_Invis(false);
 
@@ -241,6 +277,7 @@ void AStealthCharacter::StopAbility1()
 }
 void AStealthCharacter::Server_StopAbility1_Implementation()
 {
+	//reset character material
 	bodyMesh->SetMaterial(0, baseBodyMat);
 	Multi_Invis(false);
 
@@ -251,12 +288,16 @@ void AStealthCharacter::Server_StopAbility1_Implementation()
 		}), .01f, false);
 }
 
+/*
+* Multicast material change
+*/
 bool AStealthCharacter::Multi_Invis_Validate(bool isOn)
 {
 	return true;
 }
 void AStealthCharacter::Multi_Invis_Implementation(bool isOn)
 {
+	//applies appropriate material to character model
 	if (isOn)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(
@@ -284,6 +325,9 @@ void AStealthCharacter::Multi_Invis_Implementation(bool isOn)
 	
 }
 
+/*
+* Start Ability 2
+*/
 void AStealthCharacter::StartAbility2()
 {
 	if (HasAuthority())
@@ -294,6 +338,7 @@ void AStealthCharacter::StartAbility2()
 			GetWorldTimerManager().SetTimer(decoyTimer, this,
 				&AStealthCharacter::StopAbility2, decoyLength, false);
 
+			//spawns in decoy
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = this;
 			SpawnParams.Instigator = GetInstigator();
@@ -313,6 +358,8 @@ void AStealthCharacter::StartAbility2()
 
 			clone = decoyCopy;
 			decoyCopy->isClone = true;
+
+			//disables collision of decoy object
 			decoyCopy->GetMesh1P()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			decoyCopy->GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			decoyCopy->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -334,6 +381,7 @@ void AStealthCharacter::Server_StartAbility2_Implementation()
 		GetWorldTimerManager().SetTimer(decoyTimer, this,
 			&AStealthCharacter::Server_StopAbility2, decoyLength, false);
 
+		//spawns in decoy
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = GetInstigator();
@@ -353,6 +401,8 @@ void AStealthCharacter::Server_StartAbility2_Implementation()
 
 		clone = decoyCopy;
 		decoyCopy->isClone = true;
+
+		//disables collision of decoy object
 		decoyCopy->GetMesh1P()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		decoyCopy->GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		decoyCopy->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -364,6 +414,9 @@ void AStealthCharacter::Server_StartAbility2_Implementation()
 		UE_LOG(LogTemp, Warning, TEXT("ability not available"));
 }
 
+/*
+* Stop Ability 2
+*/
 void AStealthCharacter::StopAbility2()
 {
 	if (HasAuthority())
@@ -371,6 +424,7 @@ void AStealthCharacter::StopAbility2()
 		GetWorld()->GetTimerManager().ClearTimer(decoyCooldownTimer);
 		GetWorld()->GetTimerManager().SetTimer(decoyCooldownTimer, FTimerDelegate::CreateLambda([this]()
 			{
+				//destroys decoy world object
 				if(clone)
 					clone->Destroy();
 
@@ -386,6 +440,7 @@ void AStealthCharacter::Server_StopAbility2_Implementation()
 	GetWorld()->GetTimerManager().ClearTimer(decoyCooldownTimer);
 	GetWorld()->GetTimerManager().SetTimer(decoyCooldownTimer, FTimerDelegate::CreateLambda([this]()
 		{
+			//destroys decoy world object
 			if (clone)
 				clone->Destroy();
 
@@ -394,6 +449,9 @@ void AStealthCharacter::Server_StopAbility2_Implementation()
 		}), .05f, false);
 }
 
+/*
+* Multicast decoy niagara vfx
+*/
 bool AStealthCharacter::Multi_Decoy_Validate(FVector loc, FRotator rot)
 {
 	return true;
@@ -411,10 +469,15 @@ void AStealthCharacter::Multi_Decoy_Implementation(FVector loc, FRotator rot)
 	);
 }
 
+
+/*
+* Directional decoy dodge
+*/
 void AStealthCharacter::DirectionalDodge(FVector2D dir)
 {
 	if (HasAuthority())
 	{
+		//character dodges in direction they are moving
 		if (dir.Length() > 0.0)
 		{
 			movementComponent->GroundFriction = 0.0;
@@ -447,6 +510,7 @@ bool AStealthCharacter::Server_DirectionalDodge_Validate(FVector2D dir)
 }
 void AStealthCharacter::Server_DirectionalDodge_Implementation(FVector2D dir)
 {
+	//character dodges in direction they are moving
 	if (dir.Length() > 0.0)
 	{
 		movementComponent->GroundFriction = 0.0;
@@ -471,7 +535,9 @@ void AStealthCharacter::Server_DirectionalDodge_Implementation(FVector2D dir)
 	}
 }
 
-
+/*
+* Multicast dodge niagara vfx
+*/
 bool AStealthCharacter::Multi_Dodge_Validate(FVector loc, FRotator rot)
 {
 	return true;
@@ -487,6 +553,9 @@ void AStealthCharacter::Multi_Dodge_Implementation(FVector loc, FRotator rot)
 	);
 }
 
+/*
+* Start ultimate
+*/
 void AStealthCharacter::StartUltimate()
 {
 	if (HasAuthority())
@@ -494,6 +563,7 @@ void AStealthCharacter::StartUltimate()
 		if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 			GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 		{
+			//save current weapons, spawn and equip ultimate weapon
 			currentStates.AddUnique(PlayerGameState::Ultimate);
 			ultimateTriggered = true;
 			SaveCurWeapons();
@@ -519,6 +589,7 @@ void AStealthCharacter::Server_StartUltimate_Implementation()
 	if (GetWorld()->GetTimerManager().IsTimerActive(ultTimer) == false &&
 		GetWorld()->GetTimerManager().IsTimerActive(ultCooldownTimer) == false)
 	{
+		//save current weapons, spawn and equip ultimate weapon
 		currentStates.AddUnique(PlayerGameState::Ultimate);
 		ultimateTriggered = true;
 		Server_SaveCurWeapons();
@@ -536,10 +607,14 @@ void AStealthCharacter::Server_StartUltimate_Implementation()
 	}
 }
 
+/*
+* Stops ultimate ability
+*/
 void AStealthCharacter::StopUltimate()
 {
 	if (HasAuthority())
 	{
+		//reset character material, restore saved weapons, reset speed
 		bodyMesh->SetMaterial(0, baseBodyMat);
 		Multi_StopUlt(bodyMesh);
 		RestoreCurWeapons();
@@ -557,6 +632,7 @@ void AStealthCharacter::StopUltimate()
 }
 void AStealthCharacter::Server_StopUltimate_Implementation()
 {
+	//reset character material, restore saved weapons, reset speed
 	Multi_StopUlt(bodyMesh);
 	Server_RestoreCurWeapons();
 	curSpeedMulti = baseSpeedMulti;
@@ -568,6 +644,9 @@ void AStealthCharacter::Server_StopUltimate_Implementation()
 		}), .05f, false);
 }
 
+/*
+* Multicast material set
+*/
 void AStealthCharacter::Multi_StartUlt_Implementation(UStaticMeshComponent* multiMesh)
 {
 	if(multiMesh)
@@ -579,10 +658,14 @@ void AStealthCharacter::Multi_StopUlt_Implementation(UStaticMeshComponent* multi
 		multiMesh->SetMaterial(0, baseBodyMat);
 }
 
+/*
+* Spawns Ultimate weapon
+*/
 void AStealthCharacter::SpawnUltWeapon()
 {
 	if (HasAuthority())
 	{
+		//spawn in and equip ultimate weapon
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = this;
 		SpawnParams.Instigator = GetInstigator();
@@ -609,6 +692,7 @@ bool AStealthCharacter::Server_SpawnUltWeapon_Validate()
 }
 void AStealthCharacter::Server_SpawnUltWeapon_Implementation()
 {
+	//spawn in and equip ultimate weapon
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
 	SpawnParams.Instigator = GetInstigator();

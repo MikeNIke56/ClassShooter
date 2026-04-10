@@ -3,11 +3,15 @@
 
 #include "Shotgun.h"
 
+/*
+* Shotgun's unique fire logic
+*/
 void AShotgun::Fire()
 {
 	APawn* owner = Cast<APawn>(GetOwner());
 	if (owner->HasAuthority())
 	{
+		//can shotgun fire
 		if (isReloading == false && canFire == true && curAmmo > 0)
 		{
 			canFire = false;
@@ -16,13 +20,14 @@ void AShotgun::Fire()
 			GetWorldTimerManager().SetTimer(fireTimer, this,
 				&AWeaponBase::CanFireAgain, fireRate, false);
 
+			//fires certain number of line traces 
 			for (int i = 0; i < maxAmmo; i++)
 			{
 				// fire offset values
 				FVector fireOffsetForwardVector = curCamRot.Vector();
 				FVector fireStartLocation = curCamLoc;
 
-
+				//calculate bullet trajectory of each trace
 				FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
 
 				FVector fireEndLocation = fireStartLocation + (bulletSpread.Vector() * range);
@@ -55,6 +60,7 @@ void AShotgun::Fire()
 				DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation, 
 					FColor::Red, false, 1.0f, 0, 2.0f);
 
+				//muzzle flash and shoot sfx
 				if (muzzleFlashVFX)
 					Multi_MuzzleFlash();
 
@@ -65,6 +71,7 @@ void AShotgun::Fire()
 				// Check if we hit something
 				if (bHit)
 				{
+					//spawn niagara
 					UGameplayStatics::SpawnEmitterAtLocation(
 						GetWorld(),
 						bulletImpactVFX,
@@ -73,6 +80,8 @@ void AShotgun::Fire()
 					);
 					Multi_Fire(hitResult);
 
+
+					//if we hit a player, apply damage
 					if (hitActor && hitActor->GetName().Contains("Character"))
 					{
 						if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
@@ -83,6 +92,7 @@ void AShotgun::Fire()
 							{
 								if (!isProjectile)
 								{
+									//apply damage falloff
 									float dmg = CalcDamageFalloff(hitResult.Distance);
 									Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
 								}
@@ -92,6 +102,7 @@ void AShotgun::Fire()
 				}
 			}
 
+			//subtract from current ammo
 			curAmmo -= 1;
 			curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 			shotTimer = 0.0;
@@ -111,6 +122,7 @@ bool AShotgun::Server_ShotgunFire_Validate()
 }
 void AShotgun::Server_ShotgunFire_Implementation()
 {
+	//can shotgun fire
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
 		canFire = false;
@@ -119,13 +131,14 @@ void AShotgun::Server_ShotgunFire_Implementation()
 		GetWorldTimerManager().SetTimer(fireTimer, this,
 			&AWeaponBase::CanFireAgain, fireRate, false);
 
+		//fires certain number of line traces 
 		for (int i = 0; i < maxAmmo; i++)
 		{
 			// fire offset values
 			FVector fireOffsetForwardVector = curCamRot.Vector();
 			FVector fireStartLocation = curCamLoc;
 
-
+			//calculate bullet trajectory of each trace
 			FRotator bulletSpread = BulletSpread(fireOffsetForwardVector, curBulletCone);
 
 			FVector fireEndLocation = fireStartLocation + (bulletSpread.Vector() * range);
@@ -158,6 +171,7 @@ void AShotgun::Server_ShotgunFire_Implementation()
 			DrawDebugLine(GetWorld(), fireStartLocation, fireEndLocation,
 				FColor::Red, false, 1.0f, 0, 2.0f);
 
+			//muzzle flash and shoot sfx
 			if (muzzleFlashVFX)
 				Multi_MuzzleFlash();
 
@@ -170,6 +184,7 @@ void AShotgun::Server_ShotgunFire_Implementation()
 			{
 				Multi_Fire(hitResult);
 
+				//if we hit a player, apply damage
 				if (hitActor && hitActor->GetName().Contains("Character"))
 				{
 					if (hitActor->GetClass()->ImplementsInterface(UDamageable::StaticClass()))
@@ -180,6 +195,7 @@ void AShotgun::Server_ShotgunFire_Implementation()
 						{
 							if (!isProjectile)
 							{
+								//apply damage falloff
 								float dmg = CalcDamageFalloff(hitResult.Distance);
 								Damageable->HandleTakeCustomDamage_Implementation(dmg, GetOwner());
 							}
@@ -189,6 +205,7 @@ void AShotgun::Server_ShotgunFire_Implementation()
 			}
 		}
 
+		//subtract from current ammo
 		curAmmo -= 1;
 		curAmmo = FMath::Clamp(curAmmo, 0, maxAmmo);
 		shotTimer = 0.0;

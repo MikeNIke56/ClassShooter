@@ -15,10 +15,12 @@ class CLASSSHOOTER_API AGrenadeLauncher : public AWeaponBase
 	GENERATED_BODY()
 
 public:
+	//projectile object
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Variables")
 	TSubclassOf<AActor> projectile;
 
 public:
+	//fire function
 	virtual void Fire() override;
 	
 };

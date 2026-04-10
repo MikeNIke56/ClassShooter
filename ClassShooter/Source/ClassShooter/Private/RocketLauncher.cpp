@@ -3,8 +3,12 @@
 
 #include "RocketLauncher.h"
 
+/*
+* Rocket launcher's unique firing logic
+*/
 void ARocketLauncher::Fire()
 {
+	//can weapon fire
 	if (isReloading == false && canFire == true && curAmmo > 0)
 	{
 		if (projectile)

@@ -15,6 +15,7 @@ class CLASSSHOOTER_API AShotgun : public AWeaponBase
 	GENERATED_BODY()
 
 public:
+	//fire functions
 	virtual void Fire() override;
 	virtual void Server_Fire() override;
 	UFUNCTION(Server, Reliable, WithValidation)
